@@ -20,10 +20,23 @@ body {
     margin: 50px auto;
     margin-top: 50px;
     font-size: 16px;
+    position: relative;
 }
 
 p {
     line-height: 150%;
+}
+
+.socials {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.socials a {
+    border-bottom: none;
+    color: black;
+    z-index: 2;
 }
 
 .content {
@@ -70,6 +83,14 @@ iframe {
       margin-top: 30px;
       position: inherit;
       height: inherit;
+    }
+
+    .socials {
+        right: 5.5%;
+        top: 5.5%;
+    }
+    
+    .socials a {
     }
 
     .content {
