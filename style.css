@@ -71,7 +71,7 @@ img.small {
     margin-left: 50px;
 }
 
-iframe {
+.iframe-container {
     width: 250px;
     height: 128px;
 }
@@ -133,7 +133,7 @@ a.footnote-link {
         /* max-width: 95%; */
         width: inherit;
         margin: auto;
-        padding: 10px;
+        padding: 10px 0;
     }
 
     .art-container img{
