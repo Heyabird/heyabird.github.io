@@ -16,10 +16,10 @@ a {
 b { font-weight: 600;}
 
 body {
-    max-width: 880px;
+    max-width: 800px;
     margin: 50px auto;
     margin-top: 50px;
-    font-size: 16px;
+    font-size: 15px;
     position: relative;
 }
 
@@ -72,8 +72,13 @@ img.small {
 }
 
 iframe {
-    width: 620px;
-    height: 350px;
+    width: 250px;
+    height: 128px;
+}
+
+/* music */
+.video-caption {
+    padding: 0 20px;
 }
 
 /* blog */
@@ -128,6 +133,7 @@ a.footnote-link {
         /* max-width: 95%; */
         width: inherit;
         margin: auto;
+        padding: 10px;
     }
 
     .art-container img{
@@ -138,5 +144,11 @@ a.footnote-link {
     iframe {
         width: 330px;
         height: 215px;
+    }
+
+    /* music */
+    .video-caption {
+        padding: 0 0 10px 0;
+        font-size: 13px;
     }
   }
