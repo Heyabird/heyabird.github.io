@@ -84,6 +84,11 @@ img.small {
     color: rgb(108, 108, 108)
 }
 
+/* p5.js */
+.p5 {
+    padding-top: 50px;
+}
+
 img.blog-img {
     width: 500px;
 }
