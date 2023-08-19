@@ -6,6 +6,13 @@ let stringToLetter;
 
 
 
+
+
+
+
+
+
+
 function preload() {
   A = a = loadImage("times/A.png");
   B = b = loadImage("times/B.png");
@@ -33,14 +40,14 @@ function preload() {
   X = x = loadImage("times/X.png");
   Y = y = loadImage("times/Y.png");
   Z = z = loadImage("times/Z.png");
-  dot   = loadImage("times/_period.png");
-  hyphen  = loadImage("times/_dash.png");
-  exclm = loadImage("times/_exclamation.png");
-  comma = loadImage("times/_comma.png");
-  question = loadImage("times/_question.png");
+  dot   = loadImage("times/a_period.png");
+  hyphen  = loadImage("times/a_dash.png");
+  exclm = loadImage("times/a_exclamation.png");
+  comma = loadImage("times/a_comma.png");
+  question = loadImage("times/a_question.png");
   // space = loadImage("times/_space.png");
-  underscore = loadImage("times/_underscore.png");
-  colon = loadImage("times/_colon.png");
+  underscore = loadImage("times/a_underscore.png");
+  colon = loadImage("times/a_colon.png");
   
   stringToLetter = {
     'a': A, 'A': A,
