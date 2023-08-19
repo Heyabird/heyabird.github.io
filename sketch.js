@@ -87,7 +87,7 @@ function preload() {
 }
 
 function setup() {
-  var myCanvas = createCanvas(2500, 50);
+  var myCanvas = createCanvas(10000, 50);
   myCanvas.parent("container");
 }
 
@@ -130,7 +130,7 @@ function stretchType(duration, keyString, which) {
 
 // let's start a new line when the letters go out of the borders
 function getCoordinates(pt, duration) {
-  x = (pt%2500) - (duration / 2)
-  y = floor(pt/2500) * 100 
+  x = (pt%10000) - (duration / 2)
+  y = floor(pt/10000) * 100 
 }
 

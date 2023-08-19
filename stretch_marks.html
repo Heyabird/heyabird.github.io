@@ -17,32 +17,55 @@
     <meta charset="utf-8" />
 
   </head>
-  <body>
+  <body id="stretch-marks-body">
     <!-- <a id="site-header" href="index">back home</a> -->
     <nav>
         <a href="index">back home</a> 
         <!-- / <a href="music">music</a>
         / <a href="art"><b>art</b></a> -->
     </nav>
-    <div class="socials">
+    <!-- <div class="socials">
         <a target="_blank" href="https://www.linkedin.com/in/heya/"><i class="fab fa-linkedin-in"></i></a> &nbsp; 
         <a target="_blank" href="https://www.instagram.com/heya.world/"><i class="fab fa-instagram"></a></i>
-    </div>
-    <div class="content">
-        <p>Hi There! Try typing.</p>
-    </div>
+    </div> -->
+    <!-- <div class="instruction-text">
+        <p>Hi There! Try typing on your keyboard.</p>
+    </div> -->
     <div id="container" class="p5">
       <script src="sketch.js"></script>
     </div>
+
+
+    <button type="button" class="collapsible">What is this?</button>
     <div class="content">
-        <div class="text-container">
-            <h2><b>Stretch Marks</b></h2>
-            "Stretch Marks'' is an interactive code project that invites users to explore the materiality of digitally typed texts 
-            and their gradual degradation. On “Stretch Marks”, letters are stretched and thus distorted according to the duration 
-            of the key press. Additionally, as the code uses the previous iteration of that letter as the new source, each repetition 
-            of a key causes the letter to increasingly lose resolution and clarity. Some parts of this process were captured and printed 
-            here, where many of these words and letters are are close to becoming unrecognizable.
-        </div>
-    </div>
+      <div class="text-container">
+        <h2><b>Stretch Marks</b></h2>
+        Hi There, "Stretch Marks" is an experiment that invites you to explore the materiality of digitally typed texts 
+        and their gradual degradation. On it, the letters are stretched thus distorted according to the duration 
+        of the key press. Additionally, as the code uses the previous iteration of that letter as the new source, each repetition 
+        of a key causes the letter to increasingly lose resolution and clarity.
+        <br/><br/>
+        To try it out, try typing on your keyboard.
+    </div>    
+  </div>
+
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+      
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+    </script>
+
   </body>
 </html>
+
