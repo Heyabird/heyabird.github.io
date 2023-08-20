@@ -37,7 +37,7 @@
 
 
     <button type="button" class="collapsible">What is this?</button>
-    <div class="content">
+    <div class="collapsible_content">
       <div class="text-container">
         <h2><b>Stretch Marks</b></h2>
         Hi There, "Stretch Marks" is an experiment that invites you to explore the materiality of digitally typed texts 
@@ -56,11 +56,11 @@
       for (i = 0; i < coll.length; i++) {
         coll[i].addEventListener("click", function() {
           this.classList.toggle("active");
-          var content = this.nextElementSibling;
-          if (content.style.display === "block") {
-            content.style.display = "none";
+          var collapsible_content = this.nextElementSibling;
+          if (collapsible_content.style.display === "block") {
+            collapsible_content.style.display = "none";
           } else {
-            content.style.display = "block";
+            collapsible_content.style.display = "block";
           }
         });
       }

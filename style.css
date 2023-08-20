@@ -13,7 +13,9 @@ a {
     /* border-bottom: 1px solid rgb(234, 94, 255); */
 }
 
-b { font-weight: 600;}
+b { 
+    font-weight: 600;
+}
 
 body {
     max-width: 800px;
@@ -99,11 +101,11 @@ img.small {
   }
   
   /* Style the collapsible content. Note: hidden by default */
-  .content {
+  .collapsible_content {
     padding: 0 18px;
     display: none;
-    overflow: hidden;
-    /* background-color: red; */
+    overflow: hidden; 
+    /* background-color: red;*/
   }
 
 
