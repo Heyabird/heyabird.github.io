@@ -24,23 +24,94 @@
         <a target="_blank" href="https://www.linkedin.com/in/heya/"><i class="fab fa-linkedin-in"></i></a> &nbsp; 
         <a target="_blank" href="https://www.instagram.com/heya.world/"><i class="fab fa-instagram"></a></i>
     </div>
-    <div class="content">
-        <div class="text-container">
-            <p>I like making drawings, mixed media sculptures, and web-based art. Hoping to add them here soon!</p>
-            <!-- <p><a target="_blank" href="https://www.instagram.com/heya.comics/">comics</a></p> / <a target="_blank" href="https://smashcomputer.netlify.app/">this</a> could be called art.</p>
-            <p>But sometimes I also make paintings and sculptures like these:</p> -->
-        </div>
-    </div>
-    <div class="content">
+    <!-- <div class="content">
         <div class="art-container">
             <img class="small" src="assets/horizontal_sketch9.png">
             <img class="small" src="assets/horizontal_sketch10.png">
         </div>
-    </div>
-    <!-- <div class="art-container">
-        <a target="_blank" href="https://www.instagram.com/p/CDUegrtl78E/?utm_source=ig_web_copy_link"><img class="small" src="assets/i'm so happy.png"></a>
-        <a target="_blank" href="https://www.instagram.com/p/CDUegrtl78E/?utm_source=ig_web_copy_link"><img class="small" src="assets/painting1.jpeg"></a>
-        <a target="_blank" href="https://www.instagram.com/p/CD4i_3glmg9/?utm_source=ig_web_copy_link"><img class="small" src="assets/sculpture1.png"></a>
     </div> -->
+    <!-- <div class="art-container">
+        <div class="art-block">
+            <a target="_blank" href="https://www.instagram.com/p/CD4i_3glmg9/?utm_source=ig_web_copy_link"><img src="assets/sculpture1.png"></a>
+            <p>Unfolding myself</p>
+        </div>
+        <div class="art-block">
+            <a target="_blank" href="https://www.instagram.com/p/CD4i_3glmg9/?utm_source=ig_web_copy_link"><img src="assets/sculpture1.png"></a>
+            <p>Pixels</p>
+        </div>
+        <div class="art-block">
+            <a target="_blank" href="https://www.instagram.com/p/CD4i_3glmg9/?utm_source=ig_web_copy_link"><img src="assets/sculpture1.png"></a>
+            <p>Pixels</p>
+        </div>
+    </div> -->
+    <h2 class="category-title">Sculptures</h2>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+        I have a long-lasting fear of going to the dentist, and I blame a lot of that fear to the alarming sounds that the dental tools make :'). While learning how to create an interactive FM synthesis site, I realized that the sounds from the synthesis sound awfully alike what I hear at the dentist. That became an inspiration for the animations on this page, and this project turned into both a self-portrait of me confronting my fears and a way for me to perform a silly sound exposure therapy on myself. I'm hoping this project can bring some lightheartedness to my fear, acting as a tool to reimagine the scary medical sounds as a creative experience.
+        </p>
+        <p>
+        In this project, I use Max/MSP and RNBO to create an FM Synthesis that users can control the resulting sound via parameters. The cursor positions while holding `q`, `w`, and `e` consecutively controls the carrier frequency, harmonicity ratio, and modulation index. Users can also change the shape of one of the waveforms being combined.
+        </p>
+    </div>
+
+    </div>
+</div>
+    <div class="flex-grid">
+        <div class="col">
+            <a class="flex-img" href="unfolding_myself">
+                <img src="assets/unfolding_myself7.jpg">
+            </a>
+            <p class="item-title">Unfolding Myself</p>
+        </div>
+        <div class="col">
+            <a class="flex-img" href="pixels_in_bathroom">
+                <img src="assets/pixels_in_bathroom2.jpg">
+            </a>
+            <p class="item-title">Pixels in Bathroom Installation</p>
+        </div>
+        <div class="col">
+            <a class="flex-img" href="pixel_face">
+                <img src="assets/pixel_face_no_background1.png"/>
+            </a>
+            <p class="item-title">Pixel Face</p>
+        </div>
+    </div>
+    <h2>Textiles</h2>
 </body>
 </html>
+
+<script>
+ 
+    // MODAL
+      // Get the modal
+      var modal = document.getElementById("myModal");
+  
+      // Get the button that opens the modal
+      var btn = document.getElementById("modalButton");
+  
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+  
+      // When the user clicks on the button, open the modal
+      btn.onclick = function() {
+        console.log('button clicked');
+        modal.style.display = "block";
+      }
+  
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+  
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+  </script>

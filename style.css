@@ -18,7 +18,7 @@ b {
 }
 
 body {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 50px auto;
     margin-top: 50px;
     font-size: 15px;
@@ -29,9 +29,18 @@ p {
     line-height: 150%;
 }
 
+h1, h2, nav, p {
+    padding-left: 20px;
+    margin-top: 0;
+}
+
+h2.category-title {
+    padding-top: 50px;
+}
+
 .socials {
     position: absolute;
-    right: 10px;
+    right: 40px;
     top: 10px;
 }
 
@@ -49,6 +58,7 @@ p {
 
 .text-container {
     width: 520px;
+    padding-top: 50px;
 }
 
 .img-container {
@@ -59,9 +69,14 @@ p {
 }
 
 img.small {
-    width: 300px;
-    max-width: 340px;
+    width: 400px;
+    max-width: 500px;
     /* outline: solid black 2px; */
+}
+
+.art-container {
+    display: flex;
+
 }
 
 .art-container a {
@@ -69,8 +84,87 @@ img.small {
 }
 
 .art-container img{
-    width: 400px;
-    margin-left: 50px;
+   max-width: 400px;
+    /* margin-left: 50px; */
+}
+
+p.item-title {
+    margin-top: 15px;
+}
+
+/* flex experiment */
+.flex-grid {
+    display: flex;
+}
+.flex-grid .col {
+    flex: 1;
+}
+.flex-grid img {
+    max-width: 100%;
+    margin: auto;
+}
+.flex-grid .short img {
+    max-width: 81%;
+    margin: auto;
+}
+.flex-grid .short2 img {
+    height: 400px;
+    margin: auto;
+}
+.flex-grid p {
+    text-align: center;
+    /* margin: 0; */
+}
+.flex-grid-thirds {
+    display: flex;
+    justify-content: space-between;
+}
+.flex-grid-thirds .col {
+    width: 32%;
+}
+  
+  @media (max-width: 400px) {
+    .flex-grid,
+    .flex-grid-thirds {
+      display: block;
+      .col {
+        width: 100%;
+        margin: 0 0 10px 0;
+      }
+    }
+  }
+  
+  
+  
+  
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    padding: 20px;
+  }
+  .flex-grid { 
+    margin: 0 0 20px 0;
+  }
+  .col {
+    /* background: salmon; */
+    padding: 20px;
+  }
+/* flex experiment end */
+
+.art-block {
+    /* max-width: 400px;
+    margin: 0 1rem; */
+    flex: 2;
+}
+
+.art-block p {
+    text-align: center;
+    margin: 0;
+}
+
+.art-description p{
+    text-align: left;
 }
 
 /* Stretch Marks */
@@ -138,6 +232,47 @@ a.footnote-link {
     /* color: rgb(108, 108, 108) */
 }
 
+/* MODAL */
+/* modal */
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
 
 @media only screen and (max-width: 950px) {
     body {
@@ -156,11 +291,13 @@ a.footnote-link {
     }
 
     .content {
-        margin-top: 30px;
+        margin-top: 50px;
         display: block;
     }
     .text-container {
         width: 100%;
+        text-align: left;
+        padding-top: 30px;
     }
 
     .img-container {
@@ -180,6 +317,14 @@ a.footnote-link {
         max-width: 330px;
         margin: 0 auto;
     }
+    .flex-grid { 
+        margin: 0;
+      }
+
+    .flex-grid .short img {
+        max-width: 100%;
+        margin: auto;
+    }
 
     iframe {
         width: 330px;
@@ -190,5 +335,9 @@ a.footnote-link {
     .video-caption {
         padding: 0 0 10px 0;
         font-size: 13px;
+    }
+    .col {
+        /* background: salmon; */
+        padding: 10px;
     }
   }
