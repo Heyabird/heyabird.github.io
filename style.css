@@ -29,7 +29,7 @@ p {
     line-height: 150%;
 }
 
-h1, h2, nav, p {
+h1, h2, nav, .page-description {
     padding-left: 20px;
     margin-top: 0;
 }
