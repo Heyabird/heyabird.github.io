@@ -52,6 +52,7 @@ h2.category-title {
 
 .content {
     margin-top: 50px;
+    margin-left: 20px;
     display: flex;
     /* max-width: 700px; */
 }
@@ -72,6 +73,11 @@ img.small {
     width: 400px;
     max-width: 500px;
     /* outline: solid black 2px; */
+}
+
+.videos {
+    width: 90%;
+    margin: auto;
 }
 
 .art-container {
@@ -290,8 +296,13 @@ a.footnote-link {
     .socials a {
     }
 
+    .bio {
+
+    }
+
     .content {
-        margin-top: 50px;
+        margin: 0;
+        padding-top: 40px;
         display: block;
     }
     .text-container {
@@ -307,10 +318,10 @@ a.footnote-link {
     }
 
     img.small {
-        /* max-width: 95%; */
+        max-width: 100%;
         width: inherit;
         margin: auto;
-        padding: 10px 0;
+        padding: 30px 0;
     }
 
     .art-container img{
@@ -331,7 +342,21 @@ a.footnote-link {
         height: 215px;
     }
 
+    h1, h2, p,.page-description, nav {
+        padding-left: 0;
+        margin-top: 0;
+        padding-top: 5px;
+    }
+    h1.title {
+        padding-left: 10px;
+    }
+
     /* music */
+
+    .videos {
+        margin: 0 auto;
+        width: 100%;
+    }
     .video-caption {
         padding: 0 0 10px 0;
         font-size: 13px;
