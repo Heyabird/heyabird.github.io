@@ -57,6 +57,14 @@ h2.category-title {
     /* max-width: 700px; */
 }
 
+.bio {
+    /* margin-top: 50px; */
+    /* margin-left: 20px; */
+    display: block;
+    padding-right: 40px;
+    /* max-width: 500px; */
+}
+
 .text-container {
     width: 520px;
     padding-top: 50px;
@@ -297,7 +305,8 @@ a.footnote-link {
     }
 
     .bio {
-
+        margin: 0;
+        padding-top: 0;
     }
 
     .content {
