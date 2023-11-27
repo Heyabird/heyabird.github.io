@@ -8,10 +8,11 @@ let held = false;
 var leafStep1, smallSplash, bigSplash, meow, hat, crash, clap;
 let keyC, keyCs, keyD, keyDs, keyE, keyF, keyFs, keyG, keyGs, keyA, keyAs, keyB;
 // const density = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
-const density = "      ..::░▒▓█"
+const density = "      .:░▒▓█"
 let asciiDiv;
 let state = 0;
 let x0, x1, y0, y1;
+let videoState = 0;
 
 //☘︎
 
@@ -118,6 +119,9 @@ function draw() {
             asciiImage += "♠";
         } else if (range(42,46).includes(j) && [17,18,19,23,24,25,29,30,31,38,39,40,44,45,46].includes(i)) {
             asciiImage += "█"
+        } else if ((i < 6 || i > 57 || j > 42 || j < 6) && (state == 1 || state == 2)) {
+            if (state == 1) asciiImage += randomize(["✧", "-"]);
+            if (state == 2) asciiImage += randomize(["♫", "♪"]);
         } else if (i > 6 && i < 57 && j < 42 &&  j > 5) {
             const pixelIndex = (i + j * video.width) * 4;
             const r = video.pixels[pixelIndex + 0];
@@ -132,7 +136,7 @@ function draw() {
             } else {
               switch(state) {
                 case 1:
-                  sym = '✧';
+                  sym = randomize(["✧", "-"]);
                   break;
                 case 2:
                   sym = randomize(['♫', '♪']);
@@ -262,11 +266,11 @@ function drawKeypoints() {
         chimeC2.play();
       }
     } else if (index[0] > 540) {
-      smallSplash.play();
       state = 4;
+      smallSplash.play();
     } else if (index[0] < 75) {
-      scratch.play();
       state = 5;
+      scratch.play();
     } else {
       console.log("index[0] - x0: ", index[0] - x0);
       xSpeed = Math.abs(index[0] - x0);
@@ -295,7 +299,14 @@ function randomize(array) {
 }
 
 function mousePressed() {
-  console.log('mousePressed!');
+    if (videoState == 1) {
+        video.stop();
+        videoState = 0;
+    } else {
+        video.play();
+        videoState = 1;
+    }
+  console.log('video:', video);
   console.log('state :', state);
   document.getElementsByClassName("space").innerHTML = '!';
 }
