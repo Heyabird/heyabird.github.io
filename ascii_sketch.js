@@ -26,9 +26,7 @@ function preload() {
   crash = loadSound('ascii_assets/crash.wav');
   scratch = loadSound('ascii_assets/scratch.mp3');
   beeps = loadSound('ascii_assets/beeps.mp3');
-  game_bonus = loadSound('ascii_assets/game_bonus.mp3');
   click = loadSound('ascii_assets/click.mp3');
-//   windows_error = loadSound('ascii_assets/windows_error.mp3');
   keyboard0 = loadSound('ascii_assets/keyboard.mp3');
   keyboard1 = loadSound('ascii_assets/keyboard1.mp3');
   keyboard2 = loadSound('ascii_assets/keyboard2.mp3');
@@ -37,6 +35,28 @@ function preload() {
   keyboard5 = loadSound('ascii_assets/keyboard5.mp3');
   casetteInsert = loadSound('ascii_assets/casette-insert.mp3');
   jump = loadSound('ascii_assets/jump.mp3');
+  // retro
+  melody8bit1 = loadSound('ascii_assets/retro/8bit_melody1.mp3');
+  melody8bit2 = loadSound('ascii_assets/retro/8bit_melody2.mp3');
+  oldRing = loadSound('ascii_assets/retro/old_phone_ring.mp3');
+  windowsError = loadSound('ascii_assets/retro/windows_error.mp3');
+  coin = loadSound('ascii_assets/retro/coin.mp3');
+
+  // present
+  iphoneType1 = loadSound('ascii_assets/present/iphone_type1.mp3');
+  iphoneType2 = loadSound('ascii_assets/present/iphone_type2.mp3');
+  iphoneType3 = loadSound('ascii_assets/present/iphone_type3.mp3');
+  iphoneType4 = loadSound('ascii_assets/present/iphone_type4.mp3');
+  iphoneVibrate = loadSound('ascii_assets/present/iphone_vibrating.mp3');
+
+  // future
+  futureLogo1 = loadSound('ascii_assets/future/crystal-logo.mp3');
+  deepScan = loadSound('ascii_assets/future/deep_scan.mp3');
+  plasmaGun1 = loadSound('ascii_assets/future/plasma_gun1.mp3');
+  plasmaGun2 = loadSound('ascii_assets/future/plasma_gun2.mp3');
+  rocketLaunch = loadSound('ascii_assets/future/rocket_launch.mp3');
+  skyMelody = loadSound('ascii_assets/future/sky_melody.mp3');
+
   dead8bit = loadSound('ascii_assets/dead_8bit.mp3');
   swoosh1 = loadSound('ascii_assets/swoosh1.mp3');
   swoosh2 = loadSound('ascii_assets/swoosh2.mp3');
@@ -119,9 +139,11 @@ function draw() {
             asciiImage += "♠";
         } else if (range(42,46).includes(j) && [17,18,19,23,24,25,29,30,31,38,39,40,44,45,46].includes(i)) {
             asciiImage += "█"
-        } else if ((i < 6 || i > 57 || j > 42 || j < 6) && (state == 1 || state == 2)) {
+        } else if ((i <= 6 || i >= 57 || j > 42 || j <= 6) && ([1,2,4,5].includes(state))) {
             if (state == 1) asciiImage += randomize(["✧", "-"]);
             if (state == 2) asciiImage += randomize(["♫", "♪"]);
+            if (state == 4) asciiImage += "←";
+            if (state == 5) asciiImage += "➔";
         } else if (i > 6 && i < 57 && j < 42 &&  j > 5) {
             const pixelIndex = (i + j * video.width) * 4;
             const r = video.pixels[pixelIndex + 0];
@@ -142,13 +164,13 @@ function draw() {
                   sym = randomize(['♫', '♪']);
                   break;
                 case 3:
-                  sym = randomize('abcdefghijklmnopqrstuvwxyz ....,!?@#$%^&*()-=+1234567890'.split(''));
+                  sym = randomize('loliykykhahahaha ....,!?@#$%^&*()-=+1234567890'.split(''));
                   break;
                 case 4:
-                  sym = '~';
+                  sym = '←';
                   break;
                 case 5:
-                  sym = '⚔';
+                  sym = '➔';
                   break;
                 case 6:
                   sym = '!';
@@ -189,11 +211,17 @@ function drawKeypoints() {
   const keyboardArray = [keyboard0, keyboard1, keyboard2, keyboard3, keyboard4, keyboard5];
   const clickArray = [casetteInsert, click];
   const swooshArray = [swoosh1, swoosh2, swoosh3];
+  const iphoneArray = [iphoneType1, iphoneType2, iphoneType3, iphoneType4];
 
   if (predictions.length > 0) {
     cpu.volume(0.3);
     cpu.play();
+    
     let index = predictions[0].landmarks[5];
+    xSpeed = Math.abs(index[0] - x0);
+    ySpeed = Math.abs(index[1] - y0);
+
+
     if (index[1] > 400 && index[0] < 80) {
       state = 6;
       hat.play();
@@ -207,7 +235,7 @@ function drawKeypoints() {
       state = 8;
       moo.play();
     // keyboards
-    } else if (index[1] > 440) {
+    } else if (index[1] > 450) {
       state = 2;
       if (index[0] > 420 && index[0] < 500) {
         keyC.play();
@@ -265,25 +293,33 @@ function drawKeypoints() {
       } else if (index[0] < 155) {
         chimeC2.play();
       }
-    } else if (index[0] > 540) {
+    } else if (index[0] > 540 && xSpeed < 250 && ySpeed < 250) {
       state = 4;
-      smallSplash.play();
-    } else if (index[0] < 75) {
+      if (xSpeed > 10 || ySpeed > 10) {
+        randomize([melody8bit1, oldRing, windowsError, coin]).play();
+      }
+    } else if (index[0] < 100) {
       state = 5;
-      scratch.play();
+      if (xSpeed > 10 || ySpeed > 10) {
+        randomize([futureLogo1, deepScan, plasmaGun1, plasmaGun2, rocketLaunch, skyMelody]).play();
+      }
     } else {
-      console.log("index[0] - x0: ", index[0] - x0);
-      xSpeed = Math.abs(index[0] - x0);
-      ySpeed = Math.abs(index[1] - y0);
-      if (xSpeed > 150 || ySpeed > 150) {
+      if (xSpeed > 200 || ySpeed > 200) {
+        iphoneVibrate.play();
+        state = 7;
+      }
+      else if (xSpeed > 120 || ySpeed > 120) {
         randomize(swooshArray).play();
         state = 7;
       }
-      else if (xSpeed > 5 ) {
+      else if (xSpeed > 20 ) {
         randomize(keyboardArray).play();
         state = 3;
-      } else if (ySpeed > 5) {
+      } else if (ySpeed > 20) {
         randomize(clickArray).play();
+        state = 3;
+      } else if (xSpeed > 5 || ySpeed > 5) {
+        randomize(iphoneArray).play();
         state = 3;
       }
       x0 = index[0];
