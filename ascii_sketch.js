@@ -20,6 +20,7 @@ function preload() {
   smallSplash = loadSound('ascii_assets/small_splash.mp3');
   bigSplash = loadSound('ascii_assets/big_splash.mp3');
   meow = loadSound('ascii_assets/meow.mp3');
+  quake = loadSound('ascii_assets/quake.mp3');
   moo = loadSound('ascii_assets/moo.mp3');
   hat = loadSound('ascii_assets/hat.wav');
   clap = loadSound('ascii_assets/clap.wav');
@@ -230,7 +231,7 @@ function drawKeypoints() {
       hat.play();
     } else if (index[1] > 400 && index[0] > 520) {
       state = 6;
-      clap.play();
+      randomize[quake, clap].play();
     } else if (index[1] < 190 && index[0] > 500) {
       state = 6;
       crash.play();
