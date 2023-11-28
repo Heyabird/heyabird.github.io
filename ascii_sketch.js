@@ -41,6 +41,8 @@ function preload() {
   oldRing = loadSound('ascii_assets/retro/old_phone_ring.mp3');
   windowsError = loadSound('ascii_assets/retro/windows_error.mp3');
   coin = loadSound('ascii_assets/retro/coin.mp3');
+  windowsXPStart = loadSound('ascii_assets/retro/windows_xp_start.mp3');
+  windowsXPOff = loadSound('ascii_assets/retro/windows_xp_off.mp3');
 
   // present
   iphoneType1 = loadSound('ascii_assets/present/iphone_type1.mp3');
@@ -210,7 +212,7 @@ function draw() {
 function drawKeypoints() {
   // const soundArray = [keyboard, casetteInsert, click]
   const keyboardArray = [keyboard0, keyboard1, keyboard2, keyboard3, keyboard4, keyboard5];
-  const clickArray = [casetteInsert, click];
+  const clickArray = [click];
   const swooshArray = [swoosh1, swoosh2, swoosh3];
   const iphoneArray = [iphoneType1, iphoneType2, iphoneType3, iphoneType4];
 
@@ -297,7 +299,7 @@ function drawKeypoints() {
     } else if (index[0] > 540) {
       state = 4;
       if (xSpeed > 10 || ySpeed > 10) {
-        randomize([melody8bit1, oldRing, windowsError, coin]).play();
+        randomize([casetteInsert, melody8bit1, oldRing, windowsError, coin, windowsXPStart, windowsXPOff]).play();
       }
     } else if (index[0] < 100) {
       state = 5;
@@ -335,15 +337,28 @@ function randomize(array) {
   return array[Math.floor(Math.random() * array.length)]
 }
 
-function mousePressed() {
-    if (videoState == 1) {
-        video.stop();
-        videoState = 0;
-    } else {
-        video.play();
-        videoState = 1;
-    }
-  console.log('video:', video);
-  console.log('state :', state);
-  document.getElementsByClassName("space").innerHTML = '!';
+// function mousePressed() {
+//     if (videoState == 1) {
+//         video.stop();
+//         videoState = 0;
+//     } else {
+//         video.play();
+//         videoState = 1;
+//     }
+//   console.log('video:', video);
+//   console.log('state :', state);
+//   document.getElementsByClassName("space").innerHTML = '!';
+// }
+
+
+function keyPressed() {
+  if (videoState == 1) {
+      video.stop();
+      cpu.stop();
+      videoState = 0;
+  } else {
+      video.play();
+      cpu.play();
+      videoState = 1;
+  }
 }
