@@ -56,6 +56,7 @@ function preload() {
   plasmaGun2 = loadSound('ascii_assets/future/plasma_gun2.mp3');
   rocketLaunch = loadSound('ascii_assets/future/rocket_launch.mp3');
   skyMelody = loadSound('ascii_assets/future/sky_melody.mp3');
+  logoCorporate = loadSound('ascii_assets/future/logo_corporate.mp3');
 
   dead8bit = loadSound('ascii_assets/dead_8bit.mp3');
   swoosh1 = loadSound('ascii_assets/swoosh1.mp3');
@@ -139,7 +140,7 @@ function draw() {
             asciiImage += "♠";
         } else if (range(42,46).includes(j) && [17,18,19,23,24,25,29,30,31,38,39,40,44,45,46].includes(i)) {
             asciiImage += "█"
-        } else if ((i <= 6 || i >= 57 || j > 42 || j <= 6) && ([1,2,4,5].includes(state))) {
+        } else if ((i <= 6 || i >= 57 || j >= 42 || j <= 6) && ([1,2,4,5].includes(state))) {
             if (state == 1) asciiImage += randomize(["✧", "-"]);
             if (state == 2) asciiImage += randomize(["♫", "♪"]);
             if (state == 4) asciiImage += "←";
@@ -214,7 +215,7 @@ function drawKeypoints() {
   const iphoneArray = [iphoneType1, iphoneType2, iphoneType3, iphoneType4];
 
   if (predictions.length > 0) {
-    cpu.volume(0.3);
+    cpu.volume(0.2);
     cpu.play();
     
     let index = predictions[0].landmarks[5];
@@ -293,7 +294,7 @@ function drawKeypoints() {
       } else if (index[0] < 155) {
         chimeC2.play();
       }
-    } else if (index[0] > 540 && xSpeed < 250 && ySpeed < 250) {
+    } else if (index[0] > 540) {
       state = 4;
       if (xSpeed > 10 || ySpeed > 10) {
         randomize([melody8bit1, oldRing, windowsError, coin]).play();
@@ -301,10 +302,10 @@ function drawKeypoints() {
     } else if (index[0] < 100) {
       state = 5;
       if (xSpeed > 10 || ySpeed > 10) {
-        randomize([futureLogo1, deepScan, plasmaGun1, plasmaGun2, rocketLaunch, skyMelody]).play();
+        randomize([futureLogo1, deepScan, plasmaGun1, plasmaGun2, rocketLaunch, skyMelody, logoCorporate]).play();
       }
     } else {
-      if (xSpeed > 200 || ySpeed > 200) {
+      if (xSpeed > 200 && xSpeed < 250|| ySpeed > 200 && ySpeed < 250) {
         iphoneVibrate.play();
         state = 7;
       }
