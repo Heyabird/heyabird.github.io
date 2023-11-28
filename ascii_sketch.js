@@ -299,7 +299,7 @@ function drawKeypoints() {
     } else if (index[0] > 540) {
       state = 4;
       if (xSpeed > 10 || ySpeed > 10) {
-        randomize([casetteInsert, melody8bit1, oldRing, windowsError, coin, windowsXPStart, windowsXPOff]).play();
+        randomize([casetteInsert, melody8bit1, oldRing, windowsError, coin, windowsXPStart, windowsXPOff, dead8bit]).play();
       }
     } else if (index[0] < 100) {
       state = 5;
@@ -321,7 +321,10 @@ function drawKeypoints() {
       } else if (ySpeed > 20) {
         randomize(clickArray).play();
         state = 3;
-      } else if (xSpeed > 5 || ySpeed > 5) {
+      } else if (ySpeed > 15 && ySpeed < 17) {
+        meow.play();
+      }
+      else if (xSpeed > 5 || ySpeed > 5) {
         randomize(iphoneArray).play();
         state = 3;
       }
