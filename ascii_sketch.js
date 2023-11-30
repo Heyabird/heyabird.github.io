@@ -322,7 +322,7 @@ function drawKeypoints() {
       } else if (ySpeed > 20) {
         randomize(clickArray).play();
         state = 3;
-      } else if (ySpeed > 15 && ySpeed < 17) {
+      } else if (ySpeed > 15 && ySpeed < 15.8 && xSpeed > 5) {
         meow.play();
       }
       else if (xSpeed > 5 || ySpeed > 5) {
