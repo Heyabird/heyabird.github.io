@@ -66,9 +66,9 @@ h2.category-title {
 }
 
 .text-container {
-    width: 700px;
+    width: 800px;
     padding-top: 50px;
-    padding-left:
+    padding-left: 0;
 }
 
 .img-container {

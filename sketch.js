@@ -3,16 +3,6 @@ let pt = 10;
 let stringToLetter;
 
 
-
-
-
-
-
-
-
-
-
-
 function preload() {
   A = a = loadImage("times/A.png");
   B = b = loadImage("times/B.png");
@@ -45,7 +35,6 @@ function preload() {
   exclm = loadImage("times/a_exclamation.png");
   comma = loadImage("times/a_comma.png");
   question = loadImage("times/a_question.png");
-  // space = loadImage("times/_space.png");
   underscore = loadImage("times/a_underscore.png");
   colon = loadImage("times/a_colon.png");
   
@@ -87,7 +76,7 @@ function preload() {
 }
 
 function setup() {
-  var myCanvas = createCanvas(10000, 50);
+  var myCanvas = createCanvas(800, 500);
   myCanvas.parent("container");
 }
 
@@ -130,7 +119,7 @@ function stretchType(duration, keyString, which) {
 
 // let's start a new line when the letters go out of the borders
 function getCoordinates(pt, duration) {
-  x = (pt%10000) - (duration / 2)
-  y = floor(pt/10000) * 100 
+  x = (pt%800) - (duration / 2)
+  y = floor(pt/800) * 100 
 }
 
