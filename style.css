@@ -29,7 +29,7 @@ p {
     line-height: 150%;
 }
 
-h1, h2, nav, .page-description {
+h1, h2, nav, .page-description, .blog-content {
     padding-left: 20px;
     margin-top: 0;
 }
@@ -66,8 +66,9 @@ h2.category-title {
 }
 
 .text-container {
-    width: 520px;
+    width: 700px;
     padding-top: 50px;
+    padding-left:
 }
 
 .img-container {
@@ -351,7 +352,7 @@ a.footnote-link {
         height: 215px;
     }
 
-    h1, h2, p,.page-description, nav {
+    h1, h2, p,.page-description, .blog-content, nav {
         padding-left: 0;
         margin-top: 0;
         padding-top: 5px;
