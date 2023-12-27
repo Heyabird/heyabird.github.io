@@ -31,23 +31,26 @@
     <!-- <div class="instruction-text">
         <p>Hi There! Try typing on your keyboard.</p>
     </div> -->
-    <div id="container" class="p5">
-      <script src="sketch.js"></script>
-    </div>
 
-
-    <button type="button" class="collapsible">What is this?</button>
-    <div class="content">
-      <div class="text-container">
-        <h2><b>Stretch Marks</b></h2>
-        Hi There, "Stretch Marks" is an experiment that invites you to explore the materiality of digitally typed texts 
+    <!-- <button type="button" class="collapsible">What is this?</button> -->
+    <div class="text-container">
+      <h1><b>Stretch Marks</b></h1>
+      <div class="text-content">
+        <p>Our words, like everything else in the world, are impermanent. Spoken words vanish into the air as they are uttered, and oral stories change with each retelling. Handwritten words also bear the weight of ephemerality as ink fades, handwriting becomes messy, or the writing’s medium – paper, stone, et cetera – naturally degrades over time.
+        This transient nature of words may seem less obvious in digital writing. Typed words appear eternal, with each letter seemingly identical to the last. However, the cyber domain, too, is not immune to decay. Computer hardwares can fail, softwares can become obsolete, and data storage can run out, leaving once-meaningful sentences lost in a sea of obsolescence. Furthermore, cultural context continuously reshapes the meanings of “words” – slangs, acronyms, and even official vocabularies, adopting and stretching them to accommodate new nuances. Afterall, digital space is an extension of the physical space, and neither can escape the marks of time and entropy.
+        </p>
+        <p>“Stretch Marks” is a series of typographic designs that explores the materiality of digitally typed texts and their gradual degradation. The designs are a result of an interactive p5.js code where letters are stretched and thus distorted according to the duration of the key press. Additionally, as the code uses the previous iteration of that letter as the new source, each repetition of a key causes the letter to further lose resolution and clarity. The texts that result from this process have been heavily disfigured and pixelated almost to — but not quite yet at — the point of illegibility.</p>
+        <!-- Hi There, "Stretch Marks" is an experiment that invites you to explore the materiality of digitally typed texts 
         and their gradual degradation. On it, the letters are stretched thus distorted according to the duration 
         of the key press. Additionally, as the code uses the previous iteration of that letter as the new source, each repetition 
-        of a key causes the letter to increasingly lose resolution and clarity.
+        of a key causes the letter to increasingly lose resolution and clarity. -->
         <br/><br/>
-        To try it out, try typing on your keyboard.
-    </div>    
-  </div>
+        To try it out, try typing on your keyboard and watch the letters appear below.
+      </div>    
+      <div id="container" class="p5 stretch_marks_code">
+        <script src="sketch.js"></script>
+      </div>
+  <!-- </div> -->
 
     <script>
       var coll = document.getElementsByClassName("collapsible");
