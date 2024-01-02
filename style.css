@@ -84,6 +84,11 @@ img.small {
     /* outline: solid black 2px; */
 }
 
+.images img {
+    width: 100%;
+    padding: 20px 0;
+}
+
 .videos {
     width: 90%;
     margin: auto;
@@ -114,6 +119,9 @@ p.item-title {
 .flex-grid .col {
     flex: 1;
 }
+.flex-grid .nopad .col {
+    padding: 0;
+}
 .flex-grid img {
     max-width: 100%;
     margin: auto;
@@ -136,6 +144,10 @@ p.item-title {
 }
 .flex-grid-thirds .col {
     width: 32%;
+}
+
+.pad {
+    width: 20px;
 }
   
   @media (max-width: 400px) {
