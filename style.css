@@ -307,7 +307,7 @@ a.footnote-link {
 @media only screen and (max-width: 950px) {
     body {
       max-width: 90%;
-      margin-top: 30px;
+      margin: 30px 20px 0px 20px;
       position: inherit;
       height: inherit;
     }
@@ -335,6 +335,15 @@ a.footnote-link {
         width: 100%;
         text-align: left;
         padding-top: 30px;
+    }
+
+    .images img {
+        width: 100%;
+        padding: 0;
+    }
+
+    .images {
+        padding: 5px 0;
     }
 
     .img-container {
