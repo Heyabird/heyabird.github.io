@@ -374,7 +374,7 @@ a.footnote-link {
         padding-top: 5px;
     }
     h1.title {
-        padding-left: 10px;
+        /* padding-left: 10px; */
     }
 
     /* music */
@@ -389,6 +389,6 @@ a.footnote-link {
     }
     .col {
         /* background: salmon; */
-        padding: 10px;
+        padding: 10px 0px;
     }
   }
