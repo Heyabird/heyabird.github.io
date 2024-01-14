@@ -34,7 +34,7 @@ h1, h2, nav, .page-description, .text-content {
     margin-top: 0;
 }
 
-h2.category-title {
+h1.category-title, h2.category-title {
     padding-top: 50px;
 }
 
