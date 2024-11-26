@@ -37,7 +37,8 @@ function mouseClicked() {
 }
 
 function draw() {
-  background(0);
+  background("#FFFDD0");
+  stroke("#000000");
   translate(width/2, height/2); // center the lines
   strokeWeight(20);
   angleMode(RADIANS);
@@ -54,33 +55,31 @@ function draw() {
     d = t["direction"]; 
     
     // when speed is 1000, draw a horizontal line
-      if (s == 1000) {
-        stroke("#E91E63");
+    if (s == 1000) {
         line(-300, 0, 300, 0);
         starting_x = 0;
         starting_y = 0;
-        // when speed is 1500, draw a cross
-      } else if (s == 1500) {
+    // when speed is 1500, draw a cross
+    } else if (s == 1500) {
         line(-300, 0, 300, 0);
         line(0, 300, 0, -300)
-      // when speed is 2000, draw a circle
-      } else if (s == 2000) {
+    // when speed is 2000, draw a circle
+    } else if (s == 2000) {
         noFill();
         circle(0,0,300);
-      // when speed is >2000, draw a swirl
-      } else if (s > 2000) {
-        // spiral
-      } else {
+    // when speed is >2000, draw a swirl
+    } else if (s > 2000) {
+        // spiral?
+    } else {
         coordinates = get_end_coordinates(s, d);
         x = coordinates[0];
         y = coordinates[1];
-        stroke("#4CAF50");
         line(starting_x, starting_y, x, y);
         // replace the start coordinates
         starting_x = x;
         starting_y = y;
-      }
     }
+}
 }
 
 function get_end_coordinates(a, C) {
