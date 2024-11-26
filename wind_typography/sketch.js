@@ -1,74 +1,47 @@
 //coding train tutorial: https://www.youtube.com/watch?v=rVBTxnRyOuE
 
 let table;
-let months;
-let old_x;
-let old_y;
 var wind_data = [];
 
 function preload() {
   table = loadTable("wind_direction_and_speed_2.csv", "csv", "header");
 }
 
-
 function setup() {
-  createCanvas(800, 800);
-  let row1 = table.getRow(0);
-//   console.log("hi1", row1.get("speed"));
-//   console.log("hi1", row1.get("direction"));
-//   console.log("hi2", row1.get("created_at"));
-  
-  months = [90, 135, 157, 180, 202, 225, 270, 335, 360, 45];
-  
+  createCanvas(800, 800);  
   get_wind_data();
 }
 
 function get_wind_data() {
   for (let r = 0; r < table.getRowCount() / 100; r++) {
     for (let c = 0; c < table.getColumnCount() ; c++) {
-      // print('c: ', c)
-      // print("1!");
-      // wind_object.speed = 
-      // wind_data.push('');
       if (c == 0) {
         var wind_object = {};
         wind_object.direction = table.getString(r, c);
-        print("0: ", table.getString(r, c));
-        print("wind_object.direction: ", wind_object.direction);
+        // print("0: ", table.getString(r, c));
       } else if (c == 1) {
         wind_object.speed = table.getString(r, c) * 100;
-        print("1: ", table.getString(r, c));
+        // print("1: ", table.getString(r, c));
       } else if (c == 2) {
         wind_object.time = table.getString(r, c);
-        print("2: ", table.getString(r, c));
+        // print("2: ", table.getString(r, c));
         wind_data.push(wind_object);
       }
-        print("2 - wind object: ", wind_object);
-
     }
-    // print(table.getColumn('name'));
-    // print("__________________ wind_data: ");
   }
 }
 
+// used for debugging
 function mouseClicked() {
   print("__________________ wind_data: ", wind_data);
 }
 
-
 function draw() {
-  angleMode(RADIANS);
-
   background(0);
   translate(width/2, height/2); // center the lines
-  // scale(0.5);
   strokeWeight(20);
-  
-//   show_grid();
-  
-  
-  // test = [{speed: 300, degree: 22}, {speed: 200, degree: 225}, {speed: 1500, degree: 300}, {speed: 200, degree: 135}, {speed: 2000, degree: 43}]
-  
+  angleMode(RADIANS);
+    
   test = wind_data.slice(65,70);
   
   // starting point coordinates
@@ -108,11 +81,6 @@ function draw() {
         starting_y = y;
       }
     }
-
-  
-
-
-
 }
 
 function get_end_coordinates(a, C) {
@@ -128,40 +96,40 @@ function get_end_coordinates(a, C) {
   return ([f, d]);
 }
 
-function show_grid() {
-  stroke(255);
-  strokeWeight(2);
-  noFill();
-  circle(0,0,100);
-  fill(255);
-  noStroke();
-  text("0°", 54, 0);
+// function show_grid() {
+//   stroke(255);
+//   strokeWeight(2);
+//   noFill();
+//   circle(0,0,100);
+//   fill(255);
+//   noStroke();
+//   text("0°", 54, 0);
   
-  stroke(255);
-  strokeWeight(2);
-  noFill();
-  circle(0, 0, 300);
-  fill(255);
-  noStroke();
-  text("1°", 154, 0);
+//   stroke(255);
+//   strokeWeight(2);
+//   noFill();
+//   circle(0, 0, 300);
+//   fill(255);
+//   noStroke();
+//   text("1°", 154, 0);
   
-  stroke(255);
-  strokeWeight(2);
-  noFill();
-  circle(0, 0, 500);
+//   stroke(255);
+//   strokeWeight(2);
+//   noFill();
+//   circle(0, 0, 500);
   
-  for (let i=0; i< months.length; i++) {
-    noStroke();
-    fill(255);
-    textAlign(CENTER);
-    textSize(24);
-    let angle = map(i, 0, months.length, 0, TWO_PI);
-    push();
-    let x = 250 * cos(angle);
-    let y = 250 * sin(angle);
-    translate(x,y);
-    rotate(angle + PI/2);
-    text(months[i], 0, 0);
-    pop();
-  }
-}
+//   for (let i=0; i< months.length; i++) {
+//     noStroke();
+//     fill(255);
+//     textAlign(CENTER);
+//     textSize(24);
+//     let angle = map(i, 0, months.length, 0, TWO_PI);
+//     push();
+//     let x = 250 * cos(angle);
+//     let y = 250 * sin(angle);
+//     translate(x,y);
+//     rotate(angle + PI/2);
+//     text(months[i], 0, 0);
+//     pop();
+//   }
+// }
