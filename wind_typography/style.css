@@ -4,4 +4,9 @@ html, body {
 }
 canvas {
     display: block;
+    z-index: 0;
+}
+
+#announcement {
+    z-index: 100;
 }
