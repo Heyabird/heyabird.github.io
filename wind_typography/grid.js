@@ -19,6 +19,7 @@ let grid_centers = [];
 function setup() {
   createCanvas(800, 800);  
   get_wind_data();
+
   
   colSize = width/columns;
   rowSize = height/rows;
@@ -53,9 +54,11 @@ function mouseClicked() {
 
 let startingIndex = 0; 
 
+var backgroundColor = "#FFFDD0"
+// let backgroundColor = color(random(200,255),random(200,255),random(200,255));
 
 function draw() {
-    background("#FFFDD0");
+    background(backgroundColor);
     stroke("#000000");
     noFill();
     strokeWeight(1);
@@ -73,9 +76,11 @@ function draw() {
         } else if (mouseX < 400 && startingIndex > 0) {
             startingIndex -= 1;
         }
+        backgroundColor = color(random(200,255),random(200,255),random(200,255));
     }
 
   windstrokes(startingIndex);
+  animateLine = true;
 
 }
 

@@ -77,8 +77,8 @@ function draw() {
         x = coordinates[0];
         y = coordinates[1];
         strokeWeight(60);
-        line(starting_x, starting_y,  x- 20, y-10);
-        // animate_line(starting_x, starting_y, x, y);
+        // line(starting_x, starting_y,  x- 20, y-10);
+        animate_line(starting_x, starting_y, x, y);
         strokeWeight(90);
         point(starting_x, starting_y);
         strokeWeight(50);
