@@ -47,12 +47,11 @@ function get_wind_data() {
 function mouseClicked() {
   print("__________________ wind_data: ", wind_data);
   console.log("wind_data_slices: ", wind_data_slices);
-
+  wind_data_slices[slice_range[1]];
 
 }
 
 function draw() {
-
   background("#FFFDD0");
   stroke("#000000");
   noFill();
@@ -69,7 +68,7 @@ function draw() {
   translate(100, 100);
   strokeWeight(20);
   angleMode(RADIANS);
-
+  fill('black');
 
   scale(0.1);
 
@@ -83,40 +82,44 @@ function draw() {
     wind_data_slices.push(wind_data_slice);
   }
   
-  strokeWeight(50);
-  
-  slice_range = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
-  
-  // for (i=0; i<rows.length; i++) {
-  //   grid_center_x, grid_center_y = 0, 0;
-  //   grid_centers.push([grid_center_x, grid_center_y]);
-  //   grid_
-  // }
   
   grid_centers = [
-    [0, 0],
-    [2000, 0],
-    [4000, 0],
-    [6000, 0],
-    [0, 2000],
-    [2000, 2000],
-    [4000, 2000],
-    [6000, 2000],
-    [0, 4000],
-    [2000, 4000],
-    [4000, 4000],
-    [6000, 4000],
-    [0, 6000],
-    [2000, 6000],
-    [4000, 6000],
-    [6000, 6000]
-  ]
+        [0, 0],
+        [2000, 0],
+        [4000, 0],
+        [6000, 0],
+        [0, 2000],
+        [2000, 2000],
+        [4000, 2000],
+        [6000, 2000],
+        [0, 4000],
+        [2000, 4000],
+        [4000, 4000],
+        [6000, 4000],
+        [0, 6000],
+        [2000, 6000],
+        [4000, 6000],
+        [6000, 6000]
+    ]       
 
-  for (i=0; i<slice_range.length; i++) {
-    // print("i: ", i);
-    draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1]);
-  }
-  
+    // slice_range = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
+
+    // get an array of consecutive 16 integers, starting from the 2nd argument 
+    starting_number = 8
+    slice_range = range(16, starting_number);
+
+
+
+
+    for (i=0; i<slice_range.length; i++) {
+        draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1]);
+    }
+
+}
+
+// why does javascript not have this built in?!
+function range(size, startAt = 0) {
+    return [...Array(size).keys()].map(i => i + startAt);
 }
 
 function get_end_coordinates(a, C) {
@@ -140,7 +143,9 @@ function draw_type(wind_data, s_x, s_y) {
       t = wind_data[i];
       s = t["speed"];
       d = t["direction"]; 
+      time = t["time"];
 
+      strokeWeight(50);
       // when speed is 1000, draw a horizontal line
       if (s == 1000) {
           line(s_x-300, s_y, s_x+300, s_y);
@@ -166,5 +171,9 @@ function draw_type(wind_data, s_x, s_y) {
           starting_x = x;
           starting_y = y;
       }
+      strokeWeight(5);
+      textSize(120);
+      text(time, s_x-690, s_y+900);
+      console.log("i:", i, "time: ", time);
     }
 }
