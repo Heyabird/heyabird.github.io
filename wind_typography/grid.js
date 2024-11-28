@@ -165,23 +165,23 @@ function draw_type(wind_data, s_x, s_y) {
       time = t["time"];
 
       strokeWeight(50);
-      // when speed is 1000, draw a horizontal line
-      if (s == 1000) {
-          line(s_x-300, s_y, s_x+300, s_y);
-          starting_x = s_x;
-          starting_y = s_y;
-      // when speed is 1500, draw a cross
-      } else if (s == 1500) {
-          line(s_x-400, s_y, s_x+400, s_y);
-          line(s_x, s_y+400, s_x, s_y-400)
+      // when speed is 1000, draw a cross
+      if (s > 1250) {
+        noFill();
+        ellipse(s_x, s_y, (s * .5), (s * .5));
+      // when speed is 1500, draw a circle
+      } else if (s > 1000) {
+        line(s_x-400, s_y, s_x+400, s_y);
+        line(s_x, s_y+400, s_x, s_y-400);
       // when speed is 2000, draw a circle
       } else if (s == 2000) {
           noFill();
           circle(s_x,s_y,300);
       // when speed is >2000, draw a spiral?
-      } else if (s > 2000) {
-          // spiral?
-      // everything else, create a line
+      } else if (s == 1000) {
+            line(s_x-300, s_y, s_x+300, s_y);
+            starting_x = s_x;
+            starting_y = s_y;
       } else {
           coordinates = get_end_coordinates(s, d);
           x = coordinates[0] + s_x;

@@ -2,6 +2,7 @@
 
 let table;
 var wind_data = [];
+let startingIndex = 10;
 
 function preload() {
   table = loadTable("wind_direction_and_speed_2.csv", "csv", "header");
@@ -13,7 +14,7 @@ function setup() {
 }
 
 function get_wind_data() {
-  for (let r = 0; r < table.getRowCount() / 100; r++) {
+  for (let r = 0; r < table.getRowCount(); r++) {
     for (let c = 0; c < table.getColumnCount() ; c++) {
       if (c == 0) {
         var wind_object = {};
@@ -36,16 +37,25 @@ function mouseClicked() {
   print("__________________ wind_data: ", wind_data);
 }
 
-function draw() {
-    animateLine = true;
+var backgroundColor = "#FFFDD0"
 
-  background("#FFFDD0");
+function draw() {
+  if (mouseIsPressed === true) {
+    if (mouseX > 400) {
+        startingIndex += 1
+    } else if (mouseX < 400 && startingIndex > 0) {
+        startingIndex -= 1;
+    }
+    backgroundColor = color(random(200,255),random(200,255),random(200,255));
+}
+
+  background(backgroundColor);
   stroke("#000000");
   translate(width/2, height/2); // center the lines
   strokeWeight(20);
   angleMode(RADIANS);
     
-  test = wind_data.slice(40,45);
+  test = wind_data.slice(startingIndex,startingIndex+5);
   
   // starting point coordinates
   starting_x = 0;
@@ -100,8 +110,10 @@ function animate_line(x, y, x2, y2){
     // https://p5js.org/reference/p5/lerp/
     mid = p5.Vector.lerp(start,end,percentage);
     line(start.x, start.y, mid.x, mid.y);
-    console.log("start x: ", start.x, "mid x: ", mid.x)
-    percentage += 0.1;
+    console.log("start x: ", start.x, "mid x: ", mid.x);
+    if (percentage < 1) {
+      percentage += 0.01;
+    }
 }
 
 
