@@ -167,6 +167,12 @@ function draw_type(wind_data, s_x, s_y) {
           x = coordinates[0] + s_x;
           y = coordinates[1] + s_y;
           line(starting_x, starting_y, x, y);
+          strokeWeight(60);
+          line(starting_x, starting_y,  x- 20, y-10);
+          strokeWeight(80);
+          point(starting_x, starting_y)
+        //   point(starting_x - 10, starting_y - 10);
+          strokeWeight(50);
           // replace the start coordinates
           starting_x = x;
           starting_y = y;

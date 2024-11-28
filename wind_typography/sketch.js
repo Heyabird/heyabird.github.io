@@ -43,7 +43,7 @@ function draw() {
   strokeWeight(20);
   angleMode(RADIANS);
     
-  test = wind_data.slice(65,70);
+  test = wind_data.slice(40,45);
   
   // starting point coordinates
   starting_x = 0;
@@ -75,6 +75,10 @@ function draw() {
         x = coordinates[0];
         y = coordinates[1];
         line(starting_x, starting_y, x, y);
+        strokeWeight(100);
+        point(starting_x, starting_y, x, y);
+        strokeWeight(50);
+
         // replace the start coordinates
         starting_x = x;
         starting_y = y;
@@ -94,41 +98,3 @@ function get_end_coordinates(a, C) {
   f = a - e
   return ([f, d]);
 }
-
-// function show_grid() {
-//   stroke(255);
-//   strokeWeight(2);
-//   noFill();
-//   circle(0,0,100);
-//   fill(255);
-//   noStroke();
-//   text("0°", 54, 0);
-  
-//   stroke(255);
-//   strokeWeight(2);
-//   noFill();
-//   circle(0, 0, 300);
-//   fill(255);
-//   noStroke();
-//   text("1°", 154, 0);
-  
-//   stroke(255);
-//   strokeWeight(2);
-//   noFill();
-//   circle(0, 0, 500);
-  
-//   for (let i=0; i< months.length; i++) {
-//     noStroke();
-//     fill(255);
-//     textAlign(CENTER);
-//     textSize(24);
-//     let angle = map(i, 0, months.length, 0, TWO_PI);
-//     push();
-//     let x = 250 * cos(angle);
-//     let y = 250 * sin(angle);
-//     translate(x,y);
-//     rotate(angle + PI/2);
-//     text(months[i], 0, 0);
-//     pop();
-//   }
-// }
