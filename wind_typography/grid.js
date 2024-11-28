@@ -70,30 +70,12 @@ function draw() {
     if (mouseIsPressed === true) {
         if (mouseX > 400) {
             startingIndex += 1
-        } else if (mouseX < 400) {
+        } else if (mouseX < 400 && startingIndex > 0) {
             startingIndex -= 1;
         }
     }
 
-    // if (mouseX > 400) {
-    //     startingIndex = 5;
-    // } else if (mouseX < 400) {
-    //     startingIndex = 21;
-    // }
-    // windstrokes(8);
-    text(key, 50, 50);
-  
-
   windstrokes(startingIndex);
-
-    // if (mouseX < 50) {
-    //     // Code to run if the mouse is on the left.
-    //     windstrokes(8);
-    // } else {
-    //     windstrokes(9);
-    // }
-
-    
 
 }
 
@@ -202,7 +184,7 @@ function draw_type(wind_data, s_x, s_y) {
           line(starting_x, starting_y, x, y);
           strokeWeight(60);
           line(starting_x, starting_y,  x- 20, y-10);
-          strokeWeight(80);
+          strokeWeight(90);
           point(starting_x, starting_y)
         //   point(starting_x - 10, starting_y - 10);
           strokeWeight(50);

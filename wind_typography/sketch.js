@@ -37,6 +37,8 @@ function mouseClicked() {
 }
 
 function draw() {
+    animateLine = true;
+
   background("#FFFDD0");
   stroke("#000000");
   translate(width/2, height/2); // center the lines
@@ -74,17 +76,35 @@ function draw() {
         coordinates = get_end_coordinates(s, d);
         x = coordinates[0];
         y = coordinates[1];
-        line(starting_x, starting_y, x, y);
-        strokeWeight(100);
-        point(starting_x, starting_y, x, y);
+        strokeWeight(60);
+        line(starting_x, starting_y,  x- 20, y-10);
+        // animate_line(starting_x, starting_y, x, y);
+        strokeWeight(90);
+        point(starting_x, starting_y);
         strokeWeight(50);
 
         // replace the start coordinates
         starting_x = x;
         starting_y = y;
+        }
     }
 }
+
+let percentage = 0;
+var mid;
+
+function animate_line(x, y, x2, y2){
+    start = createVector(x, y);
+    end = createVector(x2, y2);
+    
+    // https://p5js.org/reference/p5/lerp/
+    mid = p5.Vector.lerp(start,end,percentage);
+    line(start.x, start.y, mid.x, mid.y);
+    console.log("start x: ", start.x, "mid x: ", mid.x)
+    percentage += 0.1;
 }
+
+
 
 function get_end_coordinates(a, C) {
   // find A, the angle of the other two points in the triangle
