@@ -108,11 +108,9 @@ function draw() {
     starting_number = 8
     slice_range = range(16, starting_number);
 
-
-
-
     for (i=0; i<slice_range.length; i++) {
         draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1]);
+        print("i:", i, "wind_data_slices[slice_range[i]]: ", wind_data_slices[slice_range[i]])
     }
 
 }
@@ -122,6 +120,7 @@ function range(size, startAt = 0) {
     return [...Array(size).keys()].map(i => i + startAt);
 }
 
+// let's do some middle school trigonometry!! (surprisingly hard)
 function get_end_coordinates(a, C) {
   // find A, the angle of the other two points in the triangle
   A = (180 - C) / 2;
@@ -159,9 +158,10 @@ function draw_type(wind_data, s_x, s_y) {
       } else if (s == 2000) {
           noFill();
           circle(s_x,s_y,300);
-      // when speed is >2000, draw a swirl
+      // when speed is >2000, draw a spiral?
       } else if (s > 2000) {
           // spiral?
+      // everything else, create a line
       } else {
           coordinates = get_end_coordinates(s, d);
           x = coordinates[0] + s_x;
@@ -173,7 +173,10 @@ function draw_type(wind_data, s_x, s_y) {
       }
       strokeWeight(5);
       textSize(120);
-      text(time, s_x-690, s_y+900);
-      console.log("i:", i, "time: ", time);
+      // because each square shows 5 different brush strokes / wind stroke, let's only record the first timestamp
+      if (i==0) {
+        text(time, s_x-690, s_y+900);
+      }
+    //   console.log("i:", i, "time: ", time);
     }
 }
