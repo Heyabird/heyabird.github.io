@@ -45,26 +45,61 @@ function get_wind_data() {
 
 // used for debugging
 function mouseClicked() {
-  print("__________________ wind_data: ", wind_data);
-  console.log("wind_data_slices: ", wind_data_slices);
-  wind_data_slices[slice_range[1]];
+//   print("__________________ wind_data: ", wind_data);
+//   console.log("wind_data_slices: ", wind_data_slices);
+//   wind_data_slices[slice_range[1]];
+    // windstrokes(mouseX);
+}
+
+let startingIndex = 0; 
+
+
+function draw() {
+    background("#FFFDD0");
+    stroke("#000000");
+    noFill();
+    strokeWeight(1);
+    
+    //grid
+    for (let i=0; i<columns; i++) {
+        for (let j=0; j<rows; j++) {
+        rect (i * colSize, j * rowSize, colSize, rowSize);
+        }
+    }
+
+    if (mouseIsPressed === true) {
+        if (mouseX > 400) {
+            startingIndex += 1
+        } else if (mouseX < 400) {
+            startingIndex -= 1;
+        }
+    }
+
+    // if (mouseX > 400) {
+    //     startingIndex = 5;
+    // } else if (mouseX < 400) {
+    //     startingIndex = 21;
+    // }
+    // windstrokes(8);
+    text(key, 50, 50);
+  
+
+  windstrokes(startingIndex);
+
+    // if (mouseX < 50) {
+    //     // Code to run if the mouse is on the left.
+    //     windstrokes(8);
+    // } else {
+    //     windstrokes(9);
+    // }
+
+    
 
 }
 
-function draw() {
-  background("#FFFDD0");
-  stroke("#000000");
-  noFill();
-  strokeWeight(1);
-  
-  //grid
-  for (let i=0; i<columns; i++) {
-    for (let j=0; j<rows; j++) {
-      rect (i * colSize, j * rowSize, colSize, rowSize);
-    }
-  }
-  
-  // translate(width/2, height/2); // center the lines
+
+function windstrokes(starting_index) {
+    // translate(width/2, height/2); // center the lines
   translate(100, 100);
   strokeWeight(20);
   angleMode(RADIANS);
@@ -105,14 +140,12 @@ function draw() {
     // slice_range = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
     // get an array of consecutive 16 integers, starting from the 2nd argument 
-    starting_number = 8
-    slice_range = range(16, starting_number);
+    slice_range = range(16, starting_index);
 
     for (i=0; i<slice_range.length; i++) {
         draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1]);
         print("i:", i, "wind_data_slices[slice_range[i]]: ", wind_data_slices[slice_range[i]])
     }
-
 }
 
 // why does javascript not have this built in?!
