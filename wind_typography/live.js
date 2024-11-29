@@ -11,6 +11,12 @@ function preload() {
 function setup() {
   createCanvas(800, 800);  
   get_wind_data();
+  // setTimeout(test, 2000);
+  // background('white');
+  // setTimeout(background('red'), 100000);
+}
+
+function test() {
 }
 
 function get_wind_data() {
@@ -47,7 +53,8 @@ function draw() {
         startingIndex -= 1;
     }
     backgroundColor = color(random(200,255),random(200,255),random(200,255));
-}
+    percentage = 0;
+  }
 
   background(backgroundColor);
   stroke("#000000");
@@ -56,7 +63,14 @@ function draw() {
   angleMode(RADIANS);
     
   test = wind_data.slice(startingIndex,startingIndex+5);
+  print("test: ", test)
+
+  // setTimeout(
+  draw_type();
   
+}
+
+function draw_type() {
   // starting point coordinates
   starting_x = 0;
   starting_y = 0;
@@ -66,38 +80,41 @@ function draw() {
     s = t["speed"];
     d = t["direction"]; 
     
-    // when speed is 1000, draw a horizontal line
-    if (s == 1000) {
-        line(-300, 0, 300, 0);
-        starting_x = 0;
-        starting_y = 0;
-    // when speed is 1500, draw a cross
-    } else if (s == 1500) {
-        line(-300, 0, 300, 0);
-        line(0, 300, 0, -300)
-    // when speed is 2000, draw a circle
-    } else if (s == 2000) {
-        noFill();
-        circle(0,0,300);
-    // when speed is >2000, draw a swirl
-    } else if (s > 2000) {
-        // spiral?
-    } else {
-        coordinates = get_end_coordinates(s, d);
-        x = coordinates[0];
-        y = coordinates[1];
-        strokeWeight(60);
-        // line(starting_x, starting_y,  x- 20, y-10);
-        animate_line(starting_x, starting_y, x, y);
-        strokeWeight(90);
-        point(starting_x, starting_y);
-        strokeWeight(50);
-
-        // replace the start coordinates
-        starting_x = x;
-        starting_y = y;
-        }
+    draw_stroke();
     }
+}
+
+function draw_stroke() {
+  // when speed is bigger than 1250, draw a circle
+  if (s > 1300) {
+    noFill();
+    ellipse(0, 0, (s * .5), (s * .5));
+  // when speed is between 1000 and 1250, draw a cross
+  } else if (s > 1000) {
+    line(-400, 0, +400, 0);
+    line(0, 400, 0, -400);
+  } else {
+      coordinates = get_end_coordinates(s, d);
+      x = coordinates[0];
+      y = coordinates[1];
+
+
+      draw_point();
+      draw_line();
+      // replace the start coordinates
+      starting_x = x;
+      starting_y = y;
+    }
+}
+
+function draw_line(){
+  strokeWeight(60);
+  animate_line(starting_x, starting_y, x, y);
+}
+
+function draw_point() {
+  strokeWeight(90);
+  point(starting_x, starting_y);
 }
 
 let percentage = 0;
@@ -110,9 +127,8 @@ function animate_line(x, y, x2, y2){
     // https://p5js.org/reference/p5/lerp/
     mid = p5.Vector.lerp(start,end,percentage);
     line(start.x, start.y, mid.x, mid.y);
-    console.log("start x: ", start.x, "mid x: ", mid.x);
     if (percentage < 1) {
-      percentage += 0.01;
+      percentage += 0.001;
     }
 }
 
@@ -130,3 +146,4 @@ function get_end_coordinates(a, C) {
   f = a - e
   return ([f, d]);
 }
+

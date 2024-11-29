@@ -55,7 +55,6 @@ function mouseClicked() {
 let startingIndex = 0; 
 
 var backgroundColor = "#FFFDD0"
-// let backgroundColor = color(random(200,255),random(200,255),random(200,255));
 
 function draw() {
     background(backgroundColor);
@@ -124,8 +123,6 @@ function windstrokes(starting_index) {
         [6000, 6000]
     ]       
 
-    // slice_range = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
-
     // get an array of consecutive 16 integers, starting from the 2nd argument 
     slice_range = range(16, starting_index);
 
@@ -165,23 +162,19 @@ function draw_type(wind_data, s_x, s_y) {
       time = t["time"];
 
       strokeWeight(50);
-      // when speed is 1000, draw a cross
-      if (s > 1250) {
+      // when speed is bigger than 1250, draw a circle
+      if (s > 1300) {
         noFill();
         ellipse(s_x, s_y, (s * .5), (s * .5));
-      // when speed is 1500, draw a circle
+      // when speed is between 1000 and 1250, draw a cross
       } else if (s > 1000) {
         line(s_x-400, s_y, s_x+400, s_y);
         line(s_x, s_y+400, s_x, s_y-400);
-      // when speed is 2000, draw a circle
-      } else if (s == 2000) {
-          noFill();
-          circle(s_x,s_y,300);
       // when speed is >2000, draw a spiral?
-      } else if (s == 1000) {
-            line(s_x-300, s_y, s_x+300, s_y);
-            starting_x = s_x;
-            starting_y = s_y;
+    //   } else if (s == 1000) {
+    //         line(s_x-300, s_y, s_x+300, s_y);
+    //         starting_x = s_x;
+    //         starting_y = s_y;
       } else {
           coordinates = get_end_coordinates(s, d);
           x = coordinates[0] + s_x;
@@ -190,8 +183,7 @@ function draw_type(wind_data, s_x, s_y) {
           strokeWeight(60);
           line(starting_x, starting_y,  x- 20, y-10);
           strokeWeight(90);
-          point(starting_x, starting_y)
-        //   point(starting_x - 10, starting_y - 10);
+          point(starting_x, starting_y);
           strokeWeight(50);
           // replace the start coordinates
           starting_x = x;
