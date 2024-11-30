@@ -88,7 +88,7 @@ function windstrokes(starting_index) {
     // translate(width/2, height/2); // center the lines
   translate(100, 100);
   strokeWeight(20);
-  angleMode(RADIANS);
+//   angleMode(RADIANS);
   fill('black');
 
   scale(0.1);
@@ -127,7 +127,10 @@ function windstrokes(starting_index) {
     slice_range = range(16, starting_index);
 
     for (i=0; i<slice_range.length; i++) {
-        draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1]);
+        // if(i==2) { // HEYA: comment this out; this is for debugging purposes
+        // draw_stroke(random(0,255),random(0,255),random(0,255));
+        draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1])
+        // } // HEYA: comment this out; this is for debugging purposes
         print("i:", i, "wind_data_slices[slice_range[i]]: ", wind_data_slices[slice_range[i]])
     }
 }
@@ -139,10 +142,27 @@ function range(size, startAt = 0) {
 
 // let's do some middle school trigonometry!! (surprisingly hard)
 function get_end_coordinates(a, C) {
+  angleMode(DEGREES);
+  print("HEYA3, C: ", C);
   // find A, the angle of the other two points in the triangle
+  let sign = "positive";
+  if (C < 0) {
+    sign = "negative";
+    C = Math.abs(C);
+  }
+
+  if (C > 180) {
+    C = 180 - C;
+  }
+  if (C > 90) {
+    // C = 90 - C;
+  }
+
   A = (180 - C) / 2;
   // find c, the length of the other side of the triangle
-  c = sin(C) * a / sin(A);
+  c = (sin(C) * a / sin(A));
+  print("HEYA, C:", C, ", a:", a, ", A: ", A, " and c: ", c);
+  print("HEYA22: sin(C): ", sin(C), "sin(A): ", sin(A), "sin(C)*a:", sin(C)*a)
   // find d, the height of the triangle
   d = c * sin(A);
   // find e, the length that the x cooridnate shortens after the rotation
@@ -152,6 +172,7 @@ function get_end_coordinates(a, C) {
 }
 
 function draw_type(wind_data, s_x, s_y) {
+    noFill();
     starting_x = s_x;
     starting_y = s_y;
    for (let i = 0; i < wind_data.length; i++) {
@@ -162,12 +183,14 @@ function draw_type(wind_data, s_x, s_y) {
       time = t["time"];
 
       strokeWeight(50);
+    //   if(i==4) { // HEYA: comment out
       // when speed is bigger than 1250, draw a circle
       if (s > 1300) {
         noFill();
         ellipse(s_x, s_y, (s * .5), (s * .5));
       // when speed is between 1000 and 1250, draw a cross
       } else if (s > 1000) {
+        
         line(s_x-400, s_y, s_x+400, s_y);
         line(s_x, s_y+400, s_x, s_y-400);
       // when speed is >2000, draw a spiral?
@@ -175,14 +198,30 @@ function draw_type(wind_data, s_x, s_y) {
     //         line(s_x-300, s_y, s_x+300, s_y);
     //         starting_x = s_x;
     //         starting_y = s_y;
+      } else if (s > 900) {
+        // angle = map(d, 0, 270, 0, 90)
+        // rotate(angle);
+        rect(s_x - 450, s_y - 450, s, s);
+        // rotate(-angle);
       } else {
+        print("s: ", s, "d:", d);
           coordinates = get_end_coordinates(s, d);
           x = coordinates[0] + s_x;
           y = coordinates[1] + s_y;
+          if (starting_x - x > 400) {
+            // starting_x = s_x;
+            // if (x < starting_x) {
+            //     x = 
+            // }
+            // x = (starting_x + x)/2;
+            console.log("over!: ", s_x, s_y)
+          }
+          print("HEYA: ", starting_x, starting_y, x, y, s_x, s_y, s, d)
+          print("HEYA2 coordinates: ", coordinates)
           line(starting_x, starting_y, x, y);
           strokeWeight(60);
-          line(starting_x, starting_y,  x- 20, y-10);
-          strokeWeight(90);
+        //   line(starting_x, starting_y,  x- 20, y-10);
+        //   strokeWeight(90);
           point(starting_x, starting_y);
           strokeWeight(50);
           // replace the start coordinates
@@ -196,5 +235,6 @@ function draw_type(wind_data, s_x, s_y) {
         text(time, s_x-690, s_y+900);
       }
     //   console.log("i:", i, "time: ", time);
+    //   } // HEYA: comment out
     }
 }

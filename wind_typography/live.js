@@ -76,6 +76,7 @@ function draw_type() {
   starting_y = 0;
   
   for (let i = 0; i < test.length; i++) {
+    co
     t = test[i];
     s = t["speed"];
     d = t["direction"]; 
