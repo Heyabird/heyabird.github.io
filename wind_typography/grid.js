@@ -185,39 +185,39 @@ function draw_type(wind_data, s_x, s_y) {
       strokeWeight(50);
     //   if(i==4) { // HEYA: comment out
       // when speed is bigger than 1250, draw a circle
-      if (s > 1200) {
+      
+      if (s> 1400) {
+        ellipse(s_x, s_y, (s * .5), (s * .5));
+      }
+      else if (s > 1200) {
         rect(s_x - (s/4), s_y - (s/4), s/2, s/2);
       }
       else if (s > 1000) {
-        ellipse(s_x, s_y, (s * .5), (s * .5));
+        // cross
+        line(s_x-(s/2), s_y, s_x+(s/2), s_y);
+        line(s_x, s_y+(s/2), s_x, s_y-(s/2));
       // when speed is between 1000 and 1250, draw a cross
       } else if (s > 800) {
-        
-        line(s_x-(s/2), s_y, s_x+(s/2), s_y);
+        // vertical line
         line(s_x, s_y+(s/2), s_x, s_y-(s/2));
-      // when speed is >2000, draw a spiral?
-    //   } else if (s == 1000) {
-    //         line(s_x-300, s_y, s_x+300, s_y);
-    //         starting_x = s_x;
-    //         starting_y = s_y;
+        // plus small horizontal line
+        line(s_x-(s/2), s_y, s_x, s_y);
     } else if (s > 600) {
-        // angle = map(d, 0, 270, 0, 90)
-        // rotate(angle);
-        line(s_x, s_y+(s/2), s_x, s_y-(s/2));
-        // rotate(-angle);
-    // } else if (s > 700) {
-    //     // angle = map(d, 0, 270, 0, 90)
-    //     // rotate(angle);
-    //     line(s_x-(s/2), s_y, s_x+(s/2), s_y);
-    //     // rotate(-angle);
-    
-    } else if (s > 400) {
-        // angle = map(d, 0, 270, 0, 90)
-        // rotate(angle);
+        // horizontal line
         line(s_x-(s/2), s_y, s_x+(s/2), s_y);
-        // rotate(-angle);
-    
-    } else {
+        // plus small vertical line
+        line(s_x, s_y, s_x, s_y-(s/2));
+    } else if (s > 500) {
+        // vertical line
+        line(s_x, s_y+(s/2), s_x, s_y-(s/2));
+    } else if (s > 400) {
+        // horizontal line
+        line(s_x-(s/2), s_y, s_x+(s/2), s_y);
+    }else if (s == 0) {
+        strokeWeight(120);
+        point(s_x, s_y);
+        strokeWeight(50);
+    }else {
         print("s: ", s, "d:", d);
           coordinates = get_end_coordinates(s, d);
           x = coordinates[0] + s_x;
