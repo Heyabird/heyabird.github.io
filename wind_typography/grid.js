@@ -189,90 +189,53 @@ function draw_type(wind_data, s_x, s_y) {
 
     //   }
 
-    if (s >= 1000) {
-        ellipse(s_x, s_y, (s * .5), (s * .5));
+    if (s == 1000 || s == 1200 || s == 1400 || s == 1600 || s == 1800) {
+        if (s == 1000) {
+            if (d > 270) {
+                ellipse(s_x +(s/3), s_y +(s/3), (s/3), (s/3));
+            } else if (d > 180) {
+                ellipse(s_x -(s/3), s_y +(s/3), (s/3), (s/3));
+            } else if (d > 90) {
+                ellipse(s_x -(s/3), s_y -(s/3), (s/3), (s/3));
+            } else if (d > 0) {
+                ellipse(s_x + (s/3), s_y -(s/3), (s/3), (s/3));
+            }
+        } else {
+            ellipse(s_x, s_y, (s/2), (s/2));
+        }
+    } else if (s == 300) {
+        // stroke('red');
+        if (d >= 180) {
+            // horizontal line
+            line(s_x-(s*2), s_y, s_x+(s*2), s_y);
+        } else {
+            // vertical line
+            line(s_x, s_y-(s*2), s_x, s_y+(s*2));
+        }
+        // stroke('black');
     }
-    else if (s >= 400 && s < 800) {
+    else if (s == 100 || s == 200) {
+        if (d > 270) {
+            line(s_x, s_y+s*3, s_x, s_y);
+        } else if (d > 180) {
+            line(s_x-s*3, s_y, s_x, s_y);
+        } else if (d > 90) {
+            line(s_x, s_y, s_x, s_y-s*3);
+        } else if (d> 45) {
+            line(s_x, s_y);
+        } else if (d > 0) {
+            line(s_x, s_y, s_x+s*3, s_y);
+        }
+    } else if (s == 0) {
+        // skip
+    }
+    else {
         coordinates = get_end_coordinates(s, d);
         x = coordinates[0] + s_x;
         y = coordinates[1] + s_y;
         line(starting_x, starting_y, x, y);
         starting_x = x;
         starting_y = y;
-    }
-    // else if (s > 1000) {
-    //     rect(s_x - (s/4), s_y - (s/4), s/2, s/2);
-    //   }
-    //   else if (s > 1000) {
-    //     // cross
-    //     line(s_x-(s/2), s_y, s_x+(s/2), s_y);
-    //     line(s_x, s_y+(s/2), s_x, s_y-(s/2));
-    //   // when speed is between 1000 and 1250, draw a cross
-    //   } 
-    //   else if (s > 800) {
-    //     // vertical line
-    //     line(s_x, s_y+(s/2), s_x, s_y-(s/2));
-    //     // plus small horizontal line
-    //     line(s_x-(s/2), s_y, s_x, s_y);
-    // } 
-    // else if (s > 600) {
-    //     // horizontal line
-    //     line(s_x-(s/2), s_y, s_x+(s/2), s_y);
-    //     // plus small vertical line
-    //     line(s_x, s_y, s_x, s_y-(s/2));
-    // } 
-    // else if (s == 300) {
-    //     // vertical line
-    //     line(s_x, s_y+(s/2), s_x, s_y-(s/2));
-    // } else if (s == 200) {
-    //     // horizontal line
-    //     line(s_x-(s), s_y, s_x+(s), s_y);
-    // } 
-    else if (s <= 300) {
-        // small horizontal line from center
-        // rotate(d, [s_x, s_y]);
-        if (d > 270) {
-            line(s_x, s_y+s, s_x, s_y);
-        } else if (d > 180) {
-            line(s_x-s, s_y, s_x, s_y);
-        } else if (d > 90) {
-            line(s_x, s_y, s_x, s_y-s);
-        } else if (d> 45) {
-            line(s_x, );
-        } else if (d > 0) {
-            line(s_x, s_y, s_x+s, s_y);
-        }
-        // rotate(360-d, [s_x, s_y]);
-    }
-    // else if (s == 0) {
-    //     strokeWeight(150);
-    //     point(s_x, s_y);
-    //     strokeWeight(50);
-    // }
-    else {
-        print("s: ", s, "d:", d);
-          coordinates = get_end_coordinates(s, d);
-          x = coordinates[0] + s_x;
-          y = coordinates[1] + s_y;
-          if (starting_x - x > 400) {
-            // starting_x = s_x;
-            // if (x < starting_x) {
-            //     x = 
-            // }
-            // x = (starting_x + x)/2;
-            console.log("over!: ", s_x, s_y)
-          }
-          print("HEYA: ", starting_x, starting_y, x, y, s_x, s_y, s, d)
-          print("HEYA2 coordinates: ", coordinates)
-          line(starting_x, starting_y, x, y);
-        //   strokeWeight(60);
-        //   line(starting_x, starting_y,  x- 20, y-10);
-          strokeWeight(90);
-          point(starting_x, starting_y);
-          strokeWeight(50);
-          // replace the start coordinates
-          starting_x = x;
-          starting_y = y;
       }
       strokeWeight(5);
       textSize(120);
