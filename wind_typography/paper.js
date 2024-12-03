@@ -9,26 +9,23 @@ function preload() {
 }
 
 //grid
-let columns = 7;
-let rows = 7;
+let num_col = 9;
+let num_row = num_col;
 let colSize; let rowSize;
 let grid_centers = [];
-
+let padding = 1.5;
+//   colSize = width/columns;
+//   rowSize = height/rows;
 
 function setup() {
-  createCanvas(1400, 1400);  
+  canvas_size = 850
+  canvas = createCanvas(canvas_size, canvas_size);  
+  canvas.position( (windowWidth - canvas_size)/2, 10);
   get_wind_data();
 
-  
-  colSize = width/columns;
-  rowSize = height/rows;
 
-
-    // let grid_coordinates = [0, 2, 4, 6, 8, 10, 12]
-    grid_centers = [];
-
-    for (i=0; i<=(columns-1)*2; i+=2) {
-        for (j=0; j<=(rows-1)*2; j+=2) {
+    for (i=0; i<=(num_col-1)*2; i+=padding) {
+        for (j=0; j<=(num_row-1)*2; j+=padding) {
             let grid_coordinates = [i*1000, j*1000];
             grid_centers.push(grid_coordinates);
         }
@@ -71,13 +68,13 @@ function draw() {
     stroke("#000000");
     noFill();
     strokeWeight(1);
-    // scale(.5);
+    scale(.5);
 
     
     
     //grid
-    for (let i=0; i<columns; i++) {
-        for (let j=0; j<rows; j++) {
+    for (let i=0; i<num_col; i++) {
+        for (let j=0; j<num_row; j++) {
         // rect (i * colSize, j * rowSize, colSize, rowSize);
         }
     }
@@ -92,8 +89,7 @@ function draw() {
     }
 
   windstrokes(startingIndex);
-  animateLine = true;
-
+//   animateLine = true;
 }
 
 
@@ -102,62 +98,27 @@ function windstrokes(starting_index) {
   translate(100, 100);
   strokeWeight(20);
   fill('black');
-
   scale(0.1);
-
   
   // starting point coordinates
   starting_x = 0;
   starting_y = 0;
-  
+
+  // how many wind strokes to include in one "letter"
+  num_strokes = 5;
   for (i=0; i<1000; i=i+5) {
-    wind_data_slice = wind_data.slice(i, i+5);
+    wind_data_slice = wind_data.slice(i, i+num_strokes);
     wind_data_slices.push(wind_data_slice);
   }   
 
-
-
-    // get an array of consecutive 49 integers, starting from the 2nd argument 
-    slice_range = range(49, starting_index);
+    // get an array of consecutive 100 integers, starting from the 2nd argument 
+    slice_range = range(121, starting_index);
 
     for (i=0; i<slice_range.length; i++) {
         // if(i==2) { // HEYA: comment this out; this is for debugging purposes
         draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1])
         // } // HEYA: comment this out; this is for debugging purposes
     }
-}
-
-// why does javascript not have this built in?!
-function range(size, startAt = 0) {
-    return [...Array(size).keys()].map(i => i + startAt);
-}
-
-// let's do some middle school trigonometry!! (surprisingly hard)
-function get_end_coordinates(a, C) {
-  angleMode(DEGREES);
-  // find A, the angle of the other two points in the triangle
-  let sign = "positive";
-  if (C < 0) {
-    sign = "negative";
-    C = Math.abs(C);
-  }
-
-  if (C > 180) {
-    // C = 180 - C;
-  }
-  if (C > 90) {
-    // C = 90 - C;
-  }
-
-  A = (180 - C) / 2;
-  // find c, the length of the other side of the triangle
-  c = (sin(C) * a / sin(A));
-  // find d, the height of the triangle
-  d = c * sin(A);
-  // find e, the length that the x cooridnate shortens after the rotation
-  e = d / tan(A);
-  f = a - e
-  return ([f, d]);
 }
 
 function draw_type(wind_data, s_x, s_y) {
@@ -231,4 +192,37 @@ function draw_type(wind_data, s_x, s_y) {
     //   console.log("i:", i, "time: ", time);
     //   } // HEYA: comment out
     }
+}
+
+// why does javascript not have this built in?!
+function range(size, startAt = 0) {
+    return [...Array(size).keys()].map(i => i + startAt);
+}
+
+// let's do some middle school trigonometry!! (surprisingly hard)
+function get_end_coordinates(a, C) {
+  angleMode(DEGREES);
+  // find A, the angle of the other two points in the triangle
+  let sign = "positive";
+  if (C < 0) {
+    sign = "negative";
+    C = Math.abs(C);
+  }
+
+  if (C > 180) {
+    // C = 180 - C;
+  }
+  if (C > 90) {
+    // C = 90 - C;
+  }
+
+  A = (180 - C) / 2;
+  // find c, the length of the other side of the triangle
+  c = (sin(C) * a / sin(A));
+  // find d, the height of the triangle
+  d = c * sin(A);
+  // find e, the length that the x cooridnate shortens after the rotation
+  e = d / tan(A);
+  f = a - e
+  return ([f, d]);
 }
