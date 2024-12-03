@@ -88,14 +88,16 @@ function draw() {
         // }
     // }
 
-    // if (mouseIsPressed === true) {
-    //     if (mouseX < 400 && startingIndex > 0) {
-    //         startingIndex -= 1;
-    //     } else if (mouseX > 400) {
-    //         startingIndex += 1;
-    //     } 
-    //     backgroundColor = color(random(200,255),random(200,255),random(200,255));
-    // }
+    if (mouseIsPressed === true) {
+
+        if (mouseY < (windowHeight / 2) && startingIndex > 0) {
+            startingIndex -= 1;
+            // changeBackgroundColor();
+        } else if (mouseY > (windowHeight / 2)) {
+            startingIndex += 1;
+            // changeBackgroundColor();
+        } 
+    }
 
 
 
@@ -124,15 +126,15 @@ function draw() {
 //     }
 // }
 
-function mousePressed() {
-    if (mouseY < (windowHeight / 2) && startingIndex > 0) {
-        startingIndex -= 1;
-        // changeBackgroundColor();
-    } else if (mouseY > (windowHeight / 2)) {
-        startingIndex += 1;
-        // changeBackgroundColor();
-    } 
-}
+// function mousePressed() {
+//     if (mouseY < (windowHeight / 2) && startingIndex > 0) {
+//         startingIndex -= 1;
+//         // changeBackgroundColor();
+//     } else if (mouseY > (windowHeight / 2)) {
+//         startingIndex += 1;
+//         // changeBackgroundColor();
+//     } 
+// }
 
 function changeBackgroundColor() {
     backgroundColor = color(random(200,255),random(200,255),random(200,255));
@@ -157,7 +159,7 @@ function windstrokes(starting_index) {
   }   
 
     // get an array of consecutive 100 integers, starting from the 2nd argument 
-    slice_range = range(1000, starting_index);
+    slice_range = range(150, starting_index);
 
     for (i=0; i<slice_range.length; i++) {
         // if(i==2) { // HEYA: comment this out; this is for debugging purposes
