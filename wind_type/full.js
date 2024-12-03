@@ -69,7 +69,7 @@ let startingIndex = 0;
 var backgroundColor = "#FFFDD0";
 
 function draw() {
-    frameRate(8);
+    // frameRate(10);
     createFibers();
 
     // noLoop();
