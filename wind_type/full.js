@@ -10,7 +10,7 @@ function preload() {
 
 //grid
 let num_col = 9;
-let num_row = num_col;
+let num_row = 18;
 let colSize; let rowSize;
 let grid_centers = [];
 let padding = 1.5;
@@ -19,9 +19,9 @@ let scribble = new Scribble();
 //   rowSize = height/rows;
 
 function setup() {
-  canvas_size = 850
+//   canvas_size = 850
   canvas = createCanvas(windowWidth, windowHeight);  
-  canvas.position( (windowWidth - canvas_size), 0);
+  canvas.position( 0, 0);
   changeBackgroundColor();
 
 //   let scribble = new Scribble();
@@ -69,7 +69,7 @@ let startingIndex = 0;
 var backgroundColor = "#FFFDD0";
 
 function draw() {
-    frameRate(4);
+    frameRate(8);
     createFibers();
 
     // noLoop();
@@ -77,16 +77,16 @@ function draw() {
     stroke("#000000");
     noFill();
     strokeWeight(1);
-    scale(.49);
+    // scale(.49);
 
     
     
     //grid
-    for (let i=0; i<num_col; i++) {
-        for (let j=0; j<num_row; j++) {
+    // for (let i=0; i<num_col; i++) {
+        // for (let j=0; j<num_row; j++) {
         // rect (i * colSize, j * rowSize, colSize, rowSize);
-        }
-    }
+        // }
+    // }
 
     // if (mouseIsPressed === true) {
     //     if (mouseX < 400 && startingIndex > 0) {
@@ -102,47 +102,41 @@ function draw() {
   windstrokes(startingIndex);
 //   animateLine = true;
 }
-// Change direction when the user scrolls the mouse wheel.
-function mouseWheel(event) {
-    if (event.delta <= 0 && startingIndex > 0) {
-        startingIndex -= 1;
-        // changeBackgroundColor();
-    } else {
-        startingIndex += 1;
-        // changeBackgroundColor();
-    }
-}
+// // Change direction when the user scrolls the mouse wheel.
+// function mouseWheel(event) {
+//     if (event.delta <= 0 && startingIndex > 0) {
+//         startingIndex -= 1;
+//         // changeBackgroundColor();
+//     } else {
+//         startingIndex += 1;
+//         // changeBackgroundColor();
+//     }
+// }
 
-function keyPressed() {
-    if (key === "ArrowUp" && startingIndex > 0) {
-        startingIndex -= 1;
-        // changeBackgroundColor();
-    }
-    else if (key === "ArrowDown") {
-        startingIndex += 1;
-        // changeBackgroundColor();
-    }
-}
+// function keyPressed() {
+//     if (key === "ArrowUp" && startingIndex > 0) {
+//         startingIndex -= 1;
+//         // changeBackgroundColor();
+//     }
+//     else if (key === "ArrowDown") {
+//         startingIndex += 1;
+//         // changeBackgroundColor();
+//     }
+// }
 
 function mousePressed() {
-    if (mouseX < 400 && startingIndex > 0) {
+    if (mouseY < (windowHeight / 2) && startingIndex > 0) {
         startingIndex -= 1;
-        changeBackgroundColor();
-    } else if (mouseX > 400) {
+        // changeBackgroundColor();
+    } else if (mouseY > (windowHeight / 2)) {
         startingIndex += 1;
-        changeBackgroundColor();
+        // changeBackgroundColor();
     } 
 }
 
 function changeBackgroundColor() {
     backgroundColor = color(random(200,255),random(200,255),random(200,255));
 }
-// if (keyIsPressed === true && keyCode === UP_ARROW  && startingIndex > 0) {
-//     startingIndex -= 1;
-// } else if (keyIsPressed === true && keyCode === DOWN_ARROW) {
-//     startingIndex += 1;
-//     backgroundColor = color(random(200,255),random(200,255),random(200,255));
-// }
 
 function windstrokes(starting_index) {
     // translate(width/2, height/2); // center the lines
@@ -163,7 +157,7 @@ function windstrokes(starting_index) {
   }   
 
     // get an array of consecutive 100 integers, starting from the 2nd argument 
-    slice_range = range(121, starting_index);
+    slice_range = range(200, starting_index);
 
     for (i=0; i<slice_range.length; i++) {
         // if(i==2) { // HEYA: comment this out; this is for debugging purposes
