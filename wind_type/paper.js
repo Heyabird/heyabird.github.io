@@ -70,6 +70,8 @@ var backgroundColor = "#FFFDD0";
 
 function draw() {
     frameRate(4);
+    createFibers();
+
     // noLoop();
     background(backgroundColor);
     stroke("#000000");
@@ -122,15 +124,15 @@ function keyPressed() {
     }
 }
 
-// function mousePressed() {
-//     if (mouseX < 400 && startingIndex > 0) {
-//         startingIndex -= 1;
-//         changeBackgroundColor();
-//     } else if (mouseX > 400) {
-//         startingIndex += 1;
-//         changeBackgroundColor();
-//     } 
-// }
+function mousePressed() {
+    if (mouseX < 400 && startingIndex > 0) {
+        startingIndex -= 1;
+        changeBackgroundColor();
+    } else if (mouseX > 400) {
+        startingIndex += 1;
+        changeBackgroundColor();
+    } 
+}
 
 function changeBackgroundColor() {
     backgroundColor = color(random(200,255),random(200,255),random(200,255));
