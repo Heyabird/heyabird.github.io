@@ -9,7 +9,7 @@ function preload() {
 }
 
 //grid
-let num_col = 9;
+let num_col = 6;
 let num_row = 18;
 let colSize; let rowSize;
 let grid_centers = [];
@@ -41,7 +41,7 @@ function setup() {
 }
 
 function get_wind_data() {
-  for (let r = 0; r < table.getRowCount() - 800; r++) {
+  for (let r = 0; r < table.getRowCount(); r++) {
     for (let c = 0; c < table.getColumnCount() ; c++) {
       if (c == 0) {
         var wind_object = {};
@@ -157,7 +157,7 @@ function windstrokes(starting_index) {
   }   
 
     // get an array of consecutive 100 integers, starting from the 2nd argument 
-    slice_range = range(200, starting_index);
+    slice_range = range(1000, starting_index);
 
     for (i=0; i<slice_range.length; i++) {
         // if(i==2) { // HEYA: comment this out; this is for debugging purposes
@@ -246,7 +246,7 @@ function draw_type(wind_data, s_x, s_y) {
       textSize(120);
       // because each square shows 5 different brush strokes / wind stroke, let's only record the first timestamp
       if (i==0) {
-        // text(time, s_x-690, s_y+900);
+        text(time, s_x-690, s_y+900);
       }
     //   console.log("i:", i, "time: ", time);
     //   } // HEYA: comment out
