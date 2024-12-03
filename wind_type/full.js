@@ -77,7 +77,7 @@ function draw() {
     stroke("#000000");
     noFill();
     strokeWeight(1);
-    // scale(.49);
+    scale(.75);
 
     
     
