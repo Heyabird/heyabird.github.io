@@ -20,7 +20,7 @@ let scribble = new Scribble();
 
 function setup() {
 //   canvas_size = 850
-  canvas = createCanvas(windowWidth, windowHeight);  
+  canvas = createCanvas(windowWidth, windowHeight + 2000);  
   canvas.position( 0, 0);
   changeBackgroundColor();
 
