@@ -17,7 +17,7 @@ let colSize; let rowSize;
 let grid_centers = [];
 let padding = 1.5;
 let scribble = new Scribble();
-
+let oldDate = "";
 
 
 
@@ -78,10 +78,10 @@ function mousePressed() {
         showModal();
         // show_time = !show_time;
     } else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
-       startingIndex -= 1;
+       startingIndex -= 7;
        // changeBackgroundColor();
    } else if (mouseY > (windowHeight / 2)) {
-       startingIndex += 1;
+       startingIndex += 7;
        // changeBackgroundColor();
    } 
 }
@@ -310,7 +310,16 @@ function draw_type(wind_data, s_x, s_y) {
       textSize(120);
       // because each square shows 5 different brush strokes / wind stroke, let's only record the first timestamp
       if (i==0 && show_time === true) {
-        text(time, s_x-690, s_y+900);
+        date = time.slice(0,10);
+        newTime = time.slice(10);
+        // print("oldDate:", oldDate);
+        // print("date: ", date);
+        if (oldDate != date) {
+            ellipse(100, 100, 500, 500);
+            text(date, s_x-400, s_y+700);
+        }
+        text(newTime, s_x-400, s_y+750);
+        oldDate = date;
       } else {
         // nothing
       }
