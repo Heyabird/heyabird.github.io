@@ -10,7 +10,7 @@ function preload() {
 
 //grid
 let num_col = 6;
-let num_row = 18;
+let num_row = 13;
 let colSize; let rowSize;
 let grid_centers = [];
 let padding = 1.5;
@@ -119,7 +119,7 @@ function windstrokes(starting_index) {
   }   
 
     // get an array of consecutive 100 integers, starting from the 2nd argument 
-    slice_range = range(155, starting_index); // [0, 1, 2, ... 155]
+    slice_range = range(91, starting_index); // [0, 1, 2, ... 155]
 
     for (i=0; i<slice_range.length; i++) {
         // if(i==2) { // HEYA: comment this out; this is for debugging purposes
