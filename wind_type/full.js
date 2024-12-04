@@ -66,10 +66,15 @@ let buttonSize = 170;
 
 // used for debugging
 function mousePressed() {
-    let distToCenter = dist(mouseX, mouseY, buttonX, buttonY);
-    if (distToCenter < buttonSize/2) {
+    let distToCenterClock = dist(mouseX, mouseY, buttonX + 65, buttonY - 210);
+    print("distToCenterClock: ", distToCenterClock);
+    let distToCenterInfo = dist(mouseX, mouseY, buttonX + 65, buttonY - 20);
+    print("distToCenterInfo: ", distToCenterInfo);
+
+    if (distToCenterClock < buttonSize/2) {
         print("hi");
         show_time = !show_time;
+    } else if (distToCenterInfo < buttonSize/2) {
         showModal();
         // show_time = !show_time;
     } else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
