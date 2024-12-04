@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: "Comic Neue", cursive;
 }
 canvas {
     margin: 0;
@@ -20,7 +21,7 @@ canvas {
 }
 p {
     margin: 40px ;
-    font-family: 'arial';
+    /* font-family: 'arial'; */
     font-size: 20px;
 }
 
@@ -45,8 +46,9 @@ p {
     align-items: center;
     z-index: 9999;
     pointer-events: all;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
     display: none;
+    /* opacity: 50%; */
   }
   
   .modal-background {
@@ -59,7 +61,7 @@ p {
   .modal {
     position: relative;
     z-index: 2;
-    background: #ffffff;
+    background: #b9e7ff;
     padding: 20px;
     min-width: 600px;
     border-radius: 8px;
@@ -80,3 +82,41 @@ p {
     min-width: 50%;
     padding: 8px 16px;
   }
+
+  /* font */
+  .comic-neue-light {
+    font-family: "Comic Neue", cursive;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .comic-neue-regular {
+    font-family: "Comic Neue", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .comic-neue-bold {
+    font-family: "Comic Neue", cursive;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .comic-neue-light-italic {
+    font-family: "Comic Neue", cursive;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .comic-neue-regular-italic {
+    font-family: "Comic Neue", cursive;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .comic-neue-bold-italic {
+    font-family: "Comic Neue", cursive;
+    font-weight: 700;
+    font-style: italic;
+  }
+  

@@ -91,8 +91,7 @@ function mousePressed() {
 var backgroundColor = "#FFFDD0";
 
 function draw() {
-    frameRate(10);
-    createFibers();
+    frameRate(5);
 
     // noLoop();
     background(backgroundColor);
@@ -100,6 +99,8 @@ function draw() {
     noFill();
     strokeWeight(1);
     scale(.95);
+    createFibers();
+    // createTexture();
 
     windstrokes(startingIndex);
 //   animateLine = true;
@@ -131,7 +132,7 @@ function draw() {
     modalButton.mousePressed(modalButtonClicked);
   
     updateModal("Wind Typography", 
-    "This is a series of typographic designs that are developed using local wind data. The data was collected by using a wind meter installed on the art buildings on Aalto campus (Marsio and Varë). This is a series of typographic designs that are developed using local wind data. The data was collected by using a wind meter installed on the art buildings on Aalto campus (Marsio and Varë).");
+    "We cannot see wind itself but we are still able to visualize it by using its speed and direction data.<br/><br/> <b>Wind Typography</b> is a series of typographic designs that imagine what it would look like if wind could write. The data was collected by using a wind meter installed on the art buildings on Aalto campus (Marsio and Varë).");
 
 
     stroke('red');
@@ -235,13 +236,13 @@ function draw_type(wind_data, s_x, s_y) {
     starting_x = s_x;
     starting_y = s_y;
    for (let i = 0; i < wind_data.length; i++) {
-
+     
       t = wind_data[i];
       s = t["speed"];
       d = t["direction"]; 
       time = t["time"];
 
-      strokeWeight(50);
+      strokeWeight(55);
 
 
     if (s == 1000 || s == 1200 || s == 1400 || s == 1600 || s == 1800) {
@@ -310,16 +311,20 @@ function draw_type(wind_data, s_x, s_y) {
       textSize(120);
       // because each square shows 5 different brush strokes / wind stroke, let's only record the first timestamp
       if (i==0 && show_time === true) {
+        fill('gray');
+        textSize(140);
+
         date = time.slice(0,10);
-        newTime = time.slice(10);
+        newTime = time.slice(10,20);
         // print("oldDate:", oldDate);
         // print("date: ", date);
         if (oldDate != date) {
             ellipse(100, 100, 500, 500);
             text(date, s_x-400, s_y+700);
         }
-        text(newTime, s_x-400, s_y+750);
+        text(newTime, s_x-320, s_y+750);
         oldDate = date;
+        noFill();
       } else {
         // nothing
       }
