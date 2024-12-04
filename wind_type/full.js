@@ -108,9 +108,25 @@ function draw() {
     //         // changeBackgroundColor();
     //     } 
     // }
+    let testButton = createButton("INFO");
+    testButton.position(buttonX, buttonY);
+    testButton.mousePressed(showModal);
+    modal = select('.modal-wrapper');
+    modalButton = select('#modal-button');
+    modalTitle = select('#modal-title');
+    modalDescription = select('#modal-description');
+  
+    modalButton.mousePressed(modalButtonClicked);
+  
+    updateModal("Wind Typography", 
+    "This is a series of typographic designs that are developed using local wind data. The data was collected by using a wind meter installed on the art buildings on Aalto campus (Marsio and Varë). This is a series of typographic designs that are developed using local wind data. The data was collected by using a wind meter installed on the art buildings on Aalto campus (Marsio and Varë).");
+
+
     stroke('red');
+    fill('white');
+    scribble.scribbleEllipse(buttonX, buttonY - 200, buttonSize, buttonSize);
     fill('red');
-    circle(buttonX, buttonY, buttonSize);
+    scribble.scribbleEllipse(buttonX, buttonY, buttonSize, buttonSize);
     // rect(-120, 1750, 1120, 200);
     stroke('black');
     fill('black');
@@ -121,7 +137,26 @@ function draw() {
     // Hovering over the button
 }
 
-
+function modalButtonClicked() {
+    hideModal()
+  }
+  
+  function updateModal(title, description) {
+    modalTitle.elt.innerHTML = title;
+    modalDescription.elt.innerHTML = description
+    
+  }
+  
+  function showModal() {
+    isModalVisible = true;
+    modal.elt.style.display = 'flex'
+  }
+  
+  function hideModal() {
+    isModalVisible = false;  
+    modal.elt.style.display = 'none'
+  }
+  
 
 
 
