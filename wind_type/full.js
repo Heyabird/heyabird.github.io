@@ -108,13 +108,16 @@ function draw() {
     //         // changeBackgroundColor();
     //     } 
     // }
-    stroke('white');
-    fill('white');
+    stroke('red');
+    fill('red');
     circle(buttonX, buttonY, buttonSize);
-    rect(-120, 1750, 1120, 200);
+    // rect(-120, 1750, 1120, 200);
     stroke('black');
+    fill('black');
 
-
+    textSize(100);
+    text("?",buttonX  - 30,buttonY + 35 );
+    
     // Hovering over the button
 }
 
