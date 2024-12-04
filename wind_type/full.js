@@ -33,6 +33,7 @@ function setup() {
 
     print("grid_coor: ", grid_centers)
 
+
 }
 
 function get_wind_data() {
@@ -94,6 +95,12 @@ function draw() {
 
   windstrokes(startingIndex);
 //   animateLine = true;
+    scale (10); // resize to original scale
+
+    stroke('red');
+    fill('red');
+    ellipse(920, 1800, 100, 100);
+    stroke('black');
 }
 
 function changeBackgroundColor() {
@@ -102,10 +109,10 @@ function changeBackgroundColor() {
 
 function windstrokes(starting_index) {
     // translate(width/2, height/2); // center the lines
-  translate(118, 120);
-  strokeWeight(20);
-  fill('black');
-  scale(0.1);
+    translate(118, 120);
+    strokeWeight(20);
+    fill('black');
+    scale(0.1);
   
   // starting point coordinates
   starting_x = 0;
