@@ -68,6 +68,7 @@ function mousePressed() {
     if (distToCenter < buttonSize/2) {
         print("hi");
         show_time = !show_time;
+        showModal();
         // show_time = !show_time;
     } else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
        startingIndex -= 1;
@@ -108,14 +109,18 @@ function draw() {
     //         // changeBackgroundColor();
     //     } 
     // }
-    let testButton = createButton("INFO");
-    testButton.position(buttonX, buttonY);
-    testButton.mousePressed(showModal);
+    // let testButton = createButton("INFO");
+    // testButton.position(buttonX, buttonY);
+    // testButton.style("stroke-opacity", "0");
+    // testButton.size(150, 80);
+    // testButton.style("font-size", "70px");
+    // testButton.style("font-size", "70px");
     modal = select('.modal-wrapper');
     modalButton = select('#modal-button');
     modalTitle = select('#modal-title');
     modalDescription = select('#modal-description');
   
+    // testButton.mousePressed(showModal);
     modalButton.mousePressed(modalButtonClicked);
   
     updateModal("Wind Typography", 
@@ -124,15 +129,38 @@ function draw() {
 
     stroke('red');
     fill('white');
-    scribble.scribbleEllipse(buttonX, buttonY - 200, buttonSize, buttonSize);
+    // clock
+    scribble.scribbleEllipse(buttonX, buttonY - 250, buttonSize, buttonSize);
+    scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 60, buttonY - 250);
+    scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 20, buttonY - 270)
     fill('red');
-    scribble.scribbleEllipse(buttonX, buttonY, buttonSize, buttonSize);
+    scribble.scribbleEllipse(buttonX, buttonY - 50, buttonSize, buttonSize);
     // rect(-120, 1750, 1120, 200);
     stroke('black');
     fill('black');
 
     textSize(100);
-    text("?",buttonX  - 30,buttonY + 35 );
+    // text("?",buttonX  - 30,buttonY - 10 );
+    noFill();
+    //I
+    scribble.scribbleLine(buttonX - 55, buttonY - 60, buttonX - 55, buttonY-30);
+    // scribble.scribbleEllipse(buttonX - 45, buttonY - 70, 2, 2);
+    //N
+    scribble.scribbleLine(buttonX - 35, buttonY - 60, buttonX - 35, buttonY-30);
+    scribble.scribbleLine(buttonX - 35, buttonY - 60, buttonX - 15, buttonY-30);
+    scribble.scribbleLine(buttonX - 15, buttonY - 60, buttonX - 15, buttonY-30);
+    //F
+    scribble.scribbleLine(buttonX + 5, buttonY - 60, buttonX + 5, buttonY-30);
+    scribble.scribbleLine(buttonX + 5, buttonY - 60, buttonX + 20, buttonY-60);
+    scribble.scribbleLine(buttonX + 10, buttonY - 45, buttonX + 25, buttonY-45);
+    //O
+    scribble.scribbleEllipse(buttonX + 50, buttonY - 45, 25, 30);
+    // scribble.scribbleCurve(
+    //     buttonX - 50, buttonY, 
+    //     buttonX+50, buttonY+25, 
+    //     buttonX+50, buttonY+50, 
+    //     buttonX - 50, buttonY+50
+    // );
     
     // Hovering over the button
 }
