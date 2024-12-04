@@ -22,11 +22,13 @@ let scribble = new Scribble();
 
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight + 2000);  
-  canvas.position( 0, 0);
-  changeBackgroundColor();
+    width = 1080;
+    height = 1920;
+    canvas = createCanvas(width, height);  
+    canvas.position( 0, 0);
+    changeBackgroundColor();
 
-  get_wind_data();
+    get_wind_data();
 
 
     for (i=0; i<=(num_row-1)*2; i+=padding) {
@@ -58,8 +60,8 @@ function get_wind_data() {
 }
 
 
-let buttonX = 920;
-let buttonY = 1870;
+let buttonX = 1080 - 200; 
+let buttonY = 1920 - 120;
 let buttonSize = 170;
 
 // used for debugging
