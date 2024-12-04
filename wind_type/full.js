@@ -15,23 +15,18 @@ let colSize; let rowSize;
 let grid_centers = [];
 let padding = 1.5;
 let scribble = new Scribble();
-//   colSize = width/columns;
-//   rowSize = height/rows;
 
 function setup() {
-//   canvas_size = 850
   canvas = createCanvas(windowWidth, windowHeight + 2000);  
   canvas.position( 0, 0);
   changeBackgroundColor();
 
-//   let scribble = new Scribble();
-//   print("s: ", s);
   get_wind_data();
 
 
-    for (i=0; i<=(num_col-1)*2; i+=padding) {
-        for (j=0; j<=(num_row-1)*2; j+=padding) {
-            let grid_coordinates = [i*1000, j*1000];
+    for (i=0; i<=(num_row-1)*2; i+=padding) {
+        for (j=0; j<=(num_col-1)*2; j+=padding) {
+            let grid_coordinates = [j*1000, i*1000];
             grid_centers.push(grid_coordinates);
         }
     }
@@ -58,10 +53,6 @@ function get_wind_data() {
 
 // used for debugging
 function mouseClicked() {
-//   print("__________________ wind_data: ", wind_data);
-//   console.log("wind_data_slices: ", wind_data_slices);
-//   wind_data_slices[slice_range[1]];
-    // windstrokes(mouseX);
 }
 
 let startingIndex = 0; 
@@ -104,37 +95,6 @@ function draw() {
   windstrokes(startingIndex);
 //   animateLine = true;
 }
-// // Change direction when the user scrolls the mouse wheel.
-// function mouseWheel(event) {
-//     if (event.delta <= 0 && startingIndex > 0) {
-//         startingIndex -= 1;
-//         // changeBackgroundColor();
-//     } else {
-//         startingIndex += 1;
-//         // changeBackgroundColor();
-//     }
-// }
-
-// function keyPressed() {
-//     if (key === "ArrowUp" && startingIndex > 0) {
-//         startingIndex -= 1;
-//         // changeBackgroundColor();
-//     }
-//     else if (key === "ArrowDown") {
-//         startingIndex += 1;
-//         // changeBackgroundColor();
-//     }
-// }
-
-// function mousePressed() {
-//     if (mouseY < (windowHeight / 2) && startingIndex > 0) {
-//         startingIndex -= 1;
-//         // changeBackgroundColor();
-//     } else if (mouseY > (windowHeight / 2)) {
-//         startingIndex += 1;
-//         // changeBackgroundColor();
-//     } 
-// }
 
 function changeBackgroundColor() {
     backgroundColor = color(random(200,255),random(200,255),random(200,255));
@@ -159,7 +119,7 @@ function windstrokes(starting_index) {
   }   
 
     // get an array of consecutive 100 integers, starting from the 2nd argument 
-    slice_range = range(150, starting_index);
+    slice_range = range(155, starting_index); // [0, 1, 2, ... 155]
 
     for (i=0; i<slice_range.length; i++) {
         // if(i==2) { // HEYA: comment this out; this is for debugging purposes
