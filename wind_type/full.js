@@ -59,8 +59,8 @@ function get_wind_data() {
 
 
 let buttonX = 920;
-let buttonY = 1850;
-let buttonSize = 150;
+let buttonY = 1870;
+let buttonSize = 170;
 
 // used for debugging
 function mousePressed() {
@@ -143,6 +143,7 @@ function draw() {
     // text("?",buttonX  - 30,buttonY - 10 );
     noFill();
     //I
+    // scale(2);
     scribble.scribbleLine(buttonX - 55, buttonY - 60, buttonX - 55, buttonY-30);
     // scribble.scribbleEllipse(buttonX - 45, buttonY - 70, 2, 2);
     //N
@@ -163,6 +164,7 @@ function draw() {
     // );
     
     // Hovering over the button
+    // scale(.5);
 }
 
 function modalButtonClicked() {
