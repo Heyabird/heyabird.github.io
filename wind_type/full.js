@@ -3,6 +3,8 @@
 let table;
 var wind_data = [];
 let wind_data_slices = [];
+let startingIndex = 0; 
+let show_time = false;
 
 function preload() {
   table = loadTable("wind_direction_and_speed_2.csv", "csv", "header");
@@ -15,6 +17,9 @@ let colSize; let rowSize;
 let grid_centers = [];
 let padding = 1.5;
 let scribble = new Scribble();
+
+
+
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight + 2000);  
@@ -56,7 +61,7 @@ function get_wind_data() {
 function mouseClicked() {
 }
 
-let startingIndex = 0; 
+
 
 var backgroundColor = "#FFFDD0";
 
@@ -71,17 +76,21 @@ function draw() {
     strokeWeight(1);
     scale(.95);
 
-    
-    
-    //grid
-    // for (let i=0; i<num_col; i++) {
-        // for (let j=0; j<num_row; j++) {
-        // rect (i * colSize, j * rowSize, colSize, rowSize);
-        // }
-    // }
+
+
+    windstrokes(startingIndex);
+//   animateLine = true;
+    scale (10); // resize to original scale
+
+    let distToCenter = dist(mouseX, mouseY, buttonX, buttonY);
+
 
     if (mouseIsPressed === true) {
-
+        console.log("distToCenter: ",distToCenter);
+        if (distToCenter < buttonSize/2) {
+            fill('blue');
+            print("hi")
+        }
         if (mouseY < (windowHeight / 2) && startingIndex > 0) {
             startingIndex -= 1;
             // changeBackgroundColor();
@@ -90,22 +99,23 @@ function draw() {
             // changeBackgroundColor();
         } 
     }
-
-
-
-  windstrokes(startingIndex);
-//   animateLine = true;
-    scale (10); // resize to original scale
-
     stroke('red');
     fill('red');
-    ellipse(920, 1800, 100, 100);
+    circle(buttonX, buttonY, buttonSize);
     stroke('black');
+
+    // Hovering over the button
+
 }
+
+let buttonX = 920;
+let buttonY = 1850;
+let buttonSize = 150;
 
 function changeBackgroundColor() {
     backgroundColor = color(random(200,255),random(200,255),random(200,255));
 }
+
 
 function windstrokes(starting_index) {
     // translate(width/2, height/2); // center the lines
