@@ -57,8 +57,25 @@ function get_wind_data() {
   }
 }
 
+
+let buttonX = 920;
+let buttonY = 1850;
+let buttonSize = 150;
+
 // used for debugging
-function mouseClicked() {
+function mousePressed() {
+    let distToCenter = dist(mouseX, mouseY, buttonX, buttonY);
+    if (distToCenter < buttonSize/2) {
+        print("hi");
+        show_time = !show_time;
+        // show_time = !show_time;
+    } else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
+       startingIndex -= 1;
+       // changeBackgroundColor();
+   } else if (mouseY > (windowHeight / 2)) {
+       startingIndex += 1;
+       // changeBackgroundColor();
+   } 
 }
 
 
@@ -66,7 +83,7 @@ function mouseClicked() {
 var backgroundColor = "#FFFDD0";
 
 function draw() {
-    // frameRate(10);
+    frameRate(10);
     createFibers();
 
     // noLoop();
@@ -76,41 +93,32 @@ function draw() {
     strokeWeight(1);
     scale(.95);
 
-
-
     windstrokes(startingIndex);
 //   animateLine = true;
     scale (10); // resize to original scale
 
-    let distToCenter = dist(mouseX, mouseY, buttonX, buttonY);
 
-
-    if (mouseIsPressed === true) {
-        console.log("distToCenter: ",distToCenter);
-        if (distToCenter < buttonSize/2) {
-            fill('blue');
-            print("hi")
-        }
-        if (mouseY < (windowHeight / 2) && startingIndex > 0) {
-            startingIndex -= 1;
-            // changeBackgroundColor();
-        } else if (mouseY > (windowHeight / 2)) {
-            startingIndex += 1;
-            // changeBackgroundColor();
-        } 
-    }
+    // if (mouseIsPressed === true) {
+    //     // console.log("distToCenter: ",distToCenter);
+    //      if (mouseY < (windowHeight / 2) && startingIndex > 0) {
+    //         startingIndex -= 1;
+    //         // changeBackgroundColor();
+    //     } else if (mouseY > (windowHeight / 2)) {
+    //         startingIndex += 1;
+    //         // changeBackgroundColor();
+    //     } 
+    // }
     stroke('red');
     fill('red');
     circle(buttonX, buttonY, buttonSize);
     stroke('black');
 
     // Hovering over the button
-
 }
 
-let buttonX = 920;
-let buttonY = 1850;
-let buttonSize = 150;
+
+
+
 
 function changeBackgroundColor() {
     backgroundColor = color(random(200,255),random(200,255),random(200,255));
@@ -224,8 +232,10 @@ function draw_type(wind_data, s_x, s_y) {
       strokeWeight(5);
       textSize(120);
       // because each square shows 5 different brush strokes / wind stroke, let's only record the first timestamp
-      if (i==0) {
+      if (i==0 && show_time === true) {
         text(time, s_x-690, s_y+900);
+      } else {
+        // nothing
       }
     //   console.log("i:", i, "time: ", time);
     //   } // HEYA: comment out
