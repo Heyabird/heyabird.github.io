@@ -6,13 +6,16 @@ let wind_data_slices = [];
 let startingIndex = 0; 
 let show_time = false;
 let zoom_out = false;
+let range_size = 91;
+let extraScale = 1;
+
 
 function preload() {
   table = loadTable("wind_direction_and_speed_2.csv", "csv", "header");
 }
 
 //grid
-let num_col;
+let num_col = 6;
 let num_row = 13;
 let colSize; let rowSize;
 let grid_centers = [];
@@ -59,34 +62,85 @@ function mousePressed() {
     // print("distToCenterClock: ", distToCenterClock);
     let distToCenterInfo = dist(mouseX, mouseY, buttonX + 65, buttonY - 20);
     // print("distToCenterInfo: ", distToCenterInfo);
-    let distToCenterPlus = dist(mouseX, mouseY, buttonX + 65, buttonY - 380);
-    // print("distToCenterPlus: ", distToCenterPlus);
+    let distToCenterMinus = dist(mouseX, mouseY, buttonX + 110, buttonY - 345);
+    let distToCenterPlus = dist(mouseX, mouseY, buttonX + 110, buttonY - 410);
+    print("distToCenterPlus: ", distToCenterPlus);
+    print("distToCenterMinus: ", distToCenterMinus);
+
 
     if (distToCenterClock < buttonSize / 2) {
         show_time = !show_time;
         // alert("zoom_out: ", show_time.toString());
     } else if (distToCenterInfo < buttonSize / 2) {
         showModal();
-    } else if (distToCenterPlus < buttonSize / 2) {
-        zoom_out = !zoom_out;
-        alert("zoom_out: ", zoom_out.toString());
+    } else if (distToCenterPlus < buttonSize / 8) {
+        if (zoom_level < 6) {
+          zoom_level += 1;
+          // num_col += 1;
+          num_col -= .5;
+          range_size = 91;
+        }
+        // alert("zoom_out: ", zoom_out.toString());
         grid_centers =[];
-    } else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
+    } else if (distToCenterMinus < buttonSize / 8) {
+      if (zoom_level > 0) {
+        zoom_level -= 1;
+        // num_col += 1;
+        num_col += .5;
+        range_size = 121;
+      }
+      // alert("zoom_out: ", zoom_out.toString());
+      grid_centers =[];
+    } 
+    else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
        startingIndex -= 7;
        // changeBackgroundColor();
     } else if (mouseY > (windowHeight / 2)) {
        startingIndex += 7;
        // changeBackgroundColor();
     } 
+    if (zoom_level == 6) {
+      num_col = 5;
+      range_size= 91;
+      extraScale = 7.2/6;
+    } 
+    else if (zoom_level == 5) {
+      num_col = 6;
+      range_size= 91;
+      extraScale = 1;
+    } else if (zoom_level == 4) {
+      num_col = 6.5;
+      range_size = 121;
+      extraScale = 7/8;
+    } else if (zoom_level == 3) {
+      num_col = 7;
+      range_size = 153;
+      extraScale = 6.1/8;
+    } else if (zoom_level == 2) {
+      num_col = 8;
+      num_row = 20;
+      range_size = 200;
+      extraScale = 5.5/8;
+    } else if (zoom_level == 1) {
+      num_col = 9;
+      num_row = 24;
+      range_size = 240;
+      extraScale = 4.9/8;
+    } else if (zoom_level == 0) {
+      num_col = 10;
+      num_row = 24;
+      range_size = 340;
+      extraScale = 4/8;
+    }
 }
 
-function decreaseSize() {
-  if (zoom_level > 0) {
-    zoom_level -= 1;
-    // num_col += 1;
-    num_col = 5;
-  }
-}
+// function decreaseSize() {
+//   if (zoom_level > 0) {
+//     zoom_level -= 1;
+//     // num_col += 1;
+//     num_col = 5;
+//   }
+// }
 
 
 
@@ -101,11 +155,6 @@ function draw() {
     scale(.95);
     createFibers();
     // createTexture();
-    if (zoom_out === true) {
-      num_col = 7;
-    } else {
-      num_col = 6;
-    }
 
     for (i=0; i<=(num_row-1)*2; i+=padding) {
       for (j=0; j<=(num_col-1)*2; j+=padding) {
@@ -139,8 +188,12 @@ function drawControls() {
   // + - controls
     // PLUS
     scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 505 + 50, buttonSize / 4, buttonSize / 4);
+    scribble.scribbleLine(buttonX + buttonSize/4, buttonY - 505 + 40, (buttonX + buttonSize/4), (buttonY - 505 + 60));
+    scribble.scribbleLine(buttonX + buttonSize/4 - 10, buttonY - 505 + 50, (buttonX + buttonSize/4 + 10), (buttonY - 505 + 50));
+
     // MINUS
     scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 440 + 50, buttonSize / 4, buttonSize / 4);
+    scribble.scribbleLine(buttonX + buttonSize/4 - 10, buttonY - 440 + 50, buttonX + buttonSize/4 + 10, buttonY - 440 + 50);
     // scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 60, buttonY - 250);
 
 
@@ -188,6 +241,8 @@ function windstrokes(starting_index) {
     strokeWeight(20);
     fill('black');
     scale(0.1);
+    // scale(.6) // debugging
+    scale(extraScale);
   
   // starting point coordinates
   starting_x = 0;
@@ -201,13 +256,17 @@ function windstrokes(starting_index) {
   }   
 
     // get an array of consecutive 100 integers, starting from the 2nd argument 
-    slice_range = range(91, starting_index); // [0, 1, 2, ... 155]
+    slice_range = range(range_size, starting_index); // [0, 1, 2, ... 155]
 
     for (i=0; i<slice_range.length; i++) {
         // if(i==2) { // HEYA: comment this out; this is for debugging purposes
         draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1])
         // } // HEYA: comment this out; this is for debugging purposes
     }
+    // print("HEYA! grid_centers: ", grid_centers)
+
+    scale(1/extraScale);
+
 }
 
 function draw_type(wind_data, s_x, s_y) {
