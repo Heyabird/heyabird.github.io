@@ -280,7 +280,9 @@ function windstrokes(starting_index) {
     // print("HEYA! grid_centers: ", grid_centers)
 
     scale(1/extraScale);
-
+    if (zoom_level == 6) {
+      translate(-150, -200);
+    }
 }
 
 function draw_type(wind_data, s_x, s_y) {
