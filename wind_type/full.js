@@ -8,7 +8,7 @@ let show_time = false;
 let zoom_out = false;
 let range_size = 91;
 let extraScale = 1;
-
+let color1 = false;
 
 function preload() {
   table = loadTable("wind_direction_and_speed_2.csv", "csv", "header");
@@ -65,6 +65,9 @@ function mousePressed() {
     let distToCenterMinus = dist(mouseX, mouseY, buttonX + 110, buttonY - 345);
     let distToCenterPlus = dist(mouseX, mouseY, buttonX + 110, buttonY - 410);
     let distToCenterColor = dist(mouseX, mouseY, buttonX + 110, buttonY - 475);
+
+    let distToCenterDown = dist(mouseX, mouseY, buttonX + 110, buttonY - 525);
+    let distToCenterUp = dist(mouseX, mouseY, buttonX + 110, buttonY - 475);
     
     print("distToCenterPlus: ", distToCenterPlus);
     print("distToCenterMinus: ", distToCenterMinus);
@@ -93,16 +96,24 @@ function mousePressed() {
       }
       // alert("zoom_out: ", zoom_out.toString());
       grid_centers =[];
-    } else if (distToCenterColor < buttonSize / 8) {
-      changeBackgroundColor();
-    }
-    else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
-       startingIndex -= 7;
-       // changeBackgroundColor();
-    } else if (mouseY > (windowHeight / 2)) {
-       startingIndex += 7;
-       // changeBackgroundColor();
     } 
+    // else if (distToCenterColor < buttonSize / 8) {
+    //   changeBackgroundColor();
+    //   color1 = true;
+    // }
+    else if (distToCenterDown < buttonSize / 8 && startingIndex > 0) {
+      startingIndex -= 7;
+    }
+    else if (distToCenterUp < buttonSize / 8) {
+      startingIndex += 7;
+    }
+    // else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
+    //    startingIndex -= 7;
+    //    // changeBackgroundColor();
+    // } else if (mouseY > (windowHeight / 2)) {
+    //    startingIndex += 7;
+    //    // changeBackgroundColor();
+    // } 
     if (zoom_level == 6) {
       num_col = 5;
       range_size= 91;
@@ -149,11 +160,12 @@ function mousePressed() {
 
 
 var backgroundColor = "#fff6e5";
+var strokeColor = 'red';
 
 function draw() {
     frameRate(5);
     background(backgroundColor);
-    stroke("#000000");
+    stroke(strokeColor);
     noFill();
     strokeWeight(1);
     scale(.95);
@@ -188,15 +200,26 @@ function draw() {
 }
 
 function drawControls() {
-  fill('#b9e7ff');
-  stroke('black');
-    // color
+    stroke('black');
+
+
+    fill('#FFB6C1');
+    // up
+    scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 635 + 50, buttonSize / 4, buttonSize / 4);
+    scribble.scribbleLine(buttonX + buttonSize/4 - 10, buttonY - 635 + 55, buttonX + buttonSize/4 , buttonY - 635 + 45);
+    scribble.scribbleLine(buttonX + buttonSize/4, buttonY - 635 + 45, buttonX + buttonSize/4 + 10, buttonY - 635 + 55);
+
+    fill('#FFB6C1');
+    // down
     scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 570 + 50, buttonSize / 4, buttonSize / 4);
+    scribble.scribbleLine(buttonX + buttonSize/4 - 10, buttonY - 570 + 45, buttonX + buttonSize/4 , buttonY - 570 + 55);
+    scribble.scribbleLine(buttonX + buttonSize/4, buttonY - 570 + 55, buttonX + buttonSize/4 + 10, buttonY - 570 + 45);
 
   // + - controls
     // PLUS
     // stroke('#b9e7ff');
 
+    fill('#b9e7ff');
 
     scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 505 + 50, buttonSize / 4, buttonSize / 4);
     scribble.scribbleLine(buttonX + buttonSize/4, buttonY - 505 + 40, (buttonX + buttonSize/4), (buttonY - 505 + 60));
@@ -245,12 +268,15 @@ function drawControls() {
     scribble.scribbleLine(buttonX + 10, buttonY - 45, buttonX + 25, buttonY-45);
     //O
     scribble.scribbleEllipse(buttonX + 50, buttonY - 45, 25, 30);
+
+    // stroke(strokeColor);
 }
 
 
 
 function changeBackgroundColor() {
     backgroundColor = color(random(200,255),random(200,255),random(200,255));
+    strokeColor = color(random(200,255),random(200,255),random(200,255));
 }
 
 
@@ -258,7 +284,7 @@ function windstrokes(starting_index) {
     // translate(width/2, height/2); // center the lines
     translate(118, 120);
     strokeWeight(20);
-    fill('black');
+    // fill(strokeColor);
     scale(0.1);
     // scale(.6) // debugging
     scale(extraScale);
@@ -295,6 +321,11 @@ function windstrokes(starting_index) {
 
 function draw_type(wind_data, s_x, s_y) {
     noFill();
+    // stroke('black');
+    if (color === true) {
+      // alert('hi')
+      stroke(strokeColor);
+    }
     starting_x = s_x;
     starting_y = s_y;
    for (let i = 0; i < wind_data.length; i++) {
