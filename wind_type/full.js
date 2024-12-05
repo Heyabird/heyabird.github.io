@@ -102,7 +102,7 @@ function mousePressed() {
     if (zoom_level == 6) {
       num_col = 5;
       range_size= 91;
-      extraScale = 7.2/6;
+      extraScale = 7/6;
     } 
     else if (zoom_level == 5) {
       num_col = 6;
@@ -254,6 +254,9 @@ function windstrokes(starting_index) {
     scale(0.1);
     // scale(.6) // debugging
     scale(extraScale);
+    if (zoom_level == 6) {
+      translate(150, 200);
+    }
   
   // starting point coordinates
   starting_x = 0;
@@ -469,4 +472,4 @@ modal.elt.style.display = 'none'
 
 
 
-const modalText = "If wind could write, what would its letters look like?<br/><br/> <b>Wind Typography</b> is an imaginative typography based on local wind data. A weather meter station connected to arduino was installed on the art buildings of Aalto campus (Marsio and Varë) to record speed and direction of the current wind every several seconds.<br/><br/>The data was then entered as parameters to a  series of rules on p5.js. The rules were inspired by Hangul, the writing system of Korea. Hangul combines consonants (represented by shapes like circles and rectangles) and vowels (reprsented by lines) to create a single syllable unit. <br/><br/> Each 'stroke' represents a single wind data (speed and direction), and five consecutive wind 'strokes' combine into one unit. If the speed is smaller than 10mph, the wind is represented as a short line in one of four directions (0, 90, 180, and 270 degrees). If the speed is bigger than 10mph, the wind is represented as a circle instead of a line."
+const modalText = "If wind could write, what would its letters look like?<br/><br/> <b>Wind Typography</b> is an imaginative typography based on local wind data. A weather meter station connected to arduino was installed on the art buildings of Aalto campus (Marsio and Varë) to record speed and direction of the current wind every several seconds.<br/><br/>The data was then entered as parameters to a  series of rules on p5.js. The rules were inspired by Hangul, the writing system of Korea. Hangul combines consonants (represented by shapes like circles and rectangles) and vowels (reprsented by lines) to create a single syllable unit. <br/><br/> Each 'stroke' represents a single wind data (speed and direction), and five consecutive wind 'strokes' combine into one unit. If the speed is smaller than 10mph, the wind is represented as a short line in one of four directions (0, 90, 180, and 270 degrees). If the speed is bigger than 10mph, the wind is represented as a circle instead of a line.<br/><br/>To navigate through the strokes, click on the upper or lower left of the screen."
