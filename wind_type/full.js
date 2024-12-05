@@ -101,7 +101,7 @@ function mousePressed() {
     //   changeBackgroundColor();
     //   color1 = true;
     // }
-    else if (distToCenterDown < buttonSize / 8 && startingIndex > 0) {
+    else if (distToCenterDown < buttonSize / 8 && startingIndex > 7) {
       startingIndex -= 7;
     }
     else if (distToCenterUp < buttonSize / 8) {
@@ -168,7 +168,7 @@ var backgroundColor = "#fff6e5";
 var strokeColor = 'red';
 
 function draw() {
-    frameRate(5);
+    // frameRate();
     background(backgroundColor);
     stroke(strokeColor);
     noFill();
@@ -199,6 +199,24 @@ function draw() {
     updateModal("Wind Typography", modalText);
 
 
+
+
+
+
+
+
+    if (mouseIsPressed === true
+      // && !(distToCenterClock < buttonSize / 2) && !(distToCenterInfo < buttonSize / 2) && !(distToCenterPlus < buttonSize / 8) && !(distToCenterMinus < buttonSize / 8)
+      // && !(distToCenterDown < buttonSize / 8) && (distToCenterUp < buttonSize / 8) 
+      ) {
+      if (mouseY > windowHeight / 2) {
+          startingIndex += 1
+      } else if (mouseY < windowHeight / 2 && startingIndex > 0) {
+          startingIndex -= 1;
+      }
+      backgroundColor = color(random(200,255),random(200,255),random(200,255));
+    }
+  
 
     drawControls();
     
@@ -290,6 +308,9 @@ function windstrokes(starting_index) {
     translate(118, 120);
     strokeWeight(20);
     // fill(strokeColor);
+
+
+    
     scale(0.1);
     // scale(.6) // debugging
     scale(extraScale);
