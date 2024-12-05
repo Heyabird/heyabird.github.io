@@ -79,7 +79,7 @@ function mousePressed() {
     } else if (distToCenterInfo < buttonSize / 2) {
         showModal();
     } else if (distToCenterPlus < buttonSize / 8) {
-        if (zoom_level < 6) {
+        if (zoom_level < 7) {
           zoom_level += 1;
           // num_col += 1;
           num_col -= .5;
@@ -114,10 +114,15 @@ function mousePressed() {
     //    startingIndex += 7;
     //    // changeBackgroundColor();
     // } 
-    if (zoom_level == 6) {
+    if (zoom_level == 7) {
+      num_col = 4;
+      range_size= 60;
+      extraScale = 9/6;
+    }     
+    else if (zoom_level == 6) {
       num_col = 5;
       range_size= 91;
-      extraScale = 7/6;
+      extraScale = 7.3/6;
     } 
     else if (zoom_level == 5) {
       num_col = 6;
@@ -288,9 +293,9 @@ function windstrokes(starting_index) {
     scale(0.1);
     // scale(.6) // debugging
     scale(extraScale);
-    if (zoom_level == 6) {
-      translate(150, 200);
-    }
+    // if (zoom_level == 6) {
+    //   translate(150, 200);
+    // }
   
   // starting point coordinates
   starting_x = 0;
@@ -314,9 +319,9 @@ function windstrokes(starting_index) {
     // print("HEYA! grid_centers: ", grid_centers)
 
     scale(1/extraScale);
-    if (zoom_level == 6) {
-      translate(-150, -200);
-    }
+    // if (zoom_level == 6) {
+    //   translate(-150, -200);
+    // }
 }
 
 function draw_type(wind_data, s_x, s_y) {
@@ -416,6 +421,8 @@ function draw_type(wind_data, s_x, s_y) {
             text(date, s_x-400, s_y+700);
         }
         text(newTime, s_x-320, s_y+750);
+        textSize(300);
+        text(date, -600, -500);
         oldDate = date;
         noFill();
       } else {
