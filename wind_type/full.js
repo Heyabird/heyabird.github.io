@@ -177,8 +177,7 @@ function draw() {
   
     updateModal("Wind Typography", modalText);
 
-    stroke('#b9e7ff');
-    fill('white');
+
 
     drawControls();
     
@@ -187,17 +186,29 @@ function draw() {
 function drawControls() {
   // + - controls
     // PLUS
+    // stroke('#b9e7ff');
+    fill('#b9e7ff');
+    stroke('black');
+
     scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 505 + 50, buttonSize / 4, buttonSize / 4);
     scribble.scribbleLine(buttonX + buttonSize/4, buttonY - 505 + 40, (buttonX + buttonSize/4), (buttonY - 505 + 60));
+    
     scribble.scribbleLine(buttonX + buttonSize/4 - 10, buttonY - 505 + 50, (buttonX + buttonSize/4 + 10), (buttonY - 505 + 50));
+    // fill('white');
+    // stroke('#b9e7ff');
+    fill('#b9e7ff');
 
     // MINUS
     scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 440 + 50, buttonSize / 4, buttonSize / 4);
+    stroke('black');
+
     scribble.scribbleLine(buttonX + buttonSize/4 - 10, buttonY - 440 + 50, buttonX + buttonSize/4 + 10, buttonY - 440 + 50);
     // scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 60, buttonY - 250);
 
 
     // clock
+    fill('white');
+
     scribble.scribbleEllipse(buttonX, buttonY - 250, buttonSize, buttonSize);
     scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 60, buttonY - 250);
     scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 20, buttonY - 270)
