@@ -46,7 +46,7 @@ p {
     align-items: center;
     z-index: 9999;
     pointer-events: all;
-    /* font-family: sans-serif; */
+    font-family: sans-serif;
     display: none;
     /* opacity: 50%; */
   }
@@ -76,6 +76,7 @@ p {
   
   .modal p {
     margin: 0 0 1em 0;
+    font-weight: 500;
   }
   
   .modal button {

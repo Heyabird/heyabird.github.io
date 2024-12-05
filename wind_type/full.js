@@ -5,44 +5,33 @@ var wind_data = [];
 let wind_data_slices = [];
 let startingIndex = 0; 
 let show_time = false;
+let zoom_out = false;
 
 function preload() {
   table = loadTable("wind_direction_and_speed_2.csv", "csv", "header");
 }
 
 //grid
-let num_col = 6;
+let num_col;
 let num_row = 13;
 let colSize; let rowSize;
 let grid_centers = [];
 let padding = 1.5;
 let scribble = new Scribble();
 let oldDate = "";
-
-
+let zoom_level = 5;
 
 function setup() {
     width = 1080;
     height = 1920;
     canvas = createCanvas(width, height);  
     canvas.position( 0, 0);
-    changeBackgroundColor();
+    // changeBackgroundColor();
 
     get_wind_data();
-
-
-    for (i=0; i<=(num_row-1)*2; i+=padding) {
-        for (j=0; j<=(num_col-1)*2; j+=padding) {
-            let grid_coordinates = [j*1000, i*1000];
-            grid_centers.push(grid_coordinates);
-        }
-    }
-
-    print("grid_coor: ", grid_centers)
-
-
 }
 
+// go through csv and create a list of objects with speed, direction, and time
 function get_wind_data() {
   for (let r = 0; r < table.getRowCount(); r++) {
     for (let c = 0; c < table.getColumnCount() ; c++) {
@@ -67,33 +56,44 @@ let buttonSize = 170;
 // used for debugging
 function mousePressed() {
     let distToCenterClock = dist(mouseX, mouseY, buttonX + 65, buttonY - 210);
-    print("distToCenterClock: ", distToCenterClock);
+    // print("distToCenterClock: ", distToCenterClock);
     let distToCenterInfo = dist(mouseX, mouseY, buttonX + 65, buttonY - 20);
-    print("distToCenterInfo: ", distToCenterInfo);
+    // print("distToCenterInfo: ", distToCenterInfo);
+    let distToCenterPlus = dist(mouseX, mouseY, buttonX + 65, buttonY - 380);
+    // print("distToCenterPlus: ", distToCenterPlus);
 
-    if (distToCenterClock < buttonSize/2) {
-        print("hi");
+    if (distToCenterClock < buttonSize / 2) {
         show_time = !show_time;
-    } else if (distToCenterInfo < buttonSize/2) {
+        // alert("zoom_out: ", show_time.toString());
+    } else if (distToCenterInfo < buttonSize / 2) {
         showModal();
-        // show_time = !show_time;
+    } else if (distToCenterPlus < buttonSize / 2) {
+        zoom_out = !zoom_out;
+        alert("zoom_out: ", zoom_out.toString());
+        grid_centers =[];
     } else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
        startingIndex -= 7;
        // changeBackgroundColor();
-   } else if (mouseY > (windowHeight / 2)) {
+    } else if (mouseY > (windowHeight / 2)) {
        startingIndex += 7;
        // changeBackgroundColor();
-   } 
+    } 
+}
+
+function decreaseSize() {
+  if (zoom_level > 0) {
+    zoom_level -= 1;
+    // num_col += 1;
+    num_col = 5;
+  }
 }
 
 
 
-var backgroundColor = "#FFFDD0";
+var backgroundColor = "#fff6e5";
 
 function draw() {
     frameRate(5);
-
-    // noLoop();
     background(backgroundColor);
     stroke("#000000");
     noFill();
@@ -101,28 +101,23 @@ function draw() {
     scale(.95);
     createFibers();
     // createTexture();
+    if (zoom_out === true) {
+      num_col = 7;
+    } else {
+      num_col = 6;
+    }
+
+    for (i=0; i<=(num_row-1)*2; i+=padding) {
+      for (j=0; j<=(num_col-1)*2; j+=padding) {
+          // print("hi! num_col: ", num_col);
+          let grid_coordinates = [j*1000, i*1000];
+          grid_centers.push(grid_coordinates);
+      }
+    }
 
     windstrokes(startingIndex);
-//   animateLine = true;
     scale (10); // resize to original scale
 
-
-    // if (mouseIsPressed === true) {
-    //     // console.log("distToCenter: ",distToCenter);
-    //      if (mouseY < (windowHeight / 2) && startingIndex > 0) {
-    //         startingIndex -= 1;
-    //         // changeBackgroundColor();
-    //     } else if (mouseY > (windowHeight / 2)) {
-    //         startingIndex += 1;
-    //         // changeBackgroundColor();
-    //     } 
-    // }
-    // let testButton = createButton("INFO");
-    // testButton.position(buttonX, buttonY);
-    // testButton.style("stroke-opacity", "0");
-    // testButton.size(150, 80);
-    // testButton.style("font-size", "70px");
-    // testButton.style("font-size", "70px");
     modal = select('.modal-wrapper');
     modalButton = select('#modal-button');
     modalTitle = select('#modal-title');
@@ -131,22 +126,36 @@ function draw() {
     // testButton.mousePressed(showModal);
     modalButton.mousePressed(modalButtonClicked);
   
-    updateModal("Wind Typography", 
-    "We cannot see wind itself but we are still able to visualize it by using its speed and direction data.<br/><br/> <b>Wind Typography</b> is a series of typographic designs that imagine what it would look like if wind could write. The data was collected by using a wind meter installed on the art buildings on Aalto campus (Marsio and Varë).");
+    updateModal("Wind Typography", modalText);
 
-
-    stroke('red');
+    stroke('#b9e7ff');
     fill('white');
+
+    drawControls();
+    
+}
+
+function drawControls() {
+  // + - controls
+    // PLUS
+    scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 505 + 50, buttonSize / 4, buttonSize / 4);
+    // MINUS
+    scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 440 + 50, buttonSize / 4, buttonSize / 4);
+    // scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 60, buttonY - 250);
+
+
     // clock
     scribble.scribbleEllipse(buttonX, buttonY - 250, buttonSize, buttonSize);
     scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 60, buttonY - 250);
     scribble.scribbleLine(buttonX, buttonY - 250,buttonX + 20, buttonY - 270)
-    fill('red');
+    fill('#b9e7ff');
     scribble.scribbleEllipse(buttonX, buttonY - 50, buttonSize, buttonSize);
     // rect(-120, 1750, 1120, 200);
     stroke('black');
     fill('black');
 
+
+    // INFO
     textSize(100);
     // text("?",buttonX  - 30,buttonY - 10 );
     noFill();
@@ -164,37 +173,7 @@ function draw() {
     scribble.scribbleLine(buttonX + 10, buttonY - 45, buttonX + 25, buttonY-45);
     //O
     scribble.scribbleEllipse(buttonX + 50, buttonY - 45, 25, 30);
-    // scribble.scribbleCurve(
-    //     buttonX - 50, buttonY, 
-    //     buttonX+50, buttonY+25, 
-    //     buttonX+50, buttonY+50, 
-    //     buttonX - 50, buttonY+50
-    // );
-    
-    // Hovering over the button
-    // scale(.5);
 }
-
-function modalButtonClicked() {
-    hideModal()
-  }
-  
-  function updateModal(title, description) {
-    modalTitle.elt.innerHTML = title;
-    modalDescription.elt.innerHTML = description
-    
-  }
-  
-  function showModal() {
-    isModalVisible = true;
-    modal.elt.style.display = 'flex'
-  }
-  
-  function hideModal() {
-    isModalVisible = false;  
-    modal.elt.style.display = 'none'
-  }
-  
 
 
 
@@ -361,7 +340,7 @@ function createTexture(){
       )
       line(x1, y1, x2, y2);
     }
-    console.log("created fibers")
+    // console.log("created fibers")
   }
 
 // why does javascript not have this built in?!
@@ -397,5 +376,27 @@ function get_end_coordinates(a, C) {
   return ([f, d]);
 }
 
+function modalButtonClicked() {
+  hideModal()
+}
+
+function updateModal(title, description) {
+modalTitle.elt.innerHTML = title;
+modalDescription.elt.innerHTML = description
+
+}
+
+function showModal() {
+isModalVisible = true;
+modal.elt.style.display = 'flex'
+}
+
+function hideModal() {
+isModalVisible = false;  
+modal.elt.style.display = 'none'
+}
 
 
+
+
+const modalText = "If wind could write, what would its letters look like?<br/><br/> <b>Wind Typography</b> is an imaginative typography based on local wind data. A weather meter station connected to arduino was installed on the art buildings of Aalto campus (Marsio and Varë) to record speed and direction of the current wind every several seconds.<br/><br/>The data was then entered as parameters to a  series of rules on p5.js. The rules were inspired by Hangul, the writing system of Korea. Hangul combines consonants (represented by shapes like circles and rectangles) and vowels (reprsented by lines) to create a single syllable unit. <br/><br/> Each 'stroke' represents a single wind data (speed and direction), and five consecutive wind 'strokes' combine into one unit. If the speed is smaller than 10mph, the wind is represented as a short line in one of four directions (0, 90, 180, and 270 degrees). If the speed is bigger than 10mph, the wind is represented as a circle instead of a line."
