@@ -154,16 +154,6 @@ function mousePressed() {
     }
 }
 
-// function decreaseSize() {
-//   if (zoom_level > 0) {
-//     zoom_level -= 1;
-//     // num_col += 1;
-//     num_col = 5;
-//   }
-// }
-
-
-
 var backgroundColor = "#fff6e5";
 var strokeColor = 'red';
 
@@ -209,11 +199,11 @@ function draw() {
       // && !(distToCenterClock < buttonSize / 2) && !(distToCenterInfo < buttonSize / 2) && !(distToCenterPlus < buttonSize / 8) && !(distToCenterMinus < buttonSize / 8)
       // && !(distToCenterDown < buttonSize / 8) && (distToCenterUp < buttonSize / 8) 
       ) {
-      if (mouseY > windowHeight / 2) {
-          startingIndex += 1
-      } else if (mouseY < windowHeight / 2 && startingIndex > 0) {
-          startingIndex -= 1;
-      }
+      // if (mouseY > windowHeight / 2) {
+      //     startingIndex += 1
+      // } else if (mouseY < windowHeight / 2 && startingIndex > 0) {
+      //     startingIndex -= 1;
+      // }
       backgroundColor = color(random(200,255),random(200,255),random(200,255));
     }
   
