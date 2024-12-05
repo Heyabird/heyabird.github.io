@@ -64,6 +64,8 @@ function mousePressed() {
     // print("distToCenterInfo: ", distToCenterInfo);
     let distToCenterMinus = dist(mouseX, mouseY, buttonX + 110, buttonY - 345);
     let distToCenterPlus = dist(mouseX, mouseY, buttonX + 110, buttonY - 410);
+    let distToCenterColor = dist(mouseX, mouseY, buttonX + 110, buttonY - 475);
+    
     print("distToCenterPlus: ", distToCenterPlus);
     print("distToCenterMinus: ", distToCenterMinus);
 
@@ -91,7 +93,9 @@ function mousePressed() {
       }
       // alert("zoom_out: ", zoom_out.toString());
       grid_centers =[];
-    } 
+    } else if (distToCenterColor < buttonSize / 8) {
+      changeBackgroundColor();
+    }
     else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
        startingIndex -= 7;
        // changeBackgroundColor();
@@ -184,11 +188,15 @@ function draw() {
 }
 
 function drawControls() {
+  fill('#b9e7ff');
+  stroke('black');
+    // color
+    scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 570 + 50, buttonSize / 4, buttonSize / 4);
+
   // + - controls
     // PLUS
     // stroke('#b9e7ff');
-    fill('#b9e7ff');
-    stroke('black');
+
 
     scribble.scribbleEllipse(buttonX + buttonSize/4, buttonY - 505 + 50, buttonSize / 4, buttonSize / 4);
     scribble.scribbleLine(buttonX + buttonSize/4, buttonY - 505 + 40, (buttonX + buttonSize/4), (buttonY - 505 + 60));
