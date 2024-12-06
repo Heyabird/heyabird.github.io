@@ -1,8 +1,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: "Comic Neue", cursive;
+    /* height: 100%; */
+    font-family: "arial", sans seif;
 }
 canvas {
     margin: 0;
@@ -31,6 +31,14 @@ p {
 
 .description {
     vertical-align: bottom;
+    max-width: 320px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+p  {
+  font-size: 14px;
 }
 
 

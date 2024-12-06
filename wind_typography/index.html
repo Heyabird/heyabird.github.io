@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+
+  </head>
+  <body>
+    <main>
+    </main>
+    <p class="instruction">press 'up' or 'down' arrow key 
+        <br/>
+        or scroll on your mouse
+    </p>
+    <p>-</p>
+    <div class="description">
+      <p>
+      If wind could write, what would its letters look like?<br/><br/> 
+      <b>Wind Typography</b> is an imaginative typography based on local wind data. A weather meter station connected to arduino was installed on the art buildings of Aalto campus (Marsio and Varë) to record speed and direction of the current wind every several seconds.
+      <br/><br/>The data was then entered as parameters to a  series of rules on p5.js. The rules were inspired by Hangul, the writing system of Korea. Hangul combines consonants (represented by shapes like circles and rectangles) and vowels (reprsented by lines) to create a single syllable unit. 
+      <br/><br/> Each 'stroke' represents a single wind data (speed and direction), and five consecutive wind 'strokes' combine into one unit. If the speed is smaller than 10mph, the wind is represented as a short line in one of four directions (0, 90, 180, and 270 degrees). 
+      If the speed is bigger than 10mph, the wind is represented as a circle instead of a line.    
+    </p>
+    </div>
+    <!-- <p class="instruction">or use mouse scroll to move</p> -->
+    <!-- <h1 id="announcement">this project is currently in progress... please come back for finished version on dec 11 2025</h1> -->
+    <script src="p5.scribble.js"></script>
+    <script src="paper.js"></script>
+  </body>
+</html>

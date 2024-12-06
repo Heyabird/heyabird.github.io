@@ -19,8 +19,8 @@ let scribble = new Scribble();
 //   rowSize = height/rows;
 
 function setup() {
-  canvas_size = 850
-  canvas = createCanvas(850, 830);  
+  canvas_size = 750
+  canvas = createCanvas(canvas_size, canvas_size);  
   canvas.position( (windowWidth - canvas_size)/2, 0);
   changeBackgroundColor();
 
@@ -78,7 +78,7 @@ function draw() {
     strokeWeight(1);
     createFibers();
 
-    scale(.49);
+    scale(.43);
 
     
     
