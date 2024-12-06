@@ -70,13 +70,14 @@ var backgroundColor = "#FFFDD0";
 
 function draw() {
     frameRate(4);
-    createFibers();
 
     // noLoop();
     background(backgroundColor);
     stroke("#000000");
     noFill();
     strokeWeight(1);
+    createFibers();
+
     scale(.49);
 
     
