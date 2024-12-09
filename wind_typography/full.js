@@ -158,7 +158,7 @@ var backgroundColor = "#fff6e5";
 var strokeColor = 'red';
 
 function draw() {
-    // frameRate();
+    frameRate(10);
     background(backgroundColor);
     stroke(strokeColor);
     noFill();
@@ -354,7 +354,7 @@ function draw_type(wind_data, s_x, s_y) {
       strokeWeight(55);
 
 
-    if (s == 1000 || s == 1200 || s == 1400 || s == 1600 || s == 1800) {
+    if (s == 1000 || s == 1200 || s == 1400 || s == 1600 || s == 1800 || s == 2000) {
         if (s == 1000) {
             if (d > 270) {
                 // ellipse(s_x +(s/3), s_y +(s/3), (s/3), (s/3));
@@ -369,9 +369,12 @@ function draw_type(wind_data, s_x, s_y) {
                 // ellipse(s_x + (s/3), s_y -(s/3), (s/3), (s/3));
                 scribble.scribbleEllipse(s_x + (s/3), s_y -(s/3), (s/3), (s/3));
             }
-        } else {
-            // ellipse(s_x, s_y, (s/2), (s/2));
-            scribble.scribbleEllipse(s_x, s_y, (s/2), (s/2));
+        } else if (s == 1800 || s == 2000) {
+          scribble.scribbleRect(s_x, s_y, (s/2), (s/2));
+        }
+        else {
+          // ellipse(s_x, s_y, (s/2), (s/2));
+          scribble.scribbleEllipse(s_x, s_y, (s/2), (s/2));
         }
     } else if (s == 300) {
         // stroke('red');
