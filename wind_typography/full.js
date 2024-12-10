@@ -23,6 +23,7 @@ let padding = 1.5;
 let scribble = new Scribble();
 let oldDate = "";
 let zoom_level = 5;
+let move_size = 7;
 
 function setup() {
     width = 1080;
@@ -56,7 +57,6 @@ let buttonX = 1080 - 200;
 let buttonY = 1920 - 120;
 let buttonSize = 170;
 
-// used for debugging
 function mousePressed() {
     let distToCenterClock = dist(mouseX, mouseY, buttonX + 65, buttonY - 210);
     // print("distToCenterClock: ", distToCenterClock);
@@ -102,10 +102,10 @@ function mousePressed() {
     //   color1 = true;
     // }
     else if (distToCenterDown < buttonSize / 8 && startingIndex > 7) {
-      startingIndex -= 7;
+      startingIndex -= move_size;
     }
     else if (distToCenterUp < buttonSize / 8) {
-      startingIndex += 7;
+      startingIndex += move_size;
     }
     // else if (mouseY < (windowHeight / 2) && startingIndex > 0) {
     //    startingIndex -= 7;
@@ -118,38 +118,46 @@ function mousePressed() {
       num_col = 4;
       range_size= 60;
       extraScale = 9/6;
+      move_size = 10;
     }     
     else if (zoom_level == 6) {
       num_col = 5;
       range_size= 91;
       extraScale = 7.3/6;
+      move_size = 12;
     } 
     else if (zoom_level == 5) {
       num_col = 6;
       range_size= 91;
       extraScale = 1;
+      move_size = 14;
     } else if (zoom_level == 4) {
       num_col = 6.5;
       range_size = 121;
       extraScale = 7/8;
+      move_size = 16;
     } else if (zoom_level == 3) {
       num_col = 7;
       range_size = 153;
       extraScale = 6.1/8;
+      move_size = 18;
     } else if (zoom_level == 2) {
       num_col = 8;
       num_row = 20;
       range_size = 200;
+      move_size = 20;
       extraScale = 5.5/8;
     } else if (zoom_level == 1) {
       num_col = 9;
       num_row = 24;
       range_size = 240;
+      move_size = 44;
       extraScale = 4.9/8;
     } else if (zoom_level == 0) {
       num_col = 10;
       num_row = 24;
       range_size = 340;
+      move_size = 96;
       extraScale = 4/8;
     }
 }
@@ -314,7 +322,7 @@ function windstrokes(starting_index) {
 
   // how many wind strokes to include in one "letter"
   num_strokes = 5;
-  for (i=0; i<1000; i=i+5) {
+  for (i=0; i<wind_data.length; i=i+5) {
     wind_data_slice = wind_data.slice(i, i+num_strokes);
     wind_data_slices.push(wind_data_slice);
   }   
@@ -323,9 +331,15 @@ function windstrokes(starting_index) {
     slice_range = range(range_size, starting_index); // [0, 1, 2, ... 155]
 
     for (i=0; i<slice_range.length; i++) {
-        // if(i==2) { // HEYA: comment this out; this is for debugging purposes
+        // if(i==80) { // HEYA: comment this out; this is for debugging purposes
         draw_type(wind_data_slices[slice_range[i]], grid_centers[i][0], grid_centers[i][1])
         // } // HEYA: comment this out; this is for debugging purposes
+        if(i==0) {
+          fill('gray');
+          textSize(200);
+          date = time.slice(0,10) + " (UTC)";
+          text(date, -600, -500);  
+        }
     }
     // print("HEYA! grid_centers: ", grid_centers)
 
@@ -426,18 +440,15 @@ function draw_type(wind_data, s_x, s_y) {
         fill('gray');
         textSize(140);
 
-        date = time.slice(0,10);
         newTime = time.slice(10,20);
         // print("oldDate:", oldDate);
         // print("date: ", date);
-        if (oldDate != date) {
-            ellipse(100, 100, 500, 500);
-            text(date, s_x-400, s_y+700);
-        }
+        // if (oldDate != date) {
+        //     // ellipse(100, 100, 500, 500);
+        //     text(date, s_x-400, s_y+700);
+        // }
         text(newTime, s_x-320, s_y+750);
-        textSize(300);
-        text(date, -600, -500);
-        oldDate = date;
+        // oldDate = date;
         noFill();
       } else {
         // nothing
@@ -536,4 +547,4 @@ modal.elt.style.display = 'none'
 
 // const modalText = "If wind could write, what would its letters look like?<br/><br/> <b>Wind Typography</b> is an imaginative typography based on local wind data. A weather meter station connected to arduino was installed on the art buildings of Aalto campus (Marsio and Varë) to record speed and direction of the current wind every several seconds.<br/><br/>The data was then entered as parameters to a  series of rules on p5.js. The rules were inspired by Hangul, the writing system of Korea. Hangul combines consonants (represented by shapes like circles and rectangles) and vowels (reprsented by lines) to create a single syllable unit. <br/><br/> Each 'stroke' represents a single wind data (speed and direction), and five consecutive wind 'strokes' combine into one unit. If the speed is smaller than 10mph, the wind is represented as a short line in one of four directions (0, 90, 180, and 270 degrees). If the speed is bigger than 10mph, the wind is represented as a circle instead of a line.<br/><br/>To navigate through the strokes, click on the upper or lower left of the screen."
 
-const modalText = "<p>If wind could write, what would its words look like? Wind Typography is a visualization of wind data based on imagined typographic rules. The speeds and directions of winds were collected on Aalto University campus (Espoo, Finland) and converted into shapes using codes inspired by my first written language, Hangul (한글) -- the writing system of Korea. The resulting designs are illegible yet mimic text, evoking a sense of hidden meaning.</p><p> <b>Codes/Rules</b>: </p> <ul><li>For a wind with speed 2kph or less, draw a short and straight stroke that starts from the middle.</li> <li>For a wind with speed 3 kph, draw a long and straight stroke that starts from the middle.</li> <li>For a wind with speed that is even-numbered and between 10kph and 16kph, draw a circle. If the speed is exactly 10kph, put a small circle towards the wind direction. For all other circles, place the circle in the middle and make its size dependent on its speed.</li> <li>For a wind with speed 18 kph or 20kph, draw a rectangle. Rectangle is positioned in the middle and its size reflects the speed.</li> <li>For all other winds, draw a stroke that starts from the previous starting point. The stroke’s length is dependent on the wind speed while the angle is dependent on the wind direction.</li> <li>Combine 5 different winds to create one unit. This is similar to how Hangul works, where 5 separate letters (which are lines, circles, squares, etc.) combine into a single syllabic unit. Those syllabic units are then combined into words.</li>"
+const modalText = "<p>If wind could write, what would its words look like? Wind Typography is a visualization of wind data based on imagined typographic rules. The speeds and directions of winds were collected on Aalto campus in the balconies of Marsio building (15 to 16 November) and Väre building (6 to 7 December). They were then converted into shapes using codes inspired by Hangul (한글) -- the writing system of Korea. The resulting designs are illegible yet mimic text, evoking a sense of hidden meaning.</p><p> <b>Codes/Rules</b>: </p> <ul><li>For a wind with speed 2kph or less, draw a short and straight stroke that starts from the middle.</li> <li>For a wind with speed 3 kph, draw a long and straight stroke that starts from the middle.</li> <li>For a wind with speed that is even-numbered and between 10kph and 16kph, draw a circle. If the speed is exactly 10kph, put a small circle towards the wind direction. For all other circles, place the circle in the middle and make its size dependent on its speed.</li> <li>For a wind with speed 18 kph or 20kph, draw a rectangle. Rectangle is positioned in the middle and its size reflects the speed.</li> <li>For all other winds, draw a stroke that starts from the previous starting point. The stroke’s length is dependent on the wind speed while the angle is dependent on the wind direction.</li> <li>Combine 5 different winds to create one unit. This is similar to how Hangul works, where 5 separate letters (which are lines, circles, squares, etc.) combine into a single syllabic unit. Those syllabic units are then combined into words.</li>"
