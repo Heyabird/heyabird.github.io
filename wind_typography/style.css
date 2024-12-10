@@ -38,7 +38,7 @@ p {
 }
 
 p  {
-  font-size: 17px;
+  font-size: 16px;
 }
 
 
@@ -70,7 +70,7 @@ p  {
     position: relative;
     z-index: 2;
     background: #b9e7ff;
-    padding: 20px;
+    padding: 38px;
     min-width: 600px;
     border-radius: 8px;
     box-shadow: 0 4px 19px rgba(0,0,0,0.22);
@@ -92,7 +92,7 @@ p  {
     margin: auto;
     display: flex;
     text-align: center;
-    font-size: 17px;
+    font-size: 15px;
   }
 
   /* font */
@@ -132,3 +132,15 @@ p  {
     font-style: italic;
   }
   
+  .img-holder {
+    text-align:center;
+    padding: 10px;
+  }
+
+ .img-holder img {
+    margin-bottom: 20px;
+  }
+
+  .small-text {
+    font-size: 12px;
+  }
