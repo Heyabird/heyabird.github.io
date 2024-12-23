@@ -3,6 +3,7 @@
 let table;
 var wind_data = [];
 let wind_data_slices = [];
+let timeButtonText = "time ❌";
 
 function preload() {
   table = loadTable("wind_direction_and_speed_2.csv", "csv", "header");
@@ -15,6 +16,7 @@ let colSize; let rowSize;
 let grid_centers = [];
 let padding = 1.5;
 let scribble = new Scribble();
+let show_time = false;
 //   colSize = width/columns;
 //   rowSize = height/rows;
 
@@ -68,6 +70,16 @@ let startingIndex = 0;
 
 var backgroundColor = "#FFFDD0";
 
+function toggleTime() {
+  if (show_time === true) {
+    show_time = false;
+    timeButtonText = 'time ❌';
+  } else {
+    show_time = true;
+    timeButtonText = 'time ⭕️';
+  }
+}
+
 function draw() {
     frameRate(4);
 
@@ -79,7 +91,9 @@ function draw() {
     createFibers();
 
     scale(.43);
-
+    let timeButton = createButton(timeButtonText);
+    timeButton.position(50, 50);
+    timeButton.mousePressed(toggleTime);
     
     
     //grid
@@ -158,7 +172,7 @@ function windstrokes(starting_index) {
 
   // how many wind strokes to include in one "letter"
   num_strokes = 5;
-  for (i=0; i<1000; i=i+5) {
+  for (i=0; i<wind_data.length; i=i+5) {
     wind_data_slice = wind_data.slice(i, i+num_strokes);
     wind_data_slices.push(wind_data_slice);
   }   
@@ -174,90 +188,112 @@ function windstrokes(starting_index) {
 }
 
 function draw_type(wind_data, s_x, s_y) {
-    noFill();
-    starting_x = s_x;
-    starting_y = s_y;
-   for (let i = 0; i < wind_data.length; i++) {
+  noFill();
+  // stroke('black');
+  if (color === true) {
+    // alert('hi')
+    stroke(strokeColor);
+  }
+  starting_x = s_x;
+  starting_y = s_y;
+ for (let i = 0; i < wind_data.length; i++) {
+   
+    t = wind_data[i];
+    s = t["speed"];
+    d = t["direction"]; 
+    time = t["time"];
 
-      t = wind_data[i];
-      s = t["speed"];
-      d = t["direction"]; 
-      time = t["time"];
-
-      strokeWeight(50);
+    strokeWeight(55);
 
 
-    if (s == 1000 || s == 1200 || s == 1400 || s == 1600 || s == 1800) {
-        if (s == 1000) {
-            if (d > 270) {
-                // ellipse(s_x +(s/3), s_y +(s/3), (s/3), (s/3));
-                scribble.scribbleEllipse(s_x +(s/3), s_y +(s/3), (s/3), (s/3));
-            } else if (d > 180) {
-                // ellipse(s_x -(s/3), s_y +(s/3), (s/3), (s/3));
-                scribble.scribbleEllipse(s_x -(s/3), s_y +(s/3), (s/3), (s/3));
-            } else if (d > 90) {
-                // ellipse(s_x -(s/3), s_y -(s/3), (s/3), (s/3));
-                scribble.scribbleEllipse(s_x -(s/3), s_y -(s/3), (s/3), (s/3));
-            } else if (d > 0) {
-                // ellipse(s_x + (s/3), s_y -(s/3), (s/3), (s/3));
-                scribble.scribbleEllipse(s_x + (s/3), s_y -(s/3), (s/3), (s/3));
-            }
-        } else {
-            // ellipse(s_x, s_y, (s/2), (s/2));
-            scribble.scribbleEllipse(s_x, s_y, (s/2), (s/2));
-        }
-    } else if (s == 300) {
-        // stroke('red');
-        if (d >= 180) {
-            // horizontal line
-            // line(s_x-(s*2), s_y, s_x+(s*2), s_y);
-            // print("s2: ", s);
-            scribble.scribbleLine(s_x-(s*2), s_y, s_x+(s*2), s_y);
-        } else {
-            // vertical line
-            // line(s_x, s_y-(s*2), s_x, s_y+(s*2));
-            scribble.scribbleLine(s_x, s_y-(s*2), s_x, s_y+(s*2));
-        }
-        // stroke('black');
-    }
-    else if (s == 100 || s == 200) {
-        if (d > 270) {
-            // line(s_x, s_y+s*3, s_x, s_y);
-            scribble.scribbleLine(s_x, s_y+s*3, s_x, s_y);
-        } else if (d > 180) {
-            // line(s_x-s*3, s_y, s_x, s_y);
-            scribble.scribbleLine(s_x-s*3, s_y, s_x, s_y);
-        } else if (d > 90) {
-            // line(s_x, s_y, s_x, s_y-s*3);
-            scribble.scribbleLine(s_x, s_y, s_x, s_y-s*3);
-        } else if (d> 45) {
-            // line(s_x, s_y);
-            scribble.scribbleLine(s_x, s_y);
-        } else if (d > 0) {
-            scribble.scribbleLine(s_x, s_y, s_x+s*3, s_y);
-            // line(s_x, s_y, s_x+s*3, s_y);
-        }
-    } else if (s == 0) {
-        // skip
-    }
-    else {
-        coordinates = get_end_coordinates(s, d);
-        x = coordinates[0] + s_x;
-        y = coordinates[1] + s_y;
-        // line(starting_x, starting_y, x, y);
-        scribble.scribbleLine(starting_x, starting_y, x, y);
-        starting_x = x;
-        starting_y = y;
+  if (s == 1000 || s == 1200 || s == 1400 || s == 1600 || s == 1800 || s == 2000) {
+      if (s == 1000) {
+          if (d > 270) {
+              // ellipse(s_x +(s/3), s_y +(s/3), (s/3), (s/3));
+              scribble.scribbleEllipse(s_x +(s/3), s_y +(s/3), (s/3), (s/3));
+          } else if (d > 180) {
+              // ellipse(s_x -(s/3), s_y +(s/3), (s/3), (s/3));
+              scribble.scribbleEllipse(s_x -(s/3), s_y +(s/3), (s/3), (s/3));
+          } else if (d > 90) {
+              // ellipse(s_x -(s/3), s_y -(s/3), (s/3), (s/3));
+              scribble.scribbleEllipse(s_x -(s/3), s_y -(s/3), (s/3), (s/3));
+          } else if (d > 0) {
+              // ellipse(s_x + (s/3), s_y -(s/3), (s/3), (s/3));
+              scribble.scribbleEllipse(s_x + (s/3), s_y -(s/3), (s/3), (s/3));
+          }
+      } else if (s == 1800 || s == 2000) {
+        scribble.scribbleRect(s_x, s_y, (s/2), (s/2));
       }
-      strokeWeight(5);
-      textSize(120);
-      // because each square shows 5 different brush strokes / wind stroke, let's only record the first timestamp
-      if (i==0) {
-        // text(time, s_x-690, s_y+900);
+      else {
+        // ellipse(s_x, s_y, (s/2), (s/2));
+        scribble.scribbleEllipse(s_x, s_y, (s/2), (s/2));
       }
-    //   console.log("i:", i, "time: ", time);
-    //   } // HEYA: comment out
+  } else if (s == 300) {
+      // stroke('red');
+      if (d >= 180) {
+          // horizontal line
+          // line(s_x-(s*2), s_y, s_x+(s*2), s_y);
+          // print("s2: ", s);
+          scribble.scribbleLine(s_x-(s*2), s_y, s_x+(s*2), s_y);
+      } else {
+          // vertical line
+          // line(s_x, s_y-(s*2), s_x, s_y+(s*2));
+          scribble.scribbleLine(s_x, s_y-(s*2), s_x, s_y+(s*2));
+      }
+      // stroke('black');
+  }
+  else if (s == 100 || s == 200) {
+      if (d > 270) {
+          // line(s_x, s_y+s*3, s_x, s_y);
+          scribble.scribbleLine(s_x, s_y+s*3, s_x, s_y);
+      } else if (d > 180) {
+          // line(s_x-s*3, s_y, s_x, s_y);
+          scribble.scribbleLine(s_x-s*3, s_y, s_x, s_y);
+      } else if (d > 90) {
+          // line(s_x, s_y, s_x, s_y-s*3);
+          scribble.scribbleLine(s_x, s_y, s_x, s_y-s*3);
+      } else if (d> 45) {
+          // line(s_x, s_y);
+          scribble.scribbleLine(s_x, s_y);
+      } else if (d > 0) {
+          scribble.scribbleLine(s_x, s_y, s_x+s*3, s_y);
+          // line(s_x, s_y, s_x+s*3, s_y);
+      }
+  } else if (s == 0) {
+      // skip
+  }
+  else {
+      coordinates = get_end_coordinates(s, d);
+      x = coordinates[0] + s_x;
+      y = coordinates[1] + s_y;
+      // line(starting_x, starting_y, x, y);
+      scribble.scribbleLine(starting_x, starting_y, x, y);
+      starting_x = x;
+      starting_y = y;
     }
+    strokeWeight(5);
+    textSize(120);
+    // because each square shows 5 different brush strokes / wind stroke, let's only record the first timestamp
+    if (i==0 && show_time === true) {
+      fill('gray');
+      textSize(180);
+
+      newTime = time.slice(10,20);
+      // print("oldDate:", oldDate);
+      // print("date: ", date);
+      // if (oldDate != date) {
+      //     // ellipse(100, 100, 500, 500);
+      //     text(date, s_x-400, s_y+700);
+      // }
+      text(newTime, s_x-320, s_y+750);
+      // oldDate = date;
+      noFill();
+    } else {
+      // nothing
+    }
+  //   console.log("i:", i, "time: ", time);
+  //   } // HEYA: comment out
+  }
 }
 
 function createTexture(){
