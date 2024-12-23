@@ -21,6 +21,7 @@ let range_size = 91;
 let timeButtonText = "time ❌";
 let zoom_level = 1;
 let extraScale = 1;
+let move = 0;
 
 function setup() {
   canvas_size = 750
@@ -101,6 +102,7 @@ function draw() {
     range_size = 121;
     num_col = num_row = 9;
     extraScale = 1;
+    move = 200;
   } else if (zoom_level == 2) {
     range_size= 36;
     num_col = num_row = 5;
@@ -110,6 +112,7 @@ function draw() {
     range_size = 286;
     num_row = num_col = 14;
     extraScale = .7;
+    move = -500;
   }
 
   console.log("zoom_level: ", zoom_level)
@@ -126,7 +129,7 @@ function draw() {
 
     for (i=0; i<=(num_row-1)*2; i+=padding) {
       for (j=0; j<=(num_col-1)*2; j+=padding) {
-          let grid_coordinates = [i*1000, j*1000];
+          let grid_coordinates = [i*1000+move, j*1000+move];
           grid_centers.push(grid_coordinates);
       }
     }
@@ -227,7 +230,7 @@ function windstrokes(starting_index) {
           fill('gray');
           textSize(300);
           date = time.slice(0,10) + " (UTC)";
-          text(date, -600, -500);  
+          text(date, -600 + move , -500 + move);  
         }
     }
 
