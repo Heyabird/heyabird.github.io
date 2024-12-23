@@ -98,6 +98,8 @@ function info() {
 }
 
 function draw() {
+
+
   if (zoom_level == 1) {
     range_size = 121;
     num_col = num_row = 9;
@@ -116,47 +118,63 @@ function draw() {
   }
 
   console.log("zoom_level: ", zoom_level)
-    frameRate(10);
+  frameRate(10);
 
-    // noLoop();
-    background(backgroundColor);
-    stroke("#000000");
-    noFill();
-    strokeWeight(1);
-    // createFibers();
+  // noLoop();
+  background(backgroundColor);
+  stroke("#000000");
+  noFill();
+  strokeWeight(1);
+  // createFibers();
+  
 
-    scale(.43);
+  scale(.43);
 
-    for (i=0; i<=(num_row-1)*2; i+=padding) {
-      for (j=0; j<=(num_col-1)*2; j+=padding) {
-          let grid_coordinates = [i*1000+move, j*1000+move];
-          grid_centers.push(grid_coordinates);
-      }
+  for (i=0; i<=(num_row-1)*2; i+=padding) {
+    for (j=0; j<=(num_col-1)*2; j+=padding) {
+        let grid_coordinates = [i*1000+move, j*1000+move];
+        grid_centers.push(grid_coordinates);
     }
-    console.log("grid_centers: ", grid_centers);
+  }
+  textSize(200);
+  fill("black");
+  title = text("TEST", 100, 100);
+  console.log("grid_centers: ", grid_centers);
 
-    let timeButton = createButton(timeButtonText);
-    timeButton.position(50, 50);
-    timeButton.mousePressed(toggleTime);
-    timeButton.size(68, 25);
-    
-    let zoomInButton = createButton('zoom ⬆️');
-    zoomInButton.position(50, 85);
-    zoomInButton.mousePressed(zoomIn);
-    zoomInButton.size(68, 25);
+  let timeButton = createButton(timeButtonText);
+  timeButton.position(50, 50);
+  timeButton.mousePressed(toggleTime);
+  timeButton.size(68, 25);
+  
+  let zoomInButton = createButton('zoom ⬆️');
+  zoomInButton.position(50, 85);
+  zoomInButton.mousePressed(zoomIn);
+  zoomInButton.size(68, 25);
 
-    let zoomOutButton = createButton('zoom ⬇️');
-    zoomOutButton.position(50, 120);
-    zoomOutButton.mousePressed(zoomOut);
-    zoomOutButton.size(68, 25);
+  let zoomOutButton = createButton('zoom ⬇️');
+  zoomOutButton.position(50, 120);
+  zoomOutButton.mousePressed(zoomOut);
+  zoomOutButton.size(68, 25);
 
-    let colorButton = createButton('color ♻️');
-    colorButton.position(50, 155);
-    colorButton.mousePressed(changeBackgroundColor);
-    colorButton.size(68, 25);
+  let colorButton = createButton('color ♻️');
+  colorButton.position(50, 155);
+  colorButton.mousePressed(changeBackgroundColor);
+  colorButton.size(68, 25);
 
+  let infoButton = createButton("what's this?");
+  infoButton.position(50, windowHeight - 77);
+  infoButton.mousePressed(showModal);
+  infoButton.size(90, 27);
+  
 
   windstrokes(startingIndex);
+
+  modal = select('.modal-wrapper');
+  modalButton = select('#modal-button');
+  modalTitle = select('#modal-title');
+  modalDescription = select('#modal-description');
+
+  updateModal("Wind Typography", modalText);
 }
 // Change direction when the user scrolls the mouse wheel.
 function mouseWheel(event) {
@@ -411,5 +429,25 @@ function get_end_coordinates(a, C) {
   return ([f, d]);
 }
 
+function modalButtonClicked() {
+  hideModal()
+}
+
+function updateModal(title, description) {
+modalTitle.elt.innerHTML = title;
+modalDescription.elt.innerHTML = description
+
+}
+
+function showModal() {
+isModalVisible = true;
+modal.elt.style.display = 'flex'
+}
+
+function hideModal() {
+isModalVisible = false;  
+modal.elt.style.display = 'none'
+}
 
 
+const modalText = "<p>By Heya Kwon // @heya.world // www.heya.world</p><br/><p><b>If wind could write, what would its words look like?</b></p> <p>Wind Typography is a <b>visualization of wind data based on imagined typographic rules</b>. The <b>speeds</b> and <b>directions</b> of winds were collected from Aalto campus, on the balconies of Marsio building (15 to 16 November) and Väre building (6 to 7 December). They were then <b>converted into typographic shapes</b> using codes inspired by my first written language, <b>Hangul (한글)</b> -- the writing system of Korea. The resulting designs are illegible yet mimic text, evoking a sense of hidden meaning.</p><p><br/> <b>Codes/Rules</b>: </p> <ul><li>For a wind with speed 0 kph, draw nothing.</li><li>For a wind with speed 1 or 2 kph, draw a short and straight stroke that starts from the center of the grid.</li> <li>For a wind with speed 3 kph, draw a long and straight stroke that is centered on the grid.</li> <li>For a wind with speed that is even-numbered and bigger than 10 kph but less than 16 kph, draw a circle. If the speed is exactly 10kph, put a small circle positioned towards the angle of the wind direction. For all other circles, place the circle in the center of the grid and make its size dependent on its speed.</li> <li>For a wind with speed 18 kph or 20 kph, draw a rectangle. Rectangle is always positioned in the middle and its size reflects the speed.</li> <li>For all other winds, draw a stroke that starts from the previous ending point (if it is the first stroke of its unit, start from the center of the grid). The stroke’s length reflects the wind speed while the angle reflects the wind direction.</li> <li>Combine 5 different winds to create one unit. This is similar to how Hangul works, where 5 separate letters (represented by lines, circles, squares, etc.) combine into a single syllabic unit. Those syllabic units are then combined into words.</li></ul><br/><div class='img-holder'><img src='me_and_wind_meter.jpg' alt='a person (me) waving on a snowing balcony with a wind meter installed on the background' width='140'/><br/><p class='small-text'><i>A hello from my frozen hands and the wind meter, on Marsio balcony.<br/>We both felt the wind.</i></p></div>"
