@@ -80,6 +80,18 @@ function toggleTime() {
   }
 }
 
+function zoom(direction) {
+  if (direction == "in") {
+
+  } else {
+
+  }
+}
+
+function info() {
+
+}
+
 function draw() {
     frameRate(4);
 
@@ -94,8 +106,23 @@ function draw() {
     let timeButton = createButton(timeButtonText);
     timeButton.position(50, 50);
     timeButton.mousePressed(toggleTime);
+    timeButton.size(68, 25);
     
-    
+    let zoomInButton = createButton('zoom ⬆️');
+    zoomInButton.position(50, 85);
+    zoomInButton.mousePressed(zoom('in'));
+    zoomInButton.size(68, 25);
+
+    let zoomOutButton = createButton('zoom ⬇️');
+    zoomOutButton.position(50, 120);
+    zoomOutButton.mousePressed(zoom('out'));
+    zoomOutButton.size(68, 25);
+
+    let colorButton = createButton('color ♻️');
+    colorButton.position(50, 155);
+    colorButton.mousePressed(changeBackgroundColor);
+    colorButton.size(68, 25);
+
     //grid
     for (let i=0; i<num_col; i++) {
         for (let j=0; j<num_row; j++) {
@@ -142,10 +169,10 @@ function keyPressed() {
 function mousePressed() {
     if (mouseX < 400 && startingIndex > 0) {
         startingIndex -= 1;
-        changeBackgroundColor();
+        // changeBackgroundColor();
     } else if (mouseX > 400) {
         startingIndex += 1;
-        changeBackgroundColor();
+        // changeBackgroundColor();
     } 
 }
 
