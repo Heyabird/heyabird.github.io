@@ -138,6 +138,7 @@ function draw() {
   }
   textSize(200);
   fill("black");
+  // title = text("Wind Typography", -400, 100);
   console.log("grid_centers: ", grid_centers);
 
   let timeButton = createButton(timeButtonText);
