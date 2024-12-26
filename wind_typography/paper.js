@@ -6,7 +6,7 @@ let wind_data_slices = [];
 
 
 function preload() {
-  table = loadTable("wind_direction_and_speed_2.csv", "csv", "header");
+  table = loadTable("wind_direction_and_speed_3.csv", "csv", "header");
 }
 
 //grid
@@ -118,7 +118,7 @@ function draw() {
   }
 
   console.log("zoom_level: ", zoom_level)
-  frameRate(10);
+  // frameRate(10);
 
   // noLoop();
   background(backgroundColor);
@@ -176,35 +176,53 @@ function draw() {
   modalButton.mousePressed(modalButtonClicked);
 
   updateModal("Wind Typography", modalText);
+
+//   if (mouseIsPressed === true) {
+//     if (mouseX > 400) {
+//         startingIndex += 1
+//     } else if (mouseX < 400 && startingIndex > 0) {
+//         startingIndex -= 1;
+//     }
+//   }
+
+  if (keyIsPressed === true && keyCode === RIGHT_ARROW  ) {
+      startingIndex += 15;
+  } else if (keyIsPressed === true && keyCode === LEFT_ARROW && startingIndex > 0) {
+      startingIndex -= 15;
+  }
+  if (keyIsPressed === true && keyCode === DOWN_ARROW  ) {
+    startingIndex += 1;
+  } else if (keyIsPressed === true && keyCode === UP_ARROW && startingIndex > 0) {
+    startingIndex -= 1;
+  }
+
 }
 // Change direction when the user scrolls the mouse wheel.
 function mouseWheel(event) {
     if (event.delta <= 0 && startingIndex > 0) {
-        startingIndex -= 1;
+        // startingIndex -= 1;
         // changeBackgroundColor();
     } else {
-        startingIndex += 1;
+        // startingIndex += 1;
         // changeBackgroundColor();
     }
 }
 
 function keyPressed() {
-    if (key === "ArrowUp" && startingIndex > 0) {
-        startingIndex -= 1;
-        // changeBackgroundColor();
-    }
-    else if (key === "ArrowDown") {
-        startingIndex += 1;
-        // changeBackgroundColor();
-    }
+    // if (key === "ArrowUp" && startingIndex > 0) {
+    //     startingIndex -= 1;
+    // }
+    // else if (key === "ArrowDown") {
+    //     startingIndex += 1;
+    // }
 }
 
 function mousePressed() {
     if (mouseX < 400 && startingIndex > 0) {
-        startingIndex -= 1;
+        // startingIndex -= 1;
         // changeBackgroundColor();
     } else if (mouseX > 400) {
-        startingIndex += 1;
+        // startingIndex += 1;
         // changeBackgroundColor();
     } 
 }

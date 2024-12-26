@@ -19,14 +19,14 @@ canvas {
 #announcement {
     z-index: 100;
 }
-p {
+p, h2 {
     margin: 40px ;
     /* font-family: 'arial'; */
     font-size: 25px;
 }
 
 .instruction {
-
+  text-align: right;
 }
 
 .description {
