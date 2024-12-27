@@ -161,10 +161,10 @@ function draw() {
   colorButton.mousePressed(changeBackgroundColor);
   colorButton.size(68, 25);
 
-  let infoButton = createButton("what's this?");
+  let infoButton = createButton("<b>info 💨</b>");
   infoButton.position(50, windowHeight - 77);
   infoButton.mousePressed(showModal);
-  infoButton.size(90, 27);
+  infoButton.size(68, 25);
   
 
   windstrokes(startingIndex);
@@ -187,12 +187,12 @@ function draw() {
 
   if (keyIsPressed === true && keyCode === RIGHT_ARROW  ) {
       startingIndex += 15;
-  } else if (keyIsPressed === true && keyCode === LEFT_ARROW && startingIndex > 0) {
+  } else if (keyIsPressed === true && keyCode === LEFT_ARROW && startingIndex > 15) {
       startingIndex -= 15;
   }
   if (keyIsPressed === true && keyCode === DOWN_ARROW  ) {
     startingIndex += 1;
-  } else if (keyIsPressed === true && keyCode === UP_ARROW && startingIndex > 0) {
+  } else if (keyIsPressed === true && keyCode === UP_ARROW && startingIndex > 1) {
     startingIndex -= 1;
   }
 
@@ -469,4 +469,4 @@ modal.elt.style.display = 'none'
 }
 
 
-const modalText = "<p><b>If wind could write, what would its words look like?</b></p> <p>Wind Typography is a <b>visualization of wind data based on imagined typographic rules</b>. The <b>speeds</b> and <b>directions</b> of winds were collected from Aalto campus, on the balconies of Marsio building (15 to 16 November) and Väre building (6 to 7 December). They were then <b>converted into typographic shapes</b> using codes inspired by my first written language, <b>Hangul (한글)</b> -- the writing system of Korea. The resulting designs are illegible yet mimic text, evoking a sense of hidden meaning.</p><p><br/> <b>Codes/Rules</b>: </p> <ul><li>For a wind with speed 0 kph, draw nothing.</li><li>For a wind with speed 1 or 2 kph, draw a short and straight stroke that starts from the center of the grid.</li> <li>For a wind with speed 3 kph, draw a long and straight stroke that is centered on the grid.</li> <li>For a wind with speed that is even-numbered and bigger than 10 kph but less than 16 kph, draw a circle. If the speed is exactly 10kph, put a small circle positioned towards the angle of the wind direction. For all other circles, place the circle in the center of the grid and make its size dependent on its speed.</li> <li>For a wind with speed 18 kph or 20 kph, draw a rectangle. Rectangle is always positioned in the middle and its size reflects the speed.</li> <li>For all other winds, draw a stroke that starts from the previous ending point (if it is the first stroke of its unit, start from the center of the grid). The stroke’s length reflects the wind speed while the angle reflects the wind direction.</li> <li>Combine 5 different winds to create one unit. This is similar to how Hangul works, where 5 separate letters (represented by lines, circles, squares, etc.) combine into a single syllabic unit. Those syllabic units are then combined into words.</li></ul><br/><div class='img-holder'><img src='me_and_wind_meter.jpg' alt='a person (me) waving on a snowing balcony with a wind meter installed on the background' width='140'/><br/><p class='small-text'><i>A hello from my frozen hands and the wind meter, on Marsio balcony.<br/>We both felt the wind.</i></p></div>"
+const modalText = "<p>Wind Typography is a <b>visualization of wind data based on imagined typographic rules</b>. The <b>speeds</b> and <b>directions</b> of winds were collected from Aalto University (Espoo, Finland), on the balconies of Marsio (15 to 16 November) and Väre building (6 to 7 December). They were then <b>converted into typographic shapes</b> using codes inspired by my first written language, <b>Hangul (한글)</b> -- the writing system of Korea. The resulting designs are illegible yet mimic text, evoking a sense of hidden meaning.</p><p><br/> <b>Codes/Rules</b>: </p> <ul><li>For a wind with speed 0 kph, draw nothing.</li><li>For a wind with speed 1 or 2 kph, draw a short and straight stroke that starts from the center of the grid.</li> <li>For a wind with speed 3 kph, draw a long and straight stroke that is centered on the grid.</li> <li>For a wind with speed that is even-numbered and bigger than 10 kph but less than 16 kph, draw a circle. If the speed is exactly 10kph, put a small circle positioned towards the angle of the wind direction. For all other circles, place the circle in the center of the grid and make its size dependent on its speed.</li> <li>For a wind with speed 18 kph or 20 kph, draw a rectangle. Rectangle is always positioned in the middle and its size reflects the speed.</li> <li>For all other winds, draw a stroke that starts from the previous ending point (if it is the first stroke of its unit, start from the center of the grid). The stroke’s length reflects the wind speed while the angle reflects the wind direction.</li> <li>Combine 5 different winds to create one unit. This is similar to how Hangul works, where 5 separate letters (represented by lines, circles, squares, etc.) combine into a single syllabic unit. Those syllabic units are then combined into words.</li></ul><br/></div>"

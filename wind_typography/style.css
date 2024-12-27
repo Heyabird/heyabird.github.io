@@ -19,7 +19,7 @@ canvas {
 #announcement {
     z-index: 100;
 }
-p, h2 {
+p, h3 {
     margin: 40px ;
     /* font-family: 'arial'; */
     font-size: 25px;
@@ -27,7 +27,17 @@ p, h2 {
 
 .instruction {
   text-align: right;
+  position: relative;
+  z-index: 2;
+
+  /* background-color: white; */
 }
+
+p.instruction {
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, .5);
+}
+
 
 .description {
     vertical-align: bottom;
@@ -38,7 +48,7 @@ p, h2 {
 }
 
 p  {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 
@@ -72,6 +82,7 @@ p  {
     background: #b9e7ff;
     padding: 38px;
     min-width: 400px;
+    max-width: 850px;
     border-radius: 8px;
     box-shadow: 0 4px 19px rgba(0,0,0,0.22);
     margin: 100px;
