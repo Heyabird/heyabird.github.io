@@ -13,6 +13,7 @@ canvas {
   
     /* This centers our sketch vertically. */
     align-items: center;
+    top: initial !important;
 
 }
 
