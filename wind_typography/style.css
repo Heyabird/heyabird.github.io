@@ -5,15 +5,17 @@ html, body {
     font-family: "arial", sans seif;
 }
 canvas {
-    margin: 0;
-    display: flex;
+    margin: auto  !important;
+    display: flex !important;
   
     /* This centers our sketch horizontally. */
     justify-content: center;
   
     /* This centers our sketch vertically. */
     align-items: center;
-    top: initial !important;
+    height: 100vh !important;
+    width: auto !important;
+    left: 45vh !important;
 
 }
 
