@@ -76,11 +76,14 @@ function preload() {
 }
 
 function setup() {
-  var myCanvas = createCanvas(800, 500);
+  var myCanvas = createCanvas(800, 600);
   myCanvas.parent("container");
+  background('#fdfff0');
 }
 
 function draw() {
+  // add some margin
+  translate(10, 30);
 }
 
 var output = ""
@@ -119,7 +122,7 @@ function stretchType(duration, keyString, which) {
 
 // let's start a new line when the letters go out of the borders
 function getCoordinates(pt, duration) {
-  x = (pt%800) - (duration / 2)
-  y = floor(pt/800) * 100 
+  x = (pt%750) - (duration / 2)
+  y = floor(pt/750) * 50 
 }
 
