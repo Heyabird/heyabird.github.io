@@ -15,7 +15,7 @@ canvas {
     align-items: center;
     height: 100vh !important;
     width: auto !important;
-    left: 45vh !important;
+    left: 50vh !important;
 
 }
 
@@ -29,7 +29,7 @@ p, h3 {
 }
 
 .instruction {
-  text-align: right;
+  text-align: left;
   position: relative;
   /* z-index: 2; */
 

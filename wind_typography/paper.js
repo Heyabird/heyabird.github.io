@@ -32,7 +32,33 @@ function setup() {
   get_wind_data();
 
 
+  let timeButton = createButton(timeButtonText);
+  timeButton.position(50, 450);
+  timeButton.mousePressed(toggleTime);
+  timeButton.size(68, 25);
+  
+  let zoomInButton = createButton('zoom ⬆️');
+  zoomInButton.position(50, 485);
+  zoomInButton.mousePressed(zoomIn);
+  zoomInButton.size(68, 25);
 
+  let zoomOutButton = createButton('zoom ⬇️');
+  zoomOutButton.position(50, 520);
+  zoomOutButton.mousePressed(zoomOut);
+  zoomOutButton.size(68, 25);
+
+  let colorButton = createButton('color ♻️');
+  colorButton.position(50, 555);
+  colorButton.mousePressed(changeBackgroundColor);
+  colorButton.size(68, 25);
+
+  let infoButton = createButton("<b>info 💨</b>");
+  infoButton.position(50, windowHeight - 77);
+  infoButton.mousePressed(showModal);
+  infoButton.size(68, 25);
+  infoButton.style('background-color', 'black');
+  infoButton.style('color', 'white');
+  infoButton.style('border-radius', '5px');
 
     // print("grid_coor: ", grid_centers)
 
@@ -141,30 +167,8 @@ function draw() {
   // title = text("Wind Typography", -400, 100);
   console.log("grid_centers: ", grid_centers);
 
-  let timeButton = createButton(timeButtonText);
-  timeButton.position(50, 50);
-  timeButton.mousePressed(toggleTime);
-  timeButton.size(68, 25);
   
-  let zoomInButton = createButton('zoom ⬆️');
-  zoomInButton.position(50, 85);
-  zoomInButton.mousePressed(zoomIn);
-  zoomInButton.size(68, 25);
 
-  let zoomOutButton = createButton('zoom ⬇️');
-  zoomOutButton.position(50, 120);
-  zoomOutButton.mousePressed(zoomOut);
-  zoomOutButton.size(68, 25);
-
-  let colorButton = createButton('color ♻️');
-  colorButton.position(50, 155);
-  colorButton.mousePressed(changeBackgroundColor);
-  colorButton.size(68, 25);
-
-  let infoButton = createButton("<b>info 💨</b>");
-  infoButton.position(50, windowHeight - 77);
-  infoButton.mousePressed(showModal);
-  infoButton.size(68, 25);
   
 
   windstrokes(startingIndex);
