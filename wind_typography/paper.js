@@ -31,29 +31,32 @@ function setup() {
 
   get_wind_data();
 
+  let left_margin = 40;
+  let y_start = 360;
+
 
   let timeButton = createButton(timeButtonText);
-  timeButton.position(50, 450);
+  timeButton.position(left_margin, y_start);
   timeButton.mousePressed(toggleTime);
   timeButton.size(68, 25);
   
   let zoomInButton = createButton('zoom ⬆️');
-  zoomInButton.position(50, 485);
+  zoomInButton.position(left_margin, y_start + 35);
   zoomInButton.mousePressed(zoomIn);
   zoomInButton.size(68, 25);
 
   let zoomOutButton = createButton('zoom ⬇️');
-  zoomOutButton.position(50, 520);
+  zoomOutButton.position(left_margin, y_start + 35 * 2);
   zoomOutButton.mousePressed(zoomOut);
   zoomOutButton.size(68, 25);
 
   let colorButton = createButton('color ♻️');
-  colorButton.position(50, 555);
+  colorButton.position(left_margin, y_start + 35 * 3);
   colorButton.mousePressed(changeBackgroundColor);
   colorButton.size(68, 25);
 
   let infoButton = createButton("<b>info 💨</b>");
-  infoButton.position(50, windowHeight - 77);
+  infoButton.position(left_margin, windowHeight - 77);
   infoButton.mousePressed(showModal);
   infoButton.size(68, 25);
   infoButton.style('background-color', 'black');
