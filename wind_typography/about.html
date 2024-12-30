@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Heya!</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V89MK45S99"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-V89MK45S99")</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <meta charset="utf-8" />
+    <style>
+      img { max-width: 500px; height: auto; margin-top: 10px;}
+      /* .flex-container { width: auto;} */
+      /* .flex-container img { height: 96.9px; width: auto;} */
+      #title {font-size: 40px;}
+      #title-img {max-width: 800px;
+         padding-left: 20px; padding-bottom: 20px;}
+      .col { padding: 1px; }
+      .images { padding: 30px 0 15px 0;}
+      .images img {padding: 0 0 10px  0;}
+      .exhibition img {max-width: 300px;}
+      p, h2, h3, .text-content h1 { margin-left:0; padding-left:0;}
+      .text-content h1 { font-weight: 600; margin-top: 60px;}
+      /* div.flex-container {display: flex;} */
+      @media only screen and (max-width: 950px) {
+        .flex-container img { width: 100%; height: auto;}
+        #container {
+          display: none;
+        }
+        .images { padding: 20px 0 20px 0;}
+        .images img {padding: 0 0 5px  0;}
+
+
+      }
+    </style>
+  </head>
+  <body id="stretch-marks-body">
+    <a id="site-header" href="../index.html"><h1>heya, world.</h1></a>
+
+    <!-- <a id="site-header" href="index">back home</a> -->
+    <nav>
+      <a href="code.html"><b>← back to code</b></a>
+  </nav>
+
+  <div class="text-container">
+    <h1 id="title"><b>Wind Typography</b></h1>
+    <img id="title-img" src="assets/wind_typo_horizontal.png"/>
+    <div class="text-content">
+      <!-- <div class="images"> -->
+      <!-- </div> -->
+      <p>If wind could write, what would its words look like? </p>
+      <p>
+        Wind Typography is a <b>visualization of wind data based on imagined typographic rules</b>. 
+        The <b>speeds</b> and <b>directions</b> of winds were collected from Aalto University (Espoo, Finland), 
+        on the balconies of Marsio (15 to 16 November) and Väre building (6 to 7 December). They were then 
+        <b>converted into typographic shapes</b> using codes inspired by my first written language, <b>Hangul (한글)</b> 
+        -- the writing system of Korea. The resulting designs are illegible yet mimic text, evoking a sense of hidden meaning.
+      </p>
+    <h1 id="live-demo">Live Demo</h1>
+    <p><a href="https://heya.world/wind_typography/">https://heya.world/wind_typography/</a></p>
+    <h1 id="codes-rules-">Codes/Rules:</h1>
+    <ul>
+    <li>For a wind with speed 0 kph, draw nothing.</li>
+    <li>For a wind with speed 1 or 2 kph, draw a short and straight stroke that starts from the center of the grid.</li>
+    <li>For a wind with speed 3 kph, draw a long and straight stroke that is centered on the grid.</li>
+    <li>For a wind with speed that is even-numbered and bigger than 10 kph but less than 16 kph, draw a circle. If the speed is exactly 10kph, put a small circle positioned towards the angle of the wind direction. For all other circles, place the circle in the center of the grid and make its size dependent on its speed.</li>
+    <li>For a wind with speed 18 kph or 20 kph, draw a rectangle. Rectangle is always positioned in the middle and its size reflects the speed.</li>
+    <li>For all other winds, draw a stroke that starts from the previous ending point (if it is the first stroke of its unit, start from the center of the grid). The stroke’s length reflects the wind speed while the angle reflects the wind direction.</li>
+    <li>Combine 5 different winds to create one unit. This is similar to how Hangul works, where 5 separate letters (represented by lines, circles, squares, etc.) combine into a single syllabic unit. Those syllabic units are then combined into words.</li>
+    </ul>
+    <h1 id="equipment">Equipment</h1>
+    <p>
+      <ul>
+        <li>Sparkfun weather station (used the wind meter part; did not use the rainfall meter)</li>
+        <li>Arduino NANO (because it works well with Adafruit IO)
+        Wires and shield (to connect the Arduino to the meter)</li>
+        <li>Batteries and battery pack (to power the Arduino)</li>
+        <li>Weatherproof box (to house the arduino and batteries outdoors for multiple days)</li>
+        <li>Cable ties and tape (to secure the weather station and weatherproof box to the balcony fences)</li>
+        <li>Laptop (for creative coding)</li>
+        <li>(Bonus) Screen (for exhibiting the work; in my case, I could use Aalto’s Samsung ViewFinity)</li>
+      </ul>
+    </p>
+    <h1 id="journey">Journey</h1>
+    <img src="" alt="">
+    <img src="assets/wind_typo1.jpeg" alt="">
+    <p>Studied the wind meter and connecting it to arduino via breadboard setup.</p>
+    <br/>
+    <img src="assets/wind_typo2.jpeg" alt="">
+    <img src="2assets/wind_typo3.jpeg" alt="">
+    <p>Transferred the breadboard setup to a more robust shield setup.
+    <br/>(Soldering was really fun)</p>
+    <br/>
+    <img src="assets/wind_typo4.png" alt="">
+    <p>Installed the wind meter on the Marsio balcony. </p>
+    <img src="assets/wind_typo13.jpeg" alt="">
+    <p>Few days later, the battery ran out. I switched out the batteries, but the wifi was
+      <br/> too slow due to the snowy weather and the quirks in the architecture. 
+      Time for a new location.</p>
+    <br/>
+    <img src="assets/wind_typo5.jpeg" alt="">
+    <br/>
+    <p>Installed the wind meter on the Varë balcony. Hands frozen but the meter works.</p>
+    <br/>
+    <img src="assets/wind_typo6.png" alt="">
+    <img src="assets/wind_typo7.png" alt="">
+    <img src="assets/wind_typo8.jpeg" alt="">
+    <p>Sent the data via Arduino to Adafruit IO where I could view and export the data as CSVs.
+      <br/>Melted my hands in Alepa gloves.</p>
+    <br/>
+    <img src="assets/wind_typo14.png" alt="">
+    <img src="assets/wind_typo16.png" alt="">
+    <!-- <img src="assets/wind_typo9.png" alt=""> -->
+    <p>Converted the exported data into shapes on p5.js. Retaught myself middle school math (trigonometry).</p>
+    <br/>
+    <img src="assets/wind_typo17.png" alt="">
+    <img src="assets/wind_typo18.png" alt="">
+    <img src="assets/wind_typo15.png" alt="">
+    <p>Tried out different rules and shapes.</p>
+    <img src="assets/wind_typo_square.png" alt="">
+    <p>But eventually came to a good point with the codes/rules on p5.js.</p>
+    <h1 id="exhibition">Exhibition</h1>
+    <p>I had the opportunity to include this project in Aalto University Media Lab's demo day (Winter 2024). 
+      So I created a new version to fit the dimensions of the exhibition monitor (touchscreen) and make it interactive for
+      an audience without an access to a keyboard.</p>
+
+    <div class="flex-container exhibition">
+      <!-- <div> -->
+        <img src="assets/wind_typo10.png" alt="">
+      <!-- </div> -->
+      <!-- <div> -->
+        <img src="assets/wind_typo_11_and_12.png" alt="">
+      <!-- </div> -->
+    </div>   
+    <h1 id="reflection">Reflection</h1>
+    <p>Before working on this project, I had no experience with physical computing and very little experience using p5.js. After the project, I feel like I have learned a lot in both realms. </p>
+    <p><b>On creative coding using p5.js:</b> My experience with p5.js was very shallow before this semester. I had worked on a couple small p5.js projects, but for those I refrained from drawing anything on p5.js to save time; instead, I depended heavily on image files (PNG) to create my results. This time, I decided to challenge myself and create every shape (and even some text) as vectors using p5.js code. It was confusing to learn at first but definitely worth it as this approach gave me more control over the shapes. I also learned many of the p5.js built-in functions (draw(), mouseClicked(), mouseWheel(), dist(), map(), lerp(), and more). Also, I’m proud of myself for re-learning middle school math / trigonometry to create some of the shapes.</p>
+    <p><b> On physical computing:</b> As someone who had worked as a software engineer for several years, it was challenging and empowering to learn how to code outside of the digital realm. In the beginning of the class, I struggled with working with electronics. I often received help from my classmates while building basic circuits. However, by the time I got to my final project, I was able to prototype circuits on my own from scratch. I finally understood the concept behind it, and it felt great! Afterwards, I got to apply my knowledge onto an original project that was meaningful for me. What else can I ask for?</p>
+    <p>Overall, I had a lot of fun working on Wind Typography. It was neat to combine my different interests (creative coding, typography, data visualization, and the environment) into a single project. I also enjoyed the physical component of the project. It was at times painful (troubleshooting electronics during snow without gloves is not exactly pleasant) and frustrating (poor internet speed in the balcony exacerbated by the weather or the balcony doors often being locked). Yet, somehow the physical part of it made the whole experience more fun, real, and grounding. I have to say, I definitely felt the wind throughout the process. This project helped me realize how meaningful physicality is for me, even for works with digital outputs. I hope I get to continue computing physically.</p>
+
+    <!-- <img src="assets/wind_typo13.jpeg" alt="">
+    <p>
+      <i>
+      Hello from my frozen hands and wind meter from Marsio Balcony. We both felt the wind.
+      </i>
+    </p> -->
+
+    <br/>
+    <br/>
+    </div>
+
+
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+      
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+    </script>
+
+  </body>
+</html>
+
