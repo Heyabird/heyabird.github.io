@@ -2,6 +2,9 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
+.mobile-only {
+    display: none;
+}
 
 #site-header {
     color: black;
@@ -304,9 +307,16 @@ a.footnote-link {
 @media only screen and (max-width: 950px) {
     body {
       max-width: 90%;
-      margin: 30px 20px 30px 20px;
+      margin: 30px 20px 0px 20px;
       position: inherit;
       height: inherit;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+    .desktop-only {
+        display: none;
     }
 
     .socials {
