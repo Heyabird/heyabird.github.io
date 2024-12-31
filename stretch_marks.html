@@ -17,13 +17,12 @@
     <meta charset="utf-8" />
     <style>
       img { width: 100%; height: auto;}
-      /* .flex-container { width: auto;} */
-      .flex-container img { height: 96.9px; width: auto;}
+      #title {font-size: 40px;}      .flex-container img { height: 96.8px; width: auto;}
       .col { padding: 1px; }
       .images { padding: 30px 0 15px 0;}
       .images img {padding: 0 0 10px  0;}
-      /* div.flex-container {display: flex;} */
       @media only screen and (max-width: 950px) {
+        #title {font-size: 30px;}
         .flex-container img { width: 100%; height: auto;}
         #container {
           display: none;
@@ -52,7 +51,7 @@
 
     <!-- <button type="button" class="collapsible">What is this?</button> -->
     <div class="text-container">
-      <h1><b>Stretch Marks</b></h1>
+      <h1 id="title"><b>Stretch Marks</b></h1>
       <div class="text-content">
         <div class="images">
           <img src="assets/ATH_MM.png"/>
