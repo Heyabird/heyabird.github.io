@@ -304,7 +304,7 @@ a.footnote-link {
 @media only screen and (max-width: 950px) {
     body {
       max-width: 90%;
-      margin: 30px 20px 0px 20px;
+      margin: 30px 20px 30px 20px;
       position: inherit;
       height: inherit;
     }
