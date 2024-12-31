@@ -73,8 +73,9 @@ a {
   .close {
     color: #aaa;
     float: right;
-    /* font-size: 28px; */
+    font-size: 60px;
     font-weight: bold;
+    margin-top: 10px;
   }
   
   .close:hover,
