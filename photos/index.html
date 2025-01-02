@@ -13,9 +13,12 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V89MK45S99"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-V89MK45S99")</script>
 </head>
 <style>
-    .col { padding: 10px; }
+    .col { padding: 10px 10px 0 0;}
     .flex-grid { margin: 0;}
-    .title {margin-left: 10px;}
+    /* .title {margin-left: 10px;} */
+    @media (max-width: 400px) {
+        .col { padding: 0; }
+    }
 </style>
 <body>
     <a id="site-header" href="index.html"><h1>heya, world.</h1></a>
@@ -25,7 +28,7 @@
         <!-- / <a href="art.html">textile</a> -->
         / <a href="../music.html">music </a>
         / <a href="."><b>photos</b></a>
-        <!-- / <a href="writing.html">writing</a> -->
+        / <a href="../writing.html">writing</a>
     </nav>
     <div class="socials">
         <a target="_blank" href="https://www.linkedin.com/in/heya/"><i class="fab fa-linkedin-in"></i></a> &nbsp; 
