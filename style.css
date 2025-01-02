@@ -21,7 +21,7 @@ b {
 }
 
 body {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 50px auto;
     margin-top: 50px;
     font-size: 15px;
@@ -33,7 +33,7 @@ p {
 }
 
 h1, h2, nav, .page-description, .text-content {
-    padding-left: 20px;
+    /* padding-left: 20px; */
     margin-top: 0;
 }
 
@@ -43,7 +43,7 @@ h1.category-title, h2.category-title {
 
 .socials {
     position: absolute;
-    right: 40px;
+    right: 22px;
     top: 10px;
 }
 
@@ -54,17 +54,14 @@ h1.category-title, h2.category-title {
 }
 
 .content {
-    margin-top: 50px;
-    margin-left: 20px;
+    margin-top: 20px;
     display: flex;
     /* max-width: 700px; */
 }
 
 .bio {
-    /* margin-top: 50px; */
-    /* margin-left: 20px; */
     display: block;
-    padding-right: 40px;
+    padding-right: 30px;
     /* max-width: 500px; */
 }
 
@@ -82,7 +79,7 @@ h1.category-title, h2.category-title {
 }
 
 img.small {
-    width: 400px;
+    width: 300px;
     max-width: 500px;
     /* outline: solid black 2px; */
 }
@@ -93,7 +90,7 @@ img.small {
 }
 
 .videos {
-    width: 90%;
+    width: 100%;
     margin: auto;
 }
 
@@ -335,7 +332,7 @@ a.footnote-link {
 
     .content {
         margin: 0;
-        padding-top: 40px;
+        padding-top: 30px;
         display: block;
     }
     .text-container {
