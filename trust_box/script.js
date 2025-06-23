@@ -18,8 +18,8 @@ function generateFilmRolls() {
       const note = {
         id: `roll-${rollId}-note-${group + 1}`,
         type: "note",
-        src: `https://via.placeholder.com/400x300/fef3c7/92400e?text=Note+${group + 1}`,
-        text: `Handwritten note ${group + 1}`,
+        src: `trust_box/logbooks/box${rollId}/1.png`,
+        // text: `Handwritten note ${group + 1}`,
         photographer: `Photographer ${String.fromCharCode(65 + (group % 4))}`, // A, B, C, D cycling
         rollId,
         position: position++,
@@ -32,11 +32,15 @@ function generateFilmRolls() {
         const photo = {
           id: `roll-${rollId}-photo-${photoNumber}`,
           type: "photo",
-          src: `images/box1/002305970001.jpg`,
+          src: `trust_box/photos/box${rollId}/${photoNumber}.png`,
           title: `Roll ${rollId} - Photo ${photoNumber}`,
           rollId,
           position: position++,
         }
+        console.log(`photoInGroup: ${photoInGroup}`)
+        console.log(`rollId: ${rollId}`)
+        console.log(`photoNumber: ${photoNumber}`)
+        console.log(`position: ${position}`)
         rolls.push(photo)
       }
     }
@@ -105,12 +109,12 @@ function hideDevelopingModal() {
 function showNoteModal(item) {
   const modal = document.getElementById("note-modal")
   const image = document.getElementById("note-image")
-  const photographer = document.getElementById("note-photographer")
-  const text = document.getElementById("note-text")
+  // const photographer = document.getElementById("note-photographer")
+  // const text = document.getElementById("note-text")
 
   image.src = item.src
-  photographer.textContent = `Next photos by: ${item.photographer}`
-  text.textContent = `"${item.text}"`
+  // photographer.textContent = `Next photos by: ${item.photographer}`
+  // text.textContent = `"${item.text}"`
   modal.classList.remove("hidden")
   showCarousel = true
 }
