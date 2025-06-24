@@ -14,11 +14,13 @@ function generateFilmRolls() {
 
     // For each roll, create 9 groups of (note + 3 photos)
     for (let group = 0; group < 9; group++) {
+      console.log("group: ", group)
       // Add note
       const note = {
         id: `roll-${rollId}-note-${group + 1}`,
         type: "note",
-        src: `trust_box/logbooks/box${rollId}/1.png`,
+        src: `trust_box/logbooks/box${rollId}/${group + 1}.png`,
+        // src: `trust_box/logbooks/box2/1.png`,
         // text: `Handwritten note ${group + 1}`,
         photographer: `Photographer ${String.fromCharCode(65 + (group % 4))}`, // A, B, C, D cycling
         rollId,
@@ -37,10 +39,10 @@ function generateFilmRolls() {
           rollId,
           position: position++,
         }
-        console.log(`photoInGroup: ${photoInGroup}`)
-        console.log(`rollId: ${rollId}`)
-        console.log(`photoNumber: ${photoNumber}`)
-        console.log(`position: ${position}`)
+        // console.log(`photoInGroup: ${photoInGroup}`)
+        // console.log(`rollId: ${rollId}`)
+        // console.log(`photoNumber: ${photoNumber}`)
+        // console.log(`position: ${position}`)
         rolls.push(photo)
       }
     }
