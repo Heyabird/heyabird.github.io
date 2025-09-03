@@ -85,9 +85,23 @@ const cameraRolls = [
       location: "Helsinki → Gothenburg, Sweden?", 
       filmType: "GT Photo 27FL Flash", 
       photoCount: "23",
-      peopleCount: 9,
+      peopleCount: 8,
       date: "May - July 2025",
-      thumbnails: [] // Empty for disabled roll
+      thumbnails: [
+        "trust_box/photos/box4/1-1.png",
+        "trust_box/photos/box4/1-2.png",
+        "trust_box/photos/box4/1-3.png",
+        "trust_box/photos/box4/2-1.png",
+        "trust_box/photos/box4/2-2.png",
+        "trust_box/photos/box4/2-3.png",
+        "trust_box/photos/box4/3-1.png",
+        "trust_box/photos/box4/3-2.png",
+        "trust_box/photos/box4/3-3.png",
+        "trust_box/photos/box4/4-1.png",
+        "trust_box/photos/box4/4-2.png",
+        "trust_box/photos/box4/4-3.png",
+        "trust_box/photos/box4/5-1.png"
+      ] // Empty for disabled roll
   },
   { 
       id: 5, 
@@ -152,7 +166,8 @@ function generateCarouselItems(rollId) {
 
 // Create film strip HTML
 function createFilmStripHTML(roll) {
-  const isDisabled = roll.id === 4;
+//   const isDisabled = roll.id === 4;
+  const isDisabled = false;
   const disabledClass = isDisabled ? ' disabled' : '';
   
   // Create film frames with images or default orange squares
