@@ -82,7 +82,7 @@ const cameraRolls = [
   { 
       id: 4, 
       title: "Trust Box 4", 
-      location: "Helsinki → Gothenburg, Sweden?", 
+      location: "Helsinki → Gothenburg, Sweden", 
       filmType: "GT Photo 27FL Flash", 
       photoCount: "23",
       peopleCount: 8,
