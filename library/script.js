@@ -1,4 +1,4 @@
-var libraryWidth = 1000;
+var libraryWidth = 1200;
 var libraryHeight = 250;
 
 // var button = d3.select("body")
