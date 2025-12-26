@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Heya!</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V89MK45S99"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-V89MK45S99")</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <meta charset="utf-8" />
+    <style>
+      .col {
+        padding: 0;
+        padding-right: 22px;
+      }
+      .flex-grid {
+        margin: 0 0 10px 0;
+    }
+      img { max-width: 800px; height: auto; margin-top: 10px;}
+      #title {font-size: 40px;}
+      #title-img {max-width: 800px;
+        padding-bottom: 10px;
+         }
+      .exhibition img {max-width: 300px;}
+      p, h2, h3, .text-content h1 { margin-left:0; padding-left:0;}
+      .text-content h1 { font-weight: 600; margin-top: 60px;}
+      @media only screen and (max-width: 950px) {
+        img { max-width: 100%; height: auto; margin-top: 10px;}
+        #title {font-size: 30px;}
+        #title-img {max-width: 100%; padding: 0;}
+        .text-container {width: 100%; padding-bottom: 60px;}
+        .text-content h1 {  margin-top: 30px; margin-bottom: 10px;}
+
+    }
+    </style>
+  </head>
+  <body id="stretch-marks-body">
+    <a id="site-header" href="../index.html"><h1>heya, world.</h1></a>
+
+    <!-- <a id="site-header" href="index">back home</a> -->
+    <nav>
+      <a href="../projects.html"><b>← back to projects</b></a>
+  </nav>
+  <br/>
+
+  <div class="text-container">
+
+    <h1 id="title"><b>Sonic Memory Decomposer (2025)</b></h1>
+    <img src="assets/smd_cover1.png">
+    <div class="text-content">
+
+    <p><i><b>Sonic Memory Decomposer</b></i> is an experimental, ceramic-electronic instrument composed of three interconnected vessels that collectively record, transform, and slowly “decompose” sound.
+        <br/><br/>
+        Through layered looping, granular decomposition, time-based drift, and environmentally responsive modulation, each recording slowly transforms as new voices accumulate. Human voice, soil, touch, and environmental conditions converge, treating sound as a living material. In such a way, Sonic Memory Decomposer reflects on memory as something organic: distributed across environments, shaped by external forces, and constantly decomposing and transforming into new layers.
+    <br/>
+    </p>
+    <h1>Demo (Video)</h1>
+    <iframe width="800" height="450" src="https://www.youtube.com/embed/cCcznzuEUSA?si=5SahZYsKzU8NshyU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <h1>Project Components</h1>
+    <img src="assets/smd_cover2.png">
+    <br/><br/>
+    <h2>Ceramic Cups</h2>
+    <ul>
+    <li>The first cup houses a microphone and button that allow the audience to record up to three sonic memories up to 15 seconds at a time. These samples are stored as loops that gradually drift, scatter, and disintegrate through granular processing and pitch drift.
+    <br/><br/></li>
+    <li>The second cup contains a light sensor and soil-moisture sensor, both of which function as environmental modulators for the audio. Touching, covering, or shading this vessel alters the delay time and modulation of the loops, while the moisture data introduces distortion.
+    <br/><br/></li>
+    <li>The third cup physically holds the soil whose changing moisture level directly influences distortion of the recorded voices. Up until a certain moisture threshold, distortion increases linearly; after the threshold, the distortion pulses and the pulse speed and amplitude increases along with the moisture level. The moisture level can be changed by either pouring water into the soil or pulling out the moisture sensor up and down.
+    <br/><br/></li>
+    </ul>
+    <h2>Electronics</h2>
+    <ul>
+        <li>2 copperboards with soldered connections</li>
+        <li>2 light sensors (LDRs)</li>
+        <li>1 soil moisture sensor</li>
+        <li>1 microphone</li>
+        <li>1 button switch</li>
+        <li>1 LED</li>
+        <li>jumper wires</li>
+        <li>Bela board (running Pure Data patch)</li>
+    </ul>
+    <h2>Others</h2>
+    <ul>
+        <li>1 custom 3d-printed button</li>
+    </ul>
+    <h1>Reflection on Design and Implementation</h1>
+    <img src="assets/smd_process.png">
+    <p>Sonic Memory Decomposer was my final project for Aalto University class "Composing with New Musical Instruments". The project had two requirements: that we should build the structure of the instrument ourselves and also include an interactive sound element using Pure Data, Bela, and other sensors.</p>
+    <p>This project was challenging because I had to learn and apply three new skill sets at once in the short time of three weeks: ceramics, electronics, and digital sound design. Rather than mastering one before starting another, I worked on all three in parallel to keep each part of the project at the same level of progress. This iterative and modular approach helped when troubleshooting, because issues in one area often influenced decisions in another.
+    </p>
+    <img src="assets/smd_schedule.png">
+    <br/><br/>
+    <p class="image-description">
+        This project was done in a three-week sprint. This meant I had to work on all components at once in case something goes awry.
+     </p>
+     <img src="assets/smd_diagrams_and_sketches.png">
+     <br/><br/>
+     <p class="image-description">
+        Designing and soldering my own copperboards was quite empowering. My first instinct was to rely on the photographs of breadboards instead of transferring them to schemas, but the tangle of wires became difficult to interpret on images. Drawing proper schematics on KiCad and translating them into copperboard layouts forced me to understand each connection clearly, and it made the final build much more robust.
+    </p>
+    <h2>On Ceramics</h2>
+    <p>Despite warnings about the difficulty of working with ceramics under tight deadlines, I felt strongly that the physical material needed to be ceramic. This is because the project deals with the themes of soil, memory, decay, and touch, and I wanted the instrument’s body to emerge from the same material conditions it sonifies. Clay is literally decomposed earth; it is shaped by touch; and it records physical traces of the maker. These qualities aligned perfectly with the conceptual framework of the project.
+        </p>
+        <br/>
+    <h2>On Pure Data & Sound Design</h2>
+    <img src="assets/smd_pd1.png">
+    <img src="assets/smd_pd2.png">
+    <p class="image-description">
+        <br/>
+        The Pure Data patches for Sonic Memory Decomposer: _main.pd, effects_v11.pd, 4-pole.pd
+        </p>
+    <p>
+        The Pure Data patches grew into a modular system:
+        <ul>
+            <li>A recording module with three looping buffers</li>
+            <li>Granular processing for slow erosion</li>
+            <li>Distortion driven by soil moisture</li>
+            <li>Delay and feedback controlled by touch/light interaction</li>
+        </ul>
+    </p>
+    <p>Overall, building Sonic Memory Decomposer was an intense but empowering creative process. I confronted several unfamiliar mediums at once and was able to learn through many technical and material challenges. Before this course, I didn’t know I could design and build a digital instrument from scratch. Now I understand that the process is accessible, learnable, and deeply rewarding. As a music maker, it is empowering to know that I can design the tools that I create sounds with. And as an artist, I am now able to combine sound into my artistic practice in a more controlled and interesting way. I can tell that this process has changed my direction as an artist and researcher, and I want to keep exploring deeper into the art of instrument design and building.</p>
+    <h1>Exhibition</h1>   
+    <p>Sonic Memory Decomposer was exhibited in the Winter Demo Day 2025 of Aalto University. Because participants could hear their own voice and memory transform in real time, it drew continuous engagement throughout the event.</p>
+    <img src="assets/smd_audience1.png">
+    <img src="assets/smd_audience2.png">
+</div>
+</html>
+
