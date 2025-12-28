@@ -84,6 +84,19 @@ img.small {
     /* outline: solid black 2px; */
 }
 
+img {
+    border-radius: 0.5%;
+}
+
+a img:hover{
+    -o-transition:.4s;
+    -ms-transition:.4s;
+    -moz-transition:.4s;
+    -webkit-transition:.4s;
+    transition:.4s;
+    box-shadow: 3px 3px 3px #b4b3b3;
+  }
+
 .images img {
     width: 100%;
     padding: 20px 0;
