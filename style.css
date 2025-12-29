@@ -1,6 +1,11 @@
-* {
-    font-family: 'Roboto', sans-serif;
+body {
+    font-family: 'arial', sans-serif;
     font-weight: 400;
+    font-size: 16px;
+    max-width: 1000px;
+    margin: 50px auto;
+    margin-top: 50px;
+    position: relative;
 }
 .mobile-only {
     display: none;
@@ -20,13 +25,6 @@ b {
     font-weight: 600;
 }
 
-body {
-    max-width: 1000px;
-    margin: 50px auto;
-    margin-top: 50px;
-    font-size: 15px;
-    position: relative;
-}
 
 p {
     line-height: 150%;
@@ -39,6 +37,12 @@ h1, h2, nav, .page-description, .text-content {
 
 h1.category-title, h2.category-title {
     padding-top: 50px;
+}
+
+h1, #title {
+    font-family: "Zen Kurenaido", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .socials {
@@ -216,10 +220,14 @@ p.item-title {
     text-align: left;
 }
 
-/* Stretch Marks */
-#stretch-marks-body {
+#project-body {
     background-color: rgb(215, 215, 215);
+    /* background-color: #2A7B9B;
+    background: linear-gradient(360deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%); */
 }
+
+/* Stretch Marks */
+
 .instruction-text {
     padding-top: 50px;
     color: rgb(185, 185, 185);
