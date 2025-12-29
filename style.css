@@ -39,10 +39,20 @@ h1.category-title, h2.category-title {
     padding-top: 50px;
 }
 
-h1, #title {
+h1, #title, .title, .sub-title {
     font-family: "Zen Kurenaido", cursive;
     font-weight: 400;
     font-style: normal;
+}
+
+.link-box {
+    font-family: "Zen Kurenaido", cursive;
+    border-radius: 25px;
+    border:solid;
+    /* background-color: #73AD21; */
+    padding: 10px 20px;
+    margin: 10px 0 20px 0;
+    /* width: 200px;} */
 }
 
 .socials {
@@ -221,11 +231,13 @@ p.item-title {
 }
 
 #project-body {
-    background-color: rgb(215, 215, 215);
-    /* background-color: #2A7B9B;
-    background: linear-gradient(360deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%); */
-}
+    background: #c2cff2;
+    background: linear-gradient(360deg, rgba(194, 207, 242, 1) 1%, rgba(214, 235, 204, 1) 50%, rgba(255, 253, 212, 1) 100%);/* #about-body {
+    background-color: #2A7B9B;
+    background: linear-gradient(360deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
 
+} */
+}
 /* Stretch Marks */
 
 .instruction-text {
@@ -265,8 +277,8 @@ p.item-title {
 
 
 /* music */
-.video-caption {
-    padding: 0 20px;
+p.video-caption {
+    padding: 20px;
     font-size: 14px;
 }
 
@@ -426,7 +438,7 @@ a.footnote-link {
         margin: 0 auto;
         width: 100%;
     }
-    .video-caption {
+    p.video-caption {
         padding: 0 0 10px 0;
         font-size: 13px;
     }
