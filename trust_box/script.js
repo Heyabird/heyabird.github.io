@@ -40,19 +40,19 @@ const cameraRolls = [
       peopleCount: 8,
       date: "May - June 2025",
       thumbnails: [
-          "trust_box/photos/box2/1-1.png",
-          "trust_box/photos/box2/1-2.png",
-          "trust_box/photos/box2/1-3.png",
-          "trust_box/photos/box2/2-1.png",
-          "trust_box/photos/box2/2-2.png",
-          "trust_box/photos/box2/2-3.png",
-          "trust_box/photos/box2/3-1.png",
-          "trust_box/photos/box2/3-2.png",
-          "trust_box/photos/box2/3-3.png",
-          "trust_box/photos/box2/4-1.png",
-          "trust_box/photos/box2/4-2.png",
-          "trust_box/photos/box2/4-3.png",
-          "trust_box/photos/box2/5-1.png"
+          "trust_box/photos/box2/1-1.jpg",
+          "trust_box/photos/box2/1-2.jpg",
+          "trust_box/photos/box2/1-3.jpg",
+          "trust_box/photos/box2/2-1.jpg",
+          "trust_box/photos/box2/2-2.jpg",
+          "trust_box/photos/box2/2-3.jpg",
+          "trust_box/photos/box2/3-1.jpg",
+          "trust_box/photos/box2/3-2.jpg",
+          "trust_box/photos/box2/3-3.jpg",
+          "trust_box/photos/box2/4-1.jpg",
+          "trust_box/photos/box2/4-2.jpg",
+          "trust_box/photos/box2/4-3.jpg",
+          "trust_box/photos/box2/5-1.jpg"
       ]
   },
   { 
@@ -144,7 +144,7 @@ function generateCarouselItems(rollId) {
       items.push({
           type: "notebook",
           id: `roll-${rollId}-notebook-${i + 1}`,
-          src: `trust_box/logbooks/box${rollId}/${i+1}.png`,
+          src: `trust_box/logbooks/box${rollId}/${i+1}.jpg`,
           alt: `Notebook scan ${i + 1} from roll ${rollId}`,
           logIndex: i + 1,
           description: `hello`,
@@ -155,7 +155,7 @@ function generateCarouselItems(rollId) {
           items.push({
               type: "photo",
               id: `roll-${rollId}-photo-${i * 3 + j}`,
-              src: `trust_box/photos/box${rollId}/${i+1}-${j}.png`,
+              src: `trust_box/photos/box${rollId}/${i+1}-${j}.jpg`,
               alt: `Photo ${i * 3 + j} from roll ${rollId}`,
               photoIndex: i * 3 + j
           });
