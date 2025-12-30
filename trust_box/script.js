@@ -16,19 +16,19 @@ const cameraRolls = [
       peopleCount: 8,
       date: "May 2025",
       thumbnails: [
-          "trust_box/photos/box1/1-1.png",
-          "trust_box/photos/box1/1-2.png",
-          "trust_box/photos/box1/1-3.png",
-          "trust_box/photos/box1/2-1.png",
-          "trust_box/photos/box1/2-2.png",
-          "trust_box/photos/box1/2-3.png",
-          "trust_box/photos/box1/3-1.png",
-          "trust_box/photos/box1/3-2.png",
-          "trust_box/photos/box1/3-3.png",
-          "trust_box/photos/box1/4-1.png",
-          "trust_box/photos/box1/4-2.png",
-          "trust_box/photos/box1/4-3.png",
-          "trust_box/photos/box1/5-1.png"
+          "trust_box/photos/box1/1-1.jpg",
+          "trust_box/photos/box1/1-2.jpg",
+          "trust_box/photos/box1/1-3.jpg",
+          "trust_box/photos/box1/2-1.jpg",
+          "trust_box/photos/box1/2-2.jpg",
+          "trust_box/photos/box1/2-3.jpg",
+          "trust_box/photos/box1/3-1.jpg",
+          "trust_box/photos/box1/3-2.jpg",
+          "trust_box/photos/box1/3-3.jpg",
+          "trust_box/photos/box1/4-1.jpg",
+          "trust_box/photos/box1/4-2.jpg",
+          "trust_box/photos/box1/4-3.jpg",
+          "trust_box/photos/box1/5-1.jpg"
       ]
   },
   { 
