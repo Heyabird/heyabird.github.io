@@ -17,6 +17,33 @@
     <link rel="stylesheet" type="text/css" href="../style.css">
     <meta charset="utf-8" />
     <style>
+       /* Style the buttons that are used to open and close the accordion panel */
+       .accordion {
+        /* background-color: #eee; */
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+        font-family: 'Zen Kurenaido';
+        font-size: 20px;
+      }
+
+      /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+      .active, .accordion:hover {
+        background-color: #ccc;
+      }
+
+      /* Style the accordion panel. Note: hidden by default */
+      .panel {
+        /* padding: 0 18px; */
+        /* background-color: white; */
+        display: none;
+        overflow: hidden;
+      }   
       .col {
         padding: 0;
         padding-right: 22px;
@@ -38,7 +65,6 @@
         #title-img {max-width: 100%; padding: 0;}
         .text-container {width: 100%; padding-bottom: 60px;}
         .text-content h1 {  margin-top: 30px; margin-bottom: 10px;}
-
     }
     </style>
   </head>
@@ -57,16 +83,23 @@
     <!-- <h3 class="sub-title">Ceramics · Physical Computing · Sound (Pure Data)</h3> -->
     <img src="assets/smd_cover1.jpg">
     <div class="text-content">
-
-    <p><i><b>Sonic Memory Decomposer</b></i> is a ceramic-electronic instrument composed of three interconnected vessels that collectively record, transform, and “decompose” sound.
+    <p>How do our memories transform over time?</p>
+    <p><i><b>Sonic Memory Decomposer</b></i>, a ceramic-electronic instrument, explores this question sonically. It is composed of three interconnected vessels that collectively record, transform, and “decompose” sound.
         <br/><br/>
-        Through layered looping, granular synthesis, pitch drift, and environmentally responsive modulation, each recording slowly transforms over time. Dependent on human voice, soil, touch, and environmental conditions, Sonic Memory Decomposer reflects on memory as something organic: distributed across environments, shaped by external forces, and constantly changing.
+        Whisper a memory into <i><b>Sonic Memory Decomposer</b></i>, and hear it get transformed over time through layered looping, granular synthesis, pitch drift, and modulated delay. Dependent on human voice, touch, light, and soil moisture level, <i><b>Sonic Memory Decomposer</b></i> reflects on memory as something organic: distributed across environments, shaped by external and internal forces, and constantly changing.
     <br/>
     </p>
     <h1>Demo (Video)</h1>
     <iframe width="800" height="450" src="https://www.youtube.com/embed/cCcznzuEUSA?si=5SahZYsKzU8NshyU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <br/><br/><br/><br/><br/>
-    <h1>Project Details</h1>
+    <h1>Exhibition</h1>   
+    <p>Sonic Memory Decomposer was exhibited in the Winter Demo Day 2025 of Aalto University.</p>
+    <img src="assets/smd_audience1.jpg">
+    <img src="assets/smd_audience2.jpg">
+    <br/><br/><br/><br/>
+
+    <button class="accordion">Click here to view technical details below</button>
+    <div class="panel">
+      <h1>Project Details</h1>
     <img src="assets/smd_cover2.png">
     <br/><br/>
     <h2 class="title"><b>Project Components</b></h2>
@@ -130,10 +163,23 @@
         </ul>
     </p>
     <p>Overall, building Sonic Memory Decomposer was an intense but empowering creative process. I confronted several unfamiliar mediums at once and was able to learn through many technical and material challenges. Before this course, I didn’t know I could design and build a digital instrument from scratch. Now I understand that the process is accessible, learnable, and deeply rewarding. As a music maker, it is empowering to know that I can design the tools that I create sounds with. And as an artist, I am now able to combine sound into my artistic practice in a more controlled and interesting way. I can tell that this process has changed my direction as an artist and researcher, and I want to keep exploring deeper into the art of instrument design and building.</p>
-    <h1>Exhibition</h1>   
-    <p>Sonic Memory Decomposer was exhibited in the Winter Demo Day 2025 of Aalto University.</p>
-    <img src="assets/smd_audience1.jpg">
-    <img src="assets/smd_audience2.jpg">
+    </div>
 </div>
 </html>
 
+<script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+  </script>
