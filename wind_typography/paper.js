@@ -19,7 +19,7 @@ let scribble = new Scribble();
 let show_time = false;
 let range_size = 91;
 let timeButtonText = "time ⏰";
-let zoom_level = 1;
+let zoom_level = 0;
 let extraScale = 1;
 let move = 0;
 
@@ -50,15 +50,15 @@ function setup() {
   zoomOutButton.mousePressed(zoomOut);
   zoomOutButton.size(68, 25);
 
-  let colorButton = createButton('color ♻️');
-  colorButton.position(left_margin, y_start + 35 * 3);
-  colorButton.mousePressed(changeBackgroundColor);
-  colorButton.size(68, 25);
+  // let colorButton = createButton('color ♻️');
+  // colorButton.position(left_margin, y_start + 35 * 3);
+  // colorButton.mousePressed(changeBackgroundColor);
+  // colorButton.size(68, 25);
 
-  let infoButton = createButton("<b>info 💨</b>");
+  let infoButton = createButton("<b>documentation</b>");
   infoButton.position(left_margin, windowHeight - 77);
   infoButton.mousePressed(showModal);
-  infoButton.size(68, 25);
+  infoButton.size(118, 25);
   infoButton.style('background-color', 'black');
   infoButton.style('color', 'white');
   infoButton.style('border-radius', '5px');
@@ -93,7 +93,7 @@ function mouseClicked() {
 
 let startingIndex = 0; 
 
-var backgroundColor = "#FFFDD0";
+var backgroundColor = "white";
 
 function toggleTime() {
   if (show_time === true) {
@@ -235,7 +235,7 @@ function mousePressed() {
 }
 
 function changeBackgroundColor() {
-    backgroundColor = color(random(200,255),random(200,255),random(200,255));
+    // backgroundColor = color(random(200,255),random(200,255),random(200,255));
 }
 // if (keyIsPressed === true && keyCode === UP_ARROW  && startingIndex > 0) {
 //     startingIndex -= 1;

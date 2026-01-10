@@ -87,13 +87,14 @@ h1, #title, .title, .sub-title {
 
 .img-container {
     margin-left: 50px;
+    margin-top: 18px;
     /* position: absolute;
     bottom: 100px;
     right: 0; */
 }
 
 img.small {
-    width: 300px;
+    width: 325px;
     max-width: 500px;
     /* outline: solid black 2px; */
 }
@@ -231,10 +232,8 @@ p.item-title {
 }
 
 #project-body {
-    background: #c2cff2;
-    background: linear-gradient(360deg, rgba(194, 207, 242, 1) 1%, rgba(214, 235, 204, 1) 50%, rgba(255, 253, 212, 1) 100%);/* #about-body {
-    background-color: #2A7B9B;
-    background: linear-gradient(360deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+    background-color: #ffffff;
+    /* background: linear-gradient(360deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%); */
 
 } */
 }
