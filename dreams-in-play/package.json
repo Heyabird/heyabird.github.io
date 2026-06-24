@@ -1,0 +1,10 @@
+{
+  "name": "dreams-in-play",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An interactive board where each chess piece holds a dream and a story. Pure HTML, CSS, and vanilla JS.",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  }
+}

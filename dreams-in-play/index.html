@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3ead7" />
+    <title>Dreams in Play</title>
+    <meta
+      name="description"
+      content="An interactive board where each chess piece holds a dream and a story."
+    />
+    <!-- Lora (serif) from Google Fonts. Needs an internet connection.
+         If you want it fully offline, download the font and swap to a local @font-face. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="board-wrap">
+      <header class="intro">
+        <h1>Dreams in Play</h1>
+        <p>Each piece holds a dream. Move them about, and tap one to sit with its story.</p>
+      </header>
+
+      <!-- Pieces are injected here by script.js -->
+      <div id="board" class="board" role="group" aria-label="Scattered chess pieces"></div>
+    </main>
+
+    <!-- Side panel. Hidden off-screen until a piece is selected. -->
+    <aside
+      id="panel"
+      class="panel"
+      aria-hidden="true"
+      aria-label="Dream story"
+    >
+      <div class="panel-head">
+        <div class="panel-title-group">
+          <span id="panel-icon" class="panel-icon" aria-hidden="true"></span>
+          <div>
+            <p id="panel-kind" class="panel-kind"></p>
+            <h2 id="panel-title" class="panel-title"></h2>
+          </div>
+        </div>
+        <button id="panel-close" class="panel-close" type="button" aria-label="Close story">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="panel-divider">
+        <span class="rule"></span>
+        <span class="rule-label">a dream</span>
+        <span class="rule"></span>
+      </div>
+
+      <div class="panel-body">
+        <p id="panel-story" class="panel-story"></p>
+      </div>
+
+      <div class="panel-foot">
+        <p class="listen-label">Listen</p>
+        <!-- Drop your sound files in an "audio" folder next to this page. -->
+        <audio id="panel-audio" controls preload="none">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </aside>
+
+    <script src="script.js"></script>
+  </body>
+</html>
