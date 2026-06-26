@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +34,7 @@
     }
 
     nav a:hover { border-bottom-color: #000; }
+    nav a.active { border-bottom-color: #000; }
 
     h1 {
       font-size: 20px;
@@ -59,10 +61,25 @@
     }
 
     .filter-btn:hover { background: #eee; }
+    .filter-btn.active { background: #000; color: #fff; }
 
-    .filter-btn.active {
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #666;
+      margin-bottom: 0.75rem;
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
       background: #000;
-      color: #fff;
+      display: inline-block;
+      flex-shrink: 0;
     }
 
     .count {
@@ -87,21 +104,28 @@
 
     .card.hidden { display: none; }
 
-    /* image area — replace src with your own photo */
-    .card-image {
+    /* image link — wraps the image area */
+    .card-image-link {
+      display: block;
+      border-bottom: 1px solid #000;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* real image — drop your png here */
+    .card-image-link img {
       width: 100%;
       height: 160px;
       object-fit: cover;
       display: block;
-      border-bottom: 1px solid #000;
-      background: #f0f0f0;
+      transition: opacity 0.15s;
     }
 
-    /* shown when no image is provided */
-    .card-image-placeholder {
-      width: 100%;
+    .card-image-link:hover img { opacity: 0.85; }
+
+    /* placeholder when no image yet */
+    .card-image-link.placeholder {
       height: 160px;
-      border-bottom: 1px solid #000;
       background: #f0f0f0;
       display: flex;
       align-items: center;
@@ -109,7 +133,11 @@
       font-size: 11px;
       font-family: sans-serif;
       color: #aaa;
+      text-decoration: none;
+      transition: background 0.15s;
     }
+
+    .card-image-link.placeholder:hover { background: #e4e4e4; }
 
     .card-body {
       padding: 1rem;
@@ -129,18 +157,24 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      border: 1px solid #000;
       background: #000;
       flex-shrink: 0;
-      margin-top: 5px;
+      margin-top: 4px;
     }
 
+    /* title as a link */
     .card-title {
       font-size: 14px;
       font-weight: normal;
       font-family: sans-serif;
       line-height: 1.3;
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-bottom-color 0.15s;
     }
+
+    .card-title:hover { border-bottom-color: #000; }
 
     .card-desc {
       font-size: 12px;
@@ -170,7 +204,7 @@
 
   <nav>
     <a href="index.html">Home</a>
-    <a href="work.html">Work</a>
+    <a href="work.html" class="active">Work</a>
     <a href="writing.html">Writing</a>
     <a href="about.html">About</a>
   </nav>
@@ -188,17 +222,30 @@
     <button class="filter-btn" data-filter="workshop">Workshop</button>
   </div>
 
+  <div class="legend">
+    <span class="legend-dot"></span> ongoing
+  </div>
+
   <p class="count" id="count">13 projects</p>
 
   <div class="grid" id="grid">
 
     <div class="card ongoing" data-tags="sound participatory installation">
-      <!-- replace with: <img class="card-image" src="images/noraebang.jpg" alt="Noraebang"> -->
-      <div class="card-image-placeholder">no image yet</div>
-      <div class="card-body">
+      <!--
+        TO ADD A REAL IMAGE: replace the placeholder <a> below with:
+        <a href="noraebang.html" class="card-image-link">
+          <img src="images/noraebang.jpg" alt="Noraebang">
+        </a>
+        Your image will be cropped to 160px tall automatically.
+        Any size/ratio PNG or JPG works.
+      -->
+        <a href="noraebang.html" class="card-image-link">
+          <img src="assets/noraebang_cover.jpg" alt="Noraebang">
+        </a>      
+        <div class="card-body">
         <div class="card-header">
-          <span class="ongoing-dot" title="ongoing"></span>
-          <span class="card-title">Noraebang</span>
+          <span class="ongoing-dot"></span>
+          <a href="noraebang.html" class="card-title">Noraebang</a>
         </div>
         <p class="card-desc">Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design.</p>
         <div class="tags">
@@ -210,11 +257,11 @@
     </div>
 
     <div class="card ongoing" data-tags="coding installation">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="gazing-at-the-cloud.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="ongoing-dot" title="ongoing"></span>
-          <span class="card-title">Gazing at the Cloud</span>
+          <span class="ongoing-dot"></span>
+          <a href="gazing-at-the-cloud.html" class="card-title">Gazing at the Cloud</a>
         </div>
         <p class="card-desc">TouchDesigner project using interactivity as artistic research into cloud infrastructures.</p>
         <div class="tags">
@@ -225,11 +272,11 @@
     </div>
 
     <div class="card ongoing" data-tags="coding installation">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="espoo-kaleidoscope.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="ongoing-dot" title="ongoing"></span>
-          <span class="card-title">Espoo City Archive Kaleidoscope</span>
+          <span class="ongoing-dot"></span>
+          <a href="espoo-kaleidoscope.html" class="card-title">Espoo City Archive Kaleidoscope</a>
         </div>
         <p class="card-desc">Collaborative TouchDesigner and DaVinci Resolve installation using edited city archive footage as an interactive kaleidoscope.</p>
         <div class="tags">
@@ -240,10 +287,10 @@
     </div>
 
     <div class="card" data-tags="mapping sound">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="halmoni-jido.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Halmoni Jido</span>
+          <a href="halmoni-jido.html" class="card-title">Halmoni Jido</a>
         </div>
         <p class="card-desc">Mapping/GIS project on different sounds of childhood sites with my grandma.</p>
         <div class="tags">
@@ -254,10 +301,10 @@
     </div>
 
     <div class="card" data-tags="sound ceramics installation">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="sonic-memory-decomposer.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Sonic Memory Decomposer</span>
+          <a href="sonic-memory-decomposer.html" class="card-title">Sonic Memory Decomposer</a>
         </div>
         <p class="card-desc">Ceramics, sound, and physical computing — speaking into a ceramic cup disintegrates the memory sonically.</p>
         <div class="tags">
@@ -269,10 +316,10 @@
     </div>
 
     <div class="card" data-tags="ceramics participatory">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="dream-pieces.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Dream Pieces</span>
+          <a href="dream-pieces.html" class="card-title">Dream Pieces</a>
         </div>
         <p class="card-desc">Ceramic pieces made through participatory art.</p>
         <div class="tags">
@@ -283,10 +330,10 @@
     </div>
 
     <div class="card" data-tags="participatory">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="trust-art.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Trust Art</span>
+          <a href="trust-art.html" class="card-title">Trust Art</a>
         </div>
         <p class="card-desc">Participatory art, photography, and archive project.</p>
         <div class="tags">
@@ -296,10 +343,10 @@
     </div>
 
     <div class="card" data-tags="sound participatory">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="wrong-cafe.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Wrong Cafe</span>
+          <a href="wrong-cafe.html" class="card-title">Wrong Cafe</a>
         </div>
         <p class="card-desc">Sound recordings collected from participants in an abandoned mall.</p>
         <div class="tags">
@@ -310,10 +357,10 @@
     </div>
 
     <div class="card" data-tags="coding installation">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="wind-typography.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Wind Typography</span>
+          <a href="wind-typography.html" class="card-title">Wind Typography</a>
         </div>
         <p class="card-desc">Physical computing and p5.js project asking what a writing of wind would look like, using live wind data.</p>
         <div class="tags">
@@ -324,10 +371,10 @@
     </div>
 
     <div class="card" data-tags="coding">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="stretch-marks.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Stretch Marks</span>
+          <a href="stretch-marks.html" class="card-title">Stretch Marks</a>
         </div>
         <p class="card-desc">p5.js project that allows letters to stretch and decay over time.</p>
         <div class="tags">
@@ -337,10 +384,10 @@
     </div>
 
     <div class="card" data-tags="workshop participatory mapping">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="mapping-the-cloud-workshop.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Mapping the Cloud workshop</span>
+          <a href="mapping-the-cloud-workshop.html" class="card-title">Mapping the Cloud workshop</a>
         </div>
         <p class="card-desc">Collective mapping workshop where participants add their connections to cloud infrastructure, creating a collective sculpture.</p>
         <div class="tags">
@@ -352,10 +399,10 @@
     </div>
 
     <div class="card" data-tags="workshop participatory">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="alt-media-feed-workshop.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Alternative Media Feed Design workshop</span>
+          <a href="alt-media-feed-workshop.html" class="card-title">Alternative Media Feed Design workshop</a>
         </div>
         <p class="card-desc">Participants design a speculative alternative media feed incorporating rest and care.</p>
         <div class="tags">
@@ -366,10 +413,10 @@
     </div>
 
     <div class="card" data-tags="workshop ceramics participatory">
-      <div class="card-image-placeholder">no image yet</div>
+      <a href="mycelium-design-workshop.html" class="card-image-link placeholder">no image yet</a>
       <div class="card-body">
         <div class="card-header">
-          <span class="card-title">Mycelium Design workshop</span>
+          <a href="mycelium-design-workshop.html" class="card-title">Mycelium Design workshop</a>
         </div>
         <p class="card-desc">Tiles designed by participants using Korean typographic letters.</p>
         <div class="tags">

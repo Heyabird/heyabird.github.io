@@ -1,89 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Heya!</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Mansalva&family=Pangolin&family=Quicksand:wght@300..700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V89MK45S99"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-V89MK45S99")</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Mansalva&family=Pangolin&family=Quicksand:wght@300..700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+  <title>Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      padding: 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover { border-bottom-color: #000; }
+
+    nav a.active {
+      border-bottom-color: #000;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 2rem;
+      font-family: 'Zen Kurenaido';
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .filter-btn {
+      font-size: 12px;
+      font-family: sans-serif;
+      padding: 3px 12px;
+      border: 1px solid #000;
+      border-radius: 20px;
+      background: #fff;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .filter-btn:hover { background: #eee; }
+
+    .filter-btn.active {
+      background: #000;
+      color: #fff;
+    }
+
+    .count {
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #888;
+      margin-bottom: 1.25rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid #000;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .card.hidden { display: none; }
+
+    /* image area — replace src with your own photo */
+    .card-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #000;
+      background: #f0f0f0;
+    }
+
+    /* shown when no image is provided */
+    .card-image-placeholder {
+      width: 100%;
+      height: 160px;
+      border-bottom: 1px solid #000;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: sans-serif;
+      color: #aaa;
+    }
+
+    .card-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .ongoing-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid #000;
+      background: #000;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: normal;
+      font-family: sans-serif;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-family: sans-serif;
+      padding: 1px 7px;
+      border: 1px solid #000;
+      background: #fff;
+      color: #000;
+      border-radius: 20px;
+    }
+  </style>
 </head>
 <body>
-    <a id="site-header" href="index.html"><h1>heya, world.</h1></a>
-    <nav>
-        <a href="about.html">about</a>
-        <!-- / <a href="code.html">code</a> -->
-        / <a href="projects.html">projects</a>
-        / <a href="workshops.html">workshops</a>
-        / <a href="writing.html"><b>writing</b></a>
-        <!-- / <a href="music.html">music</a> -->
-    </nav>
-    <div class="socials">
-        <a target="_blank" href="https://www.linkedin.com/in/heya/"><i class="fab fa-linkedin-in"></i></a> &nbsp; 
-        <a target="_blank" href="https://www.instagram.com/heya.world/"><i class="fab fa-instagram"></a></i>
-    </div>
-    <!-- <h2 class="category-title">Writings</h2> -->
-    <!-- <div class="content">
-        <p>Writing is something I'd like to get better at. Ironically, the rise in the usage of AI tools like Chat-GPT in writing is making me feel more confident about my awkward and imperfect writing. The main goal of my writing is to be genuine (while also trying to maintain some clarity), but I'm not sure if I succeeded at doing so. Anyways, here are a few of them.</p>
-    </div> -->
-    <div class="content">
-        <div class="flex-grid">
-            <div class="col">
-                <a href="writing/heya_95.html"><h3><b>Heya '95 - '25': Games of My Life (Archive)</b></h3></a>
-                <p>April 17, 2025</p>
-                <p>I recently learned that Junior Naver (쥬니어 네이버 or 쥬니버), a Korean portal site for children best remembered from its flash games, is shutting down on May 27th, 2025. Although I hadn’t visited the site since I was a tiny kid, the news still struck me with melancholy. It felt as if a beloved playground from my hometown was
-                    <a href="writing/heya_95.html"><b>...continue reading</b></a>
-                </p>
-            </div>
-        </div>
 
-        </div>
-                <div class="flex-grid">
-            <div class="col">
-                <a href="writing/i_want_to_write_again.html"><h3><b>I Want To Write Again</b></h3></a>
-                <p>July 21, 2025</p>
-                <p>My first dream was to be a writer. I spent my childhood scribbling words on notebooks and crafting imaginary characters. I was more interested in creating stories than talking, studying, and other forms of living. People often forgot I was there. At home, my nickname became “ghost” because I would silently work on my makeshift 
-                    <a href="writing/i_want_to_write_again.html"><b>...continue reading</b></a>
-                </p>
-            </div>
-        </div>
-        <!-- <div class="col">
-            <a href="writing/work_in_action.html"><h3><b>Work in Action: A Graphic Novel</b></h3></a>
-            <p>May, 2017</p>
-            <p>The following are excepts from my college thesis Work in Action, which comprised of a graphic novel and a chapter of academic writing. The thesis was advised by Professor Ying Jia Tan and submitted on April 13, 2017.
-                Imagine ordering a thing – perhaps a phone – perhaps an iPhone. Click! Instantaneously,
-                <a href="writing/work_in_action.html"><b>...continue reading</b></a>
-            </p>
-        </div>
-        <div class="flex-grid">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="writing.html" class="active">Writing</a>
+    <a href="about.html">About</a>
+  </nav>
 
-            <div class="col">
-                <a href="writing/true_democracy.html"><h3><b>True Democracy: A Short Screenplay</b></h3></a>
-                <p>April, 2016</p>
-                <p>[In the middle of an ocean exists a ship, and on the ship exists the Democratic State of the Ship.
-                    As far as they can remember, the people of the Ship have always been living there, constantly
-                    threatened by the harshest of the waves. Due to the waves, the ship rocks violently, and injuries
-                    and deaths occur on a
-                    <a href="writing/true_democracy.html"><b>...continue reading</b></a>
-                </p>
-            </div>
-        </div> -->
-    </div>
+
+  <div>
+    <p>
+        Coming soon.
+    </p>  
+</div>
+
+  <script>
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+    const countEl = document.getElementById('count');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        let visible = 0;
+
+        cards.forEach(card => {
+          const tags = card.dataset.tags.split(' ');
+          const show = filter === 'all' || tags.includes(filter);
+          card.classList.toggle('hidden', !show);
+          if (show) visible++;
+        });
+
+        countEl.textContent = visible + (visible === 1 ? ' project' : ' projects');
+      });
+    });
+  </script>
 
 </body>
 </html>
-
-<style>
-    .flex-grid p, h2 {
-        text-align: left;
-    }
-    
-    a h3 {
-        color: black;
-    }
-</style>
