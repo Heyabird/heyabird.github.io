@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Mansalva&family=Pangolin&family=Quicksand:wght@300..700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+  <title>Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      padding: 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover { border-bottom-color: #000; }
+
+    nav a.active {
+      border-bottom-color: #000;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 2rem;
+      font-family: 'Zen Kurenaido';
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .filter-btn {
+      font-size: 12px;
+      font-family: sans-serif;
+      padding: 3px 12px;
+      border: 1px solid #000;
+      border-radius: 20px;
+      background: #fff;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .filter-btn:hover { background: #eee; }
+
+    .filter-btn.active {
+      background: #000;
+      color: #fff;
+    }
+
+    .count {
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #888;
+      margin-bottom: 1.25rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid #000;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .card.hidden { display: none; }
+
+    /* image area — replace src with your own photo */
+    .card-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #000;
+      background: #f0f0f0;
+    }
+
+    /* shown when no image is provided */
+    .card-image-placeholder {
+      width: 100%;
+      height: 160px;
+      border-bottom: 1px solid #000;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: sans-serif;
+      color: #aaa;
+    }
+
+    .card-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .ongoing-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid #000;
+      background: #000;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: normal;
+      font-family: sans-serif;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-family: sans-serif;
+      padding: 1px 7px;
+      border: 1px solid #000;
+      background: #fff;
+      color: #000;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="writing.html">Writing</a>
+    <a href="about.html" class="active">About</a>
+  </nav>
+
+
+  <div>
+    <p>
+        Heya Kwon (she/they) is a Korean American artist, designer, and researcher working across sound, new media, 
+        and participatory practices. With a background in social theory, music, and software engineering, 
+        she approaches art and technology as tools 
+        for care and critical reflection.
+    </p>
+    <br/>
+    <p>
+        Inspired by media archaeology and Buddhism, her artistic research practice examines 
+        the psychological, material, and ecological conditions of media systems with a 
+        focus on the relationship between bodies and media. She is particularly interested in slowness
+        and rest as ways of resistance in our current extractive and
+        accelerationist technological regimes.
+        <!-- Through installations, performances, 
+        and workshops, Heya is interested in ways of slowness, no-action, maintenance, and care 
+        as acts of resistance in extractive and accelerationist technological regimes. -->
+    </p>
+    <br/>
+    <p>
+        She is currently pursuing an MA in New Media at Aalto 
+        University in Helsinki, Finland, and holds a BA in Social Studies (Political and Social Theory) from Wesleyan University 
+        in Middletown, Connecticut, USA.
+    </p>  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+    const countEl = document.getElementById('count');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        let visible = 0;
+
+        cards.forEach(card => {
+          const tags = card.dataset.tags.split(' ');
+          const show = filter === 'all' || tags.includes(filter);
+          card.classList.toggle('hidden', !show);
+          if (show) visible++;
+        });
+
+        countEl.textContent = visible + (visible === 1 ? ' project' : ' projects');
+      });
+    });
+  </script>
+
+</body>
+</html>

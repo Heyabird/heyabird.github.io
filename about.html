@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Mansalva&family=Pangolin&family=Quicksand:wght@300..700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
-  <title>Portfolio</title>
+  <title>About — Portfolio</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: serif;
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.7;
       color: #000;
       background: #fff;
       padding: 2rem;
@@ -19,6 +18,7 @@
       margin: 0 auto;
     }
 
+    /* ── nav ── */
     nav {
       display: flex;
       gap: 2rem;
@@ -34,141 +34,174 @@
     }
 
     nav a:hover { border-bottom-color: #000; }
+    nav a.active { border-bottom-color: #000; }
 
-    nav a.active {
-      border-bottom-color: #000;
+    /* ── intro section: text + photo side by side ── */
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      align-items: start;
     }
 
-    h1 {
-      font-size: 20px;
+    .intro-text h1 {
+      font-size: 24px;
       font-weight: normal;
-      margin-bottom: 2rem;
-      font-family: 'Zen Kurenaido';
-    }
-
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 1rem;
-    }
-
-    .filter-btn {
-      font-size: 12px;
-      font-family: sans-serif;
-      padding: 3px 12px;
-      border: 1px solid #000;
-      border-radius: 20px;
-      background: #fff;
-      color: #000;
-      cursor: pointer;
-    }
-
-    .filter-btn:hover { background: #eee; }
-
-    .filter-btn.active {
-      background: #000;
-      color: #fff;
-    }
-
-    .count {
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #888;
       margin-bottom: 1.25rem;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
+    .intro-text p {
+      margin-bottom: 1rem;
     }
 
-    .card {
-      border: 1px solid #000;
-      display: flex;
-      flex-direction: column;
-      background: #fff;
+    .intro-text a {
+      color: #000;
     }
 
-    .card.hidden { display: none; }
-
-    /* image area — replace src with your own photo */
-    .card-image {
+    .intro-photo {
       width: 100%;
-      height: 160px;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
+      border: 1px solid #000;
       display: block;
-      border-bottom: 1px solid #000;
-      background: #f0f0f0;
     }
 
-    /* shown when no image is provided */
-    .card-image-placeholder {
+    /* placeholder when no photo yet */
+    .intro-photo-placeholder {
       width: 100%;
-      height: 160px;
-      border-bottom: 1px solid #000;
+      aspect-ratio: 3 / 4;
       background: #f0f0f0;
+      border: 1px solid #000;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 12px;
       font-family: sans-serif;
       color: #aaa;
     }
 
-    .card-body {
-      padding: 1rem;
+    /* ── divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid #000;
+      margin-bottom: 3rem;
+    }
+
+    /* ── cv accordion ── */
+    .cv-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+      padding: 0.85rem 0;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-    }
-
-    .ongoing-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      border: 1px solid #000;
-      background: #000;
-      flex-shrink: 0;
-      margin-top: 5px;
-    }
-
-    .card-title {
+      justify-content: space-between;
+      align-items: center;
       font-size: 14px;
-      font-weight: normal;
       font-family: sans-serif;
-      line-height: 1.3;
-    }
-
-    .card-desc {
-      font-size: 12px;
-      color: #444;
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .tag {
-      font-size: 11px;
-      font-family: sans-serif;
-      padding: 1px 7px;
-      border: 1px solid #000;
-      background: #fff;
       color: #000;
-      border-radius: 20px;
+      cursor: pointer;
+      text-align: left;
+      margin-bottom: 0;
+    }
+
+    .cv-toggle:hover { background: #f8f8f8; }
+
+    .cv-toggle-icon {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .cv-toggle[aria-expanded="true"] .cv-toggle-icon {
+      transform: rotate(45deg);
+    }
+
+    .cv-panel {
+      display: none;
+      padding: 2rem 0;
+      border-bottom: 1px solid #000;
+    }
+
+    .cv-panel.open { display: block; }
+
+    /* cv sections */
+    .cv-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .cv-section:last-child { margin-bottom: 0; }
+
+    .cv-section-title {
+      font-size: 12px;
+      font-family: sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+
+    .cv-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+
+    .cv-year {
+      color: #888;
+      flex-shrink: 0;
+    }
+
+    .cv-entry strong {
+      font-weight: 500;
+      display: block;
+    }
+
+    .cv-entry span {
+      color: #666;
+    }
+
+    /* ── contact ── */
+    .contact {
+      margin-top: 3rem;
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+
+    .contact a {
+      color: #000;
+      border-bottom: 1px solid transparent;
+    }
+
+    .contact a:hover { border-bottom-color: #000; }
+
+    /* ── mobile ── */
+    @media (max-width: 600px) {
+      body { padding: 1.25rem; }
+
+      nav { gap: 1.25rem; }
+
+      .intro {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      /* photo goes below text on mobile */
+      .intro-text { order: 1; }
+      .intro-photo,
+      .intro-photo-placeholder { order: 2; aspect-ratio: 4 / 3; }
+
+      .cv-row {
+        grid-template-columns: 60px 1fr;
+        gap: 0.5rem;
+      }
     }
   </style>
 </head>
@@ -181,54 +214,242 @@
     <a href="about.html" class="active">About</a>
   </nav>
 
+  <!-- ── intro ── -->
+  <div class="intro">
 
-  <div>
-    <p>
-        Heya Kwon (she/they) is a Korean American artist, designer, and researcher working across sound, new media, 
-        and participatory practices. With a background in social theory, music, and software engineering, 
-        she approaches art and technology as tools 
-        for care and critical reflection.
-    </p>
-    <br/>
-    <p>
-        Inspired by media archaeology and Buddhism, her artistic research practice examines 
+    <div class="intro-text">
+      <h1>Heya, World!</h1>
+      <p>
+        My name is Heya 해나 Kwon. I am a Korean American artist, designer, and researcher 
+        working across sound, new media, and participatory practices. Originally from
+        Seoul, Korea, I worked for several years in different parts of California. I currently live and go to school in Espoo, Finland.
+      </p>
+      <p>
+        I enjoy working on art and design that involve participatory 
+         methods. My research practice examines 
         the psychological, material, and ecological conditions of media systems with a 
-        focus on the relationship between bodies and media. She is particularly interested in slowness
-        and rest as ways of resistance in our current extractive and
-        accelerationist technological regimes.
-        <!-- Through installations, performances, 
-        and workshops, Heya is interested in ways of slowness, no-action, maintenance, and care 
-        as acts of resistance in extractive and accelerationist technological regimes. -->
-    </p>
-    <br/>
+        focus on the relationship between bodies and media. A question I've been asking are: how can we live with slowness,
+        playfulness, and care in our current extractive and
+        accelerationist technological regimes? How can art and technology help in figuring that out?
+      </p>
+      <p>Before going back to school, I worked as a software engineer at Bandcamp with a mission
+        to give musicians eqitable pay. Before that, I lived as an artist while working in the service industry.
+      </p>
+      <p>
+        On my free time, I like to draw, vlog, walk, and journal. 
+      </p>
+    </div>
+
+    <!-- replace with: <img class="intro-photo" src="images/portrait.jpg" alt="Your name"> -->
+    <div class="intro-photo-placeholder">photo</div>
+
+  </div>
+
+  <!-- ── cv accordion ── -->
+  <button class="cv-toggle" aria-expanded="false" aria-controls="cv-panel" id="cv-toggle">
+    CV
+    <span class="cv-toggle-icon" aria-hidden="true">+</span>
+  </button>
+
+  <div class="cv-panel" id="cv-panel" role="region" aria-labelledby="cv-toggle">
+
+    <div class="cv-section">
+      <p class="cv-section-title">Education</p>
+
+      <div class="cv-row">
+        <span class="cv-year">2024-</span>
+        <div class="cv-entry">
+          <strong>MA, New Media (Art & Design)</strong>
+          <span>Aalto University, Helsinki, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2013-2017</span>
+        <div class="cv-entry">
+          <strong>BA, College of Social Studies (Political and Social Theory)</strong>
+          <span>Wesleyan University, Middletown, CT, USA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-section">
+      <p class="cv-section-title">Exhibitions</p>
+
+      <div class="cv-row">
+        <span class="cv-year">Sept 2026</span>
+        <div class="cv-entry">
+          <strong>Designs for a Cooler Planet / Helsinki Design Week</strong>
+          <span>Espoo and Helsinki, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">June 2026</span>
+        <div class="cv-entry">
+          <strong>"Epistemologies of Slop"</strong>
+          <span>tiat gallery, San Francisco, CA, USA</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">Dec 2025</span>
+        <div class="cv-entry">
+          <strong>Mitä Jää (What Remains)</strong>
+          <span>Oodi Helsinki Central Library, Helsinki, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">Aug 2025</span>
+        <div class="cv-entry">
+          <strong>Välillä Väärässä (Sometimes Wrong)</strong>
+          <span>Imatran Väärätalo, Imatra, Finland</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-section">
+      <p class="cv-section-title">Workshops & talks</p>
+
+      <div class="cv-row">
+        <span class="cv-year">Oct 2026</span>
+        <div class="cv-entry">
+          <strong>Designing Alternative Media Feed</strong>
+          <span>Venue TBD, Espoo, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">Sept 2026</span>
+        <div class="cv-entry">
+          <strong>Mapping the Cloud Workshop</strong>
+          <span>Space 21, Espoo, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">May - June 2026</span>
+        <div class="cv-entry">
+          <strong>Mycelium Design Workshops</strong>
+          <span>BioMakers Lab, Espoo, Finland</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-section">
+      <p class="cv-section-title">Residencies, awards & grants</p>
+
+      <div class="cv-row">
+        <span class="cv-year">2026</span>
+        <div class="cv-entry">
+          <strong>Department of Art and Media Grant</strong>
+          <span>Aalto University, Espoo, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2025</span>
+        <div class="cv-entry">
+          <strong>Sustainability Action Booster Grant (9000 EUR)</strong>
+          <span>Aalto University, Espoo, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2025</span>
+        <div class="cv-entry">
+          <strong>Merit-Based Scholarship</strong>
+          <span>Aalto University, Espoo, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2025</span>
+        <div class="cv-entry">
+          <strong>I <3 Kipsari Grant</strong>
+          <span>Kipsari, Espoo, Finland</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2023, 2024</span>
+        <div class="cv-entry">
+          <strong>Employee Educational Grant (Total 4000 USD)</strong>
+          <span>Epic Games, Cary, NC, USA </span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2020</span>
+        <div class="cv-entry">
+          <strong>Women's Coding Scholarship</strong>
+          <span>LEARN Academy</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2019</span>
+        <div class="cv-entry">
+          <strong>Artist Grant (8500 USD)</strong>
+          <span>12Entertainment, Seoul, Korea</span>
+        </div>
+      </div>
+
+    <div class="cv-row">
+        <span class="cv-year">2017</span>
+        <div class="cv-entry">
+          <strong>1st Prize, Visualizing Knowledge</strong>
+          <span>Wesleyan University, Middletown, CT, USA</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2017</span>
+        <div class="cv-entry">
+          <strong>Center for Humanities Fellowship</strong>
+          <span>Wesleyan University, Middletown, CT, USA</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">2016</span>
+        <div class="cv-entry">
+          <strong>Davenport Research and Writing Grant (8000 USD)</strong>
+          <span>Wesleyan University, Middletown, CT, USA</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cv-section">
+      <p class="cv-section-title">Publications</p>
+
+      <div class="cv-row">
+        <span class="cv-year">2017</span>
+        <div class="cv-entry">
+          <strong>Work in Action (BA Thesis)</strong>
+          <span>Wesleyan University, Middletown, CT, USA</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── contact ── -->
+  <div class="contact">
     <p>
-        She is currently pursuing an MA in New Media at Aalto 
-        University in Helsinki, Finland, and holds a BA in Social Studies (Political and Social Theory) from Wesleyan University 
-        in Middletown, Connecticut, USA.
-    </p>  </div>
+      Get in touch :) <a href="mailto:heya0@proton.me">heya0@proton.me</a>
+    </p>
+  </div>
 
   <script>
-    const buttons = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card');
-    const countEl = document.getElementById('count');
+    const toggle = document.getElementById('cv-toggle');
+    const panel = document.getElementById('cv-panel');
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.dataset.filter;
-        let visible = 0;
-
-        cards.forEach(card => {
-          const tags = card.dataset.tags.split(' ');
-          const show = filter === 'all' || tags.includes(filter);
-          card.classList.toggle('hidden', !show);
-          if (show) visible++;
-        });
-
-        countEl.textContent = visible + (visible === 1 ? ' project' : ' projects');
-      });
+    toggle.addEventListener('click', () => {
+      const isOpen = panel.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen);
     });
   </script>
 
