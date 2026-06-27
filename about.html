@@ -171,6 +171,65 @@
       color: #666;
     }
 
+    /* tv */
+    .tv-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+      padding: 0.85rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-family: sans-serif;
+      color: #000;
+      cursor: pointer;
+      text-align: left;
+      margin-top: -1px;
+    }
+    .tv-toggle:hover { background: #f8f8f8; }
+    .tv-toggle[aria-expanded="true"] .tv-toggle-icon { transform: rotate(45deg); }
+
+    .tv-panel {
+      display: none;
+      padding: 2rem 0;
+      border-bottom: 1px solid #000;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+    .tv-panel.open { display: flex; }
+
+    .tv-wrap { flex-shrink: 0; cursor: pointer; }
+
+    .tv-message {
+      display: none;
+      font-size: 14px;
+      font-family: sans-serif;
+      line-height: 1.7;
+      border: 1px solid #000;
+      padding: 1rem 1.25rem;
+      max-width: 340px;
+    }
+    .tv-message p { margin-bottom: 0.75rem; }
+    .tv-message p:last-child { margin-bottom: 0; }
+    .tv-message.open { display: block; }
+
+    .tv-close {
+      display: block;
+      margin-top: 0.75rem;
+      font-size: 12px;
+      font-family: sans-serif;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #999;
+      padding: 0;
+      border-bottom: 1px solid transparent;
+    }
+    .tv-close:hover { color: #000; border-bottom-color: #000; }
+
     /* ── contact ── */
     .contact {
       margin-top: 3rem;
@@ -232,7 +291,7 @@
     <div class="intro-text">
       <h1>Heya, World!</h1>
       <p>
-        My name is Heya 해나 Kwon. I am a Korean American artist, designer, and researcher 
+        I'm Heya 해나 Kwon. I am a Korean American artist, designer, and researcher 
         working across sound, new media, and participatory practices.
       </p>
       <p>
@@ -242,7 +301,7 @@
         playfulness, and care in our current extractive and
         accelerationist regimes? How can art and technology help in figuring that out?
       </p>
-      <p>Currently, I am going to school in Espoo, Finland. Before that, I worked as a software engineer at Bandcamp. Before that, I lived as an artist, mainly in producing music, while working in the service industry.
+      <p>Currently, I am going to school in Espoo, Finland. Before that, I worked as a software engineer at Bandcamp. Before that, I lived as an artist, mainly as a music producer, while working in the service industry.
       </p>
       <p>
         On my free time, I like to draw, vlog, read, and journal. 
@@ -289,13 +348,13 @@
       <div class="cv-row">
         <span class="cv-year">2025-</span>
         <div class="cv-entry">
-          <strong>Freelance Designer</strong>
-          <span>Helsinki, Finland</span>
+          <strong>Interaction Designer</strong>
+          <span>Exhibition Centre WeeGee | Espoo, Finland</span>
         </div>
        </div>
       
       <div class="cv-row">
-        <span class="cv-year">March 2021 - July 2024-</span>
+        <span class="cv-year"> 2021-2024</span>
         <div class="cv-entry">
           <strong>Software Engineer</strong>
           <span>Bandcamp | Oakland, CA, USA & Remote</span>
@@ -303,11 +362,12 @@
       </div>
 
       <div class="cv-row">
-        <span class="cv-year">June 2020 - April 2021</span>
+        <span class="cv-year">2020-2021</span>
         <div class="cv-entry">
-          <strong>Web Developer</strong>
+          <strong>Web Developer & Designer</strong>
           <span>The Nomadik | San Diego, CA, USA</span>
         </div>
+      </div>
       </div>
 
     <div class="cv-section">
@@ -473,6 +533,38 @@
 
   </div>
 
+  <!-- tv accordion -->
+    <button class="tv-toggle" aria-expanded="false" aria-controls="tv-panel" id="tv-toggle">
+      TV
+      <span class="tv-toggle-icon" aria-hidden="true">+</span>
+    </button>
+
+    <div class="tv-panel" id="tv-panel">
+
+      <div class="tv-wrap" id="tv-click">
+        <svg width="140" height="130" viewBox="0 0 140 130" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="18" width="120" height="90" rx="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+          <rect x="18" y="24" width="80" height="58" rx="2" fill="#f0f0f0" stroke="#000" stroke-width="1" class="screen"/>
+          <circle cx="114" cy="38" r="5" fill="#fff" stroke="#000" stroke-width="1"/>
+          <circle cx="114" cy="54" r="5" fill="#fff" stroke="#000" stroke-width="1"/>
+          <circle cx="114" cy="70" r="5" fill="#fff" stroke="#000" stroke-width="1"/>
+          <line x1="114" y1="82" x2="114" y2="92" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="30" y="92" width="56" height="6" rx="1" fill="#fff" stroke="#000" stroke-width="1"/>
+          <line x1="48" y1="108" x2="40" y2="122" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="68" y1="108" x2="76" y2="122" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="48" y1="122" x2="76" y2="122" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="55" y1="2" x2="48" y2="18" stroke="#000" stroke-width="1" stroke-linecap="round"/>
+          <line x1="72" y1="2" x2="72" y2="18" stroke="#000" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div id="tv-message" class="tv-message">
+        <p>*loud static plays. the tv seems to be broken*</p>
+        <button class="tv-close" id="tv-close">turn off</button>
+      </div>
+
+    </div>
+
   <!-- ── contact ── -->
   <div class="contact">
     <p>
@@ -488,6 +580,28 @@
       const isOpen = panel.classList.toggle('open');
       toggle.setAttribute('aria-expanded', isOpen);
     });
+
+    const tvToggle = document.getElementById('tv-toggle');
+const tvPanel = document.getElementById('tv-panel');
+const tvClick = document.getElementById('tv-click');
+const tvMessage = document.getElementById('tv-message');
+
+tvToggle.addEventListener('click', () => {
+  const isOpen = tvPanel.classList.toggle('open');
+  tvToggle.setAttribute('aria-expanded', isOpen);
+  if (!isOpen) tvMessage.classList.remove('open');
+});
+
+tvClick.addEventListener('click', () => {
+  tvMessage.classList.toggle('open');
+  const screen = tvClick.querySelector('rect.screen');
+  screen.setAttribute('fill', tvMessage.classList.contains('open') ? '#111' : '#f0f0f0');
+});
+
+document.getElementById('tv-close').addEventListener('click', () => {
+  tvMessage.classList.remove('open');
+  tvClick.querySelector('rect.screen').setAttribute('fill', '#f0f0f0');
+});
   </script>
 
 </body>
