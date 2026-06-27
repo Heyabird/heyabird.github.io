@@ -61,10 +61,13 @@
 
     .intro-photo {
       width: 100%;
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 4 / 4;
       object-fit: cover;
       border: 1px solid #000;
       display: block;
+      margin-top: 70px;
+      border-radius: 50%;
+
     }
 
     /* placeholder when no photo yet */
@@ -198,6 +201,15 @@
       .intro-photo,
       .intro-photo-placeholder { order: 2; aspect-ratio: 4 / 3; }
 
+      .intro-photo {
+          width: 50%;
+          aspect-ratio: 3 / 4;
+          object-fit: cover;
+          border: 1px solid #000;
+          display: block;
+          margin: auto;
+      },
+
       .cv-row {
         grid-template-columns: 60px 1fr;
         gap: 0.5rem;
@@ -221,27 +233,24 @@
       <h1>Heya, World!</h1>
       <p>
         My name is Heya 해나 Kwon. I am a Korean American artist, designer, and researcher 
-        working across sound, new media, and participatory practices. Originally from
-        Seoul, Korea, I worked for several years in different parts of California. I currently live and go to school in Espoo, Finland.
+        working across sound, new media, and participatory practices.
       </p>
       <p>
-        I enjoy working on art and design that involve participatory 
-         methods. My research practice examines 
+        My current artistic research examines 
         the psychological, material, and ecological conditions of media systems with a 
-        focus on the relationship between bodies and media. A question I've been asking are: how can we live with slowness,
+        focus on the relationship between bodies and media. A question I've been asking is: how can we live with slowness,
         playfulness, and care in our current extractive and
-        accelerationist technological regimes? How can art and technology help in figuring that out?
+        accelerationist regimes? How can art and technology help in figuring that out?
       </p>
-      <p>Before going back to school, I worked as a software engineer at Bandcamp with a mission
-        to give musicians eqitable pay. Before that, I lived as an artist while working in the service industry.
+      <p>Currently, I am going to school in Espoo, Finland. Before that, I worked as a software engineer at Bandcamp. Before that, I lived as an artist, mainly in producing music, while working in the service industry.
       </p>
       <p>
-        On my free time, I like to draw, vlog, walk, and journal. 
+        On my free time, I like to draw, vlog, read, and journal. 
       </p>
     </div>
 
-    <!-- replace with: <img class="intro-photo" src="images/portrait.jpg" alt="Your name"> -->
-    <div class="intro-photo-placeholder">photo</div>
+   <img class="intro-photo" src="assets/profile_pic_2026.jpg" alt="Photo of myself taking a photo of myself with a film camera">
+    
 
   </div>
 
@@ -263,6 +272,7 @@
           <span>Aalto University, Helsinki, Finland</span>
         </div>
       </div>
+      
 
       <div class="cv-row">
         <span class="cv-year">2013-2017</span>
@@ -272,6 +282,33 @@
         </div>
       </div>
     </div>
+
+    <div class="cv-section">
+      <p class="cv-section-title">Selected Work Experience</p>
+
+      <div class="cv-row">
+        <span class="cv-year">2025-</span>
+        <div class="cv-entry">
+          <strong>Freelance Designer</strong>
+          <span>Helsinki, Finland</span>
+        </div>
+       </div>
+      
+      <div class="cv-row">
+        <span class="cv-year">March 2021 - July 2024-</span>
+        <div class="cv-entry">
+          <strong>Software Engineer</strong>
+          <span>Bandcamp | Oakland, CA, USA & Remote</span>
+        </div>
+      </div>
+
+      <div class="cv-row">
+        <span class="cv-year">June 2020 - April 2021</span>
+        <div class="cv-entry">
+          <strong>Web Developer</strong>
+          <span>The Nomadik | San Diego, CA, USA</span>
+        </div>
+      </div>
 
     <div class="cv-section">
       <p class="cv-section-title">Exhibitions</p>
