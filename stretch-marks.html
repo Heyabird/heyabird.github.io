@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Title — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #000;
+      background: #fff;
+      padding: 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ── nav ── */
+    nav {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover { border-bottom-color: #000; }
+    nav a.active { border-bottom-color: #000; }
+
+    /* ── back link ── */
+    .back {
+      display: inline-block;
+      font-size: 13px;
+      font-family: sans-serif;
+      color: #666;
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid transparent;
+    }
+
+    .back:hover { color: #000; border-bottom-color: #000; }
+
+    /* ── header ── */
+    .project-header {
+      margin-bottom: 2rem;
+    }
+
+    .project-title {
+      font-size: 28px;
+      font-weight: normal;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-year {
+      font-size: 14px;
+      font-family: sans-serif;
+      color: #666;
+    }
+
+    .ongoing-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #666;
+    }
+
+    .ongoing-badge::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #000;
+    }
+
+    /* ── tags (slightly bigger than grid tags) ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 12px;
+      font-family: sans-serif;
+      padding: 3px 12px;
+      border: 1px solid #000;
+      border-radius: 20px;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .tag:hover { background: #f0f0f0; }
+
+    /* ── cover photo ── */
+    .cover {
+      width: 100%;
+      max-width: 2466px;
+      height: auto;
+      display: block;
+      border: 1px solid #000;
+      margin-bottom: 0.5rem;
+    }
+
+    .cover-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #f0f0f0;
+      border: 1px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #aaa;
+      margin-bottom: 0.5rem;
+    }
+
+    .cover-caption {
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #666;
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    /* ── description (short intro, slightly larger) ── */
+    .project-description {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #000;
+    }
+
+    /* ── body text ── */
+    .project-body p {
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── inline image ── */
+    .project-image {
+      margin: 2rem 0;
+    }
+
+    .project-image img {
+      width: 100%;
+      display: block;
+      border: 1px solid #000;
+      margin-bottom: 0.5rem;
+      object-fit: cover;
+    }
+
+    /* full width */
+    .project-image.full img {
+      width: 100%;
+    }
+
+    /* half width, floated */
+    .project-image.half {
+      float: right;
+      width: 48%;
+      margin: 0.25rem 0 1.5rem 2rem;
+    }
+
+    .clearfix::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    /* placeholder for images not yet added */
+    .img-placeholder {
+      width: 100%;
+      background: #f0f0f0;
+      border: 1px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #aaa;
+      margin-bottom: 0.5rem;
+      aspect-ratio: 4 / 3;
+    }
+
+    .project-image.half .img-placeholder {
+      aspect-ratio: 3 / 4;
+    }
+
+    .image-caption {
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    @media only screen and (max-width: 950px) {
+      #container {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="work.html" class="active">Work</a>
+    <a href="writing.html">Writing</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <a href="work.html" class="back">← Back to work</a>
+
+  <!-- ── project header ── -->
+  <div class="project-header">
+    <h1 class="project-title">Stretch Marks</h1>
+    <div class="project-meta">
+      <span class="project-year">2023</span>
+    </div>
+    <div class="tags">
+      <!-- tags link back to the work page filtered — optional -->
+      <a href="" class="tag">p5.js</a>
+      <a href="" class="tag">Typography</a>
+    </div>
+  </div>
+
+  <!-- ── cover photo ── -->
+  <!-- replace the placeholder div with:
+        -->
+    <img class="cover" src="assets/ATH_timetomelt.jpg" alt="Text that says 'time to melt'">  <p class="cover-caption">"It's time to melt."</p>
+  <!-- ── short description ── -->
+        <p>Our words, like everything else in the world, are impermanent. Spoken words vanish into the air as they are uttered, and oral stories change with each retelling. Handwritten words also bear the weight of ephemerality as ink fades, handwriting becomes messy, or the writing’s medium – paper, stone, et cetera – naturally degrades over time.
+        This transient nature of words may seem less obvious in digital writing. Typed words appear eternal, with each letter seemingly identical to the last. However, the cyber domain, too, is not immune to decay. Computer hardwares can fail, softwares can become obsolete, and data storage can run out, leaving once-meaningful sentences lost in a sea of obsolescence. Furthermore, cultural context continuously reshapes the meanings of “words” – slangs, acronyms, and even official vocabularies, adopting and stretching them to accommodate new nuances. Afterall, digital space is an extension of the physical space, and neither can escape the marks of time and entropy.
+        </p>
+        <br/>
+
+
+  <!-- ── body text with embedded images ── -->
+  <div class="project-body">
+
+        <p>“Stretch Marks” is a series of typographic designs that explores the materiality of digitally typed texts and their gradual degradation. The designs are a result of an interactive p5.js code where letters are stretched and thus distorted according to the duration of the key press. Additionally, as the code uses the previous iteration of that letter as the new source, each repetition of a key causes the letter to further lose resolution and clarity. The texts that result from this process have been heavily disfigured and pixelated almost to — but not quite yet at — the point of illegibility.</p>
+
+
+    <!-- full-width inline image -->
+    <div class="project-image full">
+      <img src="assets/ATH_zine_page1.png" alt="Scan in the zine for the first 2 pages of Stretch Marks project"/>
+      <img src="assets/ATH_zine_page2.jpg" alt="Scan in the zine for the second 2 pages of Stretch Marks project"/>
+      <p class="image-caption">Scans from the Alternative Typgoraphic Histories zine.</p>
+    </div>
+
+    <p>
+      "Stretch Marks" was created during the "Alternative Typographic Histories" class, taught by Levi Hammett and Hind Al Saad, as part of School for Poetic Computation (SFPC). The final projects from the class were curated into a zine by Levi, Hind, and Xlab. All the images in the zine were laser printed in Doha, Qatar by Munamnama Press using blue ink on Insulation Pink French Paper. These pages are the scans of the riso printed version of selected "Stretch Marks" designs. 
+    </p>
+
+    <h3>Reflection on Class</h4>
+    <div class="project-image half clearfix">
+      <img src="assets/ATH-Heart-Group-Photo.png" alt="Description">
+      <p class="image-caption">Hearts from my SFPC classmates <3.</p>
+    </div>
+
+    <p>
+      This summer, I had the privilege of participating in the School for Poetic Computation class “Alternative Typographic Histories”, led by instructors Levi Hammett and Hind Al Saad. This course introduced me and others to the intricate Western and Arabic typographic histories, while also inviting us to develop our own unique visual languages rooted in personal narratives. My encounter with the class and thus SFPC’s pedagogy has been surprising and transformative, both personally and artistically.    
+    </p>
+    <p>
+      Looking back, I acknowledge that I could have embarked on a research and creative project for a similar topic on my own. However, what truly stood out about the SFPC experience was its emphasis on collective learning. Each one of us, including instructors, engaged in mutual learning and sharing of information – specifically, information that mattered to us. While I created an interactive coding project inspired by research in my East Asian heritage, a classmate wrote a manifesto on algospeak and counter surveillance languages related to their activism work, while another connected their grandfather’s handwriting to broader technological contexts like language processing. Each story shared in the class was thought-provoking, inspiring, and deeply personal.
+    </p>
+    <p>
+      As a fellow student phrased it, this class has been a lovely “collective daydreaming” that I am honored to have joined. Thanks to everyone who was in it, it has become a foundational stepping stone in my newfound passion for computational art and practice of imagining alternative histories. Not only that, it has taught me the importance of having a community of peers who are willing to be vulnerable together and supportive of each others’ creative paths. That just felt right, and I realized that my artistic journey wouldn’t make sense without it.🧃
+    </p>
+
+    <!-- another full-width image -->
+    <div class="project-image full">
+      <img src="assets/ATH-zine.jpeg" alt="Photo of Alternative Typographic Zine lying on a carpet."/>
+      <p class="image-caption">Altnerative Typographic Histories zine curated by Levi, Hind, and Xlab.</p>
+    </div>
+
+    <!-- <p><b class="title">To try it out, type on your computer keyboard and watch the letters appear below.</b></p>
+    </div>
+
+      <div id="container" class="content">
+        <script src="stretch_marks.js"></script>
+      </div>
+
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+      
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+    </script> -->
+
+
+  </div>
+
+</body>
+</html>
