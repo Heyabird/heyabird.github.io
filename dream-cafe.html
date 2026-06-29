@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Title — Portfolio</title>
+  <title>Dream Café — Portfolio</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,7 +18,6 @@
       margin: 0 auto;
     }
 
-    /* ── nav ── */
     nav {
       display: flex;
       gap: 2rem;
@@ -27,16 +26,10 @@
       font-family: sans-serif;
     }
 
-    nav a {
-      color: #000;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-    }
-
+    nav a { color: #000; text-decoration: none; border-bottom: 1px solid transparent; }
     nav a:hover { border-bottom-color: #000; }
     nav a.active { border-bottom-color: #000; }
 
-    /* ── back link ── */
     .back {
       display: inline-block;
       font-size: 13px;
@@ -46,13 +39,9 @@
       margin-bottom: 2.5rem;
       border-bottom: 1px solid transparent;
     }
-
     .back:hover { color: #000; border-bottom-color: #000; }
 
-    /* ── header ── */
-    .project-header {
-      margin-bottom: 2rem;
-    }
+    .project-header { margin-bottom: 2rem; }
 
     .project-title {
       font-size: 28px;
@@ -69,11 +58,7 @@
       margin-bottom: 1.25rem;
     }
 
-    .project-year {
-      font-size: 14px;
-      font-family: sans-serif;
-      color: #666;
-    }
+    .project-year { font-size: 14px; font-family: sans-serif; color: #666; }
 
     .ongoing-badge {
       display: inline-flex;
@@ -83,23 +68,15 @@
       font-family: sans-serif;
       color: #666;
     }
-
     .ongoing-badge::before {
       content: '';
       display: inline-block;
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: #000;
     }
 
-    /* ── tags (slightly bigger than grid tags) ── */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .tag {
       font-size: 12px;
       font-family: sans-serif;
@@ -109,110 +86,239 @@
       color: #000;
       text-decoration: none;
     }
-
     .tag:hover { background: #f0f0f0; }
 
-    /* ── cover photo ── */
-    .cover {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      display: block;
-      border: 1px solid #000;
+    .cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; border: 1px solid #000; margin-bottom: 0.5rem; }
+    .cover-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      background: #f0f0f0; border: 1px solid #000;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-family: sans-serif; color: #aaa;
       margin-bottom: 0.5rem;
     }
+    .cover-caption { font-size: 12px; font-family: sans-serif; color: #666; margin-bottom: 2.5rem; line-height: 1.5; }
 
-    .cover-placeholder {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #f0f0f0;
-      border: 1px solid #000;
+    .project-description { font-size: 18px; line-height: 1.6; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #000; }
+    .project-body p { margin-bottom: 1.5rem; }
+
+    /* ── recordings section ── */
+
+    .recordings-header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #aaa;
-      margin-bottom: 0.5rem;
-    }
-
-    .cover-caption {
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #666;
-      margin-bottom: 2.5rem;
-      line-height: 1.5;
-    }
-
-    /* ── description (short intro, slightly larger) ── */
-    .project-description {
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid #000;
-    }
-
-    /* ── body text ── */
-    .project-body p {
+      justify-content: space-between;
       margin-bottom: 1.5rem;
     }
 
-    /* ── inline image ── */
-    .project-image {
-      margin: 2rem 0;
+    .recordings-label {
+      font-size: 12px;
+      font-family: sans-serif;
+      color: #666;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .project-image img {
-      width: 100%;
-      display: block;
+    /* scroll arrow buttons */
+    .carousel-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .carousel-arrow {
+      width: 28px;
+      height: 28px;
       border: 1px solid #000;
-      margin-bottom: 0.5rem;
-      object-fit: cover;
+      background: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: sans-serif;
+      transition: background 0.1s;
+      user-select: none;
     }
+    .carousel-arrow:hover { background: #f0f0f0; }
+    .carousel-arrow:active { background: #e0e0e0; }
+    .carousel-arrow:disabled { color: #ccc; border-color: #ccc; cursor: default; background: #fff; }
 
-    /* full width */
-    .project-image.full img {
+    .carousel-wrap {
+      overflow-x: auto;
+      overflow-y: visible;
+      margin: 0 -2rem;
+      padding: 0 2rem 1.5rem;
+      scrollbar-width: none;
+    }
+    .carousel-wrap::-webkit-scrollbar { display: none; }
+
+    .carousel { display: flex; gap: 0.75rem; width: max-content; }
+
+    /* 1. smaller cards: 160px instead of 220px */
+    .card {
+      width: 160px;
+      border: 1px solid #000;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.1s;
+    }
+    .card:hover { background: #f8f8f8; }
+    .card.active { background: #f0f0f0; }
+
+    .card-drawing {
       width: 100%;
+      aspect-ratio: 1;
+      background: #f5f5f5;
+      border-bottom: 1px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: sans-serif;
+      color: #bbb;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-drawing img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .card-num { position: absolute; top: 6px; left: 8px; font-size: 10px; font-family: sans-serif; color: #aaa; }
+    .card-lang {
+      position: absolute; top: 6px; right: 8px;
+      font-size: 10px; font-family: sans-serif; color: #666;
+      background: #fff; border: 1px solid #ccc; border-radius: 20px; padding: 1px 6px;
     }
 
-    /* half width, floated */
-    .project-image.half {
-      float: right;
-      width: 48%;
-      margin: 0.25rem 0 1.5rem 2rem;
-    }
+    .card-body { padding: 0.5rem 0.6rem; }
+    .card-title { font-size: 12px; font-family: sans-serif; font-weight: normal; margin-bottom: 0.2rem; line-height: 1.4; }
+    .card-duration { font-size: 11px; font-family: sans-serif; color: #aaa; }
+    .card.playing .card-title::before { content: '▶ '; font-size: 9px; }
 
-    .clearfix::after {
-      content: '';
-      display: table;
-      clear: both;
+    /* ── expanded player ── */
+    .player-panel {
+      border: 1px solid #000;
+      border-top: none;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      display: none;
     }
+    .player-panel.visible { display: block; }
 
-    /* placeholder for images not yet added */
-    .img-placeholder {
-      width: 100%;
+    .player-meta { display: flex; gap: 2rem; margin-bottom: 1.25rem; align-items: flex-start; }
+
+    /* 3. clickable drawing in player */
+    .player-drawing {
+      width: 120px; height: 120px;
+      flex-shrink: 0;
       background: #f0f0f0;
       border: 1px solid #000;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-family: sans-serif;
-      color: #aaa;
-      margin-bottom: 0.5rem;
-      aspect-ratio: 4 / 3;
+      color: #bbb;
+      overflow: hidden;
+      position: relative;
+    }
+    .player-drawing img { width: 100%; height: 100%; object-fit: cover; }
+    .player-drawing.has-image { cursor: zoom-in; }
+    .player-drawing.has-image::after {
+      content: '⤢';
+      position: absolute;
+      bottom: 5px;
+      right: 6px;
+      font-size: 12px;
+      color: #fff;
+      text-shadow: 0 0 4px rgba(0,0,0,0.6);
+      line-height: 1;
     }
 
-    .project-image.half .img-placeholder {
-      aspect-ratio: 3 / 4;
+    .player-info { flex: 1; }
+    .player-num { font-size: 12px; font-family: sans-serif; color: #aaa; margin-bottom: 0.25rem; }
+    .player-name { font-size: 18px; font-weight: normal; line-height: 1.3; margin-bottom: 0.5rem; }
+    .player-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .player-tag { font-size: 11px; font-family: sans-serif; padding: 2px 10px; border: 1px solid #ccc; border-radius: 20px; color: #666; }
+    .player-note { font-size: 14px; color: #444; font-style: italic; margin-top: 0.75rem; line-height: 1.5; }
+
+    .audio-controls {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 1.25rem; padding-top: 1.25rem;
+      border-top: 1px solid #e0e0e0;
     }
 
-    .image-caption {
-      font-size: 12px;
+    .play-btn {
+      width: 36px; height: 36px;
+      border: 1px solid #000; background: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0;
+      transition: background 0.1s;
+    }
+    .play-btn:hover { background: #f0f0f0; }
+    .play-btn:active { background: #e0e0e0; }
+
+    .progress-wrap { flex: 1; }
+    .progress-bar {
+      width: 100%;
+      -webkit-appearance: none; appearance: none;
+      height: 2px; background: #ddd; outline: none; cursor: pointer;
+    }
+    .progress-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px; height: 12px;
+      background: #000; border-radius: 50%; cursor: pointer;
+    }
+    .progress-bar::-moz-range-thumb {
+      width: 12px; height: 12px;
+      background: #000; border-radius: 50%; border: none; cursor: pointer;
+    }
+
+    .time-display { font-size: 12px; font-family: sans-serif; color: #aaa; min-width: 80px; text-align: right; }
+
+    .nav-btns { display: flex; gap: 0.5rem; margin-top: 1rem; font-family: sans-serif; font-size: 13px; }
+    .nav-btn { background: none; border: none; cursor: pointer; color: #666; padding: 0; text-decoration: underline; text-underline-offset: 2px; }
+    .nav-btn:hover { color: #000; }
+    .nav-btn:disabled { color: #ccc; cursor: default; text-decoration: none; }
+    .nav-sep { color: #ccc; }
+
+    #native-audio { display: none; }
+
+    /* ── lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 70vw;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.5rem;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
       font-family: sans-serif;
-      color: #666;
-      line-height: 1.5;
+      font-weight: 300;
+      line-height: 1;
+      background: none;
+      border: none;
+    }
+    .lightbox-close:hover { opacity: 0.7; }
+
+    @media (max-width: 600px) {
+      .card { width: 140px; }
+      .player-meta { flex-direction: column; }
+      .player-drawing { width: 100%; height: 160px; }
     }
   </style>
 </head>
@@ -227,86 +333,322 @@
 
   <a href="work.html" class="back">← Back to work</a>
 
-  <!-- ── project header ── -->
   <div class="project-header">
-    <h1 class="project-title">Mycelium Design Workshops</h1>
+    <h1 class="project-title">Dream Café</h1>
     <div class="project-meta">
-      <span class="project-year">2025 | BioMakers Lab, Espoo, Finland</span>
-      <!-- remove the line below if the project is finished -->
+      <span class="project-year">2025 | Väärätalo, Imatra, Finland</span>
       <span class="ongoing-badge">ongoing</span>
     </div>
     <div class="tags">
-      <!-- tags link back to the work page filtered — optional -->
-      <a href="" class="tag">Workshop</a>
-      <a href="" class="tag">Bio-based</a>
-      <a href="" class="tag">Participatory</a>
-      <a href="" class="tag">Typography</a>
+      <a class="tag">Participatory Art</a>
+      <a class="tag">Sound</a>
+      <a class="tag">Drawings</a>
     </div>
   </div>
 
-  <!-- ── cover photo ── -->
-  <!-- replace the placeholder div with:
-        -->
-    <img class="cover" src="assets/noraebang_cover.jpg" alt="Brief description">  <p class="cover-caption">Noraebang is being built in the building of Abloc, right above Aalto University metro station.</p>
-  <!-- ── short description ── -->
+  <img class="cover" src="assets/wrong_cafe_cover.png" alt="Mycelium dried and demoulded four days after the design workshop.">
+  <p class="cover-caption">Dream Café (Väärä Kahvila), rooftop of Väärätalo, Imatra, summer 2025.</p>
+
   <p class="project-description">
-    Noraebang is a Korean karaoke booth installed in Aalto University, Espoo, Finland. It is built using a converted Finnish sauna and soundproofed with bio-based materials like mycelium and wood fiber. 
-    It is collaborative work with co-producers Yejin Youn and Shawn Shinwoo Kim. It is also in collaboration with other designers and researchers, including Harvey Shaw (mycelium researcher),
-    Daein Kang (interior designer), and Harim Kwon (interior designer).
-    </p>
-    <p>
-    The project is supported by Sustainability Action Booster (9000 EUR grant), Singa, and BioMakers Lab.
+    Dream Café (Väärä Kahvila) is a participatory art project exploring collective storytelling
+    and dreams as an alternative currency. For five days in summer 2025, an odd pop-up café
+    was operated by the artist — dressed as a waiter — on the rooftop of an abandoned mall
+    building in Imatra, Finland. The café served coffee, pastries, and questions.
+    In return, visitors paid by adding to an evolving myth rooted in Väärätalo, drawn on pink
+    paper and recorded as audio. Each tale was passed to the next guest, transforming like a
+    game of telephone, weaving into a strange urban folklore that blurs fact and fiction.
   </p>
 
-  <!-- ── body text with embedded images ── -->
   <div class="project-body">
-
     <p>
-      This is the main body text where you describe the project in more depth. 
-      You can write about the process, the materials, the context, the collaborators, 
-      or anything else that feels relevant. There's no required structure — write it 
-      the way the project wants to be described.
+      Dream Café was part of Aalto University Department of Media's collaboration with the
+      City of Imatra, funded by the 'I love Kipsari' Grant 2025. The performance is complete
+      after 30 visitors; the artist is currently transcribing the recordings and weaving them
+      into a loosely connected narrative. Stories arrived in Finnish, English, and
+      Spanish — visitors were invited to speak in whichever language felt natural.
     </p>
-
-    <!-- full-width inline image -->
-    <div class="project-image full">
-      <!-- replace with: <img src="images/project-01.jpg" alt="Description"> -->
-      <div class="img-placeholder">image</div>
-      <p class="image-caption">Caption for this image. Can describe what's shown, who took it, or any relevant context.</p>
-    </div>
-
     <p>
-      More body text after the image. You can keep writing here and the text 
-      will continue below the image naturally. Add as many paragraphs as the 
-      project needs.
+      Below are all 28 recordings, in order. Each card holds a drawing made by that visitor
+      and the audio of their story. Click any card to listen.
     </p>
-
-    <!-- half-width image floated right, text wraps around it -->
-    <div class="project-image half clearfix">
-      <!-- replace with: <img src="images/project-02.jpg" alt="Description"> -->
-      <div class="img-placeholder">image</div>
-      <p class="image-caption">Caption for the floated image.</p>
-    </div>
-
-    <p>
-      This paragraph will wrap around the image on the right. 
-      It's useful for detail shots or process photos that don't 
-      need the full width. The text flows naturally alongside it.
-    </p>
-
-    <p>
-      Once the floated image ends, the text returns to full width 
-      on its own. You can add as many sections and images as you need 
-      by repeating the pattern above.
-    </p>
-
-    <!-- another full-width image -->
-    <div class="project-image full">
-      <div class="img-placeholder">image</div>
-      <p class="image-caption">Another full-width image at the end, or wherever it feels right.</p>
-    </div>
-
   </div>
+
+  <!-- ── recordings carousel ── -->
+  <div class="recordings-header">
+    <p class="recordings-label">Dream Logs</p>
+    <div class="carousel-nav">
+      <button class="carousel-arrow" id="arrow-left" aria-label="Scroll left">←</button>
+      <button class="carousel-arrow" id="arrow-right" aria-label="Scroll right">→</button>
+    </div>
+  </div>
+
+  <div class="carousel-wrap" id="carousel-wrap">
+    <div class="carousel" id="carousel"></div>
+  </div>
+
+  <!-- ── expanded player ── -->
+  <div class="player-panel" id="player-panel">
+    <div class="player-meta">
+      <div class="player-drawing" id="player-drawing">drawing</div>
+      <div class="player-info">
+        <p class="player-num" id="player-num"></p>
+        <p class="player-name" id="player-name"></p>
+        <div class="player-tags" id="player-tags"></div>
+        <p class="player-note" id="player-note"></p>
+      </div>
+    </div>
+    <div class="audio-controls">
+      <button class="play-btn" id="play-btn" aria-label="Play">▶</button>
+      <div class="progress-wrap">
+        <input type="range" class="progress-bar" id="progress-bar" min="0" max="100" value="0" step="0.1">
+      </div>
+      <span class="time-display" id="time-display">0:00 / 0:00</span>
+    </div>
+    <div class="nav-btns">
+      <button class="nav-btn" id="btn-prev">← previous</button>
+      <span class="nav-sep">/</span>
+      <button class="nav-btn" id="btn-next">next →</button>
+    </div>
+  </div>
+
+  <audio id="native-audio"></audio>
+
+  <!-- ── lightbox ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Drawing full size">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    const recordings = [
+      { num: 1,  lang: 'EN', file: 'assets/dream-cafe/sounds/dream1.m4a',  drawing: 'assets/dream-cafe/drawings/dream1.jpg', note: '' },
+      { num: 2,  lang: 'EN', file: 'assets/dream-cafe/sounds/dream2.m4a',  drawing: 'assets/dream-cafe/drawings/dream2.jpg', note: '' },
+      { num: 3,  lang: 'FI', file: 'assets/dream-cafe/sounds/dream3.m4a',  drawing: 'assets/dream-cafe/drawings/dream3.jpg', note: '' },
+      { num: 4,  lang: 'KO', file: 'assets/dream-cafe/sounds/dream4.m4a',  drawing: 'assets/dream-cafe/drawings/dream4.jpg', note: '' },
+      { num: 5,  lang: 'EN', file: 'assets/dream-cafe/sounds/dream5.m4a',  drawing: 'assets/dream-cafe/drawings/dream5.jpg', note: '' },
+      { num: 6,  lang: 'FI', file: 'assets/dream-cafe/sounds/dream6.m4a',  drawing: 'assets/dream-cafe/drawings/dream6.jpg', note: '' },
+      { num: 7,  lang: 'ES', file: 'assets/dream-cafe/sounds/dream7.m4a',  drawing: 'assets/dream-cafe/drawings/dream7.jpg', note: '' },
+      { num: 8,  lang: 'FI', file: 'assets/dream-cafe/sounds/dream8.m4a',  drawing: 'assets/dream-cafe/drawings/dream8.jpg', note: '' },
+      { num: 9,  lang: 'EN', file: 'assets/dream-cafe/sounds/dream9.m4a',  drawing: 'assets/dream-cafe/drawings/dream9.jpg', note: '' },
+      { num: 10, lang: 'FI', file: 'assets/dream-cafe/sounds/dream10.m4a', drawing: 'assets/dream-cafe/drawings/dream10.jpg', note: '' },
+      { num: 11, lang: 'FI', file: 'assets/dream-cafe/sounds/dream11.m4a', drawing: 'assets/dream-cafe/drawings/dream11.jpg', note: '' },
+      { num: 12, lang: 'KO', file: 'assets/dream-cafe/sounds/dream12.m4a', drawing: 'assets/dream-cafe/drawings/dream12.jpg', note: '' },
+      { num: 13, lang: 'EN', file: 'assets/dream-cafe/sounds/dream13.m4a', drawing: 'assets/dream-cafe/drawings/dream13.jpg', note: '' },
+      { num: 14, lang: 'FI', file: 'assets/dream-cafe/sounds/dream14.m4a', drawing: 'assets/dream-cafe/drawings/dream14.jpg', note: '' },
+      { num: 15, lang: 'ES', file: 'assets/dream-cafe/sounds/dream15.m4a', drawing: 'assets/dream-cafe/drawings/dream15.jpg', note: '' },
+      { num: 16, lang: 'FI', file: 'assets/dream-cafe/sounds/dream16.m4a', drawing: 'assets/dream-cafe/drawings/dream16.jpg', note: '' },
+      { num: 17, lang: 'EN', file: 'assets/dream-cafe/sounds/dream17.m4a', drawing: 'assets/dream-cafe/drawings/dream17.jpg', note: '' },
+      { num: 18, lang: 'FI', file: 'assets/dream-cafe/sounds/dream18.m4a', drawing: 'assets/dream-cafe/drawings/dream18.jpg', note: '' },
+      { num: 19, lang: 'KO', file: 'assets/dream-cafe/sounds/dream19.m4a', drawing: 'assets/dream-cafe/drawings/dream19.jpg', note: '' },
+      { num: 20, lang: 'FI', file: 'assets/dream-cafe/sounds/dream20.m4a', drawing: 'assets/dream-cafe/drawings/dream20.jpg', note: '' },
+      { num: 21, lang: 'EN', file: 'assets/dream-cafe/sounds/dream21.m4a', drawing: 'assets/dream-cafe/drawings/dream21.jpg', note: '' },
+      { num: 22, lang: 'FI', file: 'assets/dream-cafe/sounds/dream22.m4a', drawing: 'assets/dream-cafe/drawings/dream22.jpg', note: '' },
+      { num: 23, lang: 'ES', file: 'assets/dream-cafe/sounds/dream23.m4a', drawing: 'assets/dream-cafe/drawings/dream23.jpg', note: '' },
+      { num: 24, lang: 'FI', file: 'assets/dream-cafe/sounds/dream24.m4a', drawing: 'assets/dream-cafe/drawings/dream24.jpg', note: '' },
+      { num: 25, lang: 'EN', file: 'assets/dream-cafe/sounds/dream25.m4a', drawing: 'assets/dream-cafe/drawings/dream25.jpg', note: '' },
+      { num: 26, lang: 'FI', file: 'assets/dream-cafe/sounds/dream26.m4a', drawing: 'assets/dream-cafe/drawings/dream26.jpg', note: '' },
+      { num: 27, lang: 'KO', file: 'assets/dream-cafe/sounds/dream27.m4a', drawing: 'assets/dream-cafe/drawings/dream27.jpg', note: '' },
+      { num: 28, lang: 'FI', file: 'assets/dream-cafe/sounds/dream28.m4a', drawing: 'assets/dream-cafe/drawings/dream28.jpg', note: '' },
+    ];
+
+    const langFull = { FI: 'Finnish', EN: 'English', ES: 'Spanish', KO: 'Korean' };
+
+    const carouselEl  = document.getElementById('carousel');
+    const carouselWrap= document.getElementById('carousel-wrap');
+    const panel       = document.getElementById('player-panel');
+    const playerNum   = document.getElementById('player-num');
+    const playerName  = document.getElementById('player-name');
+    const playerTags  = document.getElementById('player-tags');
+    const playerNote  = document.getElementById('player-note');
+    const playerDraw  = document.getElementById('player-drawing');
+    const playBtn     = document.getElementById('play-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const timeDisp    = document.getElementById('time-display');
+    const btnPrev     = document.getElementById('btn-prev');
+    const btnNext     = document.getElementById('btn-next');
+    const audio       = document.getElementById('native-audio');
+    const arrowL      = document.getElementById('arrow-left');
+    const arrowR      = document.getElementById('arrow-right');
+    const lightbox    = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    let current = null;
+
+    // arrow scrolling
+    const SCROLL_AMT = 500;
+    arrowL.addEventListener('click', () => carouselWrap.scrollBy({ left: -SCROLL_AMT, behavior: 'smooth' }));
+    arrowR.addEventListener('click', () => carouselWrap.scrollBy({ left:  SCROLL_AMT, behavior: 'smooth' }));
+
+    function updateArrows() {
+      arrowL.disabled = carouselWrap.scrollLeft <= 0;
+      arrowR.disabled = carouselWrap.scrollLeft + carouselWrap.clientWidth >= carouselWrap.scrollWidth - 1;
+    }
+    carouselWrap.addEventListener('scroll', updateArrows);
+
+    // lightbox
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.add('open');
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+    }
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    function fmt(s) {
+      if (!isFinite(s)) return '0:00';
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60).toString().padStart(2, '0');
+      return m + ':' + sec;
+    }
+
+    function buildCards() {
+      recordings.forEach((r, i) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.index = i;
+
+        const drawDiv = document.createElement('div');
+        drawDiv.className = 'card-drawing';
+
+        const numEl = document.createElement('span');
+        numEl.className = 'card-num';
+        numEl.textContent = r.num;
+        drawDiv.appendChild(numEl);
+
+        // const langEl = document.createElement('span');
+        // langEl.className = 'card-lang';
+        // langEl.textContent = r.lang;
+        // drawDiv.appendChild(langEl);
+
+        if (r.drawing) {
+          const img = document.createElement('img');
+          img.src = r.drawing;
+          img.alt = 'Drawing by visitor ' + r.num;
+          drawDiv.appendChild(img);
+        } else {
+          const ph = document.createElement('span');
+          ph.style.cssText = 'position:relative;z-index:1;';
+          ph.textContent = 'drawing';
+          drawDiv.appendChild(ph);
+        }
+
+        const body = document.createElement('div');
+        body.className = 'card-body';
+        const title = document.createElement('p');
+        title.className = 'card-title';
+        title.textContent = 'Visitor ' + r.num;
+        const dur = document.createElement('p');
+        dur.className = 'card-duration';
+        dur.textContent = '—';
+        body.appendChild(title);
+        body.appendChild(dur);
+        card.appendChild(drawDiv);
+        card.appendChild(body);
+
+        card.addEventListener('click', () => openRecording(i));
+        carouselEl.appendChild(card);
+
+        const tmp = new Audio();
+        tmp.src = r.file;
+        tmp.addEventListener('loadedmetadata', () => { dur.textContent = fmt(tmp.duration); });
+      });
+
+      // initial arrow state after render
+      requestAnimationFrame(updateArrows);
+    }
+
+    function getCard(i) {
+      return carouselEl.querySelector('[data-index="' + i + '"]');
+    }
+
+    function openRecording(i) {
+      const r = recordings[i];
+      if (current !== null) getCard(current).classList.remove('active', 'playing');
+      current = i;
+      audio.pause();
+      audio.src = r.file;
+      getCard(i).classList.add('active');
+
+      playerNum.textContent = 'Recording ' + r.num + ' of ' + recordings.length;
+      playerName.textContent = 'Visitor ' + r.num;
+      playerTags.innerHTML = '<span class="player-tag">' + (langFull[r.lang] || r.lang) + '</span>';
+      playerNote.textContent = r.note || '';
+      playerNote.style.display = r.note ? '' : 'none';
+
+      // player drawing with lightbox support
+      playerDraw.innerHTML = '';
+      playerDraw.className = 'player-drawing';
+      if (r.drawing) {
+        const img = document.createElement('img');
+        img.src = r.drawing;
+        img.alt = 'Drawing by visitor ' + r.num;
+        playerDraw.appendChild(img);
+        playerDraw.classList.add('has-image');
+        playerDraw.onclick = () => openLightbox(r.drawing, 'Drawing by visitor ' + r.num);
+      } else {
+        playerDraw.textContent = 'drawing';
+        playerDraw.onclick = null;
+      }
+
+      progressBar.value = 0;
+      timeDisp.textContent = '0:00 / 0:00';
+      playBtn.textContent = '▶';
+      panel.classList.add('visible');
+
+      getCard(i).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      audio.play().then(() => {
+        playBtn.textContent = '❚❚';
+        getCard(i).classList.add('playing');
+      }).catch(() => {});
+
+      btnPrev.disabled = i === 0;
+      btnNext.disabled = i === recordings.length - 1;
+    }
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          playBtn.textContent = '❚❚';
+          if (current !== null) getCard(current).classList.add('playing');
+        });
+      } else {
+        audio.pause();
+        playBtn.textContent = '▶';
+        if (current !== null) getCard(current).classList.remove('playing');
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration) return;
+      progressBar.value = (audio.currentTime / audio.duration) * 100;
+      timeDisp.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+    });
+
+    progressBar.addEventListener('input', () => {
+      if (!audio.duration) return;
+      audio.currentTime = (progressBar.value / 100) * audio.duration;
+    });
+
+    audio.addEventListener('ended', () => {
+      playBtn.textContent = '▶';
+      if (current !== null) getCard(current).classList.remove('playing');
+      if (current !== null && current < recordings.length - 1) {
+        setTimeout(() => openRecording(current + 1), 800);
+      }
+    });
+
+    btnPrev.addEventListener('click', () => { if (current > 0) openRecording(current - 1); });
+    btnNext.addEventListener('click', () => { if (current < recordings.length - 1) openRecording(current + 1); });
+
+    buildCards();
+  </script>
 
 </body>
 </html>
