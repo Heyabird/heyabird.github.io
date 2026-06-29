@@ -55,9 +55,33 @@
       margin-bottom: 1rem;
     }
 
-    .intro-text a {
-      color: #000;
-    }
+  .intro-text a {
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+  position: relative;
+}
+
+.intro-text a:hover {
+  border-bottom-color: transparent;
+}
+
+.bubble {
+  position: fixed;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #e0f4ff, #87ceeb);
+  border: 1px solid #a8ddf0;
+  pointer-events: none;
+  opacity: 0;
+  animation: bubble-rise 0.9s ease-out forwards;
+  z-index: 9999;
+}
+
+@keyframes bubble-rise {
+  0%   { opacity: 0.8; transform: translateY(0) scale(1); }
+  80%  { opacity: 0.4; }
+  100% { opacity: 0;   transform: translateY(-60px) scale(1.2); }
+}
 
     .intro-photo {
       width: 100%;
@@ -83,6 +107,7 @@
       font-family: sans-serif;
       color: #aaa;
     }
+
 
     /* ── divider ── */
     hr {
@@ -301,10 +326,10 @@
         playfulness, and care in our current extractive and
         accelerationist regimes? How can art and technology help in figuring that out?
       </p>
-      <p>Currently, I am going to school in Espoo, Finland. Before that, I worked as a software engineer at Bandcamp. Before that, I lived as an artist, mainly as a music producer, while working in the service industry.
+      <p>Currently, I am going to school in Espoo, Finland. Before that, I lived in California and worked as a software engineer at Bandcamp. Before that, I lived as an artist, mainly as a <a href="https://heyaworld.bandcamp.com/" target="_blank">music producer</a>, while working in the service industry.
       </p>
       <p>
-        On my free time, I like to draw, vlog, read, and journal. 
+        On my free time, I like to draw, <a href="https://www.youtube.com/@heya_world" target="_blank">vlog</a>, read, and journal. 
       </p>
     </div>
 
@@ -601,6 +626,35 @@ tvClick.addEventListener('click', () => {
 document.getElementById('tv-close').addEventListener('click', () => {
   tvMessage.classList.remove('open');
   tvClick.querySelector('rect.screen').setAttribute('fill', '#f0f0f0');
+});
+
+// bubble effect
+document.querySelectorAll('.intro-text a').forEach(link => {
+  let interval = null;
+
+  link.addEventListener('mouseenter', () => {
+    interval = setInterval(() => {
+      const rect = link.getBoundingClientRect();
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+
+      const size = 8 + Math.random() * 16;
+      bubble.style.width  = size + 'px';
+      bubble.style.height = size + 'px';
+
+      // random x position spread around the link, random y along it
+      bubble.style.left = (rect.left + Math.random() * rect.width - size / 2) + 'px';
+      bubble.style.top  = (rect.top  + Math.random() * rect.height) + 'px';
+
+      document.body.appendChild(bubble);
+      bubble.addEventListener('animationend', () => bubble.remove());
+    }, 80);
+  });
+
+  link.addEventListener('mouseleave', () => {
+    clearInterval(interval);
+    interval = null;
+  });
 });
   </script>
 
