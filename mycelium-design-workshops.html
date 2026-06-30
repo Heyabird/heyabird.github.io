@@ -214,6 +214,36 @@
       color: #666;
       line-height: 1.5;
     }
+
+    .project-image-pair {
+      display: flex;
+      gap: 12px;
+      margin: 2rem 0;
+    }
+
+    .paired-image {
+      flex: 1;
+    }
+
+    .paired-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border: 1px solid #000;
+      margin-bottom: 0.5rem;
+    }
+
+    /* stack on mobile */
+    @media (max-width: 600px) {
+      .project-image-pair {
+        flex-direction: column;
+      }
+
+      .paired-image img {
+        height: auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -247,23 +277,78 @@
   <!-- replace the placeholder div with:
         -->
     <img class="cover" src="assets/mycelium_design_cover.jpg" alt="Mycelium dried and demoulded four days after the design workshop.">
-    <p class="cover-caption">
+    <!-- <p class="cover-caption">
       Mycelium dried and demoulded four days after the design workshop.
-    </p>
+    </p> -->
   <!-- ── short description ── -->
-  <p class="project-description">
-    Documentation coming soon!
+   <br/>
+  <p class="">
+    The mycelium design workshops were a total of 6 workshops (3 moulding and 3 demoulding) co-facilitated by Harvey Shaw, Yejin Youn, Shawn Kim, and Heya Kwon.</p>
+    <br/>
+  <p>As part of our <a href="/noraebang.html">Noraebang</a> project, we organized these workshops to create participatory soundproofing tiles using mycelium. We were lucky to have Harvey Shaw, a doctoral Mycelium researcher at Aalto University, join us and teach participants about mycelium and fungi-related design. Together with Harvey, Yejin, Shawn, and I planned the design components and structure of the workshops.</p>
+  <br/>
+  <p>During the workshops, we took turns sniffing, touching, seeing, and feeling mycelium--mainly of tinder fungi--and molded them into designs using korean typographic tiles. The tiles were originally designed by Yejin Youn and 3D printed by us to fit the size of the soundproofing panels. The tiles are broken down components of the Korean written system Hangul (한글), and participants can combine them to create existing letters or new designs.</p>
+  <br/>
+  <p>Over 50 people from Aalto and beyond (students, researchers, teachers, friends) were involved in designing their own panels. Together, we learned how to work with mycelium rather than imposing control over it (which was impossible anyway). It was refreshing to use our different senses to engage in a design process. And we got to meet interesting and kind people along the way.</p>
+  <br/>
+  <p>The panels, grown and dried, will be installed in our communal karaoke booth to help soundproof and shape it. The sounds and designs of Noraebang are literally molded by our community.</p>
+  <br/>
+  <p>We are so grateful for this experience. Thank you to all the participants who added their touch to Noraebang, BioMakers Lab for hosting us and our workshops, and Sustainability Action Booster for funding all the materials.</p>
+
+
+<br/>
+
+Workshop led by: Harvey Shaw
+Co-facilitated by: Yejin Youn, Shawn Kim, Heya Kwon
   </p>
 
   <!-- ── body text with embedded images ── -->
   <div class="project-body">
 
 
+  <div class="project-image-pair">
+    <div class="paired-image">
+      <img src="assets/mycelium-workshops/workshop1.jpg" alt="Mycelium chunks to be taken apart and packed into the moulds that each participant designed themselves">
+      <p class="image-caption">Mycelium chunks (combined with woodchips) by the moulds that each participant designed.</p>
+    </div>
+    <div class="paired-image">
+      <img src="assets/mycelium-workshops/workshop2.jpg" alt="Photo from the second mycelium design workshop">
+      <p class="image-caption">From the second mycelium design workshop. Shawn is introducing the Hangul (한글) system, as shown on the screen in the back.</p>
+    </div>
+  </div>
+  <br/>
 
-    <!-- full-width inline image -->
+  <div class="project-image-pair">
+    <div class="paired-image">
+      <img src="assets/mycelium-workshops/workshop3.jpg" alt="A gloved hand is taking apart and fitting in the mycelium chunks (fed with woodchips) into their mould.">
+      <p class="image-caption">A participant is taking apart and fitting in the mycelium chunks (fed with woodchips) into their mould.</p>
+    </div>
+    <div class="paired-image">
+      <img src="assets/mycelium-workshops/workshop4.jpg" alt="Mycelium chunks are tucked in nice and cozily,especially around the corners of the moulds.">
+      <p class="image-caption">Mycelium chunks are tucked in nice and cozily, especially around the corners of the 3d prints to prevent any future breakage during demoulding.</p>
+    </div>
+  </div>
+  <br/>
+
+  <div class="project-image-pair">
+    <div class="paired-image">
+      <img src="assets/mycelium-workshops/workshop5.jpg" alt="Two filled up moulds are stored in two bags.">
+      <p class="image-caption">Filled up moulds are labeled and stored inside ventilated bags, to be stored inside a climate-controlled tent in BioMakers Lab. Four days later, participants can demould it in the second part of the workshop.</p>
+    </div>
+    <div class="paired-image">
+      <img src="assets/mycelium-workshops/workshop6.jpg" alt="Photo from the second mycelium design workshop">
+      <p class="image-caption">The demoulding process involves gently taking off the 3d printed design pieces. Tools like exacto knives can help.</p>
+    </div>
+  </div>
+  <br/>
+
+    <div class="project-image full">
+      <img src="assets/mycelium-workshops/workshop7.jpg" alt="Mycelium dried and demoulded four days after the design workshop.">
+      <p class="image-caption">Mycelium demoulded four days after the design workshop. It will be flipped and go through another week of drying.</p>
+    </div>
     <div class="project-image full">
       <img src="assets/noraebang/jeong.jpg" alt="Mycelium grown for two weeks after the initial design and moulding.">
-      <p class="image-caption">Mycelium grown for two weeks after the initial design and moulding. The design reads in Hangul "정" (pronounced Jeong), which loosely means "Bonding with people, places, or things through shared time and experiences."</p>
+      <p class="image-caption">Mycelium grown for two weeks after the initial design and moulding workshop. The design reads in Hangul "정" (pronounced Jeong), which loosely means "Bonding with people, places, or things through shared time and experiences." The surface is white and fluffy.</p>
     </div>
 
     <!-- <p>
