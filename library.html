@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      padding: 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover { border-bottom-color: #000; }
+    nav a.active { border-bottom-color: #000; }
+
+    .canvas {
+      position: relative;
+      width: 100%;
+      height: 580px;
+      background: #fff;
+      overflow: hidden;
+      border: 1px solid #000;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-size: 11px;
+      font-family: sans-serif;
+      color: #ccc;
+      pointer-events: none;
+    }
+
+    .book {
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .book:active { cursor: grabbing; }
+    .book.dragging { z-index: 100; }
+
+    .book img {
+      display: block;
+      border: 1px solid #000;
+      width: 100%;
+      transition: opacity 0.15s;
+      pointer-events: none;
+    }
+
+    .book:hover img { opacity: 0.88; }
+
+    /* modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.06);
+      z-index: 200;
+    }
+
+    .modal-overlay.open { display: block; }
+
+    .modal {
+      position: fixed;
+      background: #fff;
+      border: 1px solid #000;
+      padding: 1.25rem;
+      width: 260px;
+      z-index: 201;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .modal-title {
+      font-size: 13px;
+      font-family: sans-serif;
+      font-weight: 500;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+
+    .modal-author {
+      font-size: 11px;
+      font-family: sans-serif;
+      color: #999;
+      margin-bottom: 0.85rem;
+    }
+
+    .modal-note {
+      font-size: 13px;
+      font-family: serif;
+      line-height: 1.7;
+      color: #000;
+    }
+
+    .modal-close {
+      display: block;
+      margin-top: 1rem;
+      font-size: 11px;
+      font-family: sans-serif;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #999;
+      padding: 0;
+      border-bottom: 1px solid transparent;
+    }
+
+    .modal-close:hover { color: #000; border-bottom-color: #000; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <!-- <a href="writing.html">Writing</a> -->
+    <a href="library.html" class="active">Library</a>
+    <!-- <a href="photos.html">Photos</a> -->
+    <a href="about.html">About</a>
+  </nav>
+
+  <p>Here are some books and writings that have inspired me. I hope to fill my library up more.</p>
+  <br/>
+  <div class="canvas" id="canvas">
+    <p class="hint">drag!</p>
+  </div>
+
+  <div class="modal-overlay" id="overlay">
+    <div class="modal">
+      <div class="modal-title" id="m-title"></div>
+      <div class="modal-author" id="m-author"></div>
+      <p class="modal-note" id="m-note"></p>
+      <button class="modal-close" id="m-close">close</button>
+    </div>
+  </div>
+
+  <script>
+    const books = [
+      {
+        title: '24/7: Late Capitalism and the Ends of Sleep',
+        author: 'Jonathan Crary',
+        note: '',
+        src: 'assets/books/24_7.jpg',
+        x: 30,  y: 35,  rot: -1.5, w: 110
+      },
+      {
+        title: 'Situated Knowledges',
+        author: 'Donna Haraway',
+        note: 'All knowledge is partial, located in a specific body. There is no view from nowhere.',
+        src: 'assets/books/situated_knowledges.jpg',
+        x: 165, y: 55,  rot: 1.5,  w: 100
+      },
+      {
+        title: "The Heart of the Buddha's Teaching",
+        author: 'Thich Nhat Hanh',
+        note: '',
+        src: 'assets/books/the_heart_of_the_buddhas_teaching.jpg',
+        x: 285, y: 30,  rot: -1,   w: 115
+      },
+      {
+        title: 'A City is Not a Computer',
+        author: 'Shannon Mattern',
+        note: 'Cities that resist optimization.',
+        src: 'assets/books/a_city_is_not_a_computer.jpg',
+        x: 420, y: 50,  rot: 2,    w: 105
+      },
+      {
+        title: 'A Geology of Media',
+        author: 'Jussi Parikka',
+        note: 'What media is made of...',
+        src: 'assets/books/a_geology_of_media.jpg',
+        x: 545, y: 38,  rot: -1.5, w: 112
+      },
+      {
+        title: 'Stoner',
+        author: 'John Williams',
+        note: '',
+        src: 'assets/books/stoner.jpg',
+        x: 680, y: 55,  rot: 1,    w: 98
+      },
+      {
+        title: 'The Carrier Bag Theory of Fiction',
+        author: 'Ursula K. Le Guin',
+        note: 'How to create a story that is not a weapon but a bag of oats?',
+        src: 'assets/books/carrier_bag.jpg',
+        x: 60,  y: 340, rot: 1,    w: 108
+      },
+      {
+        title: 'The Castle',
+        author: 'Franz Kafka',
+        note: 'K., lost in the system...',
+        src: 'assets/books/the_castle.jpg',
+        x: 260, y: 355, rot: -2,   w: 102
+      },
+    ];
+
+    const canvas = document.getElementById('canvas');
+    const overlay = document.getElementById('overlay');
+    let topZ = 10;
+
+    books.forEach((book, i) => {
+      const el = document.createElement('div');
+      el.className = 'book';
+      el.style.cssText = `left:${book.x}px; top:${book.y}px; transform:rotate(${book.rot}deg); z-index:${i+1}; width:${book.w}px;`;
+
+      const img = document.createElement('img');
+      img.src = book.src;
+      img.alt = book.title;
+      el.appendChild(img);
+      canvas.appendChild(el);
+
+      let moved = false, dragging = false, startX, startY, origLeft, origTop;
+
+      el.addEventListener('mousedown', e => {
+        dragging = true; moved = false;
+        el.style.zIndex = ++topZ;
+        startX = e.clientX; startY = e.clientY;
+        origLeft = parseInt(el.style.left);
+        origTop  = parseInt(el.style.top);
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        const dx = e.clientX - startX, dy = e.clientY - startY;
+        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+        el.style.left = (origLeft + dx) + 'px';
+        el.style.top  = (origTop  + dy) + 'px';
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!dragging) return;
+        dragging = false;
+      });
+
+      el.addEventListener('touchstart', e => {
+        moved = false;
+        el.style.zIndex = ++topZ;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        origLeft = parseInt(el.style.left);
+        origTop  = parseInt(el.style.top);
+      }, { passive: true });
+
+      el.addEventListener('touchmove', e => {
+        const dx = e.touches[0].clientX - startX, dy = e.touches[0].clientY - startY;
+        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+        el.style.left = (origLeft + dx) + 'px';
+        el.style.top  = (origTop  + dy) + 'px';
+        e.preventDefault();
+      }, { passive: false });
+
+      el.addEventListener('click', () => {
+        if (moved) return;
+        document.getElementById('m-title').textContent = book.title;
+        document.getElementById('m-author').textContent = book.author;
+        document.getElementById('m-note').textContent = book.note;
+        overlay.classList.add('open');
+      });
+    });
+
+    document.getElementById('m-close').addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('open'); });
+  </script>
+
+</body>
+</html>
