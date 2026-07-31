@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ASCII SELFIE MACHINE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+<style>
+  :root{
+    --paper: #ffffff;
+    /* --paper-dark: #f7c850; */
+    --casing: #2B2924;
+    --casing-hi: #3A372F;
+    --screen-bezel: #14130F;
+    --phosphor: #ffffff;
+    --phosphor-dim: #2C8B62;
+    --stamp: #C1432B;
+    --ink: #2c231a;
+    --ink-soft: #cec6b4;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0;
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(36,31,26,0.06) 1px, transparent 0);
+    background-size: 14px 14px;
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 28px 14px;
+  }
+  .device{
+    background: var(--casing);
+    border-radius: 3px;
+    padding: 22px 22px 18px;
+    width: 100%;
+    max-width: 700px;
+    /* box-shadow: 0 18px 40px rgba(20,17,12,0.35), inset 0 1px 0 rgba(255,255,255,0.06); */
+  }
+  .device-header{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding: 2px 6px 16px;
+    /* border-bottom: 1px solid rgba(255,255,255,0.08); */
+    margin-bottom: 16px;
+  }
+  .brand{
+    font-family: serif;
+    font-weight:300;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    color: var(--paper);
+  }
+  .brand span{ color: var(--phosphor); }
+  .model-tag{
+    font-family: serif;
+    font-size: 13px;
+    color: #9a9587;
+    letter-spacing: 1.5px;
+    /* text-transform: uppercase; */
+  }
+  .screen-wrap{
+    position: relative;
+    background: var(--screen-bezel);
+    border-radius: 2px;
+    padding: 10px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), inset 0 6px 18px rgba(0,0,0,0.6);
+  }
+  .screen{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #05100a;
+  }
+  .screen canvas{
+    width: 100% !important;
+    height: 100% !important;
+    display:block;
+  }
+  .scanlines{
+    position:absolute; inset:0;
+    pointer-events:none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.18) 0px,
+      rgba(0,0,0,0.18) 1px,
+      transparent 2px,
+      transparent 3px
+    );
+    mix-blend-mode: multiply;
+  }
+  .vignette{
+    position:absolute; inset:0;
+    pointer-events:none;
+    box-shadow: inset 0 0 60px 18px rgba(0,0,0,0.55);
+  }
+  .overlay-msg{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+    gap: 14px;
+    text-align:center;
+    padding: 20px;
+    background: #05100a;
+    color: var(--phosphor);
+  }
+  .overlay-msg p{
+    margin:0;
+    font-size: 12px;
+    color: #0ecf72;
+    max-width: 320px;
+    line-height:1.5;
+  }
+  .scan-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #05100a;
+    background: var(--phosphor);
+    border: none;
+    border-radius: 999px;
+    padding: 11px 22px;
+    cursor:pointer;
+    text-transform:uppercase;
+  }
+  .scan-btn:hover{ background:#21ff94; }
+  .scan-btn:active{ transform: translateY(1px); }
+  .scan-btn.ghost{
+    background: transparent;
+    color: var(--phosphor);
+    box-shadow: inset 0 0 0 1.5px var(--phosphor);
+    padding: 9px 18px;
+    font-size: 12px;
+  }
+  .scan-btn.ghost:hover{ background: rgba(87,240,166,0.12); }
+  .scan-btn:disabled{
+    opacity: 0.35;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .scan-btn:disabled:hover{ background: transparent; }
+  .flash{
+    position:absolute; inset:0;
+    background:#fff;
+    opacity:0;
+    pointer-events:none;
+    z-index: 5;
+  }
+  .flash.active{ opacity:0.9; }
+  .readout-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 12px;
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: var(--casing-hi);
+    border-radius: 3px;
+  }
+  #status-text{
+    font-size: 12px;
+    color: var(--phosphor);
+    letter-spacing: 0.4px;
+    min-height: 16px;
+  }
+  .rec-dot{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--stamp);
+    flex: none;
+    /* animation: blink 1.4s infinite; */
+  }
+  @keyframes blink{ 50% { opacity: 0.25; } }
+  .controls{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 0 4px;
+  }
+  .toggle{
+    display:flex;
+    align-items:center;
+    gap: 7px;
+    font-size: 11.5px;
+    color: #b7b1a0;
+    letter-spacing: 0.3px;
+  }
+  .toggle input{ accent-color: var(--phosphor); }
+  .footer-note{
+    margin-top: 16px;
+    padding: 0 4px;
+    font-size: 10.5px;
+    line-height: 1.5;
+    color: #8a8474;
+  }
+  .footer-note b{ color: #b7b1a0; }
+</style>
+</head>
+<body>
+
+<div class="device">
+  <div class="device-header">
+    <div class="brand"><span>ASCII</span> SELFIE MACHINE</div>
+    <div class="model-tag">Don't forget to smile (or not)</div>
+  </div>
+
+  <div class="screen-wrap">
+    <div class="screen" id="screen-container">
+      <div class="overlay-msg" id="overlay-msg">
+        <div style="font-size:34px;">O_O</div>
+        <p>Tired of seeing your face online? Let me simplify it for you.</p>
+        <button class="scan-btn" id="start-btn">Start scan</button>
+      </div>
+      <div class="scanlines"></div>
+      <div class="vignette"></div>
+      <div class="flash" id="flash"></div>
+    </div>
+  </div>
+
+  <div class="readout-row">
+    <div class="rec-dot" id="rec-dot" style="visibility:hidden;"></div>
+    <div id="status-text">STANDBY</div>
+  </div>
+
+  <div class="controls">
+    <button class="scan-btn ghost" id="photo-btn" disabled>📸 Take pic!</button>
+    <label class="toggle">
+      <input type="checkbox" id="mirror-toggle" checked />
+      mirror
+    </label>
+    <label class="toggle">
+      <input type="checkbox" id="random-eyes-toggle" />
+      random eyes
+    </label>
+  </div>
+
+  <div class="footer-note">
+    <!-- <b>Are you also tired of seeing your face online? Miss the good old days when you can be an anonymous soul online? Let's bring that back.</b> -->
+  </div>
+</div>
+
+<script>
+let faceMesh;
+let video;
+let faces = [];
+let cameraStarted = false;
+
+// standard MediaPipe FaceMesh landmark indices (468-point model)
+const L_OUT=33, L_IN=133, L_UP=159, L_DN=145;
+const R_OUT=362, R_IN=263, R_UP=386, R_DN=374;
+const M_L=61, M_R=291, M_UP=13, M_DN=14;
+const NOSE=1;
+const CHEEK_L=234, CHEEK_R=454;
+
+let mirrorOn = true;
+let randomEyesOn = false;
+
+const randomEyeChars = ["'", '0', 'O', '3', 'T', '@', '*', '^', '♡', '☆', '★', '✦', '♥', '꩜', '⛔︎', '=','~'];
+
+const eyeRandomState = {
+  left: { char: '0' },
+  right: { char: '0' }
+};
+
+function rollRandomEyeChars() {
+  eyeRandomState.left.char = random(randomEyeChars);
+  eyeRandomState.right.char = random(randomEyeChars);
+}
+
+const idleLines = [
+  "FACIAL INTEGRITY: QUESTIONABLE",
+  "RENDERING CONFIDENCE: LOW",
+  "UMM... IS THAT A FACE?",
+  "CONCLUSION: INCONCLUSIVE",
+  "SUBJECT RESEMBLES A FACE",
+  "IT'S ALL A BLUR",
+  "STRUCTURAL HONESTY: HIGH"
+];
+
+function preload() {
+  faceMesh = ml5.faceMesh({ maxFaces: 1, refineLandmarks: false, flipHorizontal: false });
+}
+
+let canvasEl;
+let photoStatusUntil = 0;
+
+function setup() {
+  const cnv = createCanvas(640, 480);
+  cnv.parent('screen-container');
+  canvasEl = cnv.elt;
+  textAlign(CENTER, CENTER);
+  noStroke();
+}
+
+function startCamera() {
+  if (cameraStarted) return;
+  cameraStarted = true;
+  video = createCapture(VIDEO, () => {
+    video.size(640, 480);
+    video.hide();
+    faceMesh.detectStart(video, results => { faces = results; });
+  });
+  document.getElementById('overlay-msg').style.display = 'none';
+  document.getElementById('rec-dot').style.visibility = 'visible';
+  document.getElementById('photo-btn').disabled = false;
+}
+
+let pendingCapture = null;
+
+function draw() {
+  background(5, 16, 10);
+  if (!cameraStarted || !video) return;
+
+  // The feed itself is never shown, but it still needs to be read into the
+  // canvas every frame.
+  //  some browsers throttle/stall a hidden <video>'s
+  // frame decoding once nothing reads its pixels each frame, which starves
+  // face detection.
+  push();
+  if (mirrorOn) { translate(width, 0); scale(-1, 1); }
+  tint(255, 0);
+  image(video, 0, 0, width, height);
+  noTint();
+  pop();
+
+  if (faces.length > 0) {
+    drawAsciiFace(faces[0]);
+  } else {
+    drawSearching();
+  }
+
+  if (pendingCapture) {
+    const cb = pendingCapture;
+    pendingCapture = null;
+    cb();
+  }
+}
+
+function mirrorX(x) { return mirrorOn ? width - x : x; }
+
+function dist2(a, b) { return dist(a.x, a.y, b.x, b.y); }
+
+function drawAsciiFace(face) {
+  const kp = face.keypoints;
+  if (!kp || kp.length < 468) return;
+
+  const faceWidthPx = dist2(kp[CHEEK_L], kp[CHEEK_R]);
+  const s = constrain(faceWidthPx * 0.11, 16, 60);
+
+  fill(87, 240, 166);
+  textFont('IBM Plex Mono, monospace');
+  textStyle(BOLD);
+
+  const leftEyeState = drawEye(kp[L_OUT], kp[L_IN], kp[L_UP], kp[L_DN], s, eyeRandomState.left);
+  const rightEyeState = drawEye(kp[R_OUT], kp[R_IN], kp[R_UP], kp[R_DN], s, eyeRandomState.right);
+
+  // eyebrows
+  drawBrow(kp[L_OUT], kp[L_IN], kp[L_UP], s);
+  drawBrow(kp[R_OUT], kp[R_IN], kp[R_UP], s);
+
+  // nose
+  textSize(s * 0.4);
+  text('.', mirrorX(kp[NOSE].x), kp[NOSE].y);
+
+  const mouthState = drawMouth(kp[M_L], kp[M_R], kp[M_UP], kp[M_DN], s);
+
+  textStyle(NORMAL);
+  updateStatus(leftEyeState, rightEyeState, mouthState);
+}
+
+function drawEye(outer, inner, up, down, s, randomState) {
+  const cx = (outer.x + inner.x + up.x + down.x) / 4;
+  const cy = (outer.y + inner.y + up.y + down.y) / 4;
+  const w = dist2(outer, inner);
+  const h = dist2(up, down);
+  const ratio = h / max(w, 1);
+  const closed = ratio < 0.16;
+  const openChar = randomEyesOn ? randomState.char : '0';
+  textSize(s);
+  text(closed ? '-' : openChar, mirrorX(cx), cy);
+  return closed ? 'closed' : 'open';
+}
+
+function drawBrow(outer, inner, up, s) {
+  const cx = (outer.x + inner.x) / 2;
+  const cy = up.y - s * 1.15;
+  textSize(s * 0.8);
+  text('--', mirrorX(cx), cy);
+}
+
+function drawMouth(mL, mR, mUp, mDn, s) {
+  const cx = (mL.x + mR.x) / 2;
+  const cy = (mUp.y + mDn.y) / 2;
+  const w = dist2(mL, mR);
+  const h = dist2(mUp, mDn);
+  const ratio = h / max(w, 1);
+
+  if (ratio > 0.4) {
+    const openAmount = constrain(map(ratio, 0.4, 1.05, 1.1, 20.0), 1.1, 20.0);
+    textSize(s * openAmount);
+    text('O', mirrorX(cx), cy);
+    return 'open';
+  }
+
+  // Corners higher than the lip center (in screen-space, "higher" = smaller
+  // y) reads as a smile; 
+  // 
+  //corners lower than center reads as a frown. Both
+  // normalized by mouth width so it holds up regardless of distance from
+  // the camera.
+  const cornerY = (mL.y + mR.y) / 2;
+  const curve = (cornerY - cy) / max(w, 1);
+  const count = constrain(round(w / (s * 0.62)), 3, 9);
+  textSize(s * 0.8);
+
+  if (curve < -0.045) {
+    text('\\' + '_'.repeat(count) + '/', mirrorX(cx), cy);
+    return 'smile';
+  } else if (curve > 0.045) {
+    text('/' + '‾'.repeat(count) + '\\', mirrorX(cx), cy);
+    return 'frown';
+  } else {
+    text('-'.repeat(count), mirrorX(cx), cy);
+    return 'closed';
+  }
+}
+
+function drawSearching() {
+  fill(87, 240, 166, (sin(frameCount * 0.08) * 80 + 140));
+  textFont('IBM Plex Mono, monospace');
+  textSize(16);
+  text('[ SEARCHING FOR YOU... ]', width / 2, height / 2);
+  document.getElementById('status-text').textContent = 'NO SUBJECT DETECTED';
+}
+
+function updateStatus(leftEye, rightEye, mouth) {
+  const el = document.getElementById('status-text');
+  if (millis() < photoStatusUntil) return;
+  let msg;
+  if (leftEye === 'closed' && rightEye === 'closed') {
+    msg = 'EYES: OFFLINE';
+  } else if (leftEye === 'closed' || rightEye === 'closed') {
+    msg = 'WINK DETECTED. SUSPICIOUS.';
+  } else if (mouth === 'open') {
+    msg = 'MOUTH WIDE OPEN (yelling??)';
+  } else if (mouth === 'smile') {
+    msg = 'Smile detected! (Allegedly)';
+  } else if (mouth === 'frown') {
+    msg = 'DO YOU NEED A COOKIE? :(';
+  } else {
+    const idx = floor(millis() / 2400) % idleLines.length;
+    msg = idleLines[idx];
+  }
+  el.textContent = msg;
+}
+
+document.getElementById('start-btn').addEventListener('click', () => {
+  startCamera();
+});
+document.getElementById('mirror-toggle').addEventListener('change', (e) => {
+  mirrorOn = e.target.checked;
+});
+document.getElementById('random-eyes-toggle').addEventListener('change', (e) => {
+  randomEyesOn = e.target.checked;
+  if (randomEyesOn) rollRandomEyeChars();
+});
+document.getElementById('photo-btn').addEventListener('click', takePhoto);
+
+// --- shutter sound (synthesized, no audio file needed) ---
+let audioCtx;
+function playShutterSound() {
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const now = audioCtx.currentTime;
+    clickBurst(now, 0.025, 2200, 0.9);       // sharp open-click
+    clickBurst(now + 0.075, 0.045, 700, 0.7); // softer close-clack
+  } catch (e) { /* audio not available, fail silently */ }
+}
+
+function clickBurst(startTime, duration, freq, peak) {
+  const bufferSize = Math.floor(audioCtx.sampleRate * duration);
+  const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+  }
+  const noise = audioCtx.createBufferSource();
+  noise.buffer = buffer;
+  const bandpass = audioCtx.createBiquadFilter();
+  bandpass.type = 'bandpass';
+  bandpass.frequency.value = freq;
+  bandpass.Q.value = 0.9;
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(peak, startTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+  noise.connect(bandpass).connect(gain).connect(audioCtx.destination);
+  noise.start(startTime);
+  noise.stop(startTime + duration);
+}
+
+// --- flash + save ---
+function flashScreen() {
+  const el = document.getElementById('flash');
+  el.style.transition = 'none';
+  el.classList.add('active');
+  requestAnimationFrame(() => {
+    el.style.transition = 'opacity 260ms ease-out';
+    el.classList.remove('active');
+  });
+}
+
+function takePhoto() {
+  if (!cameraStarted || !canvasEl) return;
+  playShutterSound();
+  flashScreen();
+
+  // Defer the actual grab to the next frame, which draw() renders with the
+  // video alpha forced to 0 — so the saved file is ascii-only no matter
+  // what the "show camera feed" toggle is currently set to.
+  pendingCapture = () => {
+    const dataUrl = canvasEl.toDataURL('image/png');
+    const ts = new Date().toISOString().replace(/[:.]/g, '-');
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = `your-face-${ts}.png`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    document.getElementById('status-text').textContent = 'PHOTO SAVED TO DEVICE';
+    photoStatusUntil = millis() + 2200;
+  };
+}
+</script>
+</body>
+</html>
