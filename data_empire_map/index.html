@@ -7,8 +7,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Mansalva&family=Pangolin&family=Quicksand:wght@300..700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
 <style>
-  html,body{margin:0;padding:0;height:100%;font-family:sans-serif;background:#111;}
+  html,body{margin:0;padding:0;height:100%;font-family:"Courier Prime", monospace;background:#111;}
   #map{position:absolute;top:0;left:0;right:0;bottom:0;background:#111;}
   /* #status{position:fixed;top:10px;left:10px;z-index:1000;background:#222;color:#eee;padding:6px 10px;
     font-size:12px;border:1px solid #444;border-radius:4px;} */
@@ -44,13 +47,21 @@
     width:36px;height:36px;display:flex;align-items:center;justify-content:center;
     font-weight:bold;font-size:13px;font-family:sans-serif;}
 
-  /* LEGEND */
-  #legend{position:fixed;bottom:60px;left:10px;z-index:1000;background:#222;color:#eee;
+#legend{position:fixed;bottom:60px;left:10px;z-index:1000;background:#222;color:#eee;
   padding:10px 14px;border:1px solid #444;border-radius:4px;font-size:12px;}
-  #legend .legend-title{font-weight:700;margin-bottom:6px;}
-  #legend .legend-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
-  #legend .legend-row:last-child{margin-bottom:0;}
-  #legend .swatch{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+#legend .legend-title{font-weight:700;margin-bottom:6px;}
+#legend .legend-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+#legend .legend-row:last-child{margin-bottom:0;}
+#legend .swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:1.5px solid #eee;}
+#legend .icon-swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;background:#C17A3E;
+  border:1.5px solid #eee;display:flex;align-items:center;justify-content:center;}
+
+  /* HOVER IMAGE LOGIC */
+  #hover-image-card{position:fixed;bottom:110px;right:10px;z-index:999;width:220px;
+    background:#1c1c1c;border:1px solid #444;border-radius:1px;padding:8px;
+    opacity:0;transition:opacity 0.3s ease;pointer-events:none;}
+  #hover-image-card img{width:100%;border-radius:3px;display:block;}
+  #hover-image-card .caption{color:#ccc;font-size:11px;margin-top:6px;}
 </style>
 </head>
 <body>
@@ -67,19 +78,42 @@
 <div id="legend">
   <div class="legend-title">Legend</div>
   <div class="legend-row">
-    <span class="swatch" style="background:#E24B4A;"></span>
-    Tech / metal companies (data center & AI supply chain)
+    <span class="swatch" style="background:#F20000;"></span>
+    Tech / metal companies (data center &amp; AI supply chain)
   </div>
   <div class="legend-row">
-    <span class="swatch" style="background:#C17A3E;"></span>
-    Local / Indigenous resistance sites
+    <span class="icon-swatch">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>
+      </svg>
+    </span>
+    Data center related resistance
+  </div>
+  <div class="legend-row">
+    <span class="icon-swatch">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20L14 10"/><path d="M9 4c3 0 6 2 8 5-3 1-6 0-8-2-1-1-1-2 0-3z"/>
+      </svg>
+    </span>
+    Mining related resistance
+  </div>
+  <div class="legend-row">
+    <span class="icon-swatch">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>
+      </svg>
+    </span>
+    Data classification labor related resistance
   </div>
 </div>
 <div id="map"></div>
+<div id="hover-image-card"><img src=""><div class="caption"></div></div>
+
 <div id="sources">
   <strong>Data sources:</strong> basemap &copy; Esri; rivers &amp; lakes &copy; Natural Earth.
   Extraction, labor, and resistance connections compiled from multiple news sources.
   Click any point or line to see its individual citation and read the full article.
+  <br/> Research and mapping by Heya Kwon.
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -122,6 +156,31 @@ function companyDisplayName(key){
   if(!key) return '';
   if(NAME_MAP[key]) return NAME_MAP[key];
   return key.replace(/_/g,' ').replace(/\w\S*/g, t => t.charAt(0).toUpperCase()+t.substr(1).toLowerCase());
+}
+
+function extractionIconSvg(type){
+  const icons = {
+    data_center: '<path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>',
+    data_labor:  '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>',
+    mining:      '<path d="M4 20L14 10"/><path d="M9 4c3 0 6 2 8 5-3 1-6 0-8-2-1-1-1-2 0-3z"/>'
+  };
+  return icons[type] || null;
+}
+
+function makeSourceIcon(extractionType){
+  const svgInner = extractionIconSvg(extractionType);
+  if(!svgInner){
+    return L.divIcon({
+      html:'<div style="background:#C17A3E;border:1.5px solid #eee;border-radius:50%;width:14px;height:14px;"></div>',
+      className:'', iconSize:[14,14], iconAnchor:[7,7]
+    });
+  }
+  return L.divIcon({
+    html:'<div style="background:#C17A3E;border:1.5px solid #eee;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;">'+
+         '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+svgInner+'</svg>'+
+         '</div>',
+    className:'', iconSize:[20,20], iconAnchor:[10,10]
+  });
 }
 
 const hubIcon = L.divIcon({
@@ -174,19 +233,41 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
       }).addTo(map);
     }
 
+    // if(key === 'sources'){
+    //   L.geoJSON(data, {
+    //     pointToLayer: (f, latlng) => L.circleMarker(latlng, {radius:6, color:'#eee', fillColor:'#C17A3E', fillOpacity:1, weight:1.5}),
+    //     onEachFeature: (f, layer) => {
+    //       const p = f.properties || {};
+    //       layer.bindPopup(fullPropertiesPopup(p, 'source_place'));
+    //       // Location name label under each resistance/extraction point
+    //       layer.bindTooltip(p.source_place || '', {
+    //         permanent:false, direction:'top', className:'source-label', offset:[0,-8]
+    //       });
+    //     }
+    //   }).addTo(map);
+    // }
+
     if(key === 'sources'){
-      L.geoJSON(data, {
-        pointToLayer: (f, latlng) => L.circleMarker(latlng, {radius:6, color:'#eee', fillColor:'#C17A3E', fillOpacity:1, weight:1.5}),
-        onEachFeature: (f, layer) => {
-          const p = f.properties || {};
-          layer.bindPopup(fullPropertiesPopup(p, 'source_place'));
-          // Location name label under each resistance/extraction point
-          layer.bindTooltip(p.source_place || '', {
-            permanent:false, direction:'top', className:'source-label', offset:[0,-8]
-          });
-        }
-      }).addTo(map);
+  L.geoJSON(data, {
+pointToLayer: (f, latlng) => L.marker(latlng, {icon: makeSourceIcon((f.properties || {}).extraction_type)}),    onEachFeature: (f, layer) => {
+      const p = f.properties || {};
+      layer.bindPopup(fullPropertiesPopup(p, 'source_place'));
+      layer.bindTooltip(p.source_place || '', {
+        permanent:false, direction:'top', className:'source-label', offset:[0,-8]
+      });
+  layer.on('mouseover', function(e){
+    if(!p.image_url) return;
+    const card = document.getElementById('hover-image-card');
+    card.querySelector('img').src = p.image_url;
+    card.querySelector('.caption').textContent = p.source_place || '';
+    card.style.opacity = '1';
+  });
+  layer.on('mouseout', function(){
+    document.getElementById('hover-image-card').style.opacity = '0';
+  });
     }
+  }).addTo(map);
+}
 
     if(key === 'hubs'){
       L.geoJSON(data, {
@@ -211,6 +292,8 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
     }
   });
   // document.getElementById('status').textContent = loadedCount + ' / ' + Object.keys(files).length + ' layers loaded — click any point or line';
+
+  
 
   document.getElementById('water-checkbox').addEventListener('change', function(){
     if(this.checked){ waterLayer.addTo(map); }
