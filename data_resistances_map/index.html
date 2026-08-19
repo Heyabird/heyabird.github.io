@@ -102,6 +102,8 @@
     border-bottom:1px solid #ddd;}
   #case-list-section li:hover{background:#eee;}
   #case-list-section li .case-country{color:#777;font-size:10.5px;}
+  #case-list-section .case-arrow{color:#999;font-weight:normal;}
+  #case-list-section .case-company{color:#F20000;font-weight:normal;}
 
   #right-panel #sources-section{font-size:12px;color:#696969;line-height:1.5;}
   #right-panel #sources-section strong{color:#000;}
@@ -165,10 +167,10 @@
 <div id="right-panel">
   <div class="panel-section">
     <h1>Data Resistances Map '25-'26</h1>
-    <p>Selected big tech companies' data centers and data labor
-      sites that are met with resistance reported in 2025-2026.</p>
+    <p>Selected tech companies' <b>data centers + data labor
+      sites</b> that are met with resistance reported in 2025-2026, including protests and lawsuits.</p>
     <p>More data will be added this year.</p>
-    <p>Hover over a country or point. Click on a point for more info.</p>
+    <p>Hover over a country or point. Click on a point or a case below for more info.</p>
   </div>
 
   <div id="case-list-section" class="panel-section">
@@ -181,7 +183,7 @@
     Data center number data from <a href="https://www.datacentermap.com/datacenters/" target="_blank">Data Center Map</a>;
     Extraction, labor, and resistance connections compiled from multiple news sources.
     Click any point to see its individual citation and the link to the article.
-    Research &amp; mapping by <a href="https://heya.world/about.html" target="_blank">Heya Kwon</a> as part of Indigenous Cartography class @ SFPC.
+    Research &amp; mapping by <a href="https://heya.world/about.html" target="_blank">Heya Kwon</a> as part of Indigenous Cartography class taught by Yvonne Mpwo & Jade Rhodes @ SFPC.
   </div>
 </div>
 
@@ -400,7 +402,10 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
   const p = f.properties || {};
 
   const li = document.createElement('li');
-  li.innerHTML = (p.source_place || 'Unknown') + '<br><span class="case-country">' + (p.source_country || '') + '</span>';
+  const companyName = companyDisplayName(p.target_key);
+  li.innerHTML = (p.source_place || 'Unknown') +
+    (companyName ? ' <span class="case-arrow">→</span> <span class="case-company">' + companyName + '</span>' : '') +
+    '<br><span class="case-country">' + (p.source_country || '') + '</span>';
   li.addEventListener('click', function(){
     const latlng = layer.getLatLng();
     map.panTo(latlng);
@@ -433,7 +438,7 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
         onEachFeature: (f, layer) => {
           const p = f.properties || {};
           const displayName = companyDisplayName(p.target_key) || p.target_name || '';
-          layer.bindPopup(fullPropertiesPopup(p, 'target_name'));
+          layer.bindPopup(fullPropertiesPopup(p, 'target_name'), { maxWidth: 380, minWidth: 320 });
           layer.bindTooltip(displayName, {
             permanent:false, direction:'right', className:'hub-label', offset:[10,0]
           });
