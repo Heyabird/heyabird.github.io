@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Mansalva&family=Pangolin&family=Quicksand:wght@300..700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;padding:0;height:100%;font-family:"Courier Prime", monospace;background:#111;}
-  a {color: white;}
+  a {color: rgb(255, 49, 248);}
   #map{position:absolute;top:0;left:0;right:0;bottom:0;background:#111;}
   /* #status{position:fixed;top:10px;left:10px;z-index:1000;background:#222;color:#eee;padding:6px 10px;
     font-size:12px;border:1px solid #444;border-radius:4px;} */
@@ -26,10 +26,10 @@
     align-items:center;gap:6px;}
   #water-toggle input{cursor:pointer;}
   #water-toggle label{cursor:pointer;}
-  #sources{position:fixed;bottom:10px;right:10px;z-index:1000;background:rgba(20,20,20,0.75);color:#c6c4c4;
+  #sources{position:fixed;bottom:10px;right:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#696969;
     padding:8px 12px;border:1px solid #5e5e5e;border-radius:0px;font-size:12px;max-width:280px;
     line-height:1.5;}
-  #sources strong{color:#eee;}
+  #sources strong{color:#000000;}
 
   .hub-label{background:#222;color:#eee;border:1px solid #555;padding:2px 6px;font-size:12px;
     border-radius:3px;white-space:nowrap;font-weight:bold;}
@@ -66,36 +66,71 @@
 
   /* COUNTRIES HOVER */
   #country-info-card{position:fixed;top:10px;left:10px;z-index:1000;width:260px;
-  background:#1c1c1c;border:1px solid #444;padding:10px 14px;color:#ccc;
+  background:#1c1c1c;border:1px solid #444; border-radius: 20px;padding:10px 14px;color:#ccc;
   font-size:13px;line-height:1.6;opacity:0;transition:opacity 0.2s ease;pointer-events:none;}
   #country-info-card h3{margin:0 0 6px 0;color:#eee;font-size:15px;}
   #country-info-card img{width:100%;border-radius:2px;margin-top:6px;display:block;}
   #country-info-card ul{margin:6px 0 0 0;padding-left:16px;}
   
+  /* CASE LIST */
+  #case-list{position:fixed;top:150px;right:10px;z-index:1000;width:280px;
+    max-height:calc(100vh - 460px);overflow-y:auto;background:rgba(20,20,20,0.85);
+    border:1px solid #444;padding:10px 0;}
+  #case-list .case-list-title{padding:0 14px 8px 14px;color:#eee;font-size:13px;
+    font-weight:700;border-bottom:1px solid #444;margin-bottom:4px;}
+  #case-list ul{list-style:none;margin:0;padding:0;}
+  #case-list li{padding:7px 14px;color:#ccc;font-size:12px;cursor:pointer;
+    border-bottom:1px solid #2a2a2a;}
+  #case-list li:hover{background:#2a2a2a;color:#eee;}
+  #case-list li .case-country{color:#888;font-size:10.5px;}
+
+  /* RIGHT PANEL */
+  #right-panel{position:fixed;top:12px;right:10px;bottom:10px;z-index:1000;width:320px;
+  display:flex;flex-direction:column;background:rgba(255,255,255,0.85);
+  border:1px solid #7b7b7b;overflow:hidden;}
+
+  #right-panel .panel-section{padding:12px 16px;border-bottom:1px solid #7b7b7b;}
+  #right-panel .panel-section:last-child{border-bottom:none;}
+
+  #right-panel h1{margin:0;font-size:1.3rem;font-weight:700;letter-spacing:0.02em;color:#000;}
+  #right-panel .panel-section p{margin:4px 0 0 0;font-size:0.75rem;color:#3c3c3c;font-weight:normal;}
+
+  #case-list-section{flex:1;overflow-y:auto;padding:0;}
+  #case-list-section .case-list-title{padding:10px 16px 8px 16px;color:#000;font-size:13px;
+    font-weight:700;border-bottom:1px solid #ccc;}
+  #case-list-section ul{list-style:none;margin:0;padding:0;}
+  #case-list-section li{padding:7px 16px;color:#333;font-size:12px;cursor:pointer;
+    border-bottom:1px solid #ddd;}
+  #case-list-section li:hover{background:#eee;}
+  #case-list-section li .case-country{color:#777;font-size:10.5px;}
+
+  #right-panel #sources-section{font-size:12px;color:#696969;line-height:1.5;}
+  #right-panel #sources-section strong{color:#000;}
 </style>
 </head>
 <body>
 
-<div id="title-block">
+<!-- <div id="title-block">
   <h1> Data Resistances Map '25-'26</h1>
   <p>Selected big tech companies' data centers and data labor
-    <br/>sites that are met with resistance reported in 2025-2026</p>
-    <br/>
-  <!-- <p>Resistances sites here are in following countries: <br/>
-  USA, Canada, Mexico, Chile, Brazil, Ghana, <br/>
-   South Africa, Kenya, Spain, India, and Malaysia.<br/>
-  <p>(More to be added for the rest of 2026.)</p>
-  <br/> -->
-  <p>Hover over a country or a point. Click on a point for more.</p>
+    <br/>sites that are met with resistance reported in 2025-2026.</p>
+    <p>More data will be added this year.</p><br/>
+
+  <p>Hover over a country or point. Click on a point for more info.</p>
 </p>
 </div>
+<div id="case-list">
+  <div class="case-list-title">All cases</div>
+  <ul id="case-list-items"></ul>
+</div> -->
+
 <!-- <div id="status">loading…</div> -->
 <div id="water-toggle">
   <input type="checkbox" id="water-checkbox">
   <label for="water-checkbox">Show rivers &amp; lakes</label>
 </div>
 <div id="legend">
-  <div class="legend-title">Legend</div>
+  <!-- <div class="legend-title">Legend</div> -->
   <div class="legend-row">
     <span class="swatch" style="background:#F20000;"></span>
     Technology company headquarter
@@ -125,16 +160,39 @@
   </div>
 </div>
 <div id="map"></div>
-<div id="hover-image-card"><img src=""><div class="caption"></div></div>
+<!-- <div id="hover-image-card"><img src=""><div class="caption"></div></div> -->
 <div id="country-info-card"></div>
 
-<div id="sources">
+<div id="right-panel">
+  <div class="panel-section">
+    <h1>Data Resistances Map '25-'26</h1>
+    <p>Selected big tech companies' data centers and data labor
+      sites that are met with resistance reported in 2025-2026.</p>
+    <p>More data will be added this year.</p>
+    <p>Hover over a country or point. Click on a point for more info.</p>
+  </div>
+
+  <div id="case-list-section" class="panel-section">
+    <div class="case-list-title">All cases</div>
+    <ul id="case-list-items"></ul>
+  </div>
+
+  <div id="sources-section" class="panel-section">
+    <strong>Data sources:</strong> basemap from <a href="https://www.esri.com/en-us/home" target="_blank">Esri</a>; rivers &amp; lakes &copy; + Countries from <a href="https://www.naturalearthdata.com/" target="_blank">Natural Earth</a>;
+    Data center number data from <a href="https://www.datacentermap.com/datacenters/" target="_blank">Data Center Map</a>;
+    Extraction, labor, and resistance connections compiled from multiple news sources.
+    Click any point to see its individual citation and the link to the article.
+    Research &amp; mapping by <a href="https://heya.world/about.html" target="_blank">Heya Kwon</a>.
+  </div>
+</div>
+
+<!-- <div id="sources">
   <strong>Data sources:</strong> basemap from <a href="https://www.esri.com/en-us/home" target="_blank">Esri</a>; rivers &amp; lakes &copy; + Countries from <a href="https://www.naturalearthdata.com/" target="_blank">Natural Earth</a>;
   Data center number data from <a href="https://www.datacentermap.com/datacenters/" target="_blank">Data Center Map</a>;
   Extraction, labor, and resistance connections compiled from multiple news sources.
   Click any point to see its individual citation and the link to the article.
   Research & mapping by <a href="https://heya.world/about.html" target="_blank">Heya Kwon</a>.
-</div>
+</div> -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
@@ -153,18 +211,22 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_D
 
 function fullPropertiesPopup(properties, titleField){
   const title = properties[titleField] || '';
+  const imageHtml = properties.image_url
+    ? '<img src="'+properties.image_url+'" style="width:100%;border-radius:3px;margin-bottom:8px;display:block;">'
+    : '';
   let rows = '';
   Object.entries(properties).forEach(([key, value]) => {
     if(value === null || value === undefined || value === '') return;
     if(key === titleField) return;
     if(key === 'body_type') return;
+    if(key === 'image_url') return;
     let displayValue = String(value);
     if(key.toLowerCase().includes('url')){
       displayValue = '<a href="'+value+'" target="_blank">'+value+'</a>';
     }
     rows += '<tr><td class="k">'+key+'</td><td>'+displayValue+'</td></tr>';
   });
-  return '<b style="font-size:13px">'+title+'</b><br><table class="popup-table">'+rows+'</table>';
+  return imageHtml + '<b style="font-size:13px">'+title+'</b><br><table class="popup-table">'+rows+'</table>';
 }
 
 // target_key holds the actual company/entity code (e.g. "MICROSOFT"), while
@@ -313,26 +375,45 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
       if(p.image_url) countryStats[ckey].images.push(p.image_url);
     });
     window.__countryStats = countryStats;
+    const listEl = document.getElementById('case-list-items');
+    listEl.innerHTML = '';
 
     L.geoJSON(data, {
       pointToLayer: (f, latlng) => L.marker(latlng, {icon: makeSourceIcon((f.properties || {}).extraction_type)}),
+
       onEachFeature: (f, layer) => {
-        const p = f.properties || {};
-        layer.bindPopup(fullPropertiesPopup(p, 'source_place'));
-        layer.bindTooltip(p.source_place || '', {
-          permanent:false, direction:'top', className:'source-label', offset:[0,-8]
-        });
-        layer.on('mouseover', function(e){
-          if(!p.image_url) return;
-          const card = document.getElementById('hover-image-card');
-          card.querySelector('img').src = p.image_url;
-          card.querySelector('.caption').textContent = p.source_place || '';
-          card.style.opacity = '1';
-        });
-        layer.on('mouseout', function(){
-          document.getElementById('hover-image-card').style.opacity = '0';
-        });
-      }
+  const p = f.properties || {};
+
+  const li = document.createElement('li');
+  li.innerHTML = (p.source_place || 'Unknown') + '<br><span class="case-country">' + (p.source_country || '') + '</span>';
+  li.addEventListener('click', function(){
+    const latlng = layer.getLatLng();
+    map.panTo(latlng);
+    layer.openPopup();
+    if(p.image_url){
+      const card = document.getElementById('hover-image-card');
+      card.querySelector('img').src = p.image_url;
+      card.querySelector('.caption').textContent = p.source_place || '';
+      card.style.opacity = '1';
+    }
+  });
+  document.getElementById('case-list-items').appendChild(li);
+
+  layer.bindPopup(fullPropertiesPopup(p, 'source_place'), { maxWidth: 320, minWidth: 260 });
+  layer.bindTooltip(p.source_place || '', {
+    permanent:false, direction:'top', className:'source-label', offset:[0,-8]
+  });
+  // layer.on('mouseover', function(e){
+  //   if(!p.image_url) return;
+  //   const card = document.getElementById('hover-image-card');
+  //   card.querySelector('img').src = p.image_url;
+  //   card.querySelector('.caption').textContent = p.source_place || '';
+  //   card.style.opacity = '1';
+  // });
+  // layer.on('mouseout', function(){
+  //   document.getElementById('hover-image-card').style.opacity = '0';
+  // });
+}
     }).addTo(map);
   }
 
