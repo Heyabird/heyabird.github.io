@@ -16,18 +16,18 @@
   #map{position:absolute;top:0;left:0;right:0;bottom:0;background:#111;}
   /* #status{position:fixed;top:10px;left:10px;z-index:1000;background:#222;color:#eee;padding:6px 10px;
     font-size:12px;border:1px solid #444;border-radius:4px;} */
-  #title-block{position:fixed;top:10px;right:10px;z-index:1000;background:rgba(20,20,20,0.85);
-    color:#eee;padding:10px 16px;border:1px solid #444;border-radius:0px;max-width:60vw;
+  #title-block{position:fixed;top:12px;right:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);
+    color:#000000;padding:10px 16px;border:1px solid #7b7b7b;border-radius:0px;max-width:60vw;
     pointer-events:none;text-align:right;}
-  #title-block h1{margin:0;font-size:1.1rem;font-weight:700;letter-spacing:0.02em;}
-  #title-block p{margin:2px 0 0 0;font-size:0.75rem;color:#aaa;font-weight:normal;}
-  #water-toggle{position:fixed;bottom:10px;left:10px;z-index:1000;background:#222;color:#eee;
-    padding:8px 12px;border:1px solid #444;border-radius:0px;font-size:14px;display:flex;
+  #title-block h1{margin:0;font-size:1.4rem;font-weight:700;letter-spacing:0.02em;}
+  #title-block p{margin:2px 0 0 0;font-size:0.75rem;color:#3c3c3c;font-weight:normal;}
+  #water-toggle{position:fixed;bottom:10px;left:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#3c3c3c;
+    padding:8px 12px;border:1px solid #444;border-radius:4px;font-size:12px;display:flex;
     align-items:center;gap:6px;}
   #water-toggle input{cursor:pointer;}
   #water-toggle label{cursor:pointer;}
-  #sources{position:fixed;bottom:10px;right:10px;z-index:1000;background:#222;color:#999;
-    padding:8px 12px;border:1px solid #444;border-radius:0px;font-size:12px;max-width:280px;
+  #sources{position:fixed;bottom:10px;right:10px;z-index:1000;background:rgba(20,20,20,0.75);color:#c6c4c4;
+    padding:8px 12px;border:1px solid #5e5e5e;border-radius:0px;font-size:12px;max-width:280px;
     line-height:1.5;}
   #sources strong{color:#eee;}
 
@@ -48,21 +48,21 @@
     width:36px;height:36px;display:flex;align-items:center;justify-content:center;
     font-weight:bold;font-size:13px;font-family:sans-serif;}
 
-#legend{position:fixed;bottom:60px;left:10px;z-index:1000;background:#222;color:#eee;
-  padding:10px 14px;border:1px solid #444;border-radius:4px;font-size:13px;}
+#legend{position:fixed;bottom:60px;left:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#3c3c3c;
+  padding:10px 14px;border:1px solid #070707;border-radius:4px;font-size:13px;}
 #legend .legend-title{font-weight:700;margin-bottom:6px;}
 #legend .legend-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
 #legend .legend-row:last-child{margin-bottom:0;}
 #legend .swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:1.5px solid #eee;}
-#legend .icon-swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;background:#7A0BFF;
+#legend .icon-swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;background:#000;
   border:1.5px solid #eee;display:flex;align-items:center;justify-content:center;}
 
   /* HOVER IMAGE LOGIC */
-  #hover-image-card{position:fixed;bottom:160px;right:10px;z-index:999;height:220px;
-    background:#1c1c1c;border:1px solid #444;border-radius:1px;padding:8px;
+  #hover-image-card{position:fixed;bottom:210px;right:10px;z-index:999;height:220px;
+    background:rgba(20,20,20,0.75);border:1px solid #444;border-radius:1px;padding:8px;
     opacity:0;transition:opacity 0.3s ease;pointer-events:none;}
   #hover-image-card img{height:220px;border-radius:3px;display:block;}
-  #hover-image-card .caption{color:#ccc;font-size:13px;margin-top:10px;}
+  #hover-image-card .caption{color:#474747;font-size:13px;margin-top:10px;}
 
   /* COUNTRIES HOVER */
   #country-info-card{position:fixed;top:10px;left:10px;z-index:1000;width:260px;
@@ -81,11 +81,11 @@
   <p>Selected big tech companies' data centers and data labor
     <br/>sites that are met with resistance reported in 2025-2026</p>
     <br/>
-  <p>Resistances sites here are in following countries: <br/>
+  <!-- <p>Resistances sites here are in following countries: <br/>
   USA, Canada, Mexico, Chile, Brazil, Ghana, <br/>
    South Africa, Kenya, Spain, India, and Malaysia.<br/>
   <p>(More to be added for the rest of 2026.)</p>
-  <br/>
+  <br/> -->
   <p>Hover over a country or a point. Click on a point for more.</p>
 </p>
 </div>
@@ -98,7 +98,7 @@
   <div class="legend-title">Legend</div>
   <div class="legend-row">
     <span class="swatch" style="background:#F20000;"></span>
-    Tech / metal companies (data center &amp; AI supply chain)
+    Technology company headquarter
   </div>
   <div class="legend-row">
     <span class="icon-swatch">
@@ -121,7 +121,7 @@
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>
       </svg>
     </span>
-    Data/digital labor related resistance
+    Data labor related resistance
   </div>
 </div>
 <div id="map"></div>
@@ -133,7 +133,7 @@
   Data center number data from <a href="https://www.datacentermap.com/datacenters/" target="_blank">Data Center Map</a>;
   Extraction, labor, and resistance connections compiled from multiple news sources.
   Click any point to see its individual citation and the link to the article.
-  Research and mapping by Heya Kwon.
+  Research & mapping by <a href="https://heya.world/about.html" target="_blank">Heya Kwon</a>.
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -141,11 +141,14 @@
 <script>
 const map = L.map('map').setView([20, 10], 2);
 
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+// L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
+//   attribution: 'Esri, USGS, NOAA', maxZoom:13
+// }).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
   attribution: 'Esri, HERE, Garmin, FAO, NOAA, USGS', maxZoom:16
 }).addTo(map);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-  maxZoom:16
+  maxZoom:14
 }).addTo(map);
 
 function fullPropertiesPopup(properties, titleField){
@@ -154,6 +157,7 @@ function fullPropertiesPopup(properties, titleField){
   Object.entries(properties).forEach(([key, value]) => {
     if(value === null || value === undefined || value === '') return;
     if(key === titleField) return;
+    if(key === 'body_type') return;
     let displayValue = String(value);
     if(key.toLowerCase().includes('url')){
       displayValue = '<a href="'+value+'" target="_blank">'+value+'</a>';
@@ -190,12 +194,12 @@ function makeSourceIcon(extractionType){
   const svgInner = extractionIconSvg(extractionType);
   if(!svgInner){
     return L.divIcon({
-      html:'<div style="background:#7A0BFF;border:1.5px solid #eee;border-radius:50%;width:14px;height:14px;"></div>',
+      html:'<div style="background:#000;border:1.5px solid #eee;border-radius:50%;width:14px;height:14px;"></div>',
       className:'', iconSize:[14,14], iconAnchor:[7,7]
     });
   }
   return L.divIcon({
-    html:'<div style="background:#7A0BFF;border:1.5px solid #eee;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;">'+
+    html:'<div style="background:#000;border:1.5px solid #eee;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;">'+
          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+svgInner+'</svg>'+
          '</div>',
     className:'', iconSize:[20,20], iconAnchor:[10,10]
@@ -286,7 +290,7 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
 
     // if(key === 'sources'){
     //   L.geoJSON(data, {
-    //     pointToLayer: (f, latlng) => L.circleMarker(latlng, {radius:6, color:'#eee', fillColor:'#7A0BFF', fillOpacity:1, weight:1.5}),
+    //     pointToLayer: (f, latlng) => L.circleMarker(latlng, {radius:6, color:'#eee', fillColor:'#000', fillOpacity:1, weight:1.5}),
     //     onEachFeature: (f, layer) => {
     //       const p = f.properties || {};
     //       layer.bindPopup(fullPropertiesPopup(p, 'source_place'));
@@ -369,7 +373,7 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
         layer.setStyle({ fillOpacity: 0.01, fillColor: '#6c6e66', weight: 1, color: '#6c6e66' });
 
         layer.on('mouseover', function(){
-          layer.setStyle({ fillOpacity: 0.3, fillColor: '#e7ff6e' });
+          layer.setStyle({ fillOpacity: 0.7, fillColor: '#e7ff6e' });
           const card = document.getElementById('country-info-card');
           const dcCount = DATACENTER_COUNTS[name];
           const dcLine = dcCount ? '- has <strong>'+dcCount.toLocaleString()+'</strong> data centers total.' : '';
