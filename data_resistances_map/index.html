@@ -26,10 +26,10 @@
     align-items:center;gap:6px;}
   #water-toggle input{cursor:pointer;}
   #water-toggle label{cursor:pointer;}
-  #sources{position:fixed;bottom:10px;right:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#696969;
+  /* #sources{position:fixed;bottom:10px;right:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#696969;
     padding:8px 12px;border:1px solid #5e5e5e;border-radius:0px;font-size:12px;max-width:280px;
     line-height:1.5;}
-  #sources strong{color:#000000;}
+  #sources strong{color:#000000;} */
 
   .hub-label{background:#222;color:#eee;border:1px solid #555;padding:2px 6px;font-size:12px;
     border-radius:3px;white-space:nowrap;font-weight:bold;}
@@ -37,13 +37,21 @@
   .source-label{background:#222;color:#ccc;border:1px solid #444;padding:1px 5px;font-size:11px;
     border-radius:3px;white-space:nowrap;font-weight:normal;}
   .source-label::before{border-top-color:#444 !important;}
-  .leaflet-popup-content-wrapper{background:#1c1c1c;color:#eee;max-height:300px;overflow-y:auto;}
-  .leaflet-popup-tip{background:#1c1c1c;}
-  .leaflet-popup-content a{color:#6fb1e8;}
-  .popup-table{border-collapse:collapse;font-size:12px;}
-  .popup-table td{padding:2px 6px 2px 0;vertical-align:top;border-bottom:1px solid #333;}
-  .popup-table td.k{color:#999;white-space:nowrap;font-weight:bold;}
-  .leaflet-div-icon{background:transparent;border:none;}
+
+  /* LEAFLET POPUP */
+  .leaflet-popup-content-wrapper{background:#fff;color:#111;border:1px solid #ccc;
+    max-height:420px;overflow-y:auto;overflow-x:hidden;border-radius:4px;}
+  .leaflet-popup-tip{background:#fff;}
+  .leaflet-popup-content{margin:14px 16px;}
+  .leaflet-popup-content a{color:#0b5fae;word-break:break-all;}
+  .popup-table{border-collapse:collapse;font-size:12px;width:100%;table-layout:fixed;}
+  .popup-table td{padding:4px 6px 4px 0;vertical-align:top;border-bottom:1px solid #e5e5e5;
+    word-break:break-word;}
+  .popup-table td.k{color:#777;white-space:nowrap;font-weight:bold;width:35%;}
+  .leaflet-popup-content-wrapper, .leaflet-popup-content{
+  font-family: 'Courier Prime', sans-serif;
+  }
+
   .hub-cluster-icon div{background:#F20000;color:#111;border:2px solid #eee;border-radius:50%;
     width:36px;height:36px;display:flex;align-items:center;justify-content:center;
     font-weight:bold;font-size:13px;font-family:sans-serif;}
@@ -65,25 +73,16 @@
   #hover-image-card .caption{color:#474747;font-size:13px;margin-top:10px;}
 
   /* COUNTRIES HOVER */
-  #country-info-card{position:fixed;top:10px;left:10px;z-index:1000;width:260px;
-  background:#1c1c1c;border:1px solid #444; border-radius: 20px;padding:10px 14px;color:#ccc;
-  font-size:13px;line-height:1.6;opacity:0;transition:opacity 0.2s ease;pointer-events:none;}
-  #country-info-card h3{margin:0 0 6px 0;color:#eee;font-size:15px;}
+
+  #country-info-card{position:fixed;z-index:1000;width:260px;
+  background:rgba(255, 176, 252, 0.8);border:1px solid #444;border-radius:20px;padding:10px 14px;color:#000000;
+  font-size:13px;line-height:1.6;opacity:0;transition:opacity 0.15s ease;pointer-events:none;}
+
+  #country-info-card h3{margin:0 0 6px 0;color:#000000;font-size:15px;}
   #country-info-card img{width:100%;border-radius:2px;margin-top:6px;display:block;}
   #country-info-card ul{margin:6px 0 0 0;padding-left:16px;}
+ 
   
-  /* CASE LIST */
-  #case-list{position:fixed;top:150px;right:10px;z-index:1000;width:280px;
-    max-height:calc(100vh - 460px);overflow-y:auto;background:rgba(20,20,20,0.85);
-    border:1px solid #444;padding:10px 0;}
-  #case-list .case-list-title{padding:0 14px 8px 14px;color:#eee;font-size:13px;
-    font-weight:700;border-bottom:1px solid #444;margin-bottom:4px;}
-  #case-list ul{list-style:none;margin:0;padding:0;}
-  #case-list li{padding:7px 14px;color:#ccc;font-size:12px;cursor:pointer;
-    border-bottom:1px solid #2a2a2a;}
-  #case-list li:hover{background:#2a2a2a;color:#eee;}
-  #case-list li .case-country{color:#888;font-size:10.5px;}
-
   /* RIGHT PANEL */
   #right-panel{position:fixed;top:12px;right:10px;bottom:10px;z-index:1000;width:320px;
   display:flex;flex-direction:column;background:rgba(255,255,255,0.85);
@@ -182,7 +181,7 @@
     Data center number data from <a href="https://www.datacentermap.com/datacenters/" target="_blank">Data Center Map</a>;
     Extraction, labor, and resistance connections compiled from multiple news sources.
     Click any point to see its individual citation and the link to the article.
-    Research &amp; mapping by <a href="https://heya.world/about.html" target="_blank">Heya Kwon</a>.
+    Research &amp; mapping by <a href="https://heya.world/about.html" target="_blank">Heya Kwon</a> as part of Indigenous Cartography class @ SFPC.
   </div>
 </div>
 
@@ -332,6 +331,22 @@ const FLAGS = {
   'MALAYSIA':'🇲🇾'
 };
 
+function positionCountryCard(mouseEvent){
+  const card = document.getElementById('country-info-card');
+  const cardWidth = 260;
+  const cardHeight = card.offsetHeight || 200;
+  let left = mouseEvent.clientX + 18;
+  let top = mouseEvent.clientY + 18;
+  if(left + cardWidth > window.innerWidth - 300){
+    left = mouseEvent.clientX - cardWidth - 18;
+  }
+  if(top + cardHeight > window.innerHeight - 10){
+    top = window.innerHeight - cardHeight - 10;
+  }
+  card.style.left = left + 'px';
+  card.style.top = top + 'px';
+}
+
 Promise.allSettled(Object.entries(files).map(([key, path]) =>
   fetch(path).then(r => { if(!r.ok) throw new Error(path+' : '+r.status); return r.json(); }).then(data => [key, data])
 )).then(results => {
@@ -399,20 +414,11 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
   });
   document.getElementById('case-list-items').appendChild(li);
 
-  layer.bindPopup(fullPropertiesPopup(p, 'source_place'), { maxWidth: 320, minWidth: 260 });
+  layer.bindPopup(fullPropertiesPopup(p, 'source_place'), { maxWidth: 380, minWidth: 320 });
   layer.bindTooltip(p.source_place || '', {
     permanent:false, direction:'top', className:'source-label', offset:[0,-8]
   });
-  // layer.on('mouseover', function(e){
-  //   if(!p.image_url) return;
-  //   const card = document.getElementById('hover-image-card');
-  //   card.querySelector('img').src = p.image_url;
-  //   card.querySelector('.caption').textContent = p.source_place || '';
-  //   card.style.opacity = '1';
-  // });
-  // layer.on('mouseout', function(){
-  //   document.getElementById('hover-image-card').style.opacity = '0';
-  // });
+
 }
     }).addTo(map);
   }
@@ -452,9 +458,8 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
 
         // Baseline highlight so hoverable countries are visible before hover
         layer.setStyle({ fillOpacity: 0.01, fillColor: '#6c6e66', weight: 1, color: '#6c6e66' });
-
-        layer.on('mouseover', function(){
-          layer.setStyle({ fillOpacity: 0.7, fillColor: '#e7ff6e' });
+        layer.on('mouseover', function(e){
+          layer.setStyle({ fillOpacity: 0.7, fillColor: 'rgb(255, 49, 248,.5' });
           const card = document.getElementById('country-info-card');
           const dcCount = DATACENTER_COUNTS[name];
           const dcLine = dcCount ? '- has <strong>'+dcCount.toLocaleString()+'</strong> data centers total.' : '';
@@ -463,6 +468,10 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
             '<br> - contains '+stats.places.length+' resistance site'+(stats.places.length>1?'s':'')+' in this dataset:'+
             '<ul>'+stats.places.map(pl=>'<li>'+pl+'</li>').join('')+'</ul>';
           card.style.opacity = '1';
+          positionCountryCard(e.originalEvent);
+        });
+        layer.on('mousemove', function(e){
+          positionCountryCard(e.originalEvent);
         });
         layer.on('mouseout', function(){
           layer.setStyle({ fillOpacity: 0.06, weight: 1 });
