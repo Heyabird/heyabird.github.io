@@ -93,8 +93,7 @@
   <div class="legend-row">
     <span class="icon-swatch">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 20L14 10"/><path d="M9 4c3 0 6 2 8 5-3 1-6 0-8-2-1-1-1-2 0-3z"/>
-      </svg>
+      <path d="M16.9698 5.3998L2 19.6472L3.18685 20.9999L18.0225 6.41467M18.0225 6.41467C17.702 6.04596 17.3526 5.70898 16.9698 5.3998C15.409 4.13925 11.9994 3.20831 9.01524 2.60638C17.3195 1.57443 21.7124 5.8299 21.5152 15.6064C20.8279 12.3675 19.4478 8.05429 18.0225 6.41467Z" stroke="white"/>      </svg>
     </span>
     Mining related resistance
   </div>
@@ -104,7 +103,7 @@
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>
       </svg>
     </span>
-    Data classification labor related resistance
+    Data/digital labor related resistance
   </div>
 </div>
 <div id="map"></div>
@@ -163,8 +162,7 @@ function extractionIconSvg(type){
   const icons = {
     data_center: '<path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>',
     data_labor:  '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>',
-    mining:      '<path d="M4 20L14 10"/><path d="M9 4c3 0 6 2 8 5-3 1-6 0-8-2-1-1-1-2 0-3z"/>'
-  };
+mining: '<path d="M16.9698 5.3998L2 19.6472L3.18685 20.9999L18.0225 6.41467M18.0225 6.41467C17.702 6.04596 17.3526 5.70898 16.9698 5.3998C15.409 4.13925 11.9994 3.20831 9.01524 2.60638C17.3195 1.57443 21.7124 5.8299 21.5152 15.6064C20.8279 12.3675 19.4478 8.05429 18.0225 6.41467Z"/>',  };
   return icons[type] || null;
 }
 
