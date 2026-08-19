@@ -21,25 +21,25 @@
   #title-block h1{margin:0;font-size:1.1rem;font-weight:700;letter-spacing:0.02em;}
   #title-block p{margin:2px 0 0 0;font-size:0.75rem;color:#aaa;font-weight:normal;}
   #water-toggle{position:fixed;bottom:10px;left:10px;z-index:1000;background:#222;color:#eee;
-    padding:8px 12px;border:1px solid #444;border-radius:0px;font-size:12px;display:flex;
+    padding:8px 12px;border:1px solid #444;border-radius:0px;font-size:14px;display:flex;
     align-items:center;gap:6px;}
   #water-toggle input{cursor:pointer;}
   #water-toggle label{cursor:pointer;}
   #sources{position:fixed;bottom:10px;right:10px;z-index:1000;background:#222;color:#999;
-    padding:8px 12px;border:1px solid #444;border-radius:0px;font-size:10.5px;max-width:280px;
+    padding:8px 12px;border:1px solid #444;border-radius:0px;font-size:12px;max-width:280px;
     line-height:1.5;}
   #sources strong{color:#eee;}
 
-  .hub-label{background:#222;color:#eee;border:1px solid #555;padding:2px 6px;font-size:11px;
+  .hub-label{background:#222;color:#eee;border:1px solid #555;padding:2px 6px;font-size:12px;
     border-radius:3px;white-space:nowrap;font-weight:bold;}
   .hub-label::before{border-right-color:#555 !important;}
-  .source-label{background:#222;color:#ccc;border:1px solid #444;padding:1px 5px;font-size:10px;
+  .source-label{background:#222;color:#ccc;border:1px solid #444;padding:1px 5px;font-size:11px;
     border-radius:3px;white-space:nowrap;font-weight:normal;}
   .source-label::before{border-top-color:#444 !important;}
   .leaflet-popup-content-wrapper{background:#1c1c1c;color:#eee;max-height:300px;overflow-y:auto;}
   .leaflet-popup-tip{background:#1c1c1c;}
   .leaflet-popup-content a{color:#6fb1e8;}
-  .popup-table{border-collapse:collapse;font-size:11px;}
+  .popup-table{border-collapse:collapse;font-size:12px;}
   .popup-table td{padding:2px 6px 2px 0;vertical-align:top;border-bottom:1px solid #333;}
   .popup-table td.k{color:#999;white-space:nowrap;font-weight:bold;}
   .leaflet-div-icon{background:transparent;border:none;}
@@ -48,7 +48,7 @@
     font-weight:bold;font-size:13px;font-family:sans-serif;}
 
 #legend{position:fixed;bottom:60px;left:10px;z-index:1000;background:#222;color:#eee;
-  padding:10px 14px;border:1px solid #444;border-radius:4px;font-size:12px;}
+  padding:10px 14px;border:1px solid #444;border-radius:4px;font-size:13px;}
 #legend .legend-title{font-weight:700;margin-bottom:6px;}
 #legend .legend-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
 #legend .legend-row:last-child{margin-bottom:0;}
@@ -61,7 +61,15 @@
     background:#1c1c1c;border:1px solid #444;border-radius:1px;padding:8px;
     opacity:0;transition:opacity 0.3s ease;pointer-events:none;}
   #hover-image-card img{height:220px;border-radius:3px;display:block;}
-  #hover-image-card .caption{color:#ccc;font-size:11px;margin-top:10px;}
+  #hover-image-card .caption{color:#ccc;font-size:13px;margin-top:10px;}
+
+  /* COUNTRIES HOVER */
+  #country-info-card{position:fixed;top:10px;left:10px;z-index:1000;width:260px;
+  background:#1c1c1c;border:1px solid #444;padding:10px 14px;color:#ccc;
+  font-size:13px;line-height:1.6;opacity:0;transition:opacity 0.2s ease;pointer-events:none;}
+  #country-info-card h3{margin:0 0 6px 0;color:#eee;font-size:15px;}
+  #country-info-card img{width:100%;border-radius:2px;margin-top:6px;display:block;}
+  #country-info-card ul{margin:6px 0 0 0;padding-left:16px;}
   
 </style>
 </head>
@@ -69,8 +77,16 @@
 
 <div id="title-block">
   <h1> Data Empires & Resistances Map</h1>
-  <p>Selected big tech companies' data centers and data
-    <br/>labor sites that are met with resistance in 2025-2026</p>
+  <p>Selected big tech companies' data centers and data labor
+    <br/>sites that are met with resistance reported in 2025-2026</p>
+    <br/>
+  <p>Resistances sites here are in following countries: <br/>
+  USA, Canada, Mexico, Chile, Brazil, Ghana, <br/>
+   South Africa, Kenya, Spain, India, and Malaysia.<br/>
+  <p>(More to be added for the rest of 2026.)</p>
+  <br/>
+  <p>Hover over a country or a point. Click on a point for more.</p>
+</p>
 </div>
 <!-- <div id="status">loading…</div> -->
 <div id="water-toggle">
@@ -109,12 +125,13 @@
 </div>
 <div id="map"></div>
 <div id="hover-image-card"><img src=""><div class="caption"></div></div>
+<div id="country-info-card"></div>
 
 <div id="sources">
-  <strong>Data sources:</strong> basemap &copy; Esri; rivers &amp; lakes &copy; Natural Earth.
+  <strong>Data sources:</strong> basemap &copy; Esri; rivers &amp; lakes &copy; + Countries from Natural Earth.
   Extraction, labor, and resistance connections compiled from multiple news sources.
   Click any point or line to see its individual citation and read the full article.
-  <br/> Research and mapping by Heya Kwon.
+  Research and mapping by Heya Kwon.
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -212,7 +229,39 @@ const files = {
   hublines: 'hub_lines.geojson',
   hubs:     'entanglement_hubs.geojson',
   sources:  'entanglement_sources.geojson',
-  rivers_lakes:   'ne_10m_rivers_lakes_centerlines.geojson'
+  rivers_lakes:   'ne_10m_rivers_lakes_centerlines.geojson',
+  countries: 'ne_10m_countries.geojson'
+};
+
+// stats for how many data centers are per country
+const DATACENTER_COUNTS = {
+  'USA': 4767,
+  'CANADA':292,
+  'MEXICO':66,
+  'CHILE':65,
+  'BRAZIL':218,
+  'GHANA':8,
+  'SOUTH AFRICA':63,
+  'KENYA':19,
+  'SPAIN':219,
+  'INDIA':305,
+  'MALAYSIA':125
+};
+
+const FLAGS = {
+  'USA': '🇺🇸',
+  'CANADA':'🇨🇦',
+  'MEXICO':'🇲🇽',
+  'CHILE':'🇨🇱',
+  'BRAZIL':'🇧🇷',
+  'GHANA':'🇬🇭',
+  'SOUTH AFRICA':'🇿🇦',
+  'KENYA':'🇰🇪',
+  'SPAIN':'🇪🇸',
+  'GHANA':'🇬🇭',
+  'SOUTH AFRICA':'🇿🇦',
+  'INDIA':'🇮🇳',
+  'MALAYSIA':'🇲🇾'
 };
 
 Promise.allSettled(Object.entries(files).map(([key, path]) =>
@@ -247,27 +296,39 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
     //   }).addTo(map);
     // }
 
-    if(key === 'sources'){
-  L.geoJSON(data, {
-pointToLayer: (f, latlng) => L.marker(latlng, {icon: makeSourceIcon((f.properties || {}).extraction_type)}),    onEachFeature: (f, layer) => {
+  if(key === 'sources'){
+    const countryStats = {};
+    data.features.forEach(f => {
       const p = f.properties || {};
-      layer.bindPopup(fullPropertiesPopup(p, 'source_place'));
-      layer.bindTooltip(p.source_place || '', {
-        permanent:false, direction:'top', className:'source-label', offset:[0,-8]
-      });
-  layer.on('mouseover', function(e){
-    if(!p.image_url) return;
-    const card = document.getElementById('hover-image-card');
-    card.querySelector('img').src = p.image_url;
-    card.querySelector('.caption').textContent = p.source_place || '';
-    card.style.opacity = '1';
-  });
-  layer.on('mouseout', function(){
-    document.getElementById('hover-image-card').style.opacity = '0';
-  });
-    }
-  }).addTo(map);
-}
+      const ckey = (p.source_country || '').trim().toUpperCase();
+      if(!ckey) return;
+      if(!countryStats[ckey]) countryStats[ckey] = { places: [], images: [] };
+      if(!countryStats[ckey].places.includes(p.source_place)) countryStats[ckey].places.push(p.source_place);
+      if(p.image_url) countryStats[ckey].images.push(p.image_url);
+    });
+    window.__countryStats = countryStats;
+
+    L.geoJSON(data, {
+      pointToLayer: (f, latlng) => L.marker(latlng, {icon: makeSourceIcon((f.properties || {}).extraction_type)}),
+      onEachFeature: (f, layer) => {
+        const p = f.properties || {};
+        layer.bindPopup(fullPropertiesPopup(p, 'source_place'));
+        layer.bindTooltip(p.source_place || '', {
+          permanent:false, direction:'top', className:'source-label', offset:[0,-8]
+        });
+        layer.on('mouseover', function(e){
+          if(!p.image_url) return;
+          const card = document.getElementById('hover-image-card');
+          card.querySelector('img').src = p.image_url;
+          card.querySelector('.caption').textContent = p.source_place || '';
+          card.style.opacity = '1';
+        });
+        layer.on('mouseout', function(){
+          document.getElementById('hover-image-card').style.opacity = '0';
+        });
+      }
+    }).addTo(map);
+  }
 
     if(key === 'hubs'){
       L.geoJSON(data, {
@@ -289,6 +350,38 @@ pointToLayer: (f, latlng) => L.marker(latlng, {icon: makeSourceIcon((f.propertie
     }
     if(key === 'rivers_lakes'){
       L.geoJSON(data, { style:{ color:'#3B7FC4', weight:1, opacity:0.7 } }).addTo(waterLayer);
+    }
+
+    if(key === 'countries'){
+      const NE_ALIAS = { 'UNITED STATES OF AMERICA': 'USA', 'UNITED STATES': 'USA' };
+      L.geoJSON(data, {
+        style: { fillOpacity: 0, weight: 0, color: 'transparent' },
+        onEachFeature: (f, layer) => {
+          const p = f.properties || {};
+          let name = (p.ADMIN || p.NAME || p.NAME_EN || '').trim().toUpperCase();
+          name = NE_ALIAS[name] || name;
+          const stats = window.__countryStats && window.__countryStats[name];
+          if(!stats) return; // no data for this country — no hover behavior at all
+
+          layer.on('mouseover', function(){
+            layer.setStyle({ fillOpacity: 0.3, fillColor: '#e7ff6e' });
+            const card = document.getElementById('country-info-card');
+            // const img = stats.images[0] ? '<img src="'+stats.images[0]+'">' : '';
+            const dcCount = DATACENTER_COUNTS[name];
+            // const flag = FLAGS[name].trim();
+const dcLine = dcCount ? '- has <strong>'+dcCount.toLocaleString()+'</strong> data centers total.' : '';
+card.innerHTML = '<h3>'+(p.ADMIN||p.NAME||name)+'</h3>'+
+  dcLine+
+  '<br> - contains '+stats.places.length+' resistance site'+(stats.places.length>1?'s':'')+' in this dataset:'+
+  '<ul>'+stats.places.map(pl=>'<li>'+pl+'</li>').join('')+'</ul>';
+            card.style.opacity = '1';
+          });
+          layer.on('mouseout', function(){
+            layer.setStyle({ fillOpacity: 0, weight: 0 });
+            document.getElementById('country-info-card').style.opacity = '0';
+          });
+        }
+      }).addTo(map);
     }
   });
   // document.getElementById('status').textContent = loadedCount + ' / ' + Object.keys(files).length + ' layers loaded — click any point or line';
