@@ -19,7 +19,7 @@
   #title-block{position:fixed;top:12px;right:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);
     color:#000000;padding:10px 16px;border:1px solid #7b7b7b;border-radius:0px;max-width:60vw;
     pointer-events:none;text-align:right;}
-  #title-block h1{margin:0;font-size:1.4rem;font-weight:700;letter-spacing:0.02em;}
+  #title-block h1{margin:0;font-size:1.2rem;font-weight:700;letter-spacing:0.02em;}
   #title-block p{margin:2px 0 0 0;font-size:0.75rem;color:#3c3c3c;font-weight:normal;}
   #water-toggle{position:fixed;bottom:10px;left:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#3c3c3c;
     padding:8px 12px;border:1px solid #444;border-radius:4px;font-size:12px;display:flex;
@@ -37,6 +37,19 @@
   .source-label{background:#222;color:#ccc;border:1px solid #444;padding:1px 5px;font-size:11px;
     border-radius:3px;white-space:nowrap;font-weight:normal;}
   .source-label::before{border-top-color:#444 !important;}
+
+  /* LEFT PANEL */
+
+  #left-panel .panel-title{padding:10px 16px 8px 16px;color:#000;font-size:13px;font-weight:700;
+    border-bottom:1px solid #ccc;}
+
+  #left-panel li:hover{background:#eee;}
+  #left-panel .rank{color:#F20000;font-weight:700;}
+  #left-panel li{padding:8px 16px;color:#333;font-size:12px;border-bottom:1px solid #ddd;
+  cursor:default;}
+  #left-panel{position:fixed;bottom:160px;left:10px;z-index:1000;width:260px;border-radius:4px;
+  max-height:280px;overflow-y:auto;background:rgba(255,255,255,0.75);border:1px solid #151515;}
+  #left-panel ul{list-style:none;margin:0;padding:0;}
 
   /* LEAFLET POPUP */
   .leaflet-popup-content-wrapper{background:#fff;color:#111;border:1px solid #ccc;
@@ -56,13 +69,14 @@
     width:36px;height:36px;display:flex;align-items:center;justify-content:center;
     font-weight:bold;font-size:13px;font-family:sans-serif;}
 
-#legend{position:fixed;bottom:60px;left:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#3c3c3c;
-  padding:10px 14px;border:1px solid #070707;border-radius:4px;font-size:13px;}
-#legend .legend-title{font-weight:700;margin-bottom:6px;}
-#legend .legend-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
-#legend .legend-row:last-child{margin-bottom:0;}
-#legend .swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:1.5px solid #eee;}
-#legend .icon-swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;background:#000;
+  #legend{position:fixed;bottom:60px;left:10px;z-index:1000;width:233px;
+    background:rgba(255, 255, 255, 0.75);color:#3c3c3c;
+    padding:10px 14px;border:1px solid #070707;border-radius:4px;font-size:11px;}
+  #legend .legend-title{font-weight:700;margin-bottom:6px;}
+  #legend .legend-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+  #legend .legend-row:last-child{margin-bottom:0;}
+#legend .swatch{width:16px;height:16px;border-radius:50%;flex-shrink:0;border:1.5px solid #eee;}
+#legend .icon-swatch{width:16px;height:16px;border-radius:50%;flex-shrink:0;background:#000;
   border:1.5px solid #eee;display:flex;align-items:center;justify-content:center;}
 
   /* HOVER IMAGE LOGIC */
@@ -91,7 +105,7 @@
   #right-panel .panel-section{padding:12px 16px;border-bottom:1px solid #7b7b7b;}
   #right-panel .panel-section:last-child{border-bottom:none;}
 
-  #right-panel h1{margin:0;font-size:1.3rem;font-weight:700;letter-spacing:0.02em;color:#000;}
+  #right-panel h1{margin:0;font-size:1.2rem;font-weight:700;letter-spacing:0.02em;color:#000;}
   #right-panel .panel-section p{margin:4px 0 0 0;font-size:0.75rem;color:#3c3c3c;font-weight:normal;}
 
   #case-list-section{flex:1;overflow-y:auto;padding:0;}
@@ -164,11 +178,16 @@
 <!-- <div id="hover-image-card"><img src=""><div class="caption"></div></div> -->
 <div id="country-info-card"></div>
 
+<div id="left-panel">
+  <div class="panel-title">Top 10 Hyperscaler Tech Companies in 2026</div>
+  <ul id="top10-list"></ul>
+</div>
+
 <div id="right-panel">
   <div class="panel-section">
-    <h1>Data Resistances Map '25-'26</h1>
+    <h1>Data Resistances Map '26</h1>
     <p>Selected tech companies' <b>data centers + data labor
-      sites</b> that are met with resistance reported in 2025-2026, including protests and lawsuits.</p>
+      sites</b> that are met with <b>water, land, and labor-related resistances</b> reported in 2025-2026, including protests and lawsuits.</p>
     <p>More data will be added this year.</p>
     <p>Hover over a country or point. Click on a point or a case below for more info.</p>
   </div>
@@ -200,9 +219,6 @@
 <script>
 const map = L.map('map').setView([20, 10], 2);
 
-// L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
-//   attribution: 'Esri, USGS, NOAA', maxZoom:13
-// }).addTo(map);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
   attribution: 'Esri, HERE, Garmin, FAO, NOAA, USGS', maxZoom:16
 }).addTo(map);
@@ -230,9 +246,6 @@ function fullPropertiesPopup(properties, titleField){
   return imageHtml + '<b style="font-size:13px">'+title+'</b><br><table class="popup-table">'+rows+'</table>';
 }
 
-// target_key holds the actual company/entity code (e.g. "MICROSOFT"), while
-// target_name holds the location (e.g. "Redmond WA USA") — this maps keys to
-// clean display names. Add more entries here as your hubs list grows.
 const NAME_MAP = {
   MICROSOFT:'Microsoft', AMAZON:'Amazon', META:'Meta', GOOGLE:'Google', XAI:'xAI',
   US_GOV:'US Government', SV_VC:'Silicon Valley VC', IN_Q_TEL:'In-Q-Tel',
@@ -249,7 +262,8 @@ function extractionIconSvg(type){
   const icons = {
     data_center: '<path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>',
     data_labor:  '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>',
-mining: '<path d="M16.9698 5.3998L2 19.6472L3.18685 20.9999L18.0225 6.41467M18.0225 6.41467C17.702 6.04596 17.3526 5.70898 16.9698 5.3998C15.409 4.13925 11.9994 3.20831 9.01524 2.60638C17.3195 1.57443 21.7124 5.8299 21.5152 15.6064C20.8279 12.3675 19.4478 8.05429 18.0225 6.41467Z"/>',  };
+    mining: '<path d="M16.9698 5.3998L2 19.6472L3.18685 20.9999L18.0225 6.41467M18.0225 6.41467C17.702 6.04596 17.3526 5.70898 16.9698 5.3998C15.409 4.13925 11.9994 3.20831 9.01524 2.60638C17.3195 1.57443 21.7124 5.8299 21.5152 15.6064C20.8279 12.3675 19.4478 8.05429 18.0225 6.41467Z"/>',
+  };
   return icons[type] || null;
 }
 
@@ -272,6 +286,11 @@ function makeSourceIcon(extractionType){
 const hubIcon = L.divIcon({
   html:'<div style="background:#F20000;border:1.5px solid #eee;border-radius:50%;width:18px;height:18px;"></div>',
   className:'', iconSize:[18,18], iconAnchor:[9,9]
+});
+
+const top10Icon = L.divIcon({
+  html:'<div style="background:#D4A017;border:1.5px solid #eee;border-radius:50%;width:16px;height:16px;"></div>',
+  className:'', iconSize:[16,16], iconAnchor:[8,8]
 });
 
 const hubCluster = L.markerClusterGroup({
@@ -299,38 +318,18 @@ const files = {
   hubs:     'entanglement_hubs.geojson',
   sources:  'entanglement_sources.geojson',
   rivers_lakes:   'ne_10m_rivers_lakes_centerlines.geojson',
-  countries: 'ne_10m_countries.geojson'
+  countries: 'ne_10m_countries.geojson',
+  top10: 'top10_hyperscalers.geojson'
 };
 
-// stats for how many data centers are per country
 const DATACENTER_COUNTS = {
-  'USA': 4767,
-  'CANADA':292,
-  'MEXICO':66,
-  'CHILE':65,
-  'BRAZIL':218,
-  'GHANA':8,
-  'SOUTH AFRICA':63,
-  'KENYA':19,
-  'SPAIN':219,
-  'INDIA':305,
-  'MALAYSIA':125
+  'USA': 4767, 'CANADA':292, 'MEXICO':66, 'CHILE':65, 'BRAZIL':218,
+  'GHANA':8, 'SOUTH AFRICA':63, 'KENYA':19, 'SPAIN':219, 'INDIA':305, 'MALAYSIA':125
 };
 
 const FLAGS = {
-  'USA': '🇺🇸',
-  'CANADA':'🇨🇦',
-  'MEXICO':'🇲🇽',
-  'CHILE':'🇨🇱',
-  'BRAZIL':'🇧🇷',
-  'GHANA':'🇬🇭',
-  'SOUTH AFRICA':'🇿🇦',
-  'KENYA':'🇰🇪',
-  'SPAIN':'🇪🇸',
-  'GHANA':'🇬🇭',
-  'SOUTH AFRICA':'🇿🇦',
-  'INDIA':'🇮🇳',
-  'MALAYSIA':'🇲🇾'
+  'USA': '🇺🇸', 'CANADA':'🇨🇦', 'MEXICO':'🇲🇽', 'CHILE':'🇨🇱', 'BRAZIL':'🇧🇷',
+  'GHANA':'🇬🇭', 'SOUTH AFRICA':'🇿🇦', 'KENYA':'🇰🇪', 'SPAIN':'🇪🇸', 'INDIA':'🇮🇳', 'MALAYSIA':'🇲🇾'
 };
 
 function positionCountryCard(mouseEvent){
@@ -362,71 +361,49 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
       L.geoJSON(data, {
         style: { color:'#F20000', weight:1, opacity:0.8 },
         onEachFeature: (f, layer) => {
-          layer.bindPopup(fullPropertiesPopup(f.properties || {}, 'source_place'));
+          layer.bindPopup(fullPropertiesPopup(f.properties || {}, 'source_place'), { maxWidth: 380, minWidth: 320 });
         }
       }).addTo(map);
     }
 
-    // if(key === 'sources'){
-    //   L.geoJSON(data, {
-    //     pointToLayer: (f, latlng) => L.circleMarker(latlng, {radius:6, color:'#eee', fillColor:'#000', fillOpacity:1, weight:1.5}),
-    //     onEachFeature: (f, layer) => {
-    //       const p = f.properties || {};
-    //       layer.bindPopup(fullPropertiesPopup(p, 'source_place'));
-    //       // Location name label under each resistance/extraction point
-    //       layer.bindTooltip(p.source_place || '', {
-    //         permanent:false, direction:'top', className:'source-label', offset:[0,-8]
-    //       });
-    //     }
-    //   }).addTo(map);
-    // }
+    if(key === 'sources'){
+      const countryStats = {};
+      data.features.forEach(f => {
+        const p = f.properties || {};
+        const ckey = (p.source_country || '').trim().toUpperCase();
+        if(!ckey) return;
+        if(!countryStats[ckey]) countryStats[ckey] = { places: [], images: [] };
+        if(!countryStats[ckey].places.includes(p.source_place)) countryStats[ckey].places.push(p.source_place);
+        if(p.image_url) countryStats[ckey].images.push(p.image_url);
+      });
+      window.__countryStats = countryStats;
+      const listEl = document.getElementById('case-list-items');
+      listEl.innerHTML = '';
 
-  if(key === 'sources'){
-    const countryStats = {};
-    data.features.forEach(f => {
-      const p = f.properties || {};
-      const ckey = (p.source_country || '').trim().toUpperCase();
-      if(!ckey) return;
-      if(!countryStats[ckey]) countryStats[ckey] = { places: [], images: [] };
-      if(!countryStats[ckey].places.includes(p.source_place)) countryStats[ckey].places.push(p.source_place);
-      if(p.image_url) countryStats[ckey].images.push(p.image_url);
-    });
-    window.__countryStats = countryStats;
-    const listEl = document.getElementById('case-list-items');
-    listEl.innerHTML = '';
+      L.geoJSON(data, {
+        pointToLayer: (f, latlng) => L.marker(latlng, {icon: makeSourceIcon((f.properties || {}).extraction_type)}),
+        onEachFeature: (f, layer) => {
+          const p = f.properties || {};
 
-    L.geoJSON(data, {
-      pointToLayer: (f, latlng) => L.marker(latlng, {icon: makeSourceIcon((f.properties || {}).extraction_type)}),
+          const li = document.createElement('li');
+          const companyName = companyDisplayName(p.target_key);
+          li.innerHTML = (p.source_place || 'Unknown') +
+            (companyName ? ' <span class="case-arrow">→</span> <span class="case-company">' + companyName + '</span>' : '') +
+            '<br><span class="case-country">' + (p.source_country || '') + '</span>';
+          li.addEventListener('click', function(){
+            const latlng = layer.getLatLng();
+            map.panTo(latlng);
+            layer.openPopup();
+          });
+          document.getElementById('case-list-items').appendChild(li);
 
-      onEachFeature: (f, layer) => {
-  const p = f.properties || {};
-
-  const li = document.createElement('li');
-  const companyName = companyDisplayName(p.target_key);
-  li.innerHTML = (p.source_place || 'Unknown') +
-    (companyName ? ' <span class="case-arrow">→</span> <span class="case-company">' + companyName + '</span>' : '') +
-    '<br><span class="case-country">' + (p.source_country || '') + '</span>';
-  li.addEventListener('click', function(){
-    const latlng = layer.getLatLng();
-    map.panTo(latlng);
-    layer.openPopup();
-    if(p.image_url){
-      const card = document.getElementById('hover-image-card');
-      card.querySelector('img').src = p.image_url;
-      card.querySelector('.caption').textContent = p.source_place || '';
-      card.style.opacity = '1';
+          layer.bindPopup(fullPropertiesPopup(p, 'source_place'), { maxWidth: 380, minWidth: 320 });
+          layer.bindTooltip(p.source_place || '', {
+            permanent:false, direction:'top', className:'source-label', offset:[0,-8]
+          });
+        }
+      }).addTo(map);
     }
-  });
-  document.getElementById('case-list-items').appendChild(li);
-
-  layer.bindPopup(fullPropertiesPopup(p, 'source_place'), { maxWidth: 380, minWidth: 320 });
-  layer.bindTooltip(p.source_place || '', {
-    permanent:false, direction:'top', className:'source-label', offset:[0,-8]
-  });
-
-}
-    }).addTo(map);
-  }
 
     if(key === 'hubs'){
       L.geoJSON(data, {
@@ -446,58 +423,73 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
       }).addTo(hubCluster);
       hubCluster.addTo(map);
     }
+
     if(key === 'rivers_lakes'){
       L.geoJSON(data, { style:{ color:'#3B7FC4', weight:1, opacity:0.7 } }).addTo(waterLayer);
     }
 
     if(key === 'countries'){
-  const NE_ALIAS = { 'UNITED STATES OF AMERICA': 'USA', 'UNITED STATES': 'USA' };
-  L.geoJSON(data, {
-      style: { fillOpacity: 0, weight: 0, color: 'transparent' },
-      onEachFeature: (f, layer) => {
-        const p = f.properties || {};
-        let name = (p.ADMIN || p.NAME || p.NAME_EN || '').trim().toUpperCase();
-        name = NE_ALIAS[name] || name;
-        const stats = window.__countryStats && window.__countryStats[name];
-        if(!stats) return; // no data for this country — no hover behavior at all
+      const NE_ALIAS = { 'UNITED STATES OF AMERICA': 'USA', 'UNITED STATES': 'USA' };
+      L.geoJSON(data, {
+        style: { fillOpacity: 0, weight: 0, color: 'transparent' },
+        onEachFeature: (f, layer) => {
+          const p = f.properties || {};
+          let name = (p.ADMIN || p.NAME || p.NAME_EN || '').trim().toUpperCase();
+          name = NE_ALIAS[name] || name;
+          const stats = window.__countryStats && window.__countryStats[name];
+          if(!stats) return;
 
-        // Baseline highlight so hoverable countries are visible before hover
-        layer.setStyle({ fillOpacity: 0.01, fillColor: '#6c6e66', weight: 1, color: '#6c6e66' });
-        layer.on('mouseover', function(e){
-          layer.setStyle({ fillOpacity: 0.7, fillColor: 'rgb(255, 49, 248,.5' });
-          const card = document.getElementById('country-info-card');
-          const dcCount = DATACENTER_COUNTS[name];
-          const dcLine = dcCount ? '- has <strong>'+dcCount.toLocaleString()+'</strong> data centers total.' : '';
-          card.innerHTML = '<h3>'+(p.ADMIN||p.NAME||name)+'</h3>'+
-            dcLine+
-            '<br> - contains '+stats.places.length+' resistance site'+(stats.places.length>1?'s':'')+' in this dataset:'+
-            '<ul>'+stats.places.map(pl=>'<li>'+pl+'</li>').join('')+'</ul>';
-          card.style.opacity = '1';
-          positionCountryCard(e.originalEvent);
-        });
-        layer.on('mousemove', function(e){
-          positionCountryCard(e.originalEvent);
-        });
-        layer.on('mouseout', function(){
-          layer.setStyle({ fillOpacity: 0.06, weight: 1 });
-          document.getElementById('country-info-card').style.opacity = '0';
-        });
-      }
-    }).addTo(map);
+          layer.setStyle({ fillOpacity: 0.01, fillColor: '#6c6e66', weight: 1, color: '#6c6e66' });
+          layer.on('mouseover', function(e){
+            layer.setStyle({ fillOpacity: 0.7, fillColor: 'rgb(255, 49, 248, .5)' });
+            const card = document.getElementById('country-info-card');
+            const dcCount = DATACENTER_COUNTS[name];
+            const dcLine = dcCount ? '- has <strong>'+dcCount.toLocaleString()+'</strong> data centers total.' : '';
+            card.innerHTML = '<h3>'+(p.ADMIN||p.NAME||name)+'</h3>'+
+              dcLine+
+              '<br> - contains '+stats.places.length+' resistance site'+(stats.places.length>1?'s':'')+' in this dataset:'+
+              '<ul>'+stats.places.map(pl=>'<li>'+pl+'</li>').join('')+'</ul>';
+            card.style.opacity = '1';
+            positionCountryCard(e.originalEvent);
+          });
+          layer.on('mousemove', function(e){
+            positionCountryCard(e.originalEvent);
+          });
+          layer.on('mouseout', function(){
+            layer.setStyle({ fillOpacity: 0.06, weight: 1 });
+            document.getElementById('country-info-card').style.opacity = '0';
+          });
+        }
+      }).addTo(map);
+    }
+
+    if(key === 'top10'){
+      const listEl = document.getElementById('top10-list');
+      data.features.slice().sort((a,b) => a.properties.rank - b.properties.rank).forEach(f => {
+        const p = f.properties;
+        const li = document.createElement('li');
+        li.innerHTML =
+          '<span class="rank">#'+p.rank+'</span> <strong>'+p.company+'</strong>' +
+          '<div class="company-detail">' +
+            // 'Founded ' + p.founded + 
+            ' ' + p.hq_city + ', ' + p.hq_country + '<br>' +
+            // 'Worth: ' + p.worth + 
+            '<br>' +
+            p.datacenter_note +
+          '</div>';
+        listEl.appendChild(li);
+      });
     }
   });
-  // document.getElementById('status').textContent = loadedCount + ' / ' + Object.keys(files).length + ' layers loaded — click any point or line';
-
-  
 
   document.getElementById('water-checkbox').addEventListener('change', function(){
     if(this.checked){ waterLayer.addTo(map); }
     else { map.removeLayer(waterLayer); }
   });
 }).catch(err => {
-  document.getElementById('status').textContent = 'error — see console';
-  console.error(err);
+  console.error('Load error:', err);
 });
+
 </script>
 </body>
 </html>
