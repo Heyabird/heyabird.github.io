@@ -187,8 +187,9 @@
   <div class="panel-section">
     <h1>Data Resistances Map '26</h1>
     <p>Selected tech companies' <b>data centers + data labor
-      sites</b> that are met with <b>water, land, and labor-related resistances</b> reported in 2025-2026, including protests and lawsuits.</p>
+      sites</b> that are met with <b>water, land, and labor-related resistances</b> reported in 2025-2026, including protests and lawsuits. These only include opposition that target specific tech companies, not protests against AI / data centers in general.</p>
     <p>More data will be added this year.</p>
+    <br/>
     <p>Hover over a country or point. Click on a point or a case below for more info.</p>
   </div>
 
@@ -293,23 +294,27 @@ const top10Icon = L.divIcon({
   className:'', iconSize:[16,16], iconAnchor:[8,8]
 });
 
-const hubCluster = L.markerClusterGroup({
-  maxClusterRadius: 50,
-  iconCreateFunction: function(cluster){
-    const names = [...new Set(cluster.getAllChildMarkers().map(m => m.options.companyName).filter(Boolean))];
-    const label = names.join(', ');
-    const existingTooltip = cluster.getTooltip();
-    if(existingTooltip){
-      existingTooltip.setContent(label);
-    } else {
-      cluster.bindTooltip(label, {permanent:false, direction:'right', className:'hub-label', offset:[20,0]});
+function makeHubCluster(){
+  return L.markerClusterGroup({
+    maxClusterRadius: 50,
+    iconCreateFunction: function(cluster){
+      const names = [...new Set(cluster.getAllChildMarkers().map(m => m.options.companyName).filter(Boolean))];
+      const label = names.join(', ');
+      const existingTooltip = cluster.getTooltip();
+      if(existingTooltip){
+        existingTooltip.setContent(label);
+      } else {
+        cluster.bindTooltip(label, {permanent:false, direction:'right', className:'hub-label', offset:[20,0]});
+      }
+      return L.divIcon({
+        html:'<div>'+cluster.getChildCount()+'</div>',
+        className:'hub-cluster-icon', iconSize:[36,36]
+      });
     }
-    return L.divIcon({
-      html:'<div>'+cluster.getChildCount()+'</div>',
-      className:'hub-cluster-icon', iconSize:[36,36]
-    });
-  }
-});
+  });
+}
+const hubClusterPNW = makeHubCluster();
+const hubClusterMain = makeHubCluster();
 
 const waterLayer = L.layerGroup();
 
@@ -406,22 +411,25 @@ Promise.allSettled(Object.entries(files).map(([key, path]) =>
     }
 
     if(key === 'hubs'){
-      L.geoJSON(data, {
-        pointToLayer: (f, latlng) => {
-          const p = f.properties || {};
-          const displayName = companyDisplayName(p.target_key) || p.target_name || '';
-          return L.marker(latlng, {icon: hubIcon, companyName: displayName});
-        },
-        onEachFeature: (f, layer) => {
-          const p = f.properties || {};
-          const displayName = companyDisplayName(p.target_key) || p.target_name || '';
-          layer.bindPopup(fullPropertiesPopup(p, 'target_name'), { maxWidth: 380, minWidth: 320 });
-          layer.bindTooltip(displayName, {
-            permanent:false, direction:'right', className:'hub-label', offset:[10,0]
-          });
+      data.features.forEach(f => {
+        const p = f.properties || {};
+        const [lon, lat] = f.geometry.coordinates;
+        const displayName = companyDisplayName(p.target_key) || p.target_name || '';
+        const marker = L.marker([lat, lon], {icon: hubIcon, companyName: displayName});
+        marker.bindPopup(fullPropertiesPopup(p, 'target_name'), { maxWidth: 380, minWidth: 320 });
+        marker.bindTooltip(displayName, {
+          permanent:false, direction:'right', className:'hub-label', offset:[10,0]
+        });
+        // Seattle/Redmond (lat ~47-48) vs Bay Area (lat ~37-38) — split above/below 42
+        // so they never merge into one cluster badge at low zoom.
+        if(lat > 42){
+          hubClusterPNW.addLayer(marker);
+        } else {
+          hubClusterMain.addLayer(marker);
         }
-      }).addTo(hubCluster);
-      hubCluster.addTo(map);
+      });
+      hubClusterPNW.addTo(map);
+      hubClusterMain.addTo(map);
     }
 
     if(key === 'rivers_lakes'){
