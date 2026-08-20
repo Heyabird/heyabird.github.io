@@ -14,8 +14,7 @@
   html,body{margin:0;padding:0;height:100%;font-family:"Courier Prime", monospace;background:#111;}
   a {color: rgb(255, 49, 248);}
   #map{position:absolute;top:0;left:0;right:0;bottom:0;background:#111;}
-  /* #status{position:fixed;top:10px;left:10px;z-index:1000;background:#222;color:#eee;padding:6px 10px;
-    font-size:12px;border:1px solid #444;border-radius:4px;} */
+
   #title-block{position:fixed;top:12px;right:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);
     color:#000000;padding:10px 16px;border:1px solid #7b7b7b;border-radius:0px;max-width:60vw;
     pointer-events:none;text-align:right;}
@@ -121,24 +120,41 @@
 
   #right-panel #sources-section{font-size:12px;color:#696969;line-height:1.5;}
   #right-panel #sources-section strong{color:#000;}
+
+/* Mobile toggle */
+#mobile-info-toggle{display:none;position:fixed;top:12px;right:10px;z-index:1100;
+  background:rgba(255,255,255,0.9);border:1px solid #7b7b7b;padding:8px 14px;
+  font-size:13px;cursor:pointer;font-family:"Courier Prime",monospace;}
+
+@media (max-width: 768px){
+  #mobile-info-toggle{display:block;}
+
+  #left-panel, #right-panel, #legend, #water-toggle{
+    display:none;
+  }
+
+  body.panels-open #left-panel,
+  body.panels-open #right-panel,
+  body.panels-open #legend,
+  body.panels-open #water-toggle{
+    display:block;
+  }
+  body.panels-open #water-toggle{display:flex;}
+
+  /* On mobile, stack panels full-width and scrollable rather than floating side columns */
+  body.panels-open #left-panel,
+  body.panels-open #right-panel{
+    left:10px; right:10px; width:auto; max-height:40vh;
+  }
+  body.panels-open #right-panel{top:60px; bottom:auto;}
+  body.panels-open #left-panel{top:calc(40vh + 70px);}
+}
 </style>
 </head>
 <body>
 
-<!-- <div id="title-block">
-  <h1> Data Resistances Map '25-'26</h1>
-  <p>Selected big tech companies' data centers and data labor
-    <br/>sites that are met with resistance reported in 2025-2026.</p>
-    <p>More data will be added this year.</p><br/>
 
-  <p>Hover over a country or point. Click on a point for more info.</p>
-</p>
-</div>
-<div id="case-list">
-  <div class="case-list-title">All cases</div>
-  <ul id="case-list-items"></ul>
-</div> -->
-
+<button id="mobile-info-toggle">☰ Info</button>
 <!-- <div id="status">loading…</div> -->
 <div id="water-toggle">
   <input type="checkbox" id="water-checkbox">
@@ -219,6 +235,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
 <script>
+
+// mobile toggle
+document.getElementById('mobile-info-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('panels-open');
+});
+
+// the rest
 const map = L.map('map').setView([20, 10], 2);
 
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
