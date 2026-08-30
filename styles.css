@@ -1,0 +1,14 @@
+h1 {
+    font-family: 'DotGothic16', sans-serif;
+}
+body {
+    font-family: sans-serif;
+    /* font-family: 'DotGothic16', sans-serif; */
+    font-size: 14px;
+    line-height: 1.7;
+    color: #000;
+    background: #fff;
+    padding: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
