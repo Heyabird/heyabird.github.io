@@ -1,31 +1,28 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <title>Portfolio</title>
+  <title>Work — Portfolio</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: sans-serif;
-      font-size: 14px;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
       line-height: 1.6;
       color: #000;
       background: #fff;
-      padding: 2rem;
-      max-width: 960px;
+      padding: 2.5rem;
+      max-width: 980px;
       margin: 0 auto;
     }
 
     nav {
       display: flex;
       gap: 2rem;
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
       font-size: 14px;
-      font-family: sans-serif;
     }
 
     nav a {
@@ -37,213 +34,131 @@
     nav a:hover { border-bottom-color: #000; }
     nav a.active { border-bottom-color: #000; }
 
-    h1 {
-      font-size: 20px;
-      font-weight: normal;
-      margin-bottom: 2rem;
-    }
-
     .filter-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 1rem;
+      gap: 7px;
+      margin-bottom: 2.5rem;
     }
 
     .filter-btn {
-      font-size: 11px;
-      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-family: Arial, sans-serif;
       padding: 3px 12px;
-      border: 1px solid #000;
+      border: 0px solid #000;
       border-radius: 20px;
       background: #fff;
       color: #000;
       cursor: pointer;
+      background-color: #b9f4ff;
     }
 
-    .filter-btn:hover { background: #eee; }
+    .filter-btn:hover { background: #f0f0f0; }
     .filter-btn.active { background: #000; color: #fff; }
-
-    .legend {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #666;
-      margin-bottom: 0.75rem;
-    }
-
-    .legend-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #000;
-      display: inline-block;
-      flex-shrink: 0;
-    }
-
-    .legend-future-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      border: 1px solid #999;
-      background: #fff;
-      display: inline-block;
-      flex-shrink: 0;
-    }
 
     .count {
       font-size: 12px;
-      font-family: sans-serif;
-      color: #888;
+      color: #bbb;
       margin-bottom: 1.25rem;
     }
 
-    .grid {
+    /* ── two col layout ── */
+    .layout {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
+      grid-template-columns: 300px 1fr;
+      gap: 0;
+      border-top: 1px solid #000;
+      min-height: 520px;
     }
 
-    .card {
-      border: 1px solid #000;
+    /* ── left list ── */
+    .project-list { border-right: 1px solid #000; }
+
+    .project-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.9rem 1.25rem 0.9rem 0;
+      border-bottom: 1px solid #ebebeb;
+      cursor: pointer;
+      gap: 10px;
+    }
+
+    .project-item:hover { background: #fafafa; }
+    .project-item.active-item { background: #f5f5f5; }
+    .project-item.hidden { display: none; }
+
+    .item-title {
+      font-size: 14px;
+      color: #000;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-year { font-size: 12px; color: #bbb; flex-shrink: 0; }
+
+    /* ── right detail ── */
+    .project-detail {
+      padding: 1.5rem 0 2rem 2.5rem;
       display: flex;
       flex-direction: column;
-      background: #fff;
+      gap: 1.25rem;
     }
 
-    .card.hidden { display: none; }
+    .detail-empty { color: #ccc; font-size: 14px; }
 
-    /* image link — wraps the image area */
-    .card-image-link {
-      display: block;
-      border-bottom: 1px solid #000;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    /* real image — drop your png here */
-    .card-image-link img {
+    .detail-img {
       width: 100%;
-      height: 160px;
+      max-height: 350px;
       object-fit: cover;
       display: block;
-      transition: opacity 0.15s;
+      border: 1px solid #000;
     }
 
-    .card-image-link:hover img { opacity: 0.85; }
-
-    /* placeholder when no image yet */
-    .card-image-link.placeholder {
-      height: 160px;
+    .detail-img-placeholder {
+      width: 100%;
+      height: 200px;
       background: #f0f0f0;
+      border: 1px solid #000;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
-      font-family: sans-serif;
-      color: #aaa;
-      text-decoration: none;
-      transition: background 0.15s;
-    }
-
-    .card-image-link.placeholder:hover { background: #e4e4e4; }
-
-    .card-body {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      justify-content: space-between;
-    }
-
-    .card-year {
-      font-size: 11px;
-      font-family: sans-serif;
-      color: #999;
-      line-height: 1.3;
-      flex-shrink: 0;
-      margin-left: 6px;
-    }
-
-    .card.future {
-      border-color: #bbb;
-      opacity: 0.6;
-    }
-
-    .card.future .card-image-link {
-      border-bottom-color: #bbb;
-    }
-
-    .card.future .tag {
-      border-color: #bbb;
-      color: #999;
-    }
-
-    .ongoing-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #000;
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
-
-    .future-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      border: 1px solid #999;
-      background: #fff;
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
-
-
-    /* title as a link */
-    .card-title {
-      font-size: 14px;
-      font-weight: normal;
-      font-family: sans-serif;
-      line-height: 1.3;
-      color: #000;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-bottom-color 0.15s;
-    }
-
-    .card-title:hover { border-bottom-color: #000; }
-
-    .card-desc {
       font-size: 12px;
-      color: #444;
-      line-height: 1.6;
-      flex: 1;
+      color: #bbb;
     }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
+    .detail-title {
+      font-size: 24px;
+      font-weight: normal;
+      line-height: 1.2;
     }
 
-    .tag {
-      font-size: 10px;
-      font-family: 'IBM Plex Mono', monospace;
-      padding: 1px 7px;
-      border: 1px solid #000;
-      background: #fff;
+    .detail-meta {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .detail-keywords {
+      font-size: 13px;
+      color: #bbb;
+    }
+
+    .detail-desc {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .detail-link {
+      font-size: 13px;
       color: #000;
-      border-radius: 20px;
+      text-decoration: none;
+      border-bottom: 1px solid #000;
+      display: inline-block;
     }
+
+    .detail-link:hover { opacity: 0.6; }
   </style>
 </head>
 <body>
@@ -251,7 +166,6 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="work.html" class="active">Work</a>
-    <!-- <a href="writing.html">Writing</a> -->
     <a href="library.html">Library</a>
     <a href="about.html">About</a>
   </nav>
@@ -265,386 +179,240 @@
     <button class="filter-btn" data-filter="p5">p5.js</button>
     <button class="filter-btn" data-filter="data-viz">Data Viz</button>
     <button class="filter-btn" data-filter="critical-ai">Critical AI/Data</button>
-    <!-- <button class="filter-btn" data-filter="ceramics">Ceramics</button> -->
     <button class="filter-btn" data-filter="mapping">Mapping</button>
     <button class="filter-btn" data-filter="archive">Archive</button>
     <button class="filter-btn" data-filter="workshop">Workshop</button>
-    <!-- <button class="filter-btn" data-filter="bio-based">Bio-based</button> -->
+    <button class="filter-btn" data-filter="physical">Physical</button>
+    <button class="filter-btn" data-filter="digital">Digital</button>
+    <button class="filter-btn" data-filter="both">Physical & Digital</button>
   </div>
 
-  <div class="legend">
-    <span class="legend-dot"></span> work-in-progress
-    <div class="legend-item"><span class="legend-future-dot"></span> upcoming</div>
+  <!-- <p class="count" id="count">15 projects</p> -->
 
-  </div>
-
-  <p class="count" id="count">13 projects</p>
-
-  <div class="grid" id="grid">
-
-    <div class="card ongoing" data-tags="sound participatory installation bio-based">
-        <a href="noraebang.html" class="card-image-link">
-          <img src="assets/noraebang_cover.jpg" alt="Noraebang">
-        </a>      
-        <div class="card-body">
-        <div class="card-header">
-          <div style="display:flex; align-items:flex-start; gap:6px;">
-            <span class="ongoing-dot"></span>
-            <a href="noraebang.html" class="card-title">Noraebang</a>
-          </div>
-          <span class="card-year">2026</span>
-        </div>
-        <p class="card-desc">Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design.</p>
-        <div class="tags">
-          <span class="tag">Sound</span>
-          <span class="tag">Participatory</span>
-          <span class="tag">Installation</span>
-          <span class="tag">Bio-based</span>
-        </div>
-      </div>
+  <div class="layout">
+    <div class="project-list" id="project-list"></div>
+    <div class="project-detail" id="project-detail">
+      <p class="detail-empty">← select a project</p>
     </div>
-
-    <div class="card" data-tags="mapping data-viz critical-ai">
-      <a href="data_resistances_map/" target="_blank" class="card-image-link placeholder">
-        <img src="assets/data_resistance_map_cover.jpg" alt="Geology of Memory project cover photo">
-      </a>
-      <div class="card-body">
-        <div class="card-header">
-          <div style="display:flex; align-items:flex-start; gap:6px;">
-            <span class="ongoing-dot"></span>
-            <a href="data_resistances_map/" class="card-title">Data Resistances Map</a>
-          </div>
-          <span class="card-year">2026</span>
-        </div>
-        <p class="card-desc">Mapping data / AI supply chain and its resistance sites with GIS + Leaflet.js.</p>
-        <div class="tags">
-          <span class="tag">Mapping</span>
-          <span class="tag">Data Viz</span>
-          <span class="tag">Crtiical AI/Data Studies</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card ongoing" data-tags="installation critical-ai">
-        <a href="gazing-at-the-cloud.html" class="card-image-link">
-          <img src="assets/gazing_at_the_cloud_cover.jpg" alt="Gazing at the Cloud cover photo">
-        </a>        
-        <div class="card-body">
-        <div class="card-header">
-          <div style="display:flex; align-items:flex-start; gap:6px;">
-            <span class="ongoing-dot"></span>
-            <a href="gazing-at-the-cloud.html" class="card-title">Gazing at the Cloud</a>
-          </div>
-          <span class="card-year">2026</span>
-        </div>
-        <p class="card-desc">Interactive installation studying the gaze and cloud infrastructures. Built with TouchDesigner, OAK-D camera, and ImageNet database.</p>
-        <div class="tags">
-          <span class="tag">Installation</span>
-          <span class="tag">Critical AI/Data Studies</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-tags="critical-ai">
-      <a href="" class="card-image-link placeholder">
-        <img src="assets/slop_or_not_cover.jpg" alt="Slop or Not cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="mycelium-design-workshops.html" class="card-title">SLOP OR NOT</a>
-        </div>
-        <span class="card-year">2026</span>
-      </div>
-        <p class="card-desc">Satirical lottery tickets that makes you guess whether an art is an AI slop or not.
-          Created as part of "Epistemologies of Slop" Exhibition at tiat. Documentation coming soon.
-        </p>
-        <div class="tags">
-          <span class="tag">Critical AI/Data Studies</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card ongoing" data-tags="installation archive">
-        <a href="espoo-kaleidoscope.html" class="card-image-link">
-          <img src="assets/espoo-kaleidoscope-cover.png" alt="Espoo Kaleidoscope Installation photo">
-        </a>              
-        <div class="card-body">
-        <div class="card-header">
-          <div style="display:flex; align-items:flex-start; gap:6px;">
-            <span class="ongoing-dot"></span>
-            <a href="espoo-kaleidoscope.html" class="card-title">Espoo City Kaleidoscope</a>
-          </div>
-          <span class="card-year">2026-2027</span>
-        </div>
-        <p class="card-desc">Interactive kaleidoscope installation for Espoo City Museum using city archive footage. Interactivity programmed through TouchDesigner.</p>
-        <div class="tags">
-          <span class="tag">Installation</span>
-          <span class="tag">Archive</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-tags="workshop bio-based participatory typography">
-      <a href="mycelium-design-workshops.html" class="card-image-link placeholder">
-        <img src="assets/mycelium_design_cover.jpg" alt="Mycelium Design Workshop cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="mycelium-design-workshops.html" class="card-title">Mycelium Design Workshops</a>
-        </div>
-        <span class="card-year">2026</span>
-      </div>
-        <p class="card-desc">Tiles designed by participants using Korean typographic letters.</p>
-        <div class="tags">
-          <span class="tag">Workshop</span>
-          <span class="tag">Bio-based</span>
-          <span class="tag">Participatory</span>
-          <span class="tag">Typography</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- <div class="card" data-tags="p5 typography">
-      <a href="ascii-selfie-machine.html" class="card-image-link placeholder">
-        <img src="assets/ASCII-selfie-machine-cover.jpg" alt="ASCII Selfie Machine cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="ascii-selfie-machine.html" class="card-title">ASCII Selfie Machine</a>
-        </div>
-        <span class="card-year">2026</span>
-      </div>
-        <p class="card-desc">A selfie machine that turns your face into simple ASCII 0_0.</p>
-        <div class="tags">
-          <span class="tag">p5.js</span>
-          <span class="tag">Typography</span>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="card" data-tags="sound ceramics">
-      <a href="sonic_memory_decomposer.html" class="card-image-link placeholder">
-        <img src="assets/smd_cover2.png" alt="Sonic Memory Decomposer cover photo">
-      </a>
-      <div class="card-body">
-        <div class="card-header">
-          <div style="display:flex; align-items:flex-start; gap:6px;">
-            <a href="sonic-memory-decomposer.html" class="card-title">Sonic Memory Decomposer</a>
-          </div>
-          <span class="card-year">2025</span>
-        </div>
-        <p class="card-desc">Ceramics, sound, and physical computing — speaking into a ceramic cup disintegrates the memory sonically.</p>
-        <div class="tags">
-          <span class="tag">Sound</span>
-          <span class="tag">Ceramics</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- <div class="card" data-tags="ceramics participatory">
-      <a href="dream_pieces.html" class="card-image-link placeholder">
-        <img src="assets/dream_pieces_cover1.jpg" alt="Dream Pieces cover photo">
-      </a>
-      <div class="card-body">
-        <div class="card-header">
-          <div style="display:flex; align-items:flex-start; gap:6px;">
-            <a href="dream_pieces.html" class="card-title">Dream Pieces</a>
-          </div>
-          <span class="card-year">2025</span>
-        </div>       
-        <p class="card-desc">Ceramic pieces made through participatory art.</p>
-        <div class="tags">
-          <span class="tag">Ceramics</span>
-          <span class="tag">Participatory</span>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="card" data-tags="participatory archive">
-      <a href="trust_box/about.html" class="card-image-link placeholder">
-        <img src="assets/trust_box_cover.jpg" alt="Trust Box cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="trust-box.html" class="card-title">Trust Box</a>
-        </div>
-        <span class="card-year">2025</span>
-      </div>
-        <p class="card-desc">Participatory art, photography, and archive project.</p>
-        <div class="tags">
-          <span class="tag">Participatory</span>
-          <span class="tag">Archive</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-tags="sound participatory installation">
-      <a href="dream-cafe.html" class="card-image-link placeholder">
-        <img src="assets/dream_cafe_cover.jpg" alt="Dream Café cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="dream-cafe.html" class="card-title">Dream Café</a>
-        </div>
-        <span class="card-year">2025</span>
-      </div>
-        <p class="card-desc">A café in an abandoned mall that only takes a dream as a payment.</p>
-        <div class="tags">
-          <span class="tag">Sound</span>
-          <span class="tag">Participatory</span>
-          <span class="tag">Installation</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-tags="p5 data-viz typography">
-      <a href="wind_typography/about.html" class="card-image-link placeholder">
-        <img src="assets/wind_typo_cover2.jpg" alt="Dream Cafe cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="wind_typography/about.html" class="card-title">Wind Typography</a>
-        </div>
-        <span class="card-year">2024</span>
-      </div>
-        <p class="card-desc">Physical computing and p5.js project asking what a writing of wind would look like, using live wind data.</p>
-        <div class="tags">
-          <span class="tag">p5.js</span>
-          <span class="tag">Data Viz</span>
-          <span class="tag">Typography</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-tags="p5 typography">
-      <a href="stretch-marks.html" class="card-image-link placeholder">
-        <img src="assets/stretch_marks_cover.jpg" alt="Stretch marks cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="stretch-marks.html" class="card-title">Stretch Marks</a>
-        </div>
-        <span class="card-year">2023</span>
-      </div>
-        <p class="card-desc">p5.js project that allows letters to stretch and decay over time.</p>
-        <div class="tags">
-          <span class="tag">p5.js</span>
-          <span class="tag">Typography</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-tags="p5 sound typography">
-      <a href="ascii_theremin.html" class="card-image-link placeholder">
-        <img src="assets/ascii_theremin_cover.png" alt="ASCII Theremin cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="stretch-marks.html" class="card-title">ASCII Theremin</a>
-        </div>
-        <span class="card-year">2023</span>
-      </div>
-        <p class="card-desc">A digital theremin + ASCII art</p>
-        <div class="tags">
-          <span class="tag">p5.js</span>
-          <span class="tag">Sound</span>
-          <span class="tag">Typography</span>
-        </div>
-      </div>
-    </div>
-
-  <div class="card" data-tags="js">
-      <a href="https://smashcomputer.netlify.app" class="card-image-link placeholder">
-        <img src="assets/smash_computer_cover.png" alt="Smash Computer cover photo">
-      </a>
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <a href="https://smashcomputer.netlify.app" class="card-title">Smash Computer</a>
-        </div>
-        <span class="card-year">2021</span>
-      </div>
-        <p class="card-desc">My very first creative coding project ☺︎, where you can smash computer virtually. Made with pure vanilla js and love.</p>
-        <div class="tags">
-          <span class="tag">js</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card future" data-tags="workshop participatory mapping data-viz critical-ai">
-      <!-- <a href="mapping-the-cloud-workshop.html" class="card-image-link placeholder"> -->
-        <img src="assets/covers/mapping-the-cloud-cover.jpg" alt="Mapping the Cloud cover photo">
-      <!-- </a> -->
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <span class="future-dot"></span>
-          <div class="card-title">Mapping the Cloud workshop</div>
-        </div>
-        <span class="card-year">2026</span>
-      </div>
-        <p class="card-desc">Collective mapping workshop on connections to cloud infrastructure.</p>
-        <div class="tags">
-          <span class="tag">Workshop</span>
-          <span class="tag">Participatory</span>
-          <span class="tag">Mapping</span>
-          <span class="tag">Data Viz</span>
-          <span class="tag">Critical AI/Data</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card future" data-tags="workshop participatory">
-        <img src="assets/covers/alternative-media-feeds-cover.jpg" alt="Alternative Media Design Workshop cover photo">
-      <div class="card-body">
-      <div class="card-header">
-        <div style="display:flex; align-items:flex-start; gap:6px;">
-          <span class="future-dot"></span>
-          <div class="card-title">Alternative Media Feed Design workshop</div>
-        </div>
-        <span class="card-year">2026</span>
-      </div>
-        <p class="card-desc">Participants design a speculative alternative media feed incorporating rest and care.</p>
-        <div class="tags">
-          <span class="tag">Workshop</span>
-          <span class="tag">Participatory</span>
-        </div>
-      </div>
-    </div>
-
-
-
   </div>
 
   <script>
-    const buttons = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card');
-    const countEl = document.getElementById('count');
+    const projects = [
+      {
+        id: 'noraebang',
+        title: 'Noraebang',
+        year: '2026',
+        tags: 'sound participatory installation bio-based physical',
+        keywords: 'Sound · Participatory · Installation',
+        href: 'noraebang.html',
+        img: 'assets/noraebang_cover.jpg',
+        desc: 'Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design.'
+      },
+      {
+        id: 'data-map',
+        title: 'Data Resistances Map',
+        year: '2026',
+        tags: 'mapping data-viz critical-ai digital',
+        keywords: 'Mapping · Data Viz · Critical AI/Data',
+        href: 'data_resistances_map/',
+        img: 'assets/data_resistance_map_cover.jpg',
+        desc: 'Mapping data and AI supply chain resistance sites using GIS and Leaflet.js.'
+      },
+      {
+        id: 'gazing',
+        title: 'Gazing at the Cloud',
+        year: '2026',
+        tags: 'installation critical-ai both',
+        keywords: 'Installation · Critical AI/Data',
+        href: 'gazing-at-the-cloud.html',
+        img: 'assets/gazing_at_the_cloud_cover.jpg',
+        desc: 'Interactive installation studying the gaze and cloud infrastructures. Built with TouchDesigner, OAK-D camera, and ImageNet.'
+      },
+      {
+        id: 'slop',
+        title: 'SLOP OR NOT',
+        year: '2026',
+        tags: 'critical-ai digital',
+        keywords: 'Critical AI/Data',
+        href: 'slop-or-not.html',
+        img: 'assets/slop_or_not_cover.jpg',
+        desc: 'Satirical lottery tickets that make you guess whether a piece of art is AI-generated or not. Created for "Epistemologies of Slop" at tiat.'
+      },
+      {
+        id: 'kaleidoscope',
+        title: 'Espoo City Kaleidoscope',
+        year: '2026–2027',
+        tags: 'installation archive both',
+        keywords: 'Installation · Archive',
+        href: 'espoo-kaleidoscope.html',
+        img: 'assets/espoo-kaleidoscope-cover.png',
+        desc: 'Interactive kaleidoscope installation for Espoo City Museum using city archive footage. Interactivity programmed through TouchDesigner.'
+      },
+      {
+        id: 'mycelium',
+        title: 'Mycelium Design Workshops',
+        year: '2026',
+        tags: 'workshop bio-based participatory typography physical',
+        keywords: 'Workshop · Participatory · Typography',
+        href: 'mycelium-design-workshops.html',
+        img: 'assets/mycelium_design_cover.jpg',
+        desc: 'Tiles designed by participants using Korean typographic letters and mycelium material.'
+      },
+      {
+        id: 'smd',
+        title: 'Sonic Memory Decomposer',
+        year: '2025',
+        tags: 'sound ceramics physical',
+        keywords: 'Sound · Ceramics',
+        href: 'sonic_memory_decomposer.html',
+        img: 'assets/smd_cover2.png',
+        desc: 'Ceramics, sound, and physical computing — speaking into a ceramic cup disintegrates the memory sonically.'
+      },
+      {
+        id: 'trust-box',
+        title: 'Trust Box',
+        year: '2025',
+        tags: 'participatory archive physical',
+        keywords: 'Participatory · Archive',
+        href: 'trust_box/about.html',
+        img: 'assets/trust_box_cover.jpg',
+        desc: 'Participatory art, photography, and archive project.'
+      },
+      {
+        id: 'dream-cafe',
+        title: 'Dream Café',
+        year: '2025',
+        tags: 'sound participatory installation physical',
+        keywords: 'Sound · Participatory · Installation',
+        href: 'dream-cafe.html',
+        img: 'assets/dream_cafe_cover.jpg',
+        desc: 'A café in an abandoned mall that only takes a dream as payment.'
+      },
+      {
+        id: 'wind',
+        title: 'Wind Typography',
+        year: '2024',
+        tags: 'p5 data-viz typography digital',
+        keywords: 'p5.js · Data Viz · Typography',
+        href: 'wind_typography/about.html',
+        img: 'assets/wind_typo_cover2.jpg',
+        desc: 'p5.js project asking what a writing of wind would look like, using live wind data.'
+      },
+      {
+        id: 'stretch',
+        title: 'Stretch Marks',
+        year: '2023',
+        tags: 'p5 typography digital',
+        keywords: 'p5.js · Typography',
+        href: 'stretch-marks.html',
+        img: 'assets/stretch_marks_cover.jpg',
+        desc: 'p5.js project that allows letters to stretch and decay over time.'
+      },
+      {
+        id: 'theremin',
+        title: 'ASCII Theremin',
+        year: '2023',
+        tags: 'p5 sound typography digital',
+        keywords: 'p5.js · Sound · Typography',
+        href: 'ascii_theremin.html',
+        img: 'assets/ascii_theremin_cover.png',
+        desc: 'A digital theremin combined with ASCII art.'
+      },
+      {
+        id: 'smash',
+        title: 'Smash Computer',
+        year: '2021',
+        tags: 'js digital',
+        keywords: 'JavaScript',
+        href: 'https://smashcomputer.netlify.app',
+        img: 'assets/smash_computer_cover.png',
+        desc: 'My first creative coding project — smash a computer virtually. Made with vanilla JS.'
+      },
+      {
+        id: 'map-cloud',
+        title: 'Mapping the Cloud workshop',
+        year: '2026',
+        tags: 'workshop participatory mapping data-viz critical-ai physical',
+        keywords: 'Workshop · Participatory · Mapping',
+        href: 'mapping-the-cloud-workshop.html',
+        img: 'assets/covers/mapping-the-cloud-cover.jpg',
+        desc: 'Collective mapping workshop where participants add their connections to cloud infrastructure, creating a collective sculpture.'
+      },
+      {
+        id: 'media-feed',
+        title: 'Alt. Media Feed Design workshop',
+        year: '2026',
+        tags: 'workshop participatory digital',
+        keywords: 'Workshop · Participatory',
+        href: 'alt-media-feed-workshop.html',
+        img: 'assets/covers/alternative-media-feeds-cover.jpg',
+        desc: 'Participants design a speculative alternative media feed incorporating rest and care.'
+      },
+    ];
+
+    const listEl   = document.getElementById('project-list');
+    const detailEl = document.getElementById('project-detail');
+    const countEl  = document.getElementById('count');
+    const buttons  = document.querySelectorAll('.filter-btn');
+    let activeId   = null;
+
+    projects.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'project-item';
+      el.dataset.id   = p.id;
+      el.dataset.tags = p.tags;
+      el.innerHTML = `
+        <span class="item-title">${p.title}</span>
+        <span class="item-year">${p.year}</span>
+      `;
+      el.addEventListener('click', () => showDetail(p.id));
+      listEl.appendChild(el);
+    });
+
+    function showDetail(id) {
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      document.querySelectorAll('.project-item').forEach(el => el.classList.remove('active-item'));
+      document.querySelector(`.project-item[data-id="${id}"]`).classList.add('active-item');
+      activeId = id;
+
+      const imgEl = p.img
+        ? `<img class="detail-img" src="${p.img}" alt="${p.title}" onerror="this.outerHTML='<div class=\\'detail-img-placeholder\\'>no image yet</div>'">`
+        : `<div class="detail-img-placeholder">no image yet</div>`;
+
+      detailEl.innerHTML = `
+        ${imgEl}
+        <div class="detail-title">${p.title}</div>
+        <div class="detail-meta">${p.year}</div>
+        <div class="detail-keywords">${p.keywords}</div>
+        <p class="detail-desc">${p.desc}</p>
+        <a class="detail-link" href="${p.href}" ${p.href.startsWith('http') ? 'target="_blank"' : ''}>view project →</a>
+      `;
+    }
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         const filter = btn.dataset.filter;
         let visible = 0;
 
-        cards.forEach(card => {
-          const tags = card.dataset.tags.split(' ');
+        document.querySelectorAll('.project-item').forEach(el => {
+          const tags = el.dataset.tags.split(' ');
           const show = filter === 'all' || tags.includes(filter);
-          card.classList.toggle('hidden', !show);
+          el.classList.toggle('hidden', !show);
           if (show) visible++;
         });
 
         countEl.textContent = visible + (visible === 1 ? ' project' : ' projects');
+
+        if (activeId) {
+          const activeEl = document.querySelector(`.project-item[data-id="${activeId}"]`);
+          if (activeEl && activeEl.classList.contains('hidden')) {
+            detailEl.innerHTML = '<p class="detail-empty">← select a project</p>';
+            activeId = null;
+          }
+        }
       });
     });
   </script>
