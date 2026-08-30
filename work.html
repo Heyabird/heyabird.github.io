@@ -110,7 +110,7 @@
 
     .detail-img {
       width: 100%;
-      max-height: 350px;
+      max-height: 360px;
       object-fit: cover;
       display: block;
       border: 1px solid #000;
@@ -159,6 +159,30 @@
     }
 
     .detail-link:hover { opacity: 0.6; }
+
+    @media (max-width: 640px) {
+  body { padding: 1.25rem; }
+
+  nav { gap: 1.25rem; margin-bottom: 2rem; }
+
+  .filter-btn { font-size: 11px; padding: 3px 10px; }
+
+  .layout {
+    grid-template-columns: 1fr;
+    border-top: 1px solid #000;
+  }
+
+  .project-list { border-right: none; }
+
+  .project-detail {
+    padding: 1.25rem 0 1.5rem;
+    border-top: 1px solid #000;
+  }
+
+  .detail-img { max-height: 200px; }
+
+  .detail-title { font-size: 20px; }
+}
   </style>
 </head>
 <body>
@@ -388,6 +412,10 @@
         <p class="detail-desc">${p.desc}</p>
         <a class="detail-link" href="${p.href}" ${p.href.startsWith('http') ? 'target="_blank"' : ''}>view project →</a>
       `;
+
+      if (window.innerWidth <= 640) {
+        detailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     buttons.forEach(btn => {
