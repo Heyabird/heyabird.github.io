@@ -272,8 +272,9 @@
     <button class="filter-btn" data-filter="sound">Sound</button>
     <button class="filter-btn" data-filter="data-viz">Data Viz</button>
     <button class="filter-btn" data-filter="critical-ai">Critical AI/Data</button>
-    <button class="filter-btn" data-filter="mapping">Mapping</button>
+    <button class="filter-btn" data-filter="research">Research</button>
     <button class="filter-btn" data-filter="workshop">Workshop</button>
+    <button class="filter-btn" data-filter="mapping">Mapping</button>
     <!-- <button class="filter-btn" data-filter="physical">Physical</button>
     <button class="filter-btn" data-filter="digital">Digital</button>
     <button class="filter-btn" data-filter="both">Physical & Digital</button> -->
@@ -348,7 +349,7 @@
         title: 'Feed, Cloud, and Bodies',
         type: 'Research',
         year: '2026 (WIP)',
-        tags: 'installation archive both',
+        tags: 'research',
         keywords: 'Research',
         href: '',
         img: 'assets/covers/feed-cloud-bodies-cover.png',
@@ -370,7 +371,7 @@
         title: 'Warm Clouds over the Cool Planet',
         type: 'Workshop',
         year: '2026 (WIP)',
-        tags: 'workshop participatory mapping data-viz critical-ai physical',
+        tags: 'workshop participatory mapping data-viz critical-ai research',
         keywords: 'Workshop · Participatory · Mapping',
         href: '',
         img: 'assets/covers/mapping-the-cloud-cover.jpg',
@@ -381,7 +382,7 @@
         title: 'Noraebang',
         type: 'Community Space',
         year: '2026',
-        tags: 'sound participatory installation bio-based physical',
+        tags: 'sound participatory installation bio-based',
         keywords: 'Sound · Participatory · Installation',
         href: 'noraebang.html',
         site: 'https://noraebang-fi.github.io/',
@@ -415,7 +416,7 @@
         title: 'Mycelium Design Workshops',
         type: 'Workshop',
         year: '2026',
-        tags: 'workshop bio-based participatory typography physical',
+        tags: 'workshop bio-based participatory typography  ',
         keywords: 'Workshop · Participatory · Typography',
         href: 'mycelium-design-workshops.html',
         img: 'assets/mycelium_design_cover.jpg',
@@ -426,7 +427,7 @@
         title: 'Sonic Memory Decomposer',
         type: 'Art',
         year: '2025',
-        tags: 'sound ceramics physical',
+        tags: 'sound ceramics',
         keywords: 'Sound · Ceramics',
         href: 'sonic_memory_decomposer.html',
         img: 'assets/smd_cover2.png',
@@ -437,7 +438,7 @@
         title: 'Trust Box',
         type: 'Art',
         year: '2025',
-        tags: 'participatory archive physical',
+        tags: 'participatory archive',
         keywords: 'Participatory · Archive',
         href: 'trust_box/about.html',
         site: 'trust_box.html',
@@ -449,7 +450,7 @@
         title: 'Dream Café',
         type: 'Art',
         year: '2025',
-        tags: 'sound participatory installation physical',
+        tags: 'sound participatory installation',
         keywords: 'Sound · Participatory · Installation',
         href: 'dream-cafe.html',
         img: 'assets/dream_cafe_cover.jpg',
@@ -483,7 +484,7 @@
         title: 'Work in Action: A Graphic Novel (BA Thesis)',
         type: 'Research',
         year: '2017',
-        tags: '',
+        tags: 'research',
         keywords: 'Research',
         href: 'https://digitalcollections.wesleyan.edu/Documents/Detail/a-work-in-action-a-graphic-novel/451160',
         img: 'assets/work_in_action_example_page2.png',
@@ -546,8 +547,7 @@
       detailEl.innerHTML = `
         ${imgEl}
         <div class="detail-title">${p.title}</div>
-        <div class="detail-meta">${p.year}</div>
-        <div class="detail-keywords">${p.keywords}</div>
+        <div class="detail-meta">${p.year} | ${p.keywords}</div>
         <p class="detail-desc">${p.desc}</p>
         ${linksHTML}
       `;
