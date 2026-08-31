@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Geist+Pixel&family=VT323&display=swap" rel="stylesheet">
-
   <title>Work — Portfolio</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,15 +15,15 @@
       line-height: 1.6;
       color: #000;
       background: #fff;
-      padding: 2.5rem;
-      max-width: 980px;
+      padding: 2rem;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     nav {
       display: flex;
       gap: 2rem;
-      margin-bottom: 3.5rem;
+      margin-bottom: 3rem;
       font-size: 14px;
     }
 
@@ -41,34 +40,26 @@
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .filter-btn {
       font-size: 12px;
-      /* font-family: 'DotGothic16', sans-serif; */
       padding: 3px 12px;
       border: 1px solid #000;
       border-radius: 20px;
       background: #fff;
       color: #000;
       cursor: pointer;
-      /* background-color: #d5d5d5; */
     }
 
-    .filter-btn:hover { background: #febaff; }
-    .filter-btn.active { background: #febaff; }
-
-    .count {
-      font-size: 12px;
-      color: #bbb;
-      margin-bottom: 1.25rem;
-    }
+    .filter-btn:hover { background: #c0c0c0; }
+    .filter-btn.active { background: #c0c0c0; }
 
     /* ── two col layout ── */
     .layout {
       display: grid;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: 340px 1fr;
       gap: 0;
       border-top: 1px solid #000;
       min-height: 520px;
@@ -80,30 +71,73 @@
     .project-item {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      padding: 0.9rem 1.25rem 0.9rem 0;
+      align-items: center;
+      padding: 0.75rem 1rem 0.75rem 0;
       border-bottom: 1px solid #ebebeb;
       cursor: pointer;
-      gap: 10px;
+      gap: 8px;
     }
 
     .project-item:hover { background: #fafafa; }
-    .project-item.active-item { background: #f5f5f5; }
+    .project-item.active-item { background: #f9ffe1; }
     .project-item.hidden { display: none; }
 
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      overflow: hidden;
+      flex: 1;
+    }
+
     .item-title {
-      font-size: 14px;
+      font-size: 13px;
       color: #000;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .item-year { font-size: 12px; color: #bbb; flex-shrink: 0; }
+    .item-year {
+      font-size: 12px;
+      color: #bbb;
+      flex-shrink: 0;
+    }
+
+    /* ── badge ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      height: 20px;
+      padding: 0 8px;
+    }
+
+    .badge svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .badge-text {
+      position: relative;
+      font-size: 8px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      z-index: 1;
+    }
 
     /* ── right detail ── */
     .project-detail {
-      padding: 1.5rem 0 2rem 2.5rem;
+      padding: 1.5rem 0 2rem 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
@@ -113,7 +147,7 @@
 
     .detail-img {
       width: 100%;
-      max-height: 360px;
+      max-height: 400px;
       object-fit: cover;
       display: block;
       border: 1px solid #000;
@@ -137,15 +171,8 @@
       line-height: 1.2;
     }
 
-    .detail-meta {
-      font-size: 13px;
-      color: #999;
-    }
-
-    .detail-keywords {
-      font-size: 13px;
-      color: #bbb;
-    }
+    .detail-meta { font-size: 13px; color: #999; }
+    .detail-keywords { font-size: 13px; color: #bbb; }
 
     .detail-desc {
       font-size: 15px;
@@ -153,40 +180,38 @@
       color: #333;
     }
 
+    .detail-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
     .detail-link {
       font-size: 13px;
       color: #000;
       text-decoration: none;
-      /* border-bottom: 1px solid #000; */
-      /* border: 1px solid #000; */
       display: inline-block;
+      border-bottom: 1px solid #000;
     }
 
     .detail-link:hover { opacity: 0.6; }
 
+    
+
+    /* ── mobile ── */
     @media (max-width: 640px) {
-  body { padding: 1.25rem; }
-
-  nav { gap: 1.25rem; margin-bottom: 2rem; }
-
-  .filter-btn { font-size: 11px; padding: 3px 10px; }
-
-  .layout {
-    grid-template-columns: 1fr;
-    border-top: 1px solid #000;
-  }
-
-  .project-list { border-right: none; }
-
-  .project-detail {
-    padding: 1.25rem 0 1.5rem;
-    border-top: 1px solid #000;
-  }
-
-  .detail-img { max-height: 200px; }
-
-  .detail-title { font-size: 20px; }
-}
+      body { padding: 1.25rem; }
+      nav { gap: 1.25rem; margin-bottom: 2rem; }
+      .filter-btn { font-size: 11px; padding: 3px 10px; }
+      .layout { grid-template-columns: 1fr; }
+      .project-list { border-right: none; }
+      .project-detail {
+        padding: 1.25rem 0 1.5rem;
+        border-top: 1px solid #000;
+      }
+      .detail-img { max-height: 200px; }
+      .detail-title { font-size: 20px; }
+    }
   </style>
 </head>
 <body>
@@ -204,18 +229,14 @@
     <button class="filter-btn" data-filter="sound">Sound</button>
     <button class="filter-btn" data-filter="installation">Installation</button>
     <button class="filter-btn" data-filter="typography">Typography</button>
-    <button class="filter-btn" data-filter="p5">p5.js</button>
     <button class="filter-btn" data-filter="data-viz">Data Viz</button>
     <button class="filter-btn" data-filter="critical-ai">Critical AI/Data</button>
     <button class="filter-btn" data-filter="mapping">Mapping</button>
-    <button class="filter-btn" data-filter="archive">Archive</button>
     <button class="filter-btn" data-filter="workshop">Workshop</button>
-    <button class="filter-btn" data-filter="physical">Physical</button>
+    <!-- <button class="filter-btn" data-filter="physical">Physical</button>
     <button class="filter-btn" data-filter="digital">Digital</button>
-    <button class="filter-btn" data-filter="both">Physical & Digital</button>
+    <button class="filter-btn" data-filter="both">Physical & Digital</button> -->
   </div>
-
-  <!-- <p class="count" id="count">15 projects</p> -->
 
   <div class="layout">
     <div class="project-list" id="project-list"></div>
@@ -225,20 +246,87 @@
   </div>
 
   <script>
+
+    const typeColors = {
+      'Art':               { fill: '#ffd6f5', stroke: '#000', text: '#000' },
+      'Installation':      { fill: '#d6eaff', stroke: '#000', text: '#000' },
+      'Website':           { fill: '#d6ffd6', stroke: '#000', text: '#000' },
+      'Workshop':          { fill: '#fff3d6', stroke: '#000', text: '#000' },
+      'Community Space':        { fill: '#ffd6d6', stroke: '#000', text: '#000' },
+      'Print':            { fill: '#d6fff6', stroke: '#000', text: '#000' },
+    };
+
+    function makeBadge(type) {
+      if (!type) return document.createElement('span');
+      const c = typeColors[type] || { fill: '#eee', stroke: '#000', text: '#000' };
+      const label = type.toUpperCase();
+      const charW = 6;
+      const w = Math.max(label.length * charW + 18, 36);
+      const h = 20;
+      const r = h / 2;
+
+      const path = `
+        M ${r} 1
+        C ${r * 0.5} 0.5, ${w - r * 0.5} 0.2, ${w - r} 1
+        C ${w - r * 0.4} 1, ${w - 1} ${h * 0.3}, ${w - 1} ${h / 2}
+        C ${w - 0.8} ${h * 0.7}, ${w - r * 0.5} ${h - 0.8}, ${w - r} ${h - 1}
+        C ${w * 0.6} ${h - 0.3}, ${r * 0.6} ${h - 0.5}, ${r} ${h - 1}
+        C ${r * 0.3} ${h - 1.2}, 1 ${h * 0.72}, 1 ${h / 2}
+        C 0.8 ${h * 0.28}, ${r * 0.4} 1.2, ${r} 1 Z
+      `;
+
+      const rot = (Math.random() * 4 - 2).toFixed(1);
+      const wrapper = document.createElement('span');
+      wrapper.className = 'badge';
+      wrapper.style.width = w + 'px';
+      wrapper.style.transform = `rotate(${rot}deg)`;
+      wrapper.innerHTML = `
+        <svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+          <path d="${path}" fill="${c.fill}" stroke="${c.stroke}" stroke-width="1"/>
+        </svg>
+        <span class="badge-text" style="color:${c.text}">${label}</span>
+      `;
+      return wrapper;
+    }
+
     const projects = [
       {
         id: 'noraebang',
         title: 'Noraebang',
+        type: 'Community Space',
         year: '2026',
         tags: 'sound participatory installation bio-based physical',
         keywords: 'Sound · Participatory · Installation',
         href: 'noraebang.html',
-        img: 'assets/noraebang_cover.jpg',
+        img: 'assets/covers/noraebang-cover.jpg',
         desc: 'Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design.'
+      },
+      {
+        id: 'map-cloud',
+        title: 'Warm Clouds over the Cool Planet',
+        type: 'Workshop',
+        year: '2026',
+        tags: 'workshop participatory mapping data-viz critical-ai physical',
+        keywords: 'Workshop · Participatory · Mapping',
+        href: 'mapping-the-cloud-workshop.html',
+        img: 'assets/covers/mapping-the-cloud-cover.jpg',
+        desc: 'Collective mapping workshop where participants add their connections to cloud infrastructure, creating a collective sculpture.'
+      },
+      {
+        id: 'media-feed',
+        title: 'Alternative Media Feed Design',
+        type: 'Workshop',
+        year: '2026',
+        tags: 'workshop participatory digital',
+        keywords: 'Workshop · Participatory',
+        href: 'alt-media-feed-workshop.html',
+        img: 'assets/covers/alternative-media-feeds-cover.jpg',
+        desc: 'Participants design a speculative alternative media feed incorporating rest and care.'
       },
       {
         id: 'data-map',
         title: 'Data Resistances Map',
+        type: 'Website',
         year: '2026',
         tags: 'mapping data-viz critical-ai digital',
         keywords: 'Mapping · Data Viz · Critical AI/Data',
@@ -249,6 +337,7 @@
       {
         id: 'gazing',
         title: 'Gazing at the Cloud',
+        type: 'Installation',
         year: '2026',
         tags: 'installation critical-ai both',
         keywords: 'Installation · Critical AI/Data',
@@ -256,29 +345,10 @@
         img: 'assets/gazing_at_the_cloud_cover.jpg',
         desc: 'Interactive installation studying the gaze and cloud infrastructures. Built with TouchDesigner, OAK-D camera, and ImageNet.'
       },
-      // {
-      //   id: 'slop',
-      //   title: 'SLOP OR NOT',
-      //   year: '2026',
-      //   tags: 'critical-ai digital',
-      //   keywords: 'Critical AI/Data',
-      //   href: 'slop-or-not.html',
-      //   img: 'assets/slop_or_not_cover.jpg',
-      //   desc: 'Satirical lottery tickets that make you guess whether a piece of art is AI-generated or not. Created for "Epistemologies of Slop" at tiat.'
-      // },
-      {
-        id: 'kaleidoscope',
-        title: 'Espoo City Kaleidoscope',
-        year: '2026–2027',
-        tags: 'installation archive both',
-        keywords: 'Installation · Archive',
-        href: 'espoo-kaleidoscope.html',
-        img: 'assets/espoo-kaleidoscope-cover.png',
-        desc: 'Interactive kaleidoscope installation for Espoo City Museum using city archive footage. Interactivity programmed through TouchDesigner.'
-      },
       {
         id: 'mycelium',
         title: 'Mycelium Design Workshops',
+        type: 'Workshop',
         year: '2026',
         tags: 'workshop bio-based participatory typography physical',
         keywords: 'Workshop · Participatory · Typography',
@@ -287,18 +357,31 @@
         desc: 'Tiles designed by participants using Korean typographic letters and mycelium material.'
       },
       {
+        id: 'kaleidoscope',
+        title: 'Espoo City Kaleidoscope',
+        type: 'Installation',
+        year: '2026–2027',
+        tags: 'installation archive both',
+        keywords: 'Installation · Archive',
+        href: 'espoo-kaleidoscope.html',
+        img: 'assets/espoo-kaleidoscope-cover.png',
+        desc: 'Interactive kaleidoscope installation for Espoo City Museum using city archive footage. Interactivity programmed through TouchDesigner.'
+      },
+      {
         id: 'smd',
         title: 'Sonic Memory Decomposer',
+        type: 'Art',
         year: '2025',
         tags: 'sound ceramics physical',
         keywords: 'Sound · Ceramics',
         href: 'sonic_memory_decomposer.html',
         img: 'assets/smd_cover2.png',
-        desc: 'Ceramics, sound, and physical computing — speaking into a ceramic cup disintegrates the memory sonically.'
+        desc: 'Ceramics, sound, and physical computing. Speaking into a ceramic cup disintegrates a memory sonically.'
       },
       {
         id: 'trust-box',
         title: 'Trust Box',
+        type: 'Art',
         year: '2025',
         tags: 'participatory archive physical',
         keywords: 'Participatory · Archive',
@@ -309,6 +392,7 @@
       {
         id: 'dream-cafe',
         title: 'Dream Café',
+        type: 'Art',
         year: '2025',
         tags: 'sound participatory installation physical',
         keywords: 'Sound · Participatory · Installation',
@@ -319,16 +403,19 @@
       {
         id: 'wind',
         title: 'Wind Typography',
+        type: 'Website',
         year: '2024',
         tags: 'p5 data-viz typography digital',
         keywords: 'p5.js · Data Viz · Typography',
         href: 'wind_typography/about.html',
+        site: '/wind_typography/index.html',
         img: 'assets/wind_typo_cover2.jpg',
         desc: 'p5.js project asking what a writing of wind would look like, using live wind data.'
       },
       {
         id: 'stretch',
         title: 'Stretch Marks',
+        type: 'Print',
         year: '2023',
         tags: 'p5 typography digital',
         keywords: 'p5.js · Typography',
@@ -336,51 +423,10 @@
         img: 'assets/stretch_marks_cover.jpg',
         desc: 'p5.js project that allows letters to stretch and decay over time.'
       },
-      /*{
-        id: 'theremin',
-        title: 'ASCII Theremin',
-        year: '2023',
-        tags: 'p5 sound typography digital',
-        keywords: 'p5.js · Sound · Typography',
-        href: 'ascii_theremin.html',
-        img: 'assets/ascii_theremin_cover.png',
-        desc: 'A digital theremin combined with ASCII art.'
-      },*/
-      /*{
-        id: 'smash',
-        title: 'Smash Computer',
-        year: '2021',
-        tags: 'js digital',
-        keywords: 'JavaScript',
-        href: 'https://smashcomputer.netlify.app',
-        img: 'assets/smash_computer_cover.png',
-        desc: 'My first creative coding project — smash a computer virtually. Made with vanilla JS.'
-      },*/
-      {
-        id: 'map-cloud',
-        title: 'Mapping the Cloud Workshop',
-        year: '2026',
-        tags: 'workshop participatory mapping data-viz critical-ai physical',
-        keywords: 'Workshop · Participatory · Mapping',
-        href: 'mapping-the-cloud-workshop.html',
-        img: 'assets/covers/mapping-the-cloud-cover.jpg',
-        desc: 'Collective mapping workshop where participants add their connections to cloud infrastructure, creating a collective sculpture.'
-      },
-      {
-        id: 'media-feed',
-        title: 'Alt. Media Feed Design Workshop',
-        year: '2026',
-        tags: 'workshop participatory digital',
-        keywords: 'Workshop · Participatory',
-        href: 'alt-media-feed-workshop.html',
-        img: 'assets/covers/alternative-media-feeds-cover.jpg',
-        desc: 'Participants design a speculative alternative media feed incorporating rest and care.'
-      },
     ];
 
     const listEl   = document.getElementById('project-list');
     const detailEl = document.getElementById('project-detail');
-    const countEl  = document.getElementById('count');
     const buttons  = document.querySelectorAll('.filter-btn');
     let activeId   = null;
 
@@ -389,10 +435,26 @@
       el.className = 'project-item';
       el.dataset.id   = p.id;
       el.dataset.tags = p.tags;
-      el.innerHTML = `
-        <span class="item-title">${p.title}</span>
-        <span class="item-year">${p.year}</span>
-      `;
+
+      // left side: badge + title
+      const left = document.createElement('div');
+      left.className = 'item-left';
+
+      const badge = makeBadge(p.type);
+      const titleSpan = document.createElement('span');
+      titleSpan.className = 'item-title';
+      titleSpan.textContent = p.title;
+
+      left.appendChild(badge);
+      left.appendChild(titleSpan);
+
+      // right side: year
+      const year = document.createElement('span');
+      year.className = 'item-year';
+      year.textContent = p.year;
+
+      el.appendChild(left);
+      el.appendChild(year);
       el.addEventListener('click', () => showDetail(p.id));
       listEl.appendChild(el);
     });
@@ -408,13 +470,20 @@
         ? `<img class="detail-img" src="${p.img}" alt="${p.title}" onerror="this.outerHTML='<div class=\\'detail-img-placeholder\\'>no image yet</div>'">`
         : `<div class="detail-img-placeholder">no image yet</div>`;
 
+      const linksHTML = `
+        <div class="detail-links">
+          <a class="detail-link" href="${p.href}" ${p.href.startsWith('http') ? 'target="_blank"' : ''}>project details →</a>
+          ${p.site ? `<a class="detail-link" href="${p.site}" target="_blank">visit site →</a>` : ''}
+        </div>
+      `;
+
       detailEl.innerHTML = `
         ${imgEl}
         <div class="detail-title">${p.title}</div>
         <div class="detail-meta">${p.year}</div>
         <div class="detail-keywords">${p.keywords}</div>
         <p class="detail-desc">${p.desc}</p>
-        <a class="detail-link" href="${p.href}" ${p.href.startsWith('http') ? 'target="_blank"' : ''}>view project →</a>
+        ${linksHTML}
       `;
 
       if (window.innerWidth <= 640) {
@@ -427,16 +496,12 @@
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.dataset.filter;
-        let visible = 0;
 
         document.querySelectorAll('.project-item').forEach(el => {
           const tags = el.dataset.tags.split(' ');
           const show = filter === 'all' || tags.includes(filter);
           el.classList.toggle('hidden', !show);
-          if (show) visible++;
         });
-
-        countEl.textContent = visible + (visible === 1 ? ' project' : ' projects');
 
         if (activeId) {
           const activeEl = document.querySelector(`.project-item[data-id="${activeId}"]`);
@@ -447,6 +512,7 @@
         }
       });
     });
+
   </script>
 
 </body>

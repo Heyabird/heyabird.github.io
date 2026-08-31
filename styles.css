@@ -12,3 +12,10 @@ body {
     max-width: 960px;
     margin: 0 auto;
 }
+
+nav {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  font-size: 14px;
+}

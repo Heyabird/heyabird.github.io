@@ -4,215 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project Title — Portfolio</title>
+  <link rel="stylesheet" href="style-project.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: serif;
-      font-size: 16px;
-      line-height: 1.7;
-      color: #000;
-      background: #fff;
-      padding: 2rem;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    /* ── nav ── */
-    nav {
-      display: flex;
-      gap: 2rem;
-      margin-bottom: 3rem;
-      font-size: 14px;
-      font-family: sans-serif;
-    }
-
-    nav a {
-      color: #000;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-    }
-
-    nav a:hover { border-bottom-color: #000; }
-    nav a.active { border-bottom-color: #000; }
-
-    /* ── back link ── */
-    .back {
-      display: inline-block;
-      font-size: 13px;
-      font-family: sans-serif;
-      color: #666;
-      text-decoration: none;
-      margin-bottom: 2.5rem;
-      border-bottom: 1px solid transparent;
-    }
-
-    .back:hover { color: #000; border-bottom-color: #000; }
-
-    /* ── header ── */
-    .project-header {
-      margin-bottom: 2rem;
-    }
-
-    .project-title {
-      font-size: 28px;
-      font-weight: normal;
-      line-height: 1.2;
-      margin-bottom: 0.5rem;
-    }
-
-    .project-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.25rem;
-    }
-
-    .project-year {
-      font-size: 14px;
-      font-family: sans-serif;
-      color: #666;
-    }
-
-    .ongoing-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #666;
-    }
-
-    .ongoing-badge::before {
-      content: '';
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #000;
-    }
-
-    /* ── tags (slightly bigger than grid tags) ── */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .tag {
-      font-size: 12px;
-      font-family: sans-serif;
-      padding: 3px 12px;
-      border: 1px solid #000;
-      border-radius: 20px;
-      color: #000;
-      text-decoration: none;
-    }
-
-    .tag:hover { background: #f0f0f0; }
-
-    /* ── cover photo ── */
-    .cover {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      display: block;
-      border: 1px solid #000;
-      margin-bottom: 0.5rem;
-    }
-
-    .cover-placeholder {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #f0f0f0;
-      border: 1px solid #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #aaa;
-      margin-bottom: 0.5rem;
-    }
-
-    .cover-caption {
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #666;
-      margin-bottom: 2.5rem;
-      line-height: 1.5;
-    }
-
-    /* ── description (short intro, slightly larger) ── */
-    .project-description {
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid #000;
-    }
-
-    /* ── body text ── */
-    .project-body p {
-      margin-bottom: 1.5rem;
-    }
-
-    /* ── inline image ── */
-    .project-image {
-      margin: 2rem 0;
-    }
-
-    .project-image img {
-      width: 100%;
-      display: block;
-      border: 1px solid #000;
-      margin-bottom: 0.5rem;
-      object-fit: cover;
-    }
-
-    /* full width */
-    .project-image.full img {
-      width: 100%;
-    }
-
-    /* half width, floated */
-    .project-image.half {
-      float: right;
-      width: 48%;
-      margin: 0.25rem 0 1.5rem 2rem;
-    }
-
-    .clearfix::after {
-      content: '';
-      display: table;
-      clear: both;
-    }
-
-    /* placeholder for images not yet added */
-    .img-placeholder {
-      width: 100%;
-      background: #f0f0f0;
-      border: 1px solid #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #aaa;
-      margin-bottom: 0.5rem;
-      aspect-ratio: 4 / 3;
-    }
-
-    .project-image.half .img-placeholder {
-      aspect-ratio: 3 / 4;
-    }
-
-    .image-caption {
-      font-size: 12px;
-      font-family: sans-serif;
-      color: #666;
-      line-height: 1.5;
+    .tall {
+      aspect-ratio: 12/9;
     }
   </style>
 </head>
@@ -247,7 +42,7 @@
   <!-- ── cover photo ── -->
   <!-- replace the placeholder div with:
         -->
-    <img class="cover" src="assets/noraebang_cover.jpg" alt="Brief description">  <p class="cover-caption">Noraebang is being built in the building of Abloc, right above Aalto University metro station.</p>
+    <img class="cover tall" src="assets/noraebang/noraebang-booth.jpg" alt="Photo of noraebang booth with red light shining from inside and front door wide open.">  <p class="cover-caption">Noraebang placed in the building of Abloc, right above Aalto University metro station.</p>
   <!-- ── short description ── -->
 
   <!-- ── body text with embedded images ── -->
@@ -268,6 +63,19 @@
     <p>For more information, follow us on instagram at @noraebang_fi.</p>
 
   </div>
+    <img class="cover" src="assets/covers/noraebang-cover.jpg" alt="People singing inside the booth.">  <p class="cover-caption">Community members singing inside the booth during the Noraebang opening event.</p>
+    <div class="project-image-pair">
+      <div class="paired-image">
+        <img src="assets/noraebang/noreabang-tech.jpg" alt="A view through the Noraebang window.">
+        <p class="image-caption">A view through the Noraebang window.</p>
+      </div>
+      <div class="paired-image">
+        <img src="assets/noraebang/noreabang-entrance.JPG" alt=Entrance of the noraebang and opening event posters.">
+        <p class="image-caption">Entrance of the noraebang and opening event posters.</p>
+      </div>
+    </div>
+    <br/>  
+    <img class="cover" src="assets/noraebang/mycelium-panels.jpg" alt="Mycelium panels are hung on the wall for soundproofing purposes.">  <p class="cover-caption">Mycelium panels are hung on the wall for soundproofing purposes.</p>
 
   </div>
 
