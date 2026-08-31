@@ -339,6 +339,7 @@
         tags: 'sound participatory installation bio-based physical',
         keywords: 'Sound · Participatory · Installation',
         href: 'noraebang.html',
+        site: 'https://noraebang-fi.github.io/',
         img: 'assets/covers/noraebang-cover.jpg',
         desc: 'Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design.'
       },
@@ -371,7 +372,7 @@
         year: '2026',
         tags: 'mapping data-viz critical-ai digital',
         keywords: 'Mapping · Data Viz · Critical AI/Data',
-        href: 'data_resistances_map/',
+        site: 'data_resistances_map/',
         img: 'assets/data_resistance_map_cover.jpg',
         desc: 'Mapping data and AI supply chain resistance sites using GIS and Leaflet.js.'
       },
@@ -427,6 +428,7 @@
         tags: 'participatory archive physical',
         keywords: 'Participatory · Archive',
         href: 'trust_box/about.html',
+        site: 'trust_box.html',
         img: 'assets/trust_box_cover.jpg',
         desc: 'Participatory art, photography, and archive project.'
       },
@@ -513,8 +515,8 @@
 
       const linksHTML = `
         <div class="detail-links">
-          <a class="detail-link" href="${p.href}" ${p.href.startsWith('http') ? 'target="_blank"' : ''}>project details →</a>
-          ${p.site ? `<a class="detail-link" href="${p.site}" target="_blank">visit site →</a>` : ''}
+          ${p.href ? `<a class="detail-link" href="${p.href}" ${p.href.startsWith('http') ? 'target="_blank"' : ''}>project details →</a>` : ''}
+          ${p.site ? `<a class="detail-link" href="${p.site}" target="_blank">visit website →</a>` : ''}
         </div>
       `;
 
