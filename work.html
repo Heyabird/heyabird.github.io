@@ -293,9 +293,10 @@
       'Installation':      { fill: '#d6eaff', stroke: '#000', text: '#000' },
       'Website':           { fill: '#d6ffd6', stroke: '#000', text: '#000' },
       'Workshop':          { fill: '#fff3d6', stroke: '#000', text: '#000' },
-      'Community Space':        { fill: '#ffd6d6', stroke: '#000', text: '#000' },
-      'Print':            { fill: '#d6fff6', stroke: '#000', text: '#000' },
-    };
+      'Community Space':   { fill: '#ffd6d6', stroke: '#000', text: '#000' },
+      'Print':             { fill: '#d6fff6', stroke: '#000', text: '#000' },
+      'Research':          { fill: '#e1d4ff', stroke: '#000', text: '#000' }
+    }; 
 
     function makeBadge(type) {
       if (!type) return document.createElement('span');
@@ -335,12 +336,23 @@
         id: 'kaleidoscope',
         title: 'Espoo City Kaleidoscope',
         type: 'Installation',
-        year: '2026–2027',
+        year: '2026–2027 (WIP)',
         tags: 'installation archive both',
         keywords: 'Installation · Archive',
         href: 'espoo-kaleidoscope.html',
         img: 'assets/espoo-kaleidoscope-cover.png',
         desc: 'WIP Interactive kaleidoscope installation for Espoo City Museum using city archive footage. Interactivity programmed through TouchDesigner.'
+      },
+      {
+        id: 'feedcloud',
+        title: 'Feed, Cloud, and Bodies',
+        type: 'Research',
+        year: '2026 (WIP)',
+        tags: 'installation archive both',
+        keywords: 'Research',
+        href: '',
+        img: 'assets/covers/feed-cloud-bodies-cover.png',
+        desc: 'Feed, Cloud, and Bodies: Exhaustion and Resistance in Algorithmic Media is an ongoing MA thesis at Aalto University. It studies the relationship between two entangled exhaustions: the depletion of human attention by algorithmic feeds, and the depletion of water, minerals, and human labor by the data centers that power them. Drawing on autoethnography, critical theory, and participatory workshops, the thesis traces what it calls the feed-cloud circuit and asks what forms of collective refusal remain possible inside it.'
       },
       {
         id: 'noraebang',
@@ -352,13 +364,13 @@
         href: 'noraebang.html',
         site: 'https://noraebang-fi.github.io/',
         img: 'assets/covers/noraebang-cover.jpg',
-        desc: 'Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design.'
+        desc: 'Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design. Funded by Sustainability Action Booster.'
       },
       {
         id: 'map-cloud',
         title: 'Warm Clouds over the Cool Planet',
         type: 'Workshop',
-        year: '2026',
+        year: '2026 (WIP)',
         tags: 'workshop participatory mapping data-viz critical-ai physical',
         keywords: 'Workshop · Participatory · Mapping',
         href: 'mapping-the-cloud-workshop.html',
@@ -369,7 +381,7 @@
         id: 'media-feed',
         title: 'Alternative Media Feed Design',
         type: 'Workshop',
-        year: '2026',
+        year: '2026 (WIP)',
         tags: 'workshop participatory digital',
         keywords: 'Workshop · Participatory',
         href: 'alt-media-feed-workshop.html',
@@ -464,7 +476,18 @@
         keywords: 'p5.js · Typography',
         href: 'stretch-marks.html',
         img: 'assets/stretch_marks_cover.jpg',
-        desc: 'p5.js project that allows letters to stretch and decay over time.'
+        desc: 'Letters stretched as the longer it is typed, created via p5.js.'
+      },
+      {
+        id: 'workinaction',
+        title: 'Work in Action: A Graphic Novel (BA Thesis)',
+        type: 'Research',
+        year: '2017',
+        tags: '',
+        keywords: 'Research',
+        href: 'https://digitalcollections.wesleyan.edu/Documents/Detail/a-work-in-action-a-graphic-novel/451160',
+        img: 'assets/work_in_action_example_page2.png',
+        desc: 'An honors thesis at Wesleyan University that follows the personal stories of factory workers in China to explore the life inside seemingly oppressive labor structures. Research was funded by Davenport Research Grant.'
       },
     ];
 
