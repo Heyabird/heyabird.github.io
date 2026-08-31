@@ -200,16 +200,57 @@
 
     /* ── mobile ── */
     @media (max-width: 640px) {
-      body { padding: 1.25rem; }
+      body { padding: 1rem; }
       nav { gap: 1.25rem; margin-bottom: 2rem; }
       .filter-btn { font-size: 11px; padding: 3px 10px; }
-      .layout { grid-template-columns: 1fr; }
-      .project-list { border-right: none; }
+
+      .layout {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        overflow: hidden;
+      }
+
+      .project-list {
+        border-right: none;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .project-item {
+        padding: 0.75rem 0;
+        gap: 6px;
+        overflow: hidden;
+      }
+
+      .item-left {
+        overflow: hidden;
+        min-width: 0;
+      }
+
+      .item-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .item-year {
+        flex-shrink: 0;
+        min-width: 36px;
+        text-align: right;
+      }
+
       .project-detail {
         padding: 1.25rem 0 1.5rem;
         border-top: 1px solid #000;
+        overflow: hidden;
+        width: 100%;
       }
-      .detail-img { max-height: 200px; }
+
+      .detail-img {
+        max-height: 220px;
+        width: 100%;
+      }
+
       .detail-title { font-size: 20px; }
     }
   </style>
