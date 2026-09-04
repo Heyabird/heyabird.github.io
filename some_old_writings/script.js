@@ -293,6 +293,9 @@ var filters = d3.select("body")
                 var uniqueCategories = Object.keys(obj).filter(k => k !== 'yHeight')
                 var rowHeight = filter == "none" ? imageWidth : obj.yHeight   // single source of truth
 
+                var imgInset = Math.max(3, rowHeight * 0.12)
+                var imgSize = rowHeight - imgInset * 2
+
                 svg
                     .selectAll(".yLines")
                     .data(uniqueCategories)
@@ -320,6 +323,17 @@ var filters = d3.select("body")
                     .attr('stroke-dasharray', '2 4')
                     .attr('opacity', 0.8)
 
+                var timelineBorders = svg.selectAll(".image-border")
+                    .data(data)
+                    .join('rect')
+                    .attr("class", "image-border")
+                    .attr("fill", "none")
+                    .attr("stroke", "#a8241b")
+                    .attr("stroke-width", 2)
+                    .attr("rx", rowHeight * 0.1)
+                    .style("filter", "url(#squigglyBorder)")
+                    .lower()
+
                 var timeline = svg.selectAll("image")
                     .data(data)
                     .join('svg:image')
@@ -329,13 +343,14 @@ var filters = d3.select("body")
                         if (d._hovering) return
                         d._hovering = true
 
-                        let scaleFactor = imageZoomWidth / rowHeight
+                        let scaleFactor = imageZoomWidth / imgSize   // ← changed from rowHeight to imgSize
                         d3.select(this)
                             .style("transform", `scale(${scaleFactor})`)
                             .classed("top-layer", true)
                             .raise()
 
                         let bbox = this.getBBox()
+
                         let scaledWidth = bbox.width * scaleFactor
                         let scaledHeight = bbox.height * scaleFactor
                         let centerX = bbox.x + bbox.width / 2
@@ -399,54 +414,53 @@ var filters = d3.select("body")
                             .lower()
                     })
                     .on("click", function(e,d) {
-                    d3.selectAll(".description").remove();
+                        d3.selectAll(".description").remove();
 
-                    var modalDiv = d3.select("body").append("div")
-                        .attr("class", "description")
-                        .style("opacity", 1)
-                        .html(
-                            `<div class='modal-outline-wrapper'><div class='modal-content'><span class='close' onclick='closeModal()'>&times;</span><div class='flex-container'><div class='modal-img-container'><img class='modal-image' src='${image_names[data.indexOf(d)]}' /></div> <div class="modal-text"><b>${d.name}</b><br/> ${d.date} <br/><br/><div class="modal-text-content">Ruling state: ${d.empire_or_culture} <br/> ${d.period} <br/> Found in: ${d.found_region_origin}<br/> Currently in: ${d.current_city}, ${d.current_country}<br/><br/>Script type: ${d.script_type}<br/>Reading direction: ${d.script_direction}<br/><br/>Distance between origin and current location: ${d.distance_from_origin_km} km<br/><br/> ${d.description} <br/><br/>source(s):<br/>${d.source_url}<br/>${d.img_or_source2_url}<div class="modal-text-fade"></div></div><button class="see-more-btn" onclick="toggleModalText(this)">See more</button></div></div></div></div>`
-                            )
-                        .style("left", (d.x + 50 + "px"))
-                        .style("top", (d.y - 50 +"px"))
-                        .classed('modal', true)
-                        .style('display','flex')
-                        .on("click", function(event) {
-                            // only close if the click landed directly on the backdrop (this element),
-                            // not on the modal card or anything inside it
-                            if (event.target === this) {
-                                closeModal()
+                        var modalDiv = d3.select("body").append("div")
+                            .attr("class", "description")
+                            .style("opacity", 1)
+                            .html(
+                                `<div class='modal-outline-wrapper'><div class='modal-content'><span class='close' onclick='closeModal()'>&times;</span><div class='flex-container'><div class='modal-img-container'><img class='modal-image' src='${image_names[data.indexOf(d)]}' /></div> <div class="modal-text"><b>${d.name}</b><br/> ${d.date} <br/><br/><div class="modal-text-content">Ruling state: ${d.empire_or_culture} <br/> ${d.period} <br/> Found in: ${d.found_region_origin}<br/> Currently in: ${d.current_city}, ${d.current_country}<br/><br/>Script type: ${d.script_type}<br/>Reading direction: ${d.script_direction}<br/><br/>Distance between origin and current location: ${d.distance_from_origin_km} km<br/><br/> ${d.description} <br/><br/>source(s):<br/>${d.source_url}<br/>${d.img_or_source2_url}<div class="modal-text-fade"></div></div><button class="see-more-btn" onclick="toggleModalText(this)">See more</button></div></div></div></div>`
+                                )
+                            .style("left", (d.x + 50 + "px"))
+                            .style("top", (d.y - 50 +"px"))
+                            .classed('modal', true)
+                            .style('display','flex')
+                            .on("click", function(event) {
+                                // only close if the click landed directly on the backdrop (this element),
+                                // not on the modal card or anything inside it
+                                if (event.target === this) {
+                                    closeModal()
+                                }
+                            })
+
+                        setTimeout(() => {
+                            var contentEl = modalDiv.select(".modal-text-content").node()
+                            var button = modalDiv.select(".see-more-btn").node()
+                            var fade = modalDiv.select(".modal-text-fade").node()
+
+                            if (contentEl.scrollHeight <= contentEl.clientHeight) {
+                                button.style.display = "none"
+                                fade.style.display = "none"
                             }
-                        })
-
-                    setTimeout(() => {
-                        var contentEl = modalDiv.select(".modal-text-content").node()
-                        var button = modalDiv.select(".see-more-btn").node()
-                        var fade = modalDiv.select(".modal-text-fade").node()
-
-                        if (contentEl.scrollHeight <= contentEl.clientHeight) {
-                            button.style.display = "none"
-                            fade.style.display = "none"
-                        }
-                    }, 0)
-                })
+                        }, 0)
+                    })
                     .transition()
                     .duration(200)
-                    .attr("height", rowHeight)
-                    .attr("width", rowHeight)
-                    .attr("x",function(d){ 
-                        return filter == "none" ? timeScale(d.date_estimate) + 40 : timeScale(d.date_estimate) + rowHeight
+                    .attr("height", imgSize)
+                    .attr("width", imgSize)
+                    .attr("x", function(d){ 
+                        let baseX = filter == "none" ? timeScale(d.date_estimate) + 40 : timeScale(d.date_estimate) + rowHeight
+                        return baseX + imgInset
                     })
-                    .attr("y",(d) => filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (rowHeight))
-                    .attr("height", rowHeight)
-                    .attr("width", rowHeight)
-                    .attr("x",function(d){ 
-                        return filter == "none" ? timeScale(d.date_estimate) + 40 : timeScale(d.date_estimate) + rowHeight
+                    .attr("y", (d) => {
+                        let baseY = filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (rowHeight)
+                        return baseY + imgInset
                     })
-                    .attr("y",(d) => filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (rowHeight))
 
-                timelineBorders
-                    .transition()
+                    timelineBorders
+                        .transition()
+
                     .duration(200)
                     .attr("width", rowHeight)
                     .attr("height", rowHeight)
@@ -455,7 +469,6 @@ var filters = d3.select("body")
                         return filter == "none" ? timeScale(d.date_estimate) + 40 : timeScale(d.date_estimate) + rowHeight
                     })
                     .attr("y",(d) => filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (rowHeight))
-
                 svg.select(".row_label").remove()
 
                 svg.selectAll(".row_label")
