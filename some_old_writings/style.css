@@ -41,26 +41,18 @@ img {
     overflow: auto;
     background-color: rgba(43, 38, 34, 0.55);
     animation: modalFadeIn 0.15s ease-out;
+
+    /* center the wrapper both directions, no percentage-margin quirk */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes modalFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-.modal-content {
-    background-color: #f7f3ed;
-    margin: 8% auto;
-    max-width: 800px;
-    padding: 32px;
-    border: 1px solid #d8cfc4;
-    border-radius: 2px;
-    width: 80%;
-    height: 60%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    box-shadow: 0 12px 40px rgba(43, 38, 34, 0.25);
-}
+
 
 .modal-content::-webkit-scrollbar {
     width: 8px;
@@ -76,9 +68,41 @@ img {
     background-color: #a8241b;
 }
 .modal-content {
-    scrollbar-width: thin;
-    scrollbar-color: #d8cfc4 transparent;
+    background-color: #f7f3ed;
+    max-width: 800px;
+    padding: 32px;
+    border: 1px solid #d8cfc4;
+    border-radius: 12px;
+    width: 100%;
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    box-shadow: 0 12px 40px rgba(43, 38, 34, 0.25);
 }
+
+.modal-outline-wrapper {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin: 0;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.modal-outline-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid #a8241b;
+    border-radius: 16px;
+    filter: url(#squigglyBorder);
+    pointer-events: none;
+}
+
 
 .close {
     color: #a8241b;

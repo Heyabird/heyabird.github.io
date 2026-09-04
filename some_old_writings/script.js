@@ -169,7 +169,7 @@ var filters = d3.select("body")
                 .attr("height", "140%")
                 .html(`
                     <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" result="noise" seed="3"/>
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
                 `)
         
 
@@ -362,12 +362,12 @@ var filters = d3.select("body")
                             .attr("class", "description")
                             .style("opacity", 1)
                             .html(
-                                `<div class='modal-content'><span class='close' onclick='closeModal()'>&times;</span><div class='flex-container'><div class='modal-img-container'><img class='modal-image' src='${image_names[data.indexOf(d)]}' /></div> <p class="modal-text"><b>${d.name}</b><br/> ${d.date} <br/><br/>Ruling state: ${d.empire_or_culture} <br/> ${d.period} <br/> Found in: ${d.found_region_origin}<br/> Currently in: ${d.current_city}, ${d.current_country}<br/><br/>Script type: ${d.script_type}<br/>Reading direction: ${d.script_direction}<br/><br/>Distance between origin and current location: ${d.distance_from_origin_km} km<br/><br/> ${d.description} <br/><br/>source(s):<br/>${d.source_url}<br/>${d.img_or_source2_url}</p></div></div>`
+                                `<div class='modal-outline-wrapper'><div class='modal-content'><span class='close' onclick='closeModal()'>&times;</span><div class='flex-container'><div class='modal-img-container'><img class='modal-image' src='${image_names[data.indexOf(d)]}' /></div> <p class="modal-text"><b>${d.name}</b><br/> ${d.date} <br/><br/>Ruling state: ${d.empire_or_culture} <br/> ${d.period} <br/> Found in: ${d.found_region_origin}<br/> Currently in: ${d.current_city}, ${d.current_country}<br/><br/>Script type: ${d.script_type}<br/>Reading direction: ${d.script_direction}<br/><br/>Distance between origin and current location: ${d.distance_from_origin_km} km<br/><br/> ${d.description} <br/><br/>source(s):<br/>${d.source_url}<br/>${d.img_or_source2_url}</p></div></div></div>`
                                 )
                             .style("left", (d.x + 50 + "px"))
                             .style("top", (d.y - 50 +"px"))
                             .classed('modal', true)
-                            .style('display','block')
+                            .style('display','flex')
                     })
                     .transition()
                     .duration(200)
