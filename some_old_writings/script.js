@@ -159,7 +159,18 @@ var filters = d3.select("body")
             .attr("width",timelineWidth)
             .attr("height",svgHeight + 50)
             // .style('margin','0 10')
-            
+
+            svg.select("defs")
+                .append("filter")
+                .attr("id", "squigglyBorder")
+                .attr("x", "-20%")
+                .attr("y", "-20%")
+                .attr("width", "140%")
+                .attr("height", "140%")
+                .html(`
+                    <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" result="noise" seed="3"/>
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+                `)
         
 
             var allDates = data.map(function(row){ return +row.date_estimate})
@@ -275,19 +286,32 @@ var filters = d3.select("body")
                         if (d._hovering) return
                         d._hovering = true
 
-                        // raise + scale the image FIRST
                         let scaleFactor = imageZoomWidth / rowHeight
                         d3.select(this)
                             .style("transform", `scale(${scaleFactor})`)
                             .classed("top-layer", true)
                             .raise()
 
-                        // THEN compute position and append the tooltip, so it stacks on top
                         let bbox = this.getBBox()
                         let scaledWidth = bbox.width * scaleFactor
                         let scaledHeight = bbox.height * scaleFactor
                         let centerX = bbox.x + bbox.width / 2
                         let centerY = bbox.y + bbox.height / 2
+
+                        // squiggly red outline, offset a few px from the image edge
+                        let padding = 6
+                        svg.append("rect")
+                            .attr("class", "hover-outline")
+                            .attr("x", centerX - scaledWidth/2 - padding)
+                            .attr("y", centerY - scaledHeight/2 - padding)
+                            .attr("width", scaledWidth + padding * 2)
+                            .attr("height", scaledHeight + padding * 2)
+                            .attr("fill", "none")
+                            .attr("stroke", "#a8241b")
+                            .attr("stroke-width", 2)
+                            .attr("rx", 8)
+                            .style("filter", "url(#squigglyBorder)")
+                            .style("pointer-events", "none")
 
                         let tooltipWidth = 300
                         let tooltipHeight = 260
@@ -324,6 +348,7 @@ var filters = d3.select("body")
                         d._hovering = false
                         svg.select('.preview').remove()
                         svg.selectAll("foreignObject").remove()
+                        svg.selectAll(".hover-outline").remove()   // ← new
 
                         d3.select(this)
                             .style("transform", null)
