@@ -58,59 +58,45 @@ var filters = d3.select("body")
     .attr("id", "filters")
         
         d3.csv("./early_writings.csv").then(function(data){
-            var yFilterColumns = ["empire_or_culture",
-            "found_region_modern_large",
-            // "found_region_modern",
-            // "current_country",
-            // "distance_from_origin_km",
-                "writing_material",
-                "media_material",
-                "form",
-                "script_type",
-                "script_direction",
-                "subject_topic",
-                // "none"
-            ]
 
+            // normalize missing/blank values so they don't create empty phantom rows
+            var yFilterColumns = ["empire_or_culture", "found_region_modern_large",
+                "writing_material", "media_material", "form", "script_type",
+                "script_direction", "subject_topic"]
 
-            d3.select("body")
-                .selectAll("button")
-                .data(yFilterColumns)
-                .join("button")
-                .text(d => d)
-                .attr('class','filter-button')
-                .on("click", function(e,col) {
-
-                    d3.selectAll(".filter-button")
-                    .style("background-color", "#cccbcb")
-                    console.log(col)
-                    
-                    // updateYLabel("media_material")
-                    updateYLabel(`${col}`)
-
-                    d3.select(this)
-                        .transition()
-                        .style("background-color", "#9eaeff")
+            data.forEach(d => {
+                yFilterColumns.forEach(col => {
+                    if (!d[col] || d[col].trim() === '') {
+                        d[col] = 'unknown'
+                    }
                 })
+            })
 
-            d3.select("body")
-                .append("button")
-                .attr('id',"noneButton")
-                .attr('class','filter-button')
-                .data(["none"])
-                .join("button")
-                .text("no filter")
-                .style("background-color", "#9eaeff")
-                .on("click", function(e,col) {
-                    d3.selectAll(".filter-button")
-                    .style("background-color", "#cccbcb")
-                    
-                    updateYLabel(`${col}`)
-                    d3.select(this)
-                        .transition()
-                        .style("background-color", "#9eaeff")
- 
-                })
+
+        d3.select("body")
+            .selectAll("button")
+            .data(yFilterColumns)
+            .join("button")
+            .text(d => d)
+            .attr('class','filter-button')
+            .on("click", function(e,col) {
+                d3.selectAll(".filter-button").classed("active", false)
+                updateYLabel(`${col}`)
+                d3.select(this).classed("active", true)
+            })
+
+        d3.select("body")
+            .append("button")
+            .attr('id',"noneButton")
+            .attr('class','filter-button active')  // starts active by default
+            .data(["none"])
+            .join("button")
+            .text("no filter")
+            .on("click", function(e,col) {
+                d3.selectAll(".filter-button").classed("active", false)
+                updateYLabel(`${col}`)
+                d3.select(this).classed("active", true)
+            })
 
                 d3.select("body")
                     .append("button")
@@ -196,10 +182,6 @@ var filters = d3.select("body")
             var yHeight
 
             function createFilterObject(col, numbers = false) {
-                // FILTER - y axis
-
-                // only get the unique items
-
                 if (numbers === true) {
                     colArr = data.map(d=>+d[col])
                     colArr = colArr.sort(function(a, b) {
@@ -210,13 +192,18 @@ var filters = d3.select("body")
                 }
                 colArr = colArr.filter((element,index,array) => array.indexOf(element) == index)
 
-                // turn array into object
-                let obj = {}
-                yHeight = Math.floor((svgHeight / colArr.length))
+                // evenly distribute categories across svgHeight with no rounding drift
+                let yScale = d3.scaleBand()
+                    .domain(colArr)
+                    .range([0, svgHeight])
+                    .paddingInner(0)
 
-                for (let i = 0; i < colArr.length; i++) {
-                    obj[colArr[i]] = yHeight * i;
-                }
+                let obj = {}
+                colArr.forEach(cat => {
+                    obj[cat] = yScale(cat)
+                })
+
+                yHeight = yScale.bandwidth()   // keep this assignment as-is, other code reads the global
                 obj['yHeight'] = yHeight
                 return obj
             }
@@ -258,40 +245,32 @@ var filters = d3.select("body")
                 var obj = rowNameToObject[filter]
                 let imageZoomWidth = 125
                 
-                // this one deals with number so we might have to do something about that
                 if(filter == "distance_from_origin_km") {
                     console.log('Hi')
                     obj["unknown"] = obj["-10"]; 
                     delete obj["-10"];  
                 }
 
-                // FIX: bind yLines to unique categories, not every data row,
-                // so lines that share a category don't stack/overlap and look darker
                 var uniqueCategories = Object.keys(obj).filter(k => k !== 'yHeight')
+                var rowHeight = filter == "none" ? imageWidth : obj.yHeight   // single source of truth
 
                 svg
                     .selectAll(".yLines")
                     .data(uniqueCategories)
                     .join('line')
                     .attr('x1', 0)
-                    .attr('y1', (cat) => svgHeight - (obj[cat]) - (imageWidth))
+                    .attr('y1', (cat) => svgHeight - (obj[cat]) - (rowHeight))
                     .attr('x2', timelineWidth)
-                    .attr('y2', (cat) => svgHeight - (obj[cat]) - (imageWidth))
+                    .attr('y2', (cat) => svgHeight - (obj[cat]) - (rowHeight))
                     .attr("fill", "white")
                     .attr('stroke', '#a7afdb')
                     .attr('opacity', 0.5)
                     .attr('class','yLines')
 
-                
-                // combine
                 var timeline = svg.selectAll("image")
                     .data(data)
                     .join('svg:image')
                     .attr("xlink:href", (d,i) => icon_names[i])
-                    // .transition()
-                    
-
-                // HOVER EFFECTS - show preview boxes!
                     .on('mouseover', function(e,d){
                         let moveRight
                         if (d.date_estimate < 0) {
@@ -304,19 +283,22 @@ var filters = d3.select("body")
                         .attr("width", 300)
                         .attr("height", 500)
                         .attr("x",filter == "none" ? timeScale(d.date_estimate) + 32 : timeScale(d.date_estimate) + moveRight)
-                        .attr("y",filter == "none" ? svgHeight/2 + imageZoomWidth : svgHeight - (obj[d[filter]]) - (imageZoomWidth) + 57) // HEYA
+                        .attr("y",filter == "none" ? svgHeight/2 + imageZoomWidth : svgHeight - (obj[d[filter]]) - (imageZoomWidth) + 57)
                         .append("xhtml:body")
-                            .style("font", "12px 'Helvetica Neue'")
-                            .style("padding","3px")
-                            .style("background-color","#9eaeff")
-                            .html(`<div><b>${d.name}</b> (${d.date})<br/><span class="underline">Found region</span>: ${d.found_region_origin} <br/><span class="underline">Current location</span>: ${d.current_city}, ${d.current_country} <br/><span class="underline">Distance from origin to current</span>: ${d.distance_from_origin_km} km <br/><span class="underline">Topic</span>: ${d.subject_topic} / ${d.subject}<br/><span class="underline">Medium</span>: <i>${d.writing_material}</i> on <i>${d.media_material2}</i></div>`)
+                            .style("font", "13px sans-serif")
+                            .style("line-height", "1.5")
+                            .style("padding", "16px")
+                            .style("background-color", "#f7f3ed")
+                            .style("border", "1px solid #d8cfc4")
+                            .style("border-radius", "2px")
+                            .style("color", "#2b2622")
+                            .html(`<div><b style="font-family: 'Playfair', serif; font-size: 15px;">${d.name}</b> <span style="color:#8a8074">(${d.date})</span><br/><br/><span class="underline">Found region</span>: ${d.found_region_origin} <br/><span class="underline">Current location</span>: ${d.current_city}, ${d.current_country} <br/><span class="underline">Distance from origin to current</span>: ${d.distance_from_origin_km} km <br/><span class="underline">Topic</span>: ${d.subject_topic} / ${d.subject}<br/><span class="underline">Medium</span>: <i>${d.writing_material}</i> on <i>${d.media_material2}</i></div>`)
                         console.log('this:', this)
 
                         d3.select(this).attr("height", imageZoomWidth)
                             .attr("width", imageZoomWidth)
                             .classed("top-layer", true)
                             .raise()
-
                     })
                     .on('mouseout', function(e,d) {
                         d3.select("div").remove()
@@ -324,14 +306,11 @@ var filters = d3.select("body")
                         svg.select("foreignObject").remove()
 
                         d3.select(this)
-                            .attr("height", filter == "none" ? imageWidth : obj.yHeight)
-                            .attr("width", filter == "none" ? imageWidth : obj.yHeight)
+                            .attr("height", rowHeight)
+                            .attr("width", rowHeight)
                             .lower()
                     })
                     .on("click", function(e,d) {
-                        console.log('on click e:', e)
-
-                        // remove any existing modal before opening a new one
                         d3.selectAll(".description").remove();
 
                         var modalDiv = d3.select("body").append("div")
@@ -344,36 +323,39 @@ var filters = d3.select("body")
                             .style("top", (d.y - 50 +"px"))
                             .classed('modal', true)
                             .style('display','block')
-
-                        console.log('on click d:', d)
                     })
                     .transition()
-                    .attr("height", filter == "none" ? imageWidth : obj.yHeight)
-                    .attr("width", filter == "none" ? imageWidth : obj.yHeight)
+                    .duration(200)
+                    .attr("height", rowHeight)
+                    .attr("width", rowHeight)
                     .attr("x",function(d){ 
-                        console.log('obj : ', obj)
-                        return filter == "none" ? timeScale(d.date_estimate) + 40 : timeScale(d.date_estimate) + yHeight
+                        return filter == "none" ? timeScale(d.date_estimate) + 40 : timeScale(d.date_estimate) + rowHeight
                     })
-                    .attr("y",(d) => filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (imageWidth))
+                    .attr("y",(d) => filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (rowHeight))
+                    .attr("height", rowHeight)
+                    .attr("width", rowHeight)
+                    .attr("x",function(d){ 
+                        return filter == "none" ? timeScale(d.date_estimate) + 40 : timeScale(d.date_estimate) + rowHeight
+                    })
+                    .attr("y",(d) => filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (rowHeight))
 
 
                 svg.select(".row_label").remove()
 
-                    svg.selectAll(".row_label")
-                    .data(data)
+                svg.selectAll(".row_label")
+                    .data(uniqueCategories)
                     .join("text")
-                    .text(d => d[filter])
+                    .text(d => d)
                     .attr('x',20)
-                    .attr('y',(d)=>svgHeight - (obj[d[filter]]) - (imageWidth/2))
+                    .attr('y',(cat)=>svgHeight - (obj[cat]) - (rowHeight/2))
                     .attr('class','row_label')
 
-                // dark red vertical line that separates BCE to CE
                 svg.append("line")
                 .attr("x1",function(d){return timeScale(150)})
                 .attr("y1",0)
                 .attr("x2",function(d){return timeScale(150)})
                 .attr("y2",900)
-                .attr("stroke","#a8241b") // dark red
+                .attr("stroke","#a8241b")
                 .attr("stroke-width","2")
                 .attr("stroke-dasharray","0 6")
                 .attr("stroke-linecap","round")

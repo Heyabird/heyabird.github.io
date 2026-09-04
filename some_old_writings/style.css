@@ -19,6 +19,10 @@ h1, .modal-text b {
     font-size: 14px;
 }
 
+.filter-button.active {
+    background-color: #9eaeff;
+}
+
 img {
     transition: all 2s ease-out;
 }
@@ -40,8 +44,13 @@ img {
     height: 100%;
     overflow: auto;
     background-color: rgba(43, 38, 34, 0.55);
+    animation: modalFadeIn 0.15s ease-out;
 }
 
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 .modal-content {
     background-color: #f7f3ed;
     margin: 8% auto;
@@ -150,6 +159,15 @@ svg{
     border-radius: 5px;
 }
 
+svg image {
+    transition: filter 0.2s ease;
+    border-radius: 10px;
+}
+
+svg image.top-layer {
+    filter: drop-shadow(0 4px 12px rgba(43, 38, 34, 0.35));
+}
+
 .description {
 }
 
@@ -168,5 +186,7 @@ button {
 }
 
 .underline {
-    text-decoration: underline;
+    text-decoration: none;
+    border-bottom: 1px dotted #a8241b;
+    padding-bottom: 1px;
 }
