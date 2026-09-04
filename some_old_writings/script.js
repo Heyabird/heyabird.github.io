@@ -42,6 +42,11 @@ var closeModal = function() {
     d3.selectAll(".description").remove();
 }
 
+var toggleModalText = function(btn) {
+    var contentEl = btn.parentElement.querySelector(".modal-text-content")
+    contentEl.classList.toggle("expanded")
+    btn.textContent = contentEl.classList.contains("expanded") ? "See less" : "See more"
+}
 
 // web version
 const timelineWidth = 1500
@@ -356,19 +361,32 @@ var filters = d3.select("body")
                             .lower()
                     })
                     .on("click", function(e,d) {
-                        d3.selectAll(".description").remove();
+                    d3.selectAll(".description").remove();
 
-                        var modalDiv = d3.select("body").append("div")
-                            .attr("class", "description")
-                            .style("opacity", 1)
-                            .html(
-                                `<div class='modal-outline-wrapper'><div class='modal-content'><span class='close' onclick='closeModal()'>&times;</span><div class='flex-container'><div class='modal-img-container'><img class='modal-image' src='${image_names[data.indexOf(d)]}' /></div> <p class="modal-text"><b>${d.name}</b><br/> ${d.date} <br/><br/>Ruling state: ${d.empire_or_culture} <br/> ${d.period} <br/> Found in: ${d.found_region_origin}<br/> Currently in: ${d.current_city}, ${d.current_country}<br/><br/>Script type: ${d.script_type}<br/>Reading direction: ${d.script_direction}<br/><br/>Distance between origin and current location: ${d.distance_from_origin_km} km<br/><br/> ${d.description} <br/><br/>source(s):<br/>${d.source_url}<br/>${d.img_or_source2_url}</p></div></div></div>`
-                                )
-                            .style("left", (d.x + 50 + "px"))
-                            .style("top", (d.y - 50 +"px"))
-                            .classed('modal', true)
-                            .style('display','flex')
-                    })
+                    var modalDiv = d3.select("body").append("div")
+                        .attr("class", "description")
+                        .style("opacity", 1)
+                        .html(
+                            `<div class='modal-outline-wrapper'><div class='modal-content'><span class='close' onclick='closeModal()'>&times;</span><div class='flex-container'><div class='modal-img-container'><img class='modal-image' src='${image_names[data.indexOf(d)]}' /></div> <div class="modal-text"><b>${d.name}</b><br/> ${d.date} <br/><br/><div class="modal-text-content">Ruling state: ${d.empire_or_culture} <br/> ${d.period} <br/> Found in: ${d.found_region_origin}<br/> Currently in: ${d.current_city}, ${d.current_country}<br/><br/>Script type: ${d.script_type}<br/>Reading direction: ${d.script_direction}<br/><br/>Distance between origin and current location: ${d.distance_from_origin_km} km<br/><br/> ${d.description} <br/><br/>source(s):<br/>${d.source_url}<br/>${d.img_or_source2_url}<div class="modal-text-fade"></div></div><button class="see-more-btn" onclick="toggleModalText(this)">See more</button></div></div></div></div>`
+                            )
+                        .style("left", (d.x + 50 + "px"))
+                        .style("top", (d.y - 50 +"px"))
+                        .classed('modal', true)
+                        .style('display','flex')
+
+                    // check overflow AFTER the DOM has actually rendered the content
+                    setTimeout(() => {
+                        var contentEl = modalDiv.select(".modal-text-content").node()
+                        var button = modalDiv.select(".see-more-btn").node()
+                        var fade = modalDiv.select(".modal-text-fade").node()
+
+                        if (contentEl.scrollHeight <= contentEl.clientHeight) {
+                            // text fits within the collapsed height — no need for the button/fade at all
+                            button.style.display = "none"
+                            fade.style.display = "none"
+                        }
+                    }, 0)
+                })
                     .transition()
                     .duration(200)
                     .attr("height", rowHeight)
