@@ -50,9 +50,11 @@ h1, .modal-text b, .row_label, #info-box b {
     transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.filter-button:hover::after {
+.filter-button:hover::after,
+.filter-button.active::after {
     opacity: 1;
     transform: scale(1);
+    z-index: 10;
 }
 
 img {

@@ -357,7 +357,7 @@ var filters = d3.select("body")
                         let centerY = bbox.y + bbox.height / 2
                         
                         // squiggly red outline, offset a few px from the image edge
-                        let padding = 6
+                        let padding = 10
                         svg.append("rect")
                             .attr("class", "hover-outline")
                             .attr("x", centerX - scaledWidth/2 - padding)
@@ -367,7 +367,7 @@ var filters = d3.select("body")
                             .attr("fill", "none")
                             .attr("stroke", "#5cff69")
                             .attr("stroke-width", 5)
-                            .attr("rx", 8)
+                            .attr("rx", 60)
                             .style("filter", "url(#squigglyBorder)")
                             .style("pointer-events", "none")
 
