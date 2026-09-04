@@ -3,11 +3,11 @@ body{
     font-family: sans-serif;
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><rect x="12" y="4" width="8" height="20" fill="%23a8241b" stroke="%232b2622" stroke-width="1"/><polygon points="12,24 20,24 16,30" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,27 17,27 16,30" fill="%232b2622"/><rect x="12" y="2" width="8" height="4" fill="%232b2622"/></g></svg>') 4 28, auto;
 }
-button, .close, .see-more-btn, a {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="12" y="10" width="8" height="18" fill="%23a8241b" stroke="%232b2622" stroke-width="1"/><polygon points="12,10 20,10 16,2" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,5 17,5 16,2" fill="%232b2622"/><rect x="12" y="26" width="8" height="4" fill="%232b2622"/></svg>') 16 2, pointer;
+button, .close, .see-more-btn, a, svg image {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="12" y="10" width="8" height="18" fill="%235cff69" stroke="%232b2622" stroke-width="1"/><polygon points="12,10 20,10 16,2" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,5 17,5 16,2" fill="%232b2622"/><rect x="12" y="26" width="8" height="4" fill="%232b2622"/></svg>') 16 2, pointer;
 }
 
-h1, .modal-text b, .row_label {
+h1, .modal-text b, .row_label, #info-box b {
   font-family: "Lacquer", system-ui;
   font-weight: 400;
   font-style: normal;
@@ -25,8 +25,34 @@ h1, .modal-text b, .row_label {
     font-size: 14px;
 }
 
-.filter-button.active {
-    background-color: #a4beff;
+.filter-button {
+    position: relative;
+    z-index: 1;
+}
+
+.filter-button:hover {
+    z-index: 10;   /* bring the hovered button (and its ::after ring) above all its siblings */
+}
+
+.filter-button::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -14px;
+    right: -14px;
+    bottom: -8px;
+    border: 4px solid #5cff69;
+    border-radius: 50%;
+    filter: url(#squigglyBorder);
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.filter-button:hover::after {
+    opacity: 1;
+    transform: scale(1);
 }
 
 img {
@@ -130,7 +156,7 @@ img {
 .close:focus {
     color: #2b2622;
     text-decoration: none;
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="12" y="10" width="8" height="18" fill="%23a8241b" stroke="%232b2622" stroke-width="1"/><polygon points="12,10 20,10 16,2" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,5 17,5 16,2" fill="%232b2622"/><rect x="12" y="26" width="8" height="4" fill="%232b2622"/></svg>') 16 2, pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="12" y="10" width="8" height="18" fill="%235cff69" stroke="%232b2622" stroke-width="1"/><polygon points="12,10 20,10 16,2" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,5 17,5 16,2" fill="%232b2622"/><rect x="12" y="26" width="8" height="4" fill="%232b2622"/></svg>') 16 2, pointer;
 }
 .flex-container {
     display: flex;
