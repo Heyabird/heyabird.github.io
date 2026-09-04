@@ -1,0 +1,13 @@
+:root {
+    --cursor-write: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><rect x="12" y="4" width="8" height="20" fill="%23a8241b" stroke="%232b2622" stroke-width="1"/><polygon points="12,24 20,24 16,30" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,27 17,27 16,30" fill="%232b2622"/><rect x="12" y="2" width="8" height="4" fill="%232b2622"/></g></svg>') 4 28, auto;
+
+    --cursor-click: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="12" y="10" width="8" height="18" fill="%23a8241b" stroke="%232b2622" stroke-width="1"/><polygon points="12,10 20,10 16,2" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,5 17,5 16,2" fill="%232b2622"/><rect x="12" y="26" width="8" height="4" fill="%232b2622"/></svg>') 16 2, pointer;
+}
+
+body {
+    cursor: var(--cursor-write);
+}
+
+button, a, [role="button"], .close, .see-more-btn, input[type="submit"], input[type="button"], .tv-wrap, .tv-close {
+    cursor: var(--cursor-click);
+}
