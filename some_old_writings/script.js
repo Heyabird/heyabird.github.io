@@ -271,15 +271,18 @@ var filters = d3.select("body")
                     delete obj["-10"];  
                 }
 
+                // FIX: bind yLines to unique categories, not every data row,
+                // so lines that share a category don't stack/overlap and look darker
+                var uniqueCategories = Object.keys(obj).filter(k => k !== 'yHeight')
+
                 svg
                     .selectAll(".yLines")
-                    .data(data)
+                    .data(uniqueCategories)
                     .join('line')
                     .attr('x1', 0)
-                    // .attr('y', 0)
-                    .attr('y1',(d) => svgHeight - (obj[d[filter]]) - (imageWidth))
+                    .attr('y1', (cat) => svgHeight - (obj[cat]) - (imageWidth))
                     .attr('x2', timelineWidth)
-                    .attr('y2', (d) => svgHeight - (obj[d[filter]]) - (imageWidth))
+                    .attr('y2', (cat) => svgHeight - (obj[cat]) - (imageWidth))
                     .attr("fill", "white")
                     .attr('stroke', '#a7afdb')
                     .attr('opacity', 0.5)
@@ -333,34 +336,22 @@ var filters = d3.select("body")
                     })
                     .on("click", function(e,d) {
                         console.log('on click e:', e)
+
+                        // remove any existing modal before opening a new one
                         d3.selectAll(".description").remove();
 
                         var modalDiv = d3.select("body").append("div")
-                            .attr('pointer-events', 'none')
                             .attr("class", "description")
                             .style("opacity", 1)
                             .html(
-                                `<div class='modal-content'><span class='close' onclick='closeModal()'>&times;</span><div class='flex-container'><div class='modal-img-container'><img class='modal-image' src='${image_names[data.indexOf(d)]}' height='400'/></div> <p class="modal-text"><b>${d.name}</b><br/> ${d.date} <br/><br/>Ruling state: ${d.empire_or_culture} <br/> ${d.period} <br/> Found in: ${d.found_region_origin}<br/> Currently in: ${d.current_city}, ${d.current_country}<br/><br/>Script type: ${d.script_type}<br/>Reading direction: ${d.script_direction}<br/><br/>Distance between origin and current location: ${d.distance_from_origin_km} km<br/><br/> ${d.description} <br/><br/>source(s):<br/>${d.source_url}<br/>${d.img_or_source2_url}</p></div></div>`
+                                `<div class='modal-content'><span class='close' onclick='closeModal()'>&times;</span><div class='flex-container'><div class='modal-img-container'><img class='modal-image' src='${image_names[data.indexOf(d)]}' /></div> <p class="modal-text"><b>${d.name}</b><br/> ${d.date} <br/><br/>Ruling state: ${d.empire_or_culture} <br/> ${d.period} <br/> Found in: ${d.found_region_origin}<br/> Currently in: ${d.current_city}, ${d.current_country}<br/><br/>Script type: ${d.script_type}<br/>Reading direction: ${d.script_direction}<br/><br/>Distance between origin and current location: ${d.distance_from_origin_km} km<br/><br/> ${d.description} <br/><br/>source(s):<br/>${d.source_url}<br/>${d.img_or_source2_url}</p></div></div>`
                                 )
                             .style("left", (d.x + 50 + "px"))
                             .style("top", (d.y - 50 +"px"))
-                            //modal-making...
                             .classed('modal', true)
                             .style('display','block')
-                            console.log('on click d:', d)
 
-                        //                         .attr("width", 230)
-                        // .attr("height", 500)
-                        // .attr("x",timeScale(d.date_estimate) + 90)
-                        // .attr("y",svgHeight - (obj[d[filter]]) - (imageWidth))
-                        // .append("xhtml:body")
-                        //     .style("font", "14px 'Helvetica Neue'")
-                        //     .html(`<b>${d.name}</b> <br/> ${d.date} <br/> ${d.empire_or_culture} <br/> ${d.media_material2}`)
-
-                        d3.select("span")
-                            .on("click",function(e,d){
-                                console.log('test!')
-                        })
+                        console.log('on click d:', d)
                     })
                     .transition()
                     .attr("height", filter == "none" ? imageWidth : obj.yHeight)
@@ -381,9 +372,8 @@ var filters = d3.select("body")
                     .attr('x',20)
                     .attr('y',(d)=>svgHeight - (obj[d[filter]]) - (imageWidth/2))
                     .attr('class','row_label')
-                    // .attr('fill',"#a8241b")
 
-                // dark red vertical line that sepearts BCE to CE
+                // dark red vertical line that separates BCE to CE
                 svg.append("line")
                 .attr("x1",function(d){return timeScale(150)})
                 .attr("y1",0)
