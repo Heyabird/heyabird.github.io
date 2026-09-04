@@ -26,7 +26,7 @@ h1, .modal-text b, .row_label {
 }
 
 .filter-button.active {
-    background-color: #9eaeff;
+    background-color: #a4beff;
 }
 
 img {
@@ -250,6 +250,7 @@ svg image {
     transition: transform 0.15s ease, filter 0.15s ease;
     transform-box: fill-box;
     transform-origin: center;
+    filter: drop-shadow(0 1px 3px rgba(43, 38, 34, 0.25));
 }
 
 svg image.top-layer {

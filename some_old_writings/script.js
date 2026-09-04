@@ -445,6 +445,16 @@ var filters = d3.select("body")
                     })
                     .attr("y",(d) => filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (rowHeight))
 
+                timelineBorders
+                    .transition()
+                    .duration(200)
+                    .attr("width", rowHeight)
+                    .attr("height", rowHeight)
+                    .attr("rx", rowHeight * 0.1)
+                    .attr("x",function(d){ 
+                        return filter == "none" ? timeScale(d.date_estimate) + 40 : timeScale(d.date_estimate) + rowHeight
+                    })
+                    .attr("y",(d) => filter == "none" ? svgHeight/2 : svgHeight - (obj[d[filter]]) - (rowHeight))
 
                 svg.select(".row_label").remove()
 
