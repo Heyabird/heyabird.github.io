@@ -164,6 +164,17 @@ var filters = d3.select("body")
             .attr("width",timelineWidth)
             .attr("height",svgHeight + 50)
             // .style('margin','0 10')
+            svg.append("defs")
+                .append("clipPath")
+                .attr("id", "roundedImageClip")
+                .attr("clipPathUnits", "objectBoundingBox")
+                .append("rect")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("width", 1)
+                .attr("height", 1)
+                .attr("rx", 0.1)
+                .attr("ry", 0.1)
 
             svg.select("defs")
                 .append("filter")
@@ -175,6 +186,18 @@ var filters = d3.select("body")
                 .html(`
                     <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" result="noise" seed="3"/>
                     <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+                `)
+
+            svg.select("defs")
+                .append("filter")
+                .attr("id", "squigglyText")
+                .attr("x", "-50%")
+                .attr("y", "-50%")
+                .attr("width", "200%")
+                .attr("height", "200%")
+                .html(`
+                    <feTurbulence type="fractalNoise" baseFrequency="0.15" numOctaves="2" result="noise" seed="7"/>
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
                 `)
         
 
@@ -279,14 +302,29 @@ var filters = d3.select("body")
                     .attr('x2', timelineWidth)
                     .attr('y2', (cat) => svgHeight - (obj[cat]) - (rowHeight))
                     .attr("fill", "white")
-                    .attr('stroke', '#a7afdb')
-                    .attr('opacity', 0.5)
+                    .attr('stroke', '#0048ff')
+                    .attr('stroke-width', 1)
+                    .attr('stroke-dasharray', '2 4')
+                    .attr('opacity', 0.8)
                     .attr('class','yLines')
+
+                svg.selectAll(".yLines-bottom").remove()
+                svg.append("line")
+                    .attr("class", "yLines-bottom")
+                    .attr('x1', 0)
+                    .attr('y1', svgHeight)
+                    .attr('x2', timelineWidth)
+                    .attr('y2', svgHeight)
+                    .attr('stroke', '#0048ff')
+                    .attr('stroke-width', 1)
+                    .attr('stroke-dasharray', '2 4')
+                    .attr('opacity', 0.8)
 
                 var timeline = svg.selectAll("image")
                     .data(data)
                     .join('svg:image')
                     .attr("xlink:href", (d,i) => icon_names[i])
+                    .attr("clip-path", "url(#roundedImageClip)")
                     .on('mouseover', function(e,d){
                         if (d._hovering) return
                         d._hovering = true
@@ -302,7 +340,7 @@ var filters = d3.select("body")
                         let scaledHeight = bbox.height * scaleFactor
                         let centerX = bbox.x + bbox.width / 2
                         let centerY = bbox.y + bbox.height / 2
-
+                        
                         // squiggly red outline, offset a few px from the image edge
                         let padding = 6
                         svg.append("rect")
@@ -347,13 +385,13 @@ var filters = d3.select("body")
                             .style("border-radius", "2px")
                             .style("box-shadow", "0 8px 24px rgba(43, 38, 34, 0.25)")
                             .style("color", "#2b2622")
-                            .html(`<div><b style="font-family: 'Playfair', serif; font-size: 15px;">${d.name}</b> <span style="color:#8a8074">(${d.date})</span><br/><br/><span class="underline">Found region</span>: ${d.found_region_origin} <br/><span class="underline">Current location</span>: ${d.current_city}, ${d.current_country} <br/><span class="underline">Distance from origin to current</span>: ${d.distance_from_origin_km} km <br/><span class="underline">Topic</span>: ${d.subject_topic} / ${d.subject}<br/><span class="underline">Medium</span>: <i>${d.writing_material}</i> on <i>${d.media_material2}</i></div>`)
+                            .html(`<div><b style="font-family: 'Lacquer', serif; font-size: 15px;">${d.name}</b> <span style="color:#8a8074">(${d.date})</span><br/><br/><span class="underline">Found region</span>: ${d.found_region_origin} <br/><span class="underline">Current location</span>: ${d.current_city}, ${d.current_country} <br/><span class="underline">Distance from origin to current</span>: ${d.distance_from_origin_km} km <br/><span class="underline">Topic</span>: ${d.subject_topic} / ${d.subject}<br/><span class="underline">Medium</span>: <i>${d.writing_material}</i> on <i>${d.media_material2}</i></div>`)
                     })
                     .on('mouseout', function(e,d) {
                         d._hovering = false
                         svg.select('.preview').remove()
                         svg.selectAll("foreignObject").remove()
-                        svg.selectAll(".hover-outline").remove()   // ← new
+                        svg.selectAll(".hover-outline").remove() 
 
                         d3.select(this)
                             .style("transform", null)
@@ -373,15 +411,20 @@ var filters = d3.select("body")
                         .style("top", (d.y - 50 +"px"))
                         .classed('modal', true)
                         .style('display','flex')
+                        .on("click", function(event) {
+                            // only close if the click landed directly on the backdrop (this element),
+                            // not on the modal card or anything inside it
+                            if (event.target === this) {
+                                closeModal()
+                            }
+                        })
 
-                    // check overflow AFTER the DOM has actually rendered the content
                     setTimeout(() => {
                         var contentEl = modalDiv.select(".modal-text-content").node()
                         var button = modalDiv.select(".see-more-btn").node()
                         var fade = modalDiv.select(".modal-text-fade").node()
 
                         if (contentEl.scrollHeight <= contentEl.clientHeight) {
-                            // text fits within the collapsed height — no need for the button/fade at all
                             button.style.display = "none"
                             fade.style.display = "none"
                         }
@@ -433,6 +476,7 @@ var filters = d3.select("body")
                 .attr('x',(d,i) => timeScale(years_array[i]) + 40)
                 .attr('y',svgHeight + 40)
                 .attr('fill',"#a8241b")
+                .attr('class', 'time_label')
             
             svg.append("text")
                 .attr("x",timeScale(210))

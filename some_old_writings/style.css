@@ -1,10 +1,16 @@
 body{
     background-color: #f2f7f6; 
     font-family: sans-serif;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><rect x="12" y="4" width="8" height="20" fill="%23a8241b" stroke="%232b2622" stroke-width="1"/><polygon points="12,24 20,24 16,30" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,27 17,27 16,30" fill="%232b2622"/><rect x="12" y="2" width="8" height="4" fill="%232b2622"/></g></svg>') 4 28, auto;
 }
-h1, .modal-text b {
-    font-family: 'Playfair', serif;
-    font-weight: 500;
+button, .close, .see-more-btn, a {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="12" y="10" width="8" height="18" fill="%23a8241b" stroke="%232b2622" stroke-width="1"/><polygon points="12,10 20,10 16,2" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,5 17,5 16,2" fill="%232b2622"/><rect x="12" y="26" width="8" height="4" fill="%232b2622"/></svg>') 16 2, pointer;
+}
+
+h1, .modal-text b, .row_label {
+  font-family: "Lacquer", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 
 #mainDiv {
@@ -79,7 +85,11 @@ img {
     overflow-x: hidden;
     box-sizing: border-box;
     box-shadow: 0 12px 40px rgba(43, 38, 34, 0.25);
+    display: flex;
+    flex-direction: column;
+    position: relative;   /* ← add this, so .close can anchor to this box */
 }
+
 
 .modal-outline-wrapper {
     position: relative;
@@ -105,24 +115,29 @@ img {
 
 
 .close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
     color: #a8241b;
-    float: right;
     font-size: 22px;
     font-weight: 400;
     line-height: 1;
+    filter: url(#squigglyText);
+    /* cursor: pointer; */
 }
 
 .close:hover,
 .close:focus {
     color: #2b2622;
     text-decoration: none;
-    cursor: pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="12" y="10" width="8" height="18" fill="%23a8241b" stroke="%232b2622" stroke-width="1"/><polygon points="12,10 20,10 16,2" fill="%23e8c9a0" stroke="%232b2622" stroke-width="1"/><polygon points="15,5 17,5 16,2" fill="%232b2622"/><rect x="12" y="26" width="8" height="4" fill="%232b2622"/></svg>') 16 2, pointer;
 }
-
 .flex-container {
     display: flex;
     gap: 20px;
-    align-items: stretch; /* the one true rule now — no longer overridden */
+    align-items: stretch;
+    flex: 1 1 auto;   /* grow to fill modal-content's available height */
+    min-height: 0;    /* lets children scroll/shrink properly instead of overflowing */
 }
 
 .modal-img-container {
@@ -130,8 +145,8 @@ img {
     min-width: 0;
     max-width: 500px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center;      /* vertical centering */
+    justify-content: center;  /* horizontal centering */
     background-color: #ece7e2;
     border: 1px solid #d8cfc4;
     padding: 16px;
@@ -139,12 +154,15 @@ img {
 }
 
 .modal-img-container img {
-    width: 100%;
+    max-width: 100%;
     max-height: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
     display: block;
     border: none;
 }
+
 
 
 
@@ -158,6 +176,9 @@ img {
     margin: 0;
     font-size: 14px;
     line-height: 1.5;
+    align-self: flex-start;   /* don't stretch to match the image column's height */
+    overflow-y: auto;
+    max-height: 100%;         /* still respects the modal's overall height if content is long */
 }
 
 .modal-text-content {
@@ -191,11 +212,12 @@ img {
     border: none;
     color: #a8241b;
     font-size: 13px;
-    cursor: pointer;
+    /* cursor: pointer; */
     padding: 8px 0 0 0;
     text-decoration: none;
     border-bottom: 1px dotted #a8241b;
-    display: inline-block;
+    display: inline-block;   /* already there — this + no flex parent keeps it content-width, left-aligned */
+    text-align: left;
 }
 
 .see-more-btn:hover {
@@ -220,7 +242,7 @@ h1{
 
 svg{
     font-family: sans-serif;
-    background-color: #ece7e2;
+    background-color: #fffff7;
     border-radius: 5px;
 }
 
@@ -243,12 +265,34 @@ button {
     border: 1px solid #d8cfc4;
     color: #2b2622;
     padding: 6px 9px;
-    cursor: pointer;
+    /* cursor: pointer; */
     border-radius: 3px;
+    font-size: 12px;
+    font-family: "Lacquer";
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
-.row_label { 
-    font-size: 13px;
+.row_label {
+    /* font-size: 13px;
+    font-weight: 600;
+    fill: #6b6259;
+    letter-spacing: 0.2px; */
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* .time_label {
+    font-family: 'Lacquer';
+} */
+
+.time_label {
+    font-size: 12px;
+    font-family:sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 .underline {
