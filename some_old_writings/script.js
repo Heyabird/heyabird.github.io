@@ -272,18 +272,43 @@ var filters = d3.select("body")
                     .join('svg:image')
                     .attr("xlink:href", (d,i) => icon_names[i])
                     .on('mouseover', function(e,d){
-                        let moveRight
-                        if (d.date_estimate < 0) {
-                            moveRight = 170
-                        } else {
-                            moveRight = -255
+                        if (d._hovering) return
+                        d._hovering = true
+
+                        // raise + scale the image FIRST
+                        let scaleFactor = imageZoomWidth / rowHeight
+                        d3.select(this)
+                            .style("transform", `scale(${scaleFactor})`)
+                            .classed("top-layer", true)
+                            .raise()
+
+                        // THEN compute position and append the tooltip, so it stacks on top
+                        let bbox = this.getBBox()
+                        let scaledWidth = bbox.width * scaleFactor
+                        let scaledHeight = bbox.height * scaleFactor
+                        let centerX = bbox.x + bbox.width / 2
+                        let centerY = bbox.y + bbox.height / 2
+
+                        let tooltipWidth = 300
+                        let tooltipHeight = 260
+
+                        let previewX = centerX + scaledWidth / 2 + 20
+                        let previewY = centerY - tooltipHeight / 2
+
+                        if (previewX + tooltipWidth > timelineWidth - 10) {
+                            previewX = centerX - scaledWidth / 2 - tooltipWidth - 20
                         }
+
+                        previewY = Math.max(10, Math.min(previewY, svgHeight - tooltipHeight - 10))
+
+                        svg.selectAll("foreignObject").remove()
+
                         svg.append("foreignObject")
                         .style('pointer-events','none')
-                        .attr("width", 300)
+                        .attr("width", tooltipWidth)
                         .attr("height", 500)
-                        .attr("x",filter == "none" ? timeScale(d.date_estimate) + 32 : timeScale(d.date_estimate) + moveRight)
-                        .attr("y",filter == "none" ? svgHeight/2 + imageZoomWidth : svgHeight - (obj[d[filter]]) - (imageZoomWidth) + 57)
+                        .attr("x", previewX)
+                        .attr("y", previewY)
                         .append("xhtml:body")
                             .style("font", "13px sans-serif")
                             .style("line-height", "1.5")
@@ -291,23 +316,18 @@ var filters = d3.select("body")
                             .style("background-color", "#f7f3ed")
                             .style("border", "1px solid #d8cfc4")
                             .style("border-radius", "2px")
+                            .style("box-shadow", "0 8px 24px rgba(43, 38, 34, 0.25)")
                             .style("color", "#2b2622")
                             .html(`<div><b style="font-family: 'Playfair', serif; font-size: 15px;">${d.name}</b> <span style="color:#8a8074">(${d.date})</span><br/><br/><span class="underline">Found region</span>: ${d.found_region_origin} <br/><span class="underline">Current location</span>: ${d.current_city}, ${d.current_country} <br/><span class="underline">Distance from origin to current</span>: ${d.distance_from_origin_km} km <br/><span class="underline">Topic</span>: ${d.subject_topic} / ${d.subject}<br/><span class="underline">Medium</span>: <i>${d.writing_material}</i> on <i>${d.media_material2}</i></div>`)
-                        console.log('this:', this)
-
-                        d3.select(this).attr("height", imageZoomWidth)
-                            .attr("width", imageZoomWidth)
-                            .classed("top-layer", true)
-                            .raise()
                     })
                     .on('mouseout', function(e,d) {
-                        d3.select("div").remove()
+                        d._hovering = false
                         svg.select('.preview').remove()
-                        svg.select("foreignObject").remove()
+                        svg.selectAll("foreignObject").remove()
 
                         d3.select(this)
-                            .attr("height", rowHeight)
-                            .attr("width", rowHeight)
+                            .style("transform", null)
+                            .classed("top-layer", false)
                             .lower()
                     })
                     .on("click", function(e,d) {

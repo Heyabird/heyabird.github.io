@@ -27,10 +27,6 @@ img {
     transition: all 2s ease-out;
 }
 
-.top-layer {
-    position: fixed;
-    z-index: 1;
-}
 
 /* ===== MODAL ===== */
 
@@ -160,12 +156,13 @@ svg{
 }
 
 svg image {
-    transition: filter 0.2s ease;
-    border-radius: 10px;
+    transition: transform 0.15s ease, filter 0.15s ease;
+    transform-box: fill-box;
+    transform-origin: center;
 }
 
 svg image.top-layer {
-    filter: drop-shadow(0 4px 12px rgba(43, 38, 34, 0.35));
+    filter: drop-shadow(0 4px 12px rgba(43, 38, 34, 0.35)) drop-shadow(0 0 0 2px #ece7e2);
 }
 
 .description {
