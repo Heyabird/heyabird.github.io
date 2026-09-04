@@ -39,11 +39,7 @@ var dataset_info = "<div id='info-box'><b>Where did you get your data?</b><br/><
 
 
 var closeModal = function() {
-    console.log("HELLO")
-    modal = document.getElementsByClassName("description")[0];
-    console.log('modal:',modal)
-    modal.style.display = "none";
-
+    d3.selectAll(".description").remove();
 }
 
 
@@ -337,6 +333,8 @@ var filters = d3.select("body")
                     })
                     .on("click", function(e,d) {
                         console.log('on click e:', e)
+                        d3.selectAll(".description").remove();
+
                         var modalDiv = d3.select("body").append("div")
                             .attr('pointer-events', 'none')
                             .attr("class", "description")
