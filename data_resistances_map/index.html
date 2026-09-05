@@ -12,21 +12,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Mansalva&family=Pangolin&family=Quicksand:wght@300..700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;padding:0;height:100%;font-family:"Courier Prime", monospace;background:#111;}
-  a {color: rgb(255, 49, 248);}
+  a {
+    color: rgb(255, 49, 248);
+    text-decoration: underline dotted #F20000;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
   #map{position:absolute;top:0;left:0;right:0;bottom:0;background:#111;}
 
   #title-block{position:fixed;top:12px;right:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);
-    color:#000000;padding:10px 16px;border:1px dotted #7b7b7b;border-radius:6px;max-width:60vw;
+    color:#000000;padding:10px 16px;border:2px dotted #F20000;border-radius:6px;max-width:60vw;
     pointer-events:none;text-align:right;}
   #title-block h1{margin:0;font-size:1.2rem;font-weight:700;letter-spacing:0.02em;}
   #title-block p{margin:2px 0 0 0;font-size:0.75rem;color:#3c3c3c;font-weight:normal;}
   #water-toggle{position:fixed;bottom:10px;left:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#3c3c3c;
-    padding:8px 12px;border:1px dotted #444;border-radius:6px;font-size:12px;display:flex;
+    padding:8px 12px;border:2px dotted #F20000;border-radius:6px;font-size:12px;display:flex;
     align-items:center;gap:6px;}
   #water-toggle input{cursor:pointer;}
   #water-toggle label{cursor:pointer;}
   /* #sources{position:fixed;bottom:10px;right:10px;z-index:1000;background:rgba(255, 255, 255, 0.75);color:#696969;
-    padding:8px 12px;border:1px dotted #5e5e5e;border-radius:6px;font-size:12px;max-width:280px;
+    padding:8px 12px;border:2px dotted #F20000;border-radius:6px;font-size:12px;max-width:280px;
     line-height:1.5;}
   #sources strong{color:#000000;} */
 
@@ -46,16 +51,16 @@
   #left-panel .rank{color:#F20000;font-weight:700;}
   #left-panel li{padding:8px 16px;color:#333;font-size:12px;border-bottom:1px dotted #ddd;
   cursor:default;}
-  #left-panel{position:fixed;bottom:160px;left:10px;z-index:1000;width:260px;border-radius:6px;
-  max-height:280px;overflow-y:auto;background:rgba(255,255,255,0.75);border:1px dotted #151515;}
+  #left-panel{position:fixed;bottom:150px;left:10px;z-index:1000;width:260px;border-radius:6px;
+  max-height:280px;overflow-y:auto;background:rgba(255,255,255,0.75);border:2px dotted #F20000;}
   #left-panel ul{list-style:none;margin:0;padding:0;}
 
   /* LEAFLET POPUP */
-  .leaflet-popup-content-wrapper{background:#fff;color:#111;border:1px dotted #ccc;
+  .leaflet-popup-content-wrapper{background:#fff;color:#111;border:2px dotted #F20000;
     max-height:420px;overflow-y:auto;overflow-x:hidden;border-radius:6px;}
   .leaflet-popup-tip{background:#fff;}
   .leaflet-popup-content{margin:14px 16px;}
-  .leaflet-popup-content a{color:#0b5fae;word-break:break-all;}
+  .leaflet-popup-content a{color:#0b5fae;word-break:break-all;text-decoration:underline dotted #F20000;text-decoration-thickness:2px;text-underline-offset:3px;}
   .popup-table{border-collapse:collapse;font-size:12px;width:100%;table-layout:fixed;}
   .popup-table td{padding:4px 6px 4px 0;vertical-align:top;border-bottom:1px dotted #e5e5e5;
     word-break:break-word;}
@@ -70,19 +75,19 @@
 
   #legend{position:fixed;bottom:60px;left:10px;z-index:1000;width:233px;
     background:rgba(255, 255, 255, 0.75);color:#3c3c3c;
-    padding:10px 14px;border:1px dotted #070707;border-radius:6px;font-size:11px;}
+    padding:10px 14px;border:2px dotted #F20000;border-radius:6px;font-size:11px;}
   #legend .legend-title{font-weight:700;margin-bottom:6px;}
   #legend .legend-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
   #legend .legend-row:last-child{margin-bottom:0;}
-#legend .swatch-diamond{width:12px;height:12px;flex-shrink:0;background:#F20000;
-  border:1.5px solid #eee;transform:rotate(45deg);margin:0 2px;}
+#legend .swatch-circle{width:13px;height:13px;flex-shrink:0;background:#F20000;
+  border:1.5px solid #eee;border-radius:50%;margin:0 1px;}
 #legend .swatch-square{width:15px;height:15px;flex-shrink:0;background:#000;border:1.5px solid #eee;}
 #legend .swatch-triangle{width:0;height:0;flex-shrink:0;border-left:7px solid transparent;
-  border-right:7px solid transparent;border-bottom:13px solid #000;}
+  border-right:7px solid transparent;border-bottom:13px solid #7B2FBE;}
 
   /* HOVER IMAGE LOGIC */
   #hover-image-card{position:fixed;bottom:210px;right:10px;z-index:999;height:220px;
-    background:rgba(20,20,20,0.75);border:1px dotted #444;border-radius:6px;padding:8px;
+    background:rgba(20,20,20,0.75);border:2px dotted #F20000;border-radius:6px;padding:8px;
     opacity:0;transition:opacity 0.3s ease;pointer-events:none;}
   #hover-image-card img{height:220px;border-radius:3px;display:block;}
   #hover-image-card .caption{color:#474747;font-size:13px;margin-top:10px;}
@@ -90,7 +95,7 @@
   /* COUNTRIES HOVER */
 
   #country-info-card{position:fixed;z-index:1000;width:260px;
-  background:rgba(255, 176, 252, 0.8);border:1px dotted #444;border-radius:6px;padding:10px 14px;color:#000000;
+  background:rgba(255, 176, 252, 0.8);border:2px dotted #F20000;border-radius:6px;padding:10px 14px;color:#000000;
   font-size:13px;line-height:1.6;opacity:0;transition:opacity 0.15s ease;pointer-events:none;}
 
   #country-info-card h3{margin:0 0 6px 0;color:#000000;font-size:15px;}
@@ -101,7 +106,7 @@
   /* RIGHT PANEL */
   #right-panel{position:fixed;top:12px;right:10px;bottom:10px;z-index:1000;width:320px;
   display:flex;flex-direction:column;background:rgba(255,255,255,0.85);
-  border:1px dotted #7b7b7b;overflow:hidden;}
+  border:2px dotted #F20000;overflow:hidden;border-radius:6px;}
 
   #right-panel .panel-section{padding:12px 16px;border-bottom:1px dotted #7b7b7b;}
   #right-panel .panel-section:last-child{border-bottom:none;}
@@ -125,7 +130,7 @@
 
 /* Mobile toggle */
 #mobile-info-toggle{display:none;position:fixed;top:12px;right:10px;z-index:1100;
-  background:rgba(255,255,255,0.9);border:1px dotted #7b7b7b;border-radius:6px;padding:8px 14px;
+  background:rgba(255,255,255,0.9);border:2px dotted #F20000;border-radius:6px;padding:8px 14px;
   font-size:13px;cursor:pointer;font-family:"Courier Prime",monospace;}
 
 @media (max-width: 768px){
@@ -149,7 +154,7 @@
     left:10px; right:10px; width:auto; max-height:40vh;
   }
   body.panels-open #right-panel{top:60px; bottom:auto;}
-  body.panels-open #left-panel{top:calc(40vh + 70px);}
+  body.panels-open #left-panel{top:calc(40vh + 70px); bottom:auto;}
 }
 </style>
 </head>
@@ -165,7 +170,7 @@
 <div id="legend">
   <!-- <div class="legend-title">Legend</div> -->
   <div class="legend-row">
-    <span class="swatch-diamond"></span>
+    <span class="swatch-circle"></span>
     Technology company headquarter
   </div>
   <div class="legend-row">
@@ -231,11 +236,8 @@ document.getElementById('mobile-info-toggle').addEventListener('click', function
 // the rest
 const map = L.map('map').setView([20, 10], 2);
 
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-  attribution: 'Esri, HERE, Garmin, FAO, NOAA, USGS', maxZoom:16
-}).addTo(map);
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-  maxZoom:14
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Esri, HERE, Garmin, FAO, NOAA, USGS', maxZoom:19
 }).addTo(map);
 
 function fullPropertiesPopup(properties, titleField){
@@ -283,7 +285,7 @@ function makeSourceIcon(extractionType){
     return L.divIcon({
       html:'<div style="position:relative;width:20px;height:18px;">'+
              '<div style="position:absolute;top:0;left:0;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:18px solid #eee;"></div>'+
-             '<div style="position:absolute;top:2px;left:2.5px;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:13px solid #000;"></div>'+
+             '<div style="position:absolute;top:2px;left:2.5px;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:13px solid #7B2FBE;"></div>'+
            '</div>',
       className:'', iconSize:[20,18], iconAnchor:[10,13]
     });
@@ -296,8 +298,8 @@ function makeSourceIcon(extractionType){
 }
 
 const hubIcon = L.divIcon({
-  // diamond = technology company headquarter
-  html:'<div style="background:#F20000;border:1.5px solid #eee;width:15px;height:15px;transform:rotate(45deg);"></div>',
+  // circle = technology company headquarter
+  html:'<div style="background:#F20000;border:1.5px solid #eee;border-radius:50%;width:15px;height:15px;"></div>',
   className:'', iconSize:[15,15], iconAnchor:[7,7]
 });
 
