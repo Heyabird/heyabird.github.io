@@ -12,6 +12,9 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    h1 {
+      font-family: 'DotGothic16';
+    }
     body {
       font-family: sans-serif;
       font-size: 14px;
@@ -37,8 +40,8 @@
       border-bottom: 1px solid transparent;
     }
 
-    nav a:hover { border-bottom-color: #000; }
-    nav a.active { border-bottom-color: #000; }
+    nav a:hover { border-bottom: 2px dotted #000; }
+    nav a.active { border-bottom: 2px dotted #000; }
 
     .canvas {
       position: relative;
@@ -146,11 +149,13 @@
     <a href="index.html">Home</a>
     <a href="work.html">Work</a>
     <!-- <a href="writing.html">Writing</a> -->
-    <a href="library.html" class="active">Library</a>
+    <a href="notebook.html" class="active">Notebook</a>
     <!-- <a href="photos.html">Photos</a> -->
     <a href="about.html">About</a>
   </nav>
 
+  <h1>Library</h1>
+  <br/>
   <p>Here are some books and writings that have inspired me. I hope to fill my library up more.</p>
   <br/>
   <div class="canvas" id="canvas">

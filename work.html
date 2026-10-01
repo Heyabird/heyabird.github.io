@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="cursors.css">
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Geist+Pixel&family=VT323&display=swap" rel="stylesheet">
   <title>Work — Portfolio</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,8 +33,8 @@
       border-bottom: 1px solid transparent;
     }
 
-    nav a:hover { border-bottom-color: #000; }
-    nav a.active { border-bottom-color: #000; }
+    nav a:hover { border-bottom: 2px dotted #000; }
+    nav a.active { border-bottom: 2px dotted #000; }
 
     .filter-bar {
       display: flex;
@@ -47,11 +46,11 @@
     .filter-btn {
       font-size: 12px;
       padding: 3px 12px;
-      border: 1px solid #000;
+      border: 2px dotted #000;
       border-radius: 20px;
       background: #fff;
       color: #000;
-      /* cursor: pointer; */
+      cursor: pointer;
     }
 
     .filter-btn:hover { background: #c0c0c0; }
@@ -74,8 +73,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 0.75rem 1rem 0.75rem 0;
-      border-bottom: 1px solid #ebebeb;
-      /* cursor: pointer; */
+      border-bottom: 1px dotted #ccc;
+      cursor: pointer;
       gap: 8px;
     }
 
@@ -106,34 +105,12 @@
       flex-shrink: 0;
     }
 
-    /* ── badge ── */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      position: relative;
-      height: 20px;
-      padding: 0 8px;
-    }
-
-    .badge svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-
-    .badge-text {
-      position: relative;
-      font-size: 8px;
+    /* ── type label ── */
+    .type-label {
+      font-size: 11px;
       font-family: Arial, sans-serif;
-      font-weight: bold;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
       white-space: nowrap;
-      z-index: 1;
+      flex-shrink: 0;
     }
 
     /* ── right detail ── */
@@ -197,8 +174,6 @@
 
     .detail-link:hover { opacity: 0.6; }
 
-    
-
     /* ── mobile ── */
     @media (max-width: 640px) {
       body { padding: 1rem; }
@@ -261,7 +236,7 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="work.html" class="active">Work</a>
-    <a href="library.html">Library</a>
+    <a href="notebook.html">Notebook</a>
     <a href="about.html">About</a>
   </nav>
 
@@ -276,9 +251,6 @@
     <button class="filter-btn" data-filter="research">Research</button>
     <button class="filter-btn" data-filter="workshop">Workshop</button>
     <button class="filter-btn" data-filter="mapping">Mapping</button>
-    <!-- <button class="filter-btn" data-filter="physical">Physical</button>
-    <button class="filter-btn" data-filter="digital">Digital</button>
-    <button class="filter-btn" data-filter="both">Physical & Digital</button> -->
   </div>
 
   <div class="layout">
@@ -291,46 +263,23 @@
   <script>
 
     const typeColors = {
-      'Art':               { fill: '#ffd6f5', stroke: '#000', text: '#000' },
-      'Installation':      { fill: '#d6eaff', stroke: '#000', text: '#000' },
-      'Website':           { fill: '#d6ffd6', stroke: '#000', text: '#000' },
-      'Workshop':          { fill: '#fff3d6', stroke: '#000', text: '#000' },
-      'Community Space':   { fill: '#ffd6d6', stroke: '#000', text: '#000' },
-      'Print':             { fill: '#d6fff6', stroke: '#000', text: '#000' },
-      'Research':          { fill: '#e1d4ff', stroke: '#000', text: '#000' }
-    }; 
+      'Art':             '#000',
+      'Installation':    '#0050c8',
+      'Website':         '#007a30',
+      'Workshop':        '#b06000',
+      'Community Space': '#990000',
+      'Print':           '#006868',
+      'Research':        '#5500bb'
+    };
 
-    function makeBadge(type) {
+    function makeTypeLabel(type) {
       if (!type) return document.createElement('span');
-      const c = typeColors[type] || { fill: '#eee', stroke: '#000', text: '#000' };
-      const label = type.toUpperCase();
-      const charW = 6;
-      const w = Math.max(label.length * charW + 18, 36);
-      const h = 20;
-      const r = h / 2;
-
-      const path = `
-        M ${r} 1
-        C ${r * 0.5} 0.5, ${w - r * 0.5} 0.2, ${w - r} 1
-        C ${w - r * 0.4} 1, ${w - 1} ${h * 0.3}, ${w - 1} ${h / 2}
-        C ${w - 0.8} ${h * 0.7}, ${w - r * 0.5} ${h - 0.8}, ${w - r} ${h - 1}
-        C ${w * 0.6} ${h - 0.3}, ${r * 0.6} ${h - 0.5}, ${r} ${h - 1}
-        C ${r * 0.3} ${h - 1.2}, 1 ${h * 0.72}, 1 ${h / 2}
-        C 0.8 ${h * 0.28}, ${r * 0.4} 1.2, ${r} 1 Z
-      `;
-
-      const rot = (Math.random() * 4 - 2).toFixed(1);
-      const wrapper = document.createElement('span');
-      wrapper.className = 'badge';
-      wrapper.style.width = w + 'px';
-      wrapper.style.transform = `rotate(${rot}deg)`;
-      wrapper.innerHTML = `
-        <svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
-          <path d="${path}" fill="${c.fill}" stroke="${c.stroke}" stroke-width="1"/>
-        </svg>
-        <span class="badge-text" style="color:${c.text}">${label}</span>
-      `;
-      return wrapper;
+      const color = typeColors[type] || '#555';
+      const span = document.createElement('span');
+      span.className = 'type-label';
+      span.style.color = color;
+      span.textContent = '[' + type + ']';
+      return span;
     }
 
     const projects = [
@@ -384,7 +333,7 @@
         title: 'Mycelium Design Workshops',
         type: 'Workshop',
         year: '2026',
-        tags: 'workshop bio-based participatory typography  ',
+        tags: 'workshop bio-based participatory typography',
         keywords: 'Workshop · Participatory · Typography',
         href: 'mycelium-design-workshops.html',
         img: 'assets/mycelium_design_cover.jpg',
@@ -400,7 +349,7 @@
         site: 'some_old_writings/index.html',
         img: 'assets/covers/some-old-writings-cover.jpg',
         desc: 'Visualizing some of the oldest known writings in the world using d3.js.'
-      },      
+      },
       {
         id: 'smd',
         title: 'Sonic Memory Decomposer',
@@ -469,7 +418,7 @@
         img: 'assets/work_in_action_example_page2.png',
         desc: 'An honors thesis at Wesleyan University that follows the personal stories of factory workers in China to explore the life inside seemingly oppressive labor structures. Research was funded by Davenport Research Grant.'
       },
-{
+      {
         id: 'kaleidoscope',
         title: 'Espoo City Kaleidoscope',
         type: 'Installation',
@@ -515,19 +464,17 @@
       el.dataset.id   = p.id;
       el.dataset.tags = p.tags;
 
-      // left side: badge + title
       const left = document.createElement('div');
       left.className = 'item-left';
 
-      const badge = makeBadge(p.type);
+      const label = makeTypeLabel(p.type);
       const titleSpan = document.createElement('span');
       titleSpan.className = 'item-title';
       titleSpan.textContent = p.title;
 
-      left.appendChild(badge);
+      left.appendChild(label);
       left.appendChild(titleSpan);
 
-      // right side: year
       const year = document.createElement('span');
       year.className = 'item-year';
       year.textContent = p.year;
@@ -590,6 +537,14 @@
         }
       });
     });
+
+    // Pre-select filter from URL query param e.g. work.html?filter=workshop
+    const params = new URLSearchParams(window.location.search);
+    const preFilter = params.get('filter');
+    if (preFilter) {
+      const btn = document.querySelector(`.filter-btn[data-filter="${preFilter}"]`);
+      if (btn) btn.click();
+    }
 
   </script>
 
