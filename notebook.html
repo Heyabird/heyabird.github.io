@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Geist+Pixel&family=VT323&display=swap" rel="stylesheet">
   <title>Writing — Portfolio</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,33 +34,30 @@
     nav a:hover { border-bottom: 2px dotted #000; }
     nav a.active { border-bottom: 2px dotted #000; }
 
-    h3 {
-      font-family: 'DotGothic16';
-    }
-
     .writing-list {
-      border-top: 1px solid #000;
+      border-top: 1px dotted #ccc;
     }
 
     .writing-item {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr auto;
       align-items: baseline;
-      gap: 2rem;
+      gap: 1rem;
       padding: 1rem 0;
-      border-bottom: 1px solid #ebebeb;
+      border-bottom: 1px dotted #ccc;
       text-decoration: none;
       color: #000;
     }
 
     .writing-item:hover .writing-title {
-      border-bottom: 1px solid #000;
+      border-bottom: 2px dotted #000;
     }
 
     .writing-title {
       font-size: 15px;
-      border-bottom: 1px solid transparent;
-      display: inline;
+      border-bottom: 2px dotted transparent;
+      display: inline-block;
+      width: fit-content;
     }
 
     .writing-meta {
@@ -71,24 +67,24 @@
       text-align: right;
     }
 
-    .writing-desc {
-      font-size: 13px;
-      color: #666;
-      margin-top: 3px;
-      grid-column: 1 / 2;
-    }
-
     .writing-item-inner {
       display: flex;
       flex-direction: column;
     }
 
+    .type-label {
+      font-size: 13px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 600px) {
       .writing-item {
-        grid-template-columns: 1fr;
-        gap: 0.25rem;
+        grid-template-columns: auto 1fr;
+        gap: 0.5rem;
+        flex-wrap: wrap;
       }
-      .writing-meta { text-align: left; }
+      .writing-meta { display: none; }
     }
   </style>
 </head>
@@ -97,29 +93,29 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="work.html">Work</a>
-    <a href="notebook.html" class="active">Notebook</a>
+    <a href="notebook.html" class="active">notebook</a>
     <a href="about.html">About</a>
   </nav>
-<h3>coming soon.</h3>
-  <!-- <div class="writing-list">
+
+  <div class="writing-list">
 
     <a class="writing-item" href="writing-essay-template-1.html">
+      <span class="type-label" style="color: #007a30;">[writing]</span>
       <div class="writing-item-inner">
-        <span class="writing-title">Essay Title One: A Longer Subtitle If Needed</span>
-        <span class="writing-desc">A short sentence describing what this essay is about.</span>
-      </div>
-      <span class="writing-meta">2026</span>
-    </a>
-
-    <a class="writing-item" href="writing-essay-template-2.html">
-      <div class="writing-item-inner">
-        <span class="writing-title">Essay Title Two</span>
-        <span class="writing-desc">A short sentence describing what this essay is about.</span>
+        <span class="writing-title">Gosari</span>
       </div>
       <span class="writing-meta">2025</span>
     </a>
 
-  </div> -->
+    <!-- <a class="writing-item" href="writing-essay-template-2.html">
+      <span class="type-label" style="color: #5500bb;">[drawing]</span>
+      <div class="writing-item-inner">
+        <span class="writing-title">Essay Title Two</span>
+      </div>
+      <span class="writing-meta">2025</span>
+    </a> -->
+
+  </div>
 
 </body>
 </html>
