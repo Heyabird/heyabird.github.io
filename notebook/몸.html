@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style-project.css">
+  <title>몸 — Portfolio</title>
+  <style>
+    nav a:hover { border-bottom: 2px dotted #000; }
+    nav a.active { border-bottom: 2px dotted #000; }
+
+    .poem-body {
+      max-width: 860px;
+      font-size: 15px;
+      line-height: 1.9;
+      color: #222;
+    }
+
+    .stanza {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      align-items: start;
+    }
+
+    .stanza-kr {}
+
+    .stanza-en {
+      color: #cecdcd;
+      font-size: 14px;
+      padding-top: 0.1rem;
+    }
+
+    .line {
+      display: block;
+    }
+
+    .line.word {
+      /* anchor — no indent */
+    }
+
+    .line.title {
+      padding-left: 1.5rem;
+    }
+
+    .line.desc {
+      padding-left: 3rem;
+      color: #222;
+    }
+
+    .line.en-word {
+      /* mirror of word */
+    }
+
+    .line.en-title {
+      padding-left: 1.5rem;
+    }
+
+    .line.en-desc {
+      padding-left: 3rem;
+      /* color: #222; */
+    }
+
+    .divider {
+      margin: 3rem 0;
+      color: #bbb;
+      font-size: 13px;
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 600px) {
+      .stanza {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+        margin-bottom: 2rem;
+      }
+      .stanza-en { padding-left: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../work.html">Work</a>
+    <a href="../notebook.html" class="active">Notebook</a>
+    <a href="../about.html">About</a>
+  </nav>
+
+  <a href="../notebook.html" class="back">← Back to notebook</a>
+
+  <div class="project-header">
+    <h1 class="project-title">몸</h1>
+    <div class="project-meta">
+      <span class="project-year">2026</span>
+    </div>
+  </div>
+
+  <div class="poem-body">
+
+    <div class="stanza">
+      <div class="stanza-kr">
+        <span class="line word">몸</span>
+        <span class="line title">몸집</span>
+        <span class="line desc">오래 입어 온 나의 구택(舊宅)</span>
+      </div>
+      <div class="stanza-en">
+        <span class="line en-word">body</span>
+        <span class="line en-title">body size (or body house)</span>
+        <span class="line en-desc">the house I have long worn</span>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="stanza-kr">
+        <span class="line word">몸</span>
+        <span class="line title">몸짓</span>
+        <span class="line desc">가련(可憐)한 나의 행위(行爲)</span>
+      </div>
+      <div class="stanza-en">
+        <span class="line en-word">body</span>
+        <span class="line en-title">gesture (or body gesture)</span>
+        <span class="line en-desc">my pitiable act</span>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="stanza-kr">
+        <span class="line word">몸</span>
+        <span class="line title">모음</span>
+        <span class="line desc">두 자음(子音)을 가두는 모음(母音)</span>
+      </div>
+      <div class="stanza-en">
+        <span class="line en-word">body</span>
+        <span class="line en-title">vowel (or collection)</span>
+        <span class="line en-desc">the act of caging two consonants</span>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="stanza-kr">
+        <span class="line word">몸</span>
+        <span class="line title">몸.zip</span>
+        <span class="line desc">미지(未知)의 것들의 압축(壓縮)</span>
+      </div>
+      <div class="stanza-en">
+        <span class="line en-word">body</span>
+        <span class="line en-title">body.zip</span>
+        <span class="line en-desc">a compression of unknowable things</span>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="stanza-kr">
+        <span class="line word">몸</span>
+        <span class="line title">Mom</span>
+        <span class="line desc">모태(母胎)에서의 비상(飛翔)</span>
+      </div>
+      <div class="stanza-en">
+        <span class="line en-word">body</span>
+        <span class="line en-title">Mom</span>
+        <span class="line en-desc">flight from the womb</span>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="stanza-kr">
+        <span class="line word">몸</span>
+        <span class="line title">몸덩어리</span>
+        <span class="line desc">무거워지는 나의 가택(家宅)</span>
+      </div>
+      <div class="stanza-en">
+        <span class="line en-word">body</span>
+        <span class="line en-title">lump of body (or body)</span>
+        <span class="line en-desc">my house, growing heavy</span>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="stanza-kr">
+        <span class="line word">몸</span>
+        <span class="line title">몸살</span>
+        <span class="line desc">어미를 앓는 고통(苦痛)</span>
+      </div>
+      <div class="stanza-en">
+        <span class="line en-word">body</span>
+        <span class="line en-title">body ache </span>
+        <span class="line en-desc">the pain of losing a mother</span>
+      </div>
+    </div>
+
+    <div class="stanza">
+      <div class="stanza-kr">
+        <span class="line word">몸</span>
+        <span class="line title">몸부림</span>
+        <span class="line desc">애도(哀悼)에서의 비상(悲傷</span>
+      </div>
+      <div class="stanza-en">
+        <span class="line en-word">body</span>
+        <span class="line en-title">struggle (or body struggle)</span>
+        <span class="line en-desc">sorrow rising from grief</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

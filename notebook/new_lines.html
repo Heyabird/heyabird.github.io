@@ -4,64 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../style-project.css">
-  <title>Gosari — Portfolio</title>
+  <title>New Lines — Portfolio</title>
   <style>
     nav a:hover { border-bottom: 2px dotted #000; }
     nav a.active { border-bottom: 2px dotted #000; }
 
-    .essay-body {
-      max-width: 640px;
-      
-    }
-
-    .essay-body p {
+    .poem-body {
+      max-width: 560px;
       font-size: 15px;
-      line-height: 1.9;
+      line-height: 2.1;
       color: #222;
-      margin-bottom: 1.5rem;
     }
 
-    .essay-body h2 {
-      font-size: 15px;
-      font-weight: normal;
-      color: #000;
-      margin: 2.5rem 0 0.75rem;
-      border-bottom: 1px solid #ebebeb;
-      padding-bottom: 0.4rem;
+    .poem-body p {
+      margin: 0;
+      display: block;
     }
 
-    blockquote {
-      border-left: 2px solid #000;
-      margin: 1.5rem 0;
-      padding-left: 1.25rem;
-      font-size: 14px;
-      color: #555;
-      line-height: 1.8;
-    }
-
-    .footnote {
-      font-size: 12px;
-      color: #999;
-      margin-top: 3rem;
-      padding-top: 1rem;
-      border-top: 1px solid #ebebeb;
-      line-height: 1.8;
-    }
-
-    /* ── image placeholder ── */
-    .drawing-space {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      border: 1px dashed #ccc;
-      margin: 2.5rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #bbb;
-      font-size: 12px;
-      font-family: sans-serif;
-      letter-spacing: 0.05em;
-    }
+    /* each line nudged to a different indent — nothing lines up */
+    .poem-body p:nth-child(1)  { padding-left: 1.2rem; }
+    .poem-body p:nth-child(2)  { padding-left: 3.8rem; }
+    .poem-body p:nth-child(3)  { padding-left: 0.4rem; }
+    .poem-body p:nth-child(4)  { padding-left: 5.1rem; }
+    .poem-body p:nth-child(5)  { padding-left: 2.0rem; }
+    .poem-body p:nth-child(6)  { padding-left: 4.4rem; }
+    .poem-body p:nth-child(7)  { padding-left: 1.6rem; }
+    .poem-body p:nth-child(8)  { padding-left: 3.2rem; }
+    .poem-body p:nth-child(9)  { padding-left: 0.8rem; }
+    .poem-body p:nth-child(10) { padding-left: 2.6rem; }
   </style>
 </head>
 <body>
@@ -69,7 +39,7 @@
   <nav>
     <a href="../index.html">Home</a>
     <a href="../work.html">Work</a>
-    <a href="../notebook.html" class="active">Notebook</a>
+    <a href="../notebook.html"class="active">Notebook</a>
     <a href="../about.html">About</a>
   </nav>
 
@@ -81,38 +51,18 @@
       <span class="project-year">2025</span>
     </div>
   </div>
-  <div class="essay-body">
 
-    <p>
-        My lopsided face
-    </p>
-    <p>
-        In a house full of cracks
-    </p>
-    <p>
-        My broken heart
-    </p>
-    <p>
-        In a house full of mistakes
-    </p>
-    <p>
-        My torn out shoes
-    </p>
-    <p>
-        On a worn out street
-    </p>
-    <p>
-        Things I used to hate
-    </p>
-    <p>
-        That I learned to love
-    </p>
-    <p>
-        Because now I know
-    </p>
-    <p>
-        I can only love imperfect things
-    </p>
+  <div class="poem-body">
+    <p>My lopsided face</p>
+    <p>In a house full of cracks</p>
+    <p>My broken heart</p>
+    <p>In a house full of mistakes</p>
+    <p>My torn out shoes</p>
+    <p>On a worn out street</p>
+    <p>Things I used to hate</p>
+    <p>That I learned to love</p>
+    <p>Because now I know</p>
+    <p>I can only love imperfect things</p>
   </div>
 
 </body>
