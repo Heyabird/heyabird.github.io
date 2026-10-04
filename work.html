@@ -180,11 +180,11 @@
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="Art">[Art]</button>
     <button class="filter-btn" data-filter="Installation">[Installation]</button>
-    <button class="filter-btn" data-filter="Website">[Website]</button>
+    <!-- <button class="filter-btn" data-filter="Digital">[Digital]</button> -->
     <button class="filter-btn" data-filter="Workshop">[Workshop]</button>
     <button class="filter-btn" data-filter="Community Space">[Community Space]</button>
-    <button class="filter-btn" data-filter="Print">[Print]</button>
-    <button class="filter-btn" data-filter="Research">[Research]</button>
+    <button class="filter-btn" data-filter="Typography">[Typography]</button>
+    <!-- <button class="filter-btn" data-filter="Research">[Research]</button> -->
   </div>
 
   <div class="project-list" id="project-list"></div>
@@ -193,7 +193,7 @@
     const typeColors = {
       'Art':             '#000',
       'Installation':    '#0050c8',
-      'Website':         '#007a30',
+      'Digital':         '#007a30',
       'Workshop':        '#b06000',
       'Community Space': '#990000',
       'Print':           '#006868',
@@ -209,7 +209,7 @@
         tags: 'workshop participatory mapping data-viz critical-ai research',
         keywords: 'Workshop · Participatory · Mapping',
         href: 'warm-clouds.html',
-        img: 'assets/covers/mapping-the-cloud-cover.jpg',
+        img: 'assets/warm-clouds/IMG_6841.jpg',
         desc: 'Collective mapping workshop where participants map their connections to cloud infrastructure, creating a collective sculpture.'
       },
       {
@@ -221,19 +221,8 @@
         keywords: 'Sound · Participatory · Installation',
         href: 'noraebang.html',
         site: 'https://noraebang-fi.github.io/',
-        img: 'assets/covers/noraebang-cover.jpg',
+        img: 'assets/noraebang/noraebang-booth.jpg',
         desc: 'Karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design. Funded by Sustainability Action Booster.'
-      },
-      {
-        id: 'data-map',
-        title: 'Data Resistances Map',
-        type: 'Website',
-        year: '2026',
-        tags: 'mapping data-viz critical-ai digital',
-        keywords: 'Mapping · Data Viz · Critical AI/Data',
-        site: 'data_resistances_map/',
-        img: 'assets/covers/data-resistances-map-cover.jpg',
-        desc: 'Mapping data and AI supply chain resistance sites using GIS and Leaflet.js.'
       },
       {
         id: 'gazing',
@@ -257,17 +246,28 @@
         img: 'assets/mycelium_design_cover.jpg',
         desc: 'Tiles designed by participants using Korean typographic letters and mycelium material.'
       },
-      {
-        id: 'oldwritings',
-        title: 'Some Old Writings',
-        type: 'Website',
-        year: '2025',
-        tags: 'data-viz d3',
-        keywords: 'Data Viz · Typography',
-        site: 'some_old_writings/index.html',
-        img: 'assets/covers/some-old-writings-cover.jpg',
-        desc: 'Visualizing some of the oldest known writings in the world using d3.js.'
-      },
+    //   {
+    //     id: 'data-map',
+    //     title: 'Data Resistances Map',
+    //     type: 'Digital',
+    //     year: '2026',
+    //     tags: 'mapping data-viz critical-ai digital',
+    //     keywords: 'Mapping · Data Viz · Critical AI/Data',
+    //     site: 'data_resistances_map/',
+    //     img: 'assets/covers/data-resistances-map-cover.jpg',
+    //     desc: 'Mapping data and AI supply chain resistance sites using GIS and Leaflet.js.'
+    //   },
+    //   {
+    //     id: 'oldwritings',
+    //     title: 'Some Old Writings',
+    //     type: 'Digital',
+    //     year: '2025',
+    //     tags: 'data-viz d3',
+    //     keywords: 'Data Viz · Typography',
+    //     site: 'some_old_writings/index.html',
+    //     img: 'assets/covers/some-old-writings-cover.jpg',
+    //     desc: 'Visualizing some of the oldest known writings in the world using d3.js.'
+    //   },
       {
         id: 'smd',
         title: 'Sonic Memory Decomposer',
@@ -305,7 +305,7 @@
       {
         id: 'wind',
         title: 'Wind Typography',
-        type: 'Website',
+        type: 'Typography',
         year: '2024',
         tags: 'p5 data-viz typography digital',
         keywords: 'p5.js · Data Viz · Typography',
@@ -317,7 +317,7 @@
       {
         id: 'stretch',
         title: 'Stretch Marks',
-        type: 'Print',
+        type: 'Typography',
         year: '2023',
         tags: 'p5 typography digital',
         keywords: 'p5.js · Typography',
@@ -325,50 +325,50 @@
         img: 'assets/stretch_marks_cover.jpg',
         desc: 'Letters stretched as the longer it is typed, created via p5.js.'
       },
-      {
-        id: 'workinaction',
-        title: 'Work in Action: A Graphic Novel (BA Thesis)',
-        type: 'Research',
-        year: '2017',
-        tags: 'research',
-        keywords: 'Research',
-        href: 'https://digitalcollections.wesleyan.edu/Documents/Detail/a-work-in-action-a-graphic-novel/451160',
-        img: 'assets/work_in_action_example_page2.png',
-        desc: 'An honors thesis at Wesleyan University that follows the personal stories of factory workers in China to explore the life inside seemingly oppressive labor structures. Research was funded by Davenport Research Grant.'
-      },
-      {
-        id: 'kaleidoscope',
-        title: 'Espoo City Kaleidoscope',
-        type: 'Installation',
-        year: '2026–2027 (WIP)',
-        tags: 'installation archive both',
-        keywords: 'Installation · Archive',
-        href: 'espoo-kaleidoscope.html',
-        img: 'assets/espoo_city_kaleidoscope1.png',
-        desc: 'WIP Interactive kaleidoscope installation for Espoo City Museum using city archive footage. Interactivity programmed through TouchDesigner.'
-      },
-      {
-        id: 'feedcloud',
-        title: 'Feed, Cloud, and Bodies',
-        type: 'Research',
-        year: '2026 (WIP)',
-        tags: 'research',
-        keywords: 'Research',
-        href: '',
-        img: 'assets/covers/feed-cloud-bodies-cover.png',
-        desc: 'Feed, Cloud, and Bodies: Exhaustion and Resistance in Algorithmic Media is an ongoing MA thesis at Aalto University. It studies the relationship between two entangled exhaustions: the depletion of human attention by algorithmic feeds, and the depletion of water, minerals, and human labor by the data centers that power them.'
-      },
-      {
-        id: 'media-feed',
-        title: 'Alternative Media Feed Design',
-        type: 'Workshop',
-        year: '2026 (WIP)',
-        tags: 'workshop participatory digital',
-        keywords: 'Workshop · Participatory',
-        href: '',
-        img: 'assets/covers/alternative-media-feeds-cover.jpg',
-        desc: 'Participants design a speculative alternative media feed incorporating rest and care.'
-      }
+    //   {
+    //     id: 'workinaction',
+    //     title: 'Work in Action: A Graphic Novel (BA Thesis)',
+    //     type: 'Research',
+    //     year: '2017',
+    //     tags: 'research',
+    //     keywords: 'Research',
+    //     href: 'https://digitalcollections.wesleyan.edu/Documents/Detail/a-work-in-action-a-graphic-novel/451160',
+    //     img: 'assets/work_in_action_example_page2.png',
+    //     desc: 'An honors thesis at Wesleyan University that follows the personal stories of factory workers in China to explore the life inside seemingly oppressive labor structures. Research was funded by Davenport Research Grant.'
+    //   },
+    //   {
+    //     id: 'kaleidoscope',
+    //     title: 'Espoo City Kaleidoscope',
+    //     type: 'Installation',
+    //     year: '2026–2027 (WIP)',
+    //     tags: 'installation archive both',
+    //     keywords: 'Installation · Archive',
+    //     href: 'espoo-kaleidoscope.html',
+    //     img: 'assets/espoo_city_kaleidoscope1.png',
+    //     desc: 'WIP Interactive kaleidoscope installation for Espoo City Museum using city archive footage. Interactivity programmed through TouchDesigner.'
+    //   },
+    //   {
+    //     id: 'feedcloud',
+    //     title: 'Feed, Cloud, and Bodies',
+    //     type: 'Research',
+    //     year: '2026 (WIP)',
+    //     tags: 'research',
+    //     keywords: 'Research',
+    //     href: '',
+    //     img: 'assets/covers/feed-cloud-bodies-cover.png',
+    //     desc: 'Feed, Cloud, and Bodies: Exhaustion and Resistance in Algorithmic Media is an ongoing MA thesis at Aalto University. It studies the relationship between two entangled exhaustions: the depletion of human attention by algorithmic feeds, and the depletion of water, minerals, and human labor by the data centers that power them.'
+    //   },
+    //   {
+    //     id: 'media-feed',
+    //     title: 'Alternative Media Feed Design',
+    //     type: 'Workshop',
+    //     year: '2026 (WIP)',
+    //     tags: 'workshop participatory digital',
+    //     keywords: 'Workshop · Participatory',
+    //     href: '',
+    //     img: 'assets/covers/alternative-media-feeds-cover.jpg',
+    //     desc: 'Participants design a speculative alternative media feed incorporating rest and care.'
+    //   }
     ];
 
     const listEl  = document.getElementById('project-list');
