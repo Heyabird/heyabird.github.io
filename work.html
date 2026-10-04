@@ -36,6 +36,7 @@
     nav a:hover { border-bottom: 2px dotted #000; }
     nav a.active { border-bottom: 2px dotted #000; }
 
+    /* ── filters ── */
     .filter-bar {
       display: flex;
       flex-wrap: wrap;
@@ -44,190 +45,125 @@
     }
 
     .filter-btn {
-      font-size: 12px;
-      padding: 3px 12px;
-      border: 2px dotted #000;
-      border-radius: 20px;
-      background: #fff;
+      font-size: 14px;
+      padding: 3px 0;
+      border: none;
+      background: none;
       color: #000;
       cursor: pointer;
+      font-family: Arial, sans-serif;
+      position: relative;
     }
 
-    .filter-btn:hover { background: #c0c0c0; }
-    .filter-btn.active { background: #c0c0c0; }
-
-    /* ── two col layout ── */
-    .layout {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 0;
-      border-top: 1px solid #000;
-      min-height: 520px;
+    .filter-btn::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: #000;
+      transform: scaleX(0);
+      transition: transform 0.15s ease;
     }
 
-    /* ── left list ── */
-    .project-list { border-right: 1px solid #000; }
+    .filter-btn.active::after { transform: scaleX(1); }
+    .filter-btn:hover { opacity: 0.5; }
+
+    /* ── list ── */
+    .project-list {}
 
     .project-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 1rem 0.75rem 0;
-      border-bottom: 1px dotted #ccc;
-      cursor: pointer;
-      gap: 8px;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 2.3rem;
+      padding: 1.25rem 0;
+      text-decoration: none;
+      color: #000;
     }
 
-    .project-item:hover { background: #fafafa; }
-    .project-item.active-item { background: #f9ffe1; }
     .project-item.hidden { display: none; }
 
-    .item-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-width: 0;
-      overflow: hidden;
-      flex: 1;
-    }
-
-    .item-title {
-      font-size: 13px;
-      color: #000;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .item-year {
-      font-size: 12px;
-      color: #bbb;
-      flex-shrink: 0;
-    }
-
-    /* ── type label ── */
-    .type-label {
-      font-size: 11px;
-      font-family: Arial, sans-serif;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* ── right detail ── */
-    .project-detail {
-      padding: 1.5rem 0 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .detail-empty { color: #ccc; font-size: 14px; }
-
-    .detail-img {
+    .project-thumb {
       width: 100%;
-      max-height: 400px;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
+      border: 1px solid #eee;
       display: block;
-      border: 1px solid #000;
+      background: #f5f5f5;
     }
 
-    .detail-img-placeholder {
+    .project-thumb-placeholder {
       width: 100%;
-      height: 200px;
+      aspect-ratio: 4 / 3;
       background: #f0f0f0;
-      border: 1px solid #000;
+      border: 1px solid #eee;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 11px;
+      color: #ccc;
+    }
+
+    .project-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding-top: 0.1rem;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .type-label {
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      white-space: nowrap;
+    }
+
+    .project-year {
       font-size: 12px;
       color: #bbb;
     }
 
-    .detail-title {
-      font-size: 24px;
+    .project-title {
+      font-size: 16px;
       font-weight: normal;
-      line-height: 1.2;
+      line-height: 1.3;
     }
 
-    .detail-meta { font-size: 13px; color: #999; }
-    .detail-keywords { font-size: 13px; color: #bbb; }
 
-    .detail-desc {
+    .project-desc {
       font-size: 15px;
-      line-height: 1.8;
-      color: #333;
+      color: #666;
+      line-height: 1.6;
+      margin-top: 0.2rem;
     }
 
-    .detail-links {
+    .project-links {
       display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.4rem;
     }
 
-    .detail-link {
-      font-size: 13px;
+    .project-link {
+      font-size: 12px;
       color: #000;
       text-decoration: none;
-      display: inline-block;
-      border-bottom: 1px dotted #ff0000 ;
+      border-bottom: 1px dotted #000;
     }
 
-    .detail-link:hover { opacity: 0.6; }
+    .project-link:hover { opacity: 0.6; }
 
     /* ── mobile ── */
-    @media (max-width: 640px) {
-      body { padding: 1rem; }
-      nav { gap: 1.25rem; margin-bottom: 2rem; }
-      .filter-btn { font-size: 11px; padding: 3px 10px; }
-
-      .layout {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        overflow: hidden;
-      }
-
-      .project-list {
-        border-right: none;
-        width: 100%;
-        overflow: hidden;
-      }
-
+    @media (max-width: 600px) {
       .project-item {
-        padding: 0.75rem 0;
-        gap: 6px;
-        overflow: hidden;
+        grid-template-columns: 100px 1fr;
+        gap: 1rem;
       }
-
-      .item-left {
-        overflow: hidden;
-        min-width: 0;
-      }
-
-      .item-title {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      .item-year {
-        flex-shrink: 0;
-        min-width: 36px;
-        text-align: right;
-      }
-
-      .project-detail {
-        padding: 1.25rem 0 1.5rem;
-        border-top: 1px solid #000;
-        overflow: hidden;
-        width: 100%;
-      }
-
-      .detail-img {
-        max-height: 220px;
-        width: 100%;
-      }
-
-      .detail-title { font-size: 20px; }
     }
   </style>
 </head>
@@ -235,33 +171,25 @@
 
   <nav>
     <a href="index.html">Home</a>
-    <a href="work.html" class="active">Work</a>
+    <a href="work.html"class="active">Work</a>
     <a href="notebook.html">Notebook</a>
     <a href="about.html">About</a>
   </nav>
 
   <div class="filter-bar">
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="participatory">Participatory</button>
-    <button class="filter-btn" data-filter="installation">Installation</button>
-    <button class="filter-btn" data-filter="typography">Typography</button>
-    <button class="filter-btn" data-filter="sound">Sound</button>
-    <!-- <button class="filter-btn" data-filter="data-viz">Data Viz</button> -->
-    <!-- <button class="filter-btn" data-filter="critical-ai">Critical AI/Data</button> -->
-    <!-- <button class="filter-btn" data-filter="research">Research</button> -->
-    <button class="filter-btn" data-filter="workshop">Workshop</button>
-    <!-- <button class="filter-btn" data-filter="mapping">Mapping</button> -->
+    <button class="filter-btn" data-filter="Art">[Art]</button>
+    <button class="filter-btn" data-filter="Installation">[Installation]</button>
+    <button class="filter-btn" data-filter="Website">[Website]</button>
+    <button class="filter-btn" data-filter="Workshop">[Workshop]</button>
+    <button class="filter-btn" data-filter="Community Space">[Community Space]</button>
+    <button class="filter-btn" data-filter="Print">[Print]</button>
+    <button class="filter-btn" data-filter="Research">[Research]</button>
   </div>
 
-  <div class="layout">
-    <div class="project-list" id="project-list"></div>
-    <div class="project-detail" id="project-detail">
-      <p class="detail-empty">← select a project</p>
-    </div>
-  </div>
+  <div class="project-list" id="project-list"></div>
 
   <script>
-
     const typeColors = {
       'Art':             '#000',
       'Installation':    '#0050c8',
@@ -271,16 +199,6 @@
       'Print':           '#006868',
       'Research':        '#5500bb'
     };
-
-    function makeTypeLabel(type) {
-      if (!type) return document.createElement('span');
-      const color = typeColors[type] || '#555';
-      const span = document.createElement('span');
-      span.className = 'type-label';
-      span.style.color = color;
-      span.textContent = '[' + type + ']';
-      return span;
-    }
 
     const projects = [
       {
@@ -304,18 +222,18 @@
         href: 'noraebang.html',
         site: 'https://noraebang-fi.github.io/',
         img: 'assets/covers/noraebang-cover.jpg',
-        desc: 'Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design. Funded by Sustainability Action Booster.'
+        desc: 'Karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design. Funded by Sustainability Action Booster.'
       },
       {
-        id: 'mycelium',
-        title: 'Mycelium Design Workshops',
-        type: 'Workshop',
+        id: 'data-map',
+        title: 'Data Resistances Map',
+        type: 'Website',
         year: '2026',
-        tags: 'workshop bio-based participatory typography',
-        keywords: 'Workshop · Participatory · Typography',
-        href: 'mycelium-design-workshops.html',
-        img: 'assets/mycelium_design_cover.jpg',
-        desc: 'Tiles designed by participants using Korean typographic letters and mycelium material.'
+        tags: 'mapping data-viz critical-ai digital',
+        keywords: 'Mapping · Data Viz · Critical AI/Data',
+        site: 'data_resistances_map/',
+        img: 'assets/covers/data-resistances-map-cover.jpg',
+        desc: 'Mapping data and AI supply chain resistance sites using GIS and Leaflet.js.'
       },
       {
         id: 'gazing',
@@ -329,15 +247,15 @@
         desc: 'Interactive installation studying the gaze and cloud infrastructures. Built with TouchDesigner, OAK-D camera, and ImageNet.'
       },
       {
-        id: 'data-map',
-        title: 'Data Resistances Map',
-        type: 'Website',
+        id: 'mycelium',
+        title: 'Mycelium Design Workshops',
+        type: 'Workshop',
         year: '2026',
-        tags: 'mapping data-viz critical-ai digital',
-        keywords: 'Mapping · Data Viz · Critical AI/Data',
-        site: 'data_resistances_map/',
-        img: 'assets/covers/data-resistances-map-cover.jpg',
-        desc: 'Mapping data and AI supply chain resistance sites using GIS and Leaflet.js.'
+        tags: 'workshop bio-based participatory typography',
+        keywords: 'Workshop · Participatory · Typography',
+        href: 'mycelium-design-workshops.html',
+        img: 'assets/mycelium_design_cover.jpg',
+        desc: 'Tiles designed by participants using Korean typographic letters and mycelium material.'
       },
       {
         id: 'oldwritings',
@@ -404,20 +322,20 @@
         tags: 'p5 typography digital',
         keywords: 'p5.js · Typography',
         href: 'stretch-marks.html',
-        img: 'assets/ATH-zine.jpeg',
+        img: 'assets/stretch_marks_cover.jpg',
         desc: 'Letters stretched as the longer it is typed, created via p5.js.'
       },
-      // {
-      //   id: 'workinaction',
-      //   title: 'Work in Action: A Graphic Novel (BA Thesis)',
-      //   type: 'Research',
-      //   year: '2017',
-      //   tags: 'research',
-      //   keywords: 'Research',
-      //   href: 'https://digitalcollections.wesleyan.edu/Documents/Detail/a-work-in-action-a-graphic-novel/451160',
-      //   img: 'assets/work_in_action_example_page2.png',
-      //   desc: 'An honors thesis at Wesleyan University that follows the personal stories of factory workers in China to explore the life inside seemingly oppressive labor structures. Research was funded by Davenport Research Grant.'
-      // },
+      {
+        id: 'workinaction',
+        title: 'Work in Action: A Graphic Novel (BA Thesis)',
+        type: 'Research',
+        year: '2017',
+        tags: 'research',
+        keywords: 'Research',
+        href: 'https://digitalcollections.wesleyan.edu/Documents/Detail/a-work-in-action-a-graphic-novel/451160',
+        img: 'assets/work_in_action_example_page2.png',
+        desc: 'An honors thesis at Wesleyan University that follows the personal stories of factory workers in China to explore the life inside seemingly oppressive labor structures. Research was funded by Davenport Research Grant.'
+      },
       {
         id: 'kaleidoscope',
         title: 'Espoo City Kaleidoscope',
@@ -438,11 +356,11 @@
         keywords: 'Research',
         href: '',
         img: 'assets/covers/feed-cloud-bodies-cover.png',
-        desc: 'Feed, Cloud, and Bodies: Exhaustion and Resistance in Algorithmic Media is an ongoing MA thesis at Aalto University. It studies the relationship between two entangled exhaustions: the depletion of human attention by algorithmic feeds, and the depletion of water, minerals, and human labor by the data centers that power them. Drawing on autoethnography, critical theory, and participatory workshops, the thesis traces what it calls the feed-cloud circuit and asks what forms of collective refusal remain possible inside it.<br/><br/><a href="feed-cloud-bodies.html">Here</a> is the ongoing draft of Introduction as a writing sample.'
+        desc: 'Feed, Cloud, and Bodies: Exhaustion and Resistance in Algorithmic Media is an ongoing MA thesis at Aalto University. It studies the relationship between two entangled exhaustions: the depletion of human attention by algorithmic feeds, and the depletion of water, minerals, and human labor by the data centers that power them.'
       },
       {
         id: 'media-feed',
-        title: 'Alternative Media Feeds',
+        title: 'Alternative Media Feed Design',
         type: 'Workshop',
         year: '2026 (WIP)',
         tags: 'workshop participatory digital',
@@ -453,99 +371,94 @@
       }
     ];
 
-    const listEl   = document.getElementById('project-list');
-    const detailEl = document.getElementById('project-detail');
-    const buttons  = document.querySelectorAll('.filter-btn');
-    let activeId   = null;
+    const listEl  = document.getElementById('project-list');
+    const buttons = document.querySelectorAll('.filter-btn');
 
     projects.forEach(p => {
+      const color = typeColors[p.type] || '#555';
+
       const el = document.createElement('div');
       el.className = 'project-item';
-      el.dataset.id   = p.id;
       el.dataset.tags = p.tags;
+      el.dataset.type = p.type;
 
-      const left = document.createElement('div');
-      left.className = 'item-left';
+      // thumb
+      const thumbWrap = document.createElement('div');
+      if (p.img) {
+        const img = document.createElement('img');
+        img.className = 'project-thumb';
+        img.src = p.img;
+        img.alt = p.title;
+        img.onerror = () => {
+          img.outerHTML = `<div class="project-thumb-placeholder">no image</div>`;
+        };
+        thumbWrap.appendChild(img);
+      } else {
+        thumbWrap.innerHTML = `<div class="project-thumb-placeholder">no image</div>`;
+      }
 
-      const label = makeTypeLabel(p.type);
-      const titleSpan = document.createElement('span');
-      titleSpan.className = 'item-title';
-      titleSpan.textContent = p.title;
+      // info
+      const info = document.createElement('div');
+      info.className = 'project-info';
 
-      left.appendChild(label);
-      left.appendChild(titleSpan);
+      const meta = document.createElement('div');
+      meta.className = 'project-meta';
+      meta.innerHTML = `<span class="type-label">[${p.type}]</span><span class="project-year">${p.year}</span>`;
 
-      const year = document.createElement('span');
-      year.className = 'item-year';
-      year.textContent = p.year;
+      const titleEl = document.createElement('div');
+      titleEl.className = 'project-title';
+      titleEl.textContent = p.title;
 
-      el.appendChild(left);
-      el.appendChild(year);
-      el.addEventListener('click', () => showDetail(p.id));
+      const descEl = document.createElement('div');
+      descEl.className = 'project-desc';
+      descEl.innerHTML = p.desc;
+
+      const links = document.createElement('div');
+      links.className = 'project-links';
+      if (p.href) {
+        const a = document.createElement('a');
+        a.className = 'project-link';
+        a.href = p.href;
+        a.textContent = 'project details →';
+        if (p.href.startsWith('http')) a.target = '_blank';
+        links.appendChild(a);
+      }
+      if (p.site) {
+        const a = document.createElement('a');
+        a.className = 'project-link';
+        a.href = p.site;
+        a.target = '_blank';
+        a.textContent = 'visit website →';
+        links.appendChild(a);
+      }
+
+      info.appendChild(meta);
+      info.appendChild(titleEl);
+      info.appendChild(descEl);
+      if (links.children.length) info.appendChild(links);
+
+      el.appendChild(thumbWrap);
+      el.appendChild(info);
       listEl.appendChild(el);
     });
-
-    function showDetail(id) {
-      const p = projects.find(x => x.id === id);
-      if (!p) return;
-      document.querySelectorAll('.project-item').forEach(el => el.classList.remove('active-item'));
-      document.querySelector(`.project-item[data-id="${id}"]`).classList.add('active-item');
-      activeId = id;
-
-      const imgEl = p.img
-        ? `<img class="detail-img" src="${p.img}" alt="${p.title}" onerror="this.outerHTML='<div class=\\'detail-img-placeholder\\'>no image yet</div>'">`
-        : `<div class="detail-img-placeholder">no image yet</div>`;
-
-      const linksHTML = `
-        <div class="detail-links">
-          ${p.href ? `<a class="detail-link" href="${p.href}" ${p.href.startsWith('http') ? 'target="_blank"' : ''}>project details →</a>` : ''}
-          ${p.site ? `<a class="detail-link" href="${p.site}" target="_blank">visit website →</a>` : ''}
-        </div>
-      `;
-
-      detailEl.innerHTML = `
-        ${imgEl}
-        <div class="detail-title">${p.title}</div>
-        <div class="detail-meta">${p.year} | ${p.keywords}</div>
-        <p class="detail-desc">${p.desc}</p>
-        ${linksHTML}
-      `;
-
-      if (window.innerWidth <= 640) {
-        detailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.dataset.filter;
-
         document.querySelectorAll('.project-item').forEach(el => {
-          const tags = el.dataset.tags.split(' ');
-          const show = filter === 'all' || tags.includes(filter);
-          el.classList.toggle('hidden', !show);
+          el.classList.toggle('hidden', filter !== 'all' && el.dataset.type !== filter);
         });
-
-        if (activeId) {
-          const activeEl = document.querySelector(`.project-item[data-id="${activeId}"]`);
-          if (activeEl && activeEl.classList.contains('hidden')) {
-            detailEl.innerHTML = '<p class="detail-empty">← select a project</p>';
-            activeId = null;
-          }
-        }
       });
     });
 
-    // Pre-select filter from URL query param e.g. work.html?filter=workshop
     const params = new URLSearchParams(window.location.search);
     const preFilter = params.get('filter');
     if (preFilter) {
       const btn = document.querySelector(`.filter-btn[data-filter="${preFilter}"]`);
       if (btn) btn.click();
     }
-
   </script>
 
 </body>

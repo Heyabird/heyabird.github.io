@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cursors.css">
+  <title>Work — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      padding: 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      font-size: 14px;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover { border-bottom: 2px dotted #000; }
+    nav a.active { border-bottom: 2px dotted #000; }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-btn {
+      font-size: 12px;
+      padding: 3px 12px;
+      border: 0px dotted #000;
+      /* border-radius: 20px; */
+      background: #fff;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .filter-btn:hover { background: #c0c0c0; }
+    .filter-btn.active { background: #c0c0c0; }
+
+    /* ── two col layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 0;
+      border-top: 1px solid #000;
+      min-height: 520px;
+    }
+
+    /* ── left list ── */
+    .project-list { border-right: 1px solid #000; }
+
+    .project-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem 0.75rem 0;
+      border-bottom: 1px dotted #ccc;
+      cursor: pointer;
+      gap: 8px;
+    }
+
+    .project-item:hover { background: #fafafa; }
+    .project-item.active-item { background: #f9ffe1; }
+    .project-item.hidden { display: none; }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 13px;
+      color: #000;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-year {
+      font-size: 12px;
+      color: #bbb;
+      flex-shrink: 0;
+    }
+
+    /* ── type label ── */
+    .type-label {
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── right detail ── */
+    .project-detail {
+      padding: 1.5rem 0 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .detail-empty { color: #ccc; font-size: 14px; }
+
+    .detail-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      display: block;
+      border: 1px solid #000;
+    }
+
+    .detail-img-placeholder {
+      width: 100%;
+      height: 200px;
+      background: #f0f0f0;
+      border: 1px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #bbb;
+    }
+
+    .detail-title {
+      font-size: 24px;
+      font-weight: normal;
+      line-height: 1.2;
+    }
+
+    .detail-meta { font-size: 13px; color: #999; }
+    .detail-keywords { font-size: 13px; color: #bbb; }
+
+    .detail-desc {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .detail-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .detail-link {
+      font-size: 13px;
+      color: #000;
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px dotted #ff0000 ;
+    }
+
+    .detail-link:hover { opacity: 0.6; }
+
+    /* ── mobile ── */
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      nav { gap: 1.25rem; margin-bottom: 2rem; }
+      .filter-btn { font-size: 11px; padding: 3px 10px; }
+
+      .layout {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        overflow: hidden;
+      }
+
+      .project-list {
+        border-right: none;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .project-item {
+        padding: 0.75rem 0;
+        gap: 6px;
+        overflow: hidden;
+      }
+
+      .item-left {
+        overflow: hidden;
+        min-width: 0;
+      }
+
+      .item-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .item-year {
+        flex-shrink: 0;
+        min-width: 36px;
+        text-align: right;
+      }
+
+      .project-detail {
+        padding: 1.25rem 0 1.5rem;
+        border-top: 1px solid #000;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .detail-img {
+        max-height: 220px;
+        width: 100%;
+      }
+
+      .detail-title { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="work.html" class="active">Work</a>
+    <a href="notebook.html">Notebook</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="participatory">Participatory</button>
+    <button class="filter-btn" data-filter="installation">Installation</button>
+    <button class="filter-btn" data-filter="typography">Typography</button>
+    <button class="filter-btn" data-filter="sound">Sound</button>
+    <!-- <button class="filter-btn" data-filter="data-viz">Data Viz</button> -->
+    <!-- <button class="filter-btn" data-filter="critical-ai">Critical AI/Data</button> -->
+    <!-- <button class="filter-btn" data-filter="research">Research</button> -->
+    <button class="filter-btn" data-filter="workshop">Workshop</button>
+    <!-- <button class="filter-btn" data-filter="mapping">Mapping</button> -->
+  </div>
+
+  <div class="layout">
+    <div class="project-list" id="project-list"></div>
+    <div class="project-detail" id="project-detail">
+      <p class="detail-empty">← select a project</p>
+    </div>
+  </div>
+
+  <script>
+
+    const typeColors = {
+      'Art':             '#000',
+      'Installation':    '#0050c8',
+      'Website':         '#007a30',
+      'Workshop':        '#b06000',
+      'Community Space': '#990000',
+      'Print':           '#006868',
+      'Research':        '#5500bb'
+    };
+
+    function makeTypeLabel(type) {
+      if (!type) return document.createElement('span');
+      const color = typeColors[type] || '#555';
+      const span = document.createElement('span');
+      span.className = 'type-label';
+      span.style.color = color;
+      span.textContent = '[' + type + ']';
+      return span;
+    }
+
+    const projects = [
+      {
+        id: 'map-cloud',
+        title: 'Warm Clouds over the Cool Planet',
+        type: 'Workshop',
+        year: '2026',
+        tags: 'workshop participatory mapping data-viz critical-ai research',
+        keywords: 'Workshop · Participatory · Mapping',
+        href: 'warm-clouds.html',
+        img: 'assets/warm-clouds/IMG_6787.jpg',
+        desc: 'Collective mapping workshop where participants map their connections to cloud infrastructure, creating a collective sculpture.'
+      },
+      {
+        id: 'noraebang',
+        title: 'Noraebang',
+        type: 'Community Space',
+        year: '2026',
+        tags: 'sound participatory installation bio-based',
+        keywords: 'Sound · Participatory · Installation',
+        href: 'noraebang.html',
+        site: 'https://noraebang-fi.github.io/',
+        img: 'assets/covers/noraebang-cover.jpg',
+        desc: 'Korean karaoke booth built as community space, soundproofed and designed with mycelium and wood fiber using participatory design. Funded by Sustainability Action Booster.'
+      },
+      {
+        id: 'mycelium',
+        title: 'Mycelium Design Workshops',
+        type: 'Workshop',
+        year: '2026',
+        tags: 'workshop bio-based participatory typography',
+        keywords: 'Workshop · Participatory · Typography',
+        href: 'mycelium-design-workshops.html',
+        img: 'assets/mycelium_design_cover.jpg',
+        desc: 'Tiles designed by participants using Korean typographic letters and mycelium material.'
+      },
+      {
+        id: 'gazing',
+        title: 'Gazing at the Cloud',
+        type: 'Installation',
+        year: '2026',
+        tags: 'installation critical-ai',
+        keywords: 'Installation · Critical AI/Data',
+        href: 'gazing-at-the-cloud.html',
+        img: 'assets/gazing_at_the_cloud_cover.jpg',
+        desc: 'Interactive installation studying the gaze and cloud infrastructures. Built with TouchDesigner, OAK-D camera, and ImageNet.'
+      },
+      {
+        id: 'data-map',
+        title: 'Data Resistances Map',
+        type: 'Website',
+        year: '2026',
+        tags: 'mapping data-viz critical-ai digital',
+        keywords: 'Mapping · Data Viz · Critical AI/Data',
+        site: 'data_resistances_map/',
+        img: 'assets/covers/data-resistances-map-cover.jpg',
+        desc: 'Mapping data and AI supply chain resistance sites using GIS and Leaflet.js.'
+      },
+      {
+        id: 'oldwritings',
+        title: 'Some Old Writings',
+        type: 'Website',
+        year: '2025',
+        tags: 'data-viz d3',
+        keywords: 'Data Viz · Typography',
+        site: 'some_old_writings/index.html',
+        img: 'assets/covers/some-old-writings-cover.jpg',
+        desc: 'Visualizing some of the oldest known writings in the world using d3.js.'
+      },
+      {
+        id: 'smd',
+        title: 'Sonic Memory Decomposer',
+        type: 'Art',
+        year: '2025',
+        tags: 'sound ceramics',
+        keywords: 'Sound · Ceramics',
+        href: 'sonic_memory_decomposer.html',
+        img: 'assets/smd_cover2.png',
+        desc: 'Ceramics, sound, and physical computing. Speaking into a ceramic cup disintegrates a memory sonically.'
+      },
+      {
+        id: 'trust-box',
+        title: 'Trust Box',
+        type: 'Art',
+        year: '2025',
+        tags: 'participatory archive',
+        keywords: 'Participatory · Archive',
+        href: 'trust_box/about.html',
+        site: 'trust_box.html',
+        img: 'assets/trust_box_cover.jpg',
+        desc: 'Participatory art, photography, and archive project.'
+      },
+      {
+        id: 'dream-cafe',
+        title: 'Dream Café',
+        type: 'Art',
+        year: '2025',
+        tags: 'sound participatory installation',
+        keywords: 'Sound · Participatory · Installation',
+        href: 'dream-cafe.html',
+        img: 'assets/dream_cafe_cover.jpg',
+        desc: 'A café in an abandoned mall that only takes a dream as payment.'
+      },
+      {
+        id: 'wind',
+        title: 'Wind Typography',
+        type: 'Website',
+        year: '2024',
+        tags: 'p5 data-viz typography digital',
+        keywords: 'p5.js · Data Viz · Typography',
+        href: 'wind_typography/about.html',
+        site: '/wind_typography/index.html',
+        img: 'assets/wind_typo_cover2.jpg',
+        desc: 'p5.js project asking what a writing of wind would look like, using live wind data.'
+      },
+      {
+        id: 'stretch',
+        title: 'Stretch Marks',
+        type: 'Print',
+        year: '2023',
+        tags: 'p5 typography digital',
+        keywords: 'p5.js · Typography',
+        href: 'stretch-marks.html',
+        img: 'assets/ATH-zine.jpeg',
+        desc: 'Letters stretched as the longer it is typed, created via p5.js.'
+      },
+      // {
+      //   id: 'workinaction',
+      //   title: 'Work in Action: A Graphic Novel (BA Thesis)',
+      //   type: 'Research',
+      //   year: '2017',
+      //   tags: 'research',
+      //   keywords: 'Research',
+      //   href: 'https://digitalcollections.wesleyan.edu/Documents/Detail/a-work-in-action-a-graphic-novel/451160',
+      //   img: 'assets/work_in_action_example_page2.png',
+      //   desc: 'An honors thesis at Wesleyan University that follows the personal stories of factory workers in China to explore the life inside seemingly oppressive labor structures. Research was funded by Davenport Research Grant.'
+      // },
+      {
+        id: 'kaleidoscope',
+        title: 'Espoo City Kaleidoscope',
+        type: 'Installation',
+        year: '2026–2027 (WIP)',
+        tags: 'installation archive both',
+        keywords: 'Installation · Archive',
+        href: 'espoo-kaleidoscope.html',
+        img: 'assets/espoo_city_kaleidoscope1.png',
+        desc: 'WIP Interactive kaleidoscope installation for Espoo City Museum using city archive footage. Interactivity programmed through TouchDesigner.'
+      },
+      {
+        id: 'feedcloud',
+        title: 'Feed, Cloud, and Bodies',
+        type: 'Research',
+        year: '2026 (WIP)',
+        tags: 'research',
+        keywords: 'Research',
+        href: '',
+        img: 'assets/covers/feed-cloud-bodies-cover.png',
+        desc: 'Feed, Cloud, and Bodies: Exhaustion and Resistance in Algorithmic Media is an ongoing MA thesis at Aalto University. It studies the relationship between two entangled exhaustions: the depletion of human attention by algorithmic feeds, and the depletion of water, minerals, and human labor by the data centers that power them. Drawing on autoethnography, critical theory, and participatory workshops, the thesis traces what it calls the feed-cloud circuit and asks what forms of collective refusal remain possible inside it.<br/><br/><a href="feed-cloud-bodies.html">Here</a> is the ongoing draft of Introduction as a writing sample.'
+      },
+      {
+        id: 'media-feed',
+        title: 'Alternative Media Feeds',
+        type: 'Workshop',
+        year: '2026 (WIP)',
+        tags: 'workshop participatory digital',
+        keywords: 'Workshop · Participatory',
+        href: '',
+        img: 'assets/covers/alternative-media-feeds-cover.jpg',
+        desc: 'Participants design a speculative alternative media feed incorporating rest and care.'
+      }
+    ];
+
+    const listEl   = document.getElementById('project-list');
+    const detailEl = document.getElementById('project-detail');
+    const buttons  = document.querySelectorAll('.filter-btn');
+    let activeId   = null;
+
+    projects.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'project-item';
+      el.dataset.id   = p.id;
+      el.dataset.tags = p.tags;
+
+      const left = document.createElement('div');
+      left.className = 'item-left';
+
+      const label = makeTypeLabel(p.type);
+      const titleSpan = document.createElement('span');
+      titleSpan.className = 'item-title';
+      titleSpan.textContent = p.title;
+
+      left.appendChild(label);
+      left.appendChild(titleSpan);
+
+      const year = document.createElement('span');
+      year.className = 'item-year';
+      year.textContent = p.year;
+
+      el.appendChild(left);
+      el.appendChild(year);
+      el.addEventListener('click', () => showDetail(p.id));
+      listEl.appendChild(el);
+    });
+
+    function showDetail(id) {
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      document.querySelectorAll('.project-item').forEach(el => el.classList.remove('active-item'));
+      document.querySelector(`.project-item[data-id="${id}"]`).classList.add('active-item');
+      activeId = id;
+
+      const imgEl = p.img
+        ? `<img class="detail-img" src="${p.img}" alt="${p.title}" onerror="this.outerHTML='<div class=\\'detail-img-placeholder\\'>no image yet</div>'">`
+        : `<div class="detail-img-placeholder">no image yet</div>`;
+
+      const linksHTML = `
+        <div class="detail-links">
+          ${p.href ? `<a class="detail-link" href="${p.href}" ${p.href.startsWith('http') ? 'target="_blank"' : ''}>project details →</a>` : ''}
+          ${p.site ? `<a class="detail-link" href="${p.site}" target="_blank">visit website →</a>` : ''}
+        </div>
+      `;
+
+      detailEl.innerHTML = `
+        ${imgEl}
+        <div class="detail-title">${p.title}</div>
+        <div class="detail-meta">${p.year} | ${p.keywords}</div>
+        <p class="detail-desc">${p.desc}</p>
+        ${linksHTML}
+      `;
+
+      if (window.innerWidth <= 640) {
+        detailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+
+        document.querySelectorAll('.project-item').forEach(el => {
+          const tags = el.dataset.tags.split(' ');
+          const show = filter === 'all' || tags.includes(filter);
+          el.classList.toggle('hidden', !show);
+        });
+
+        if (activeId) {
+          const activeEl = document.querySelector(`.project-item[data-id="${activeId}"]`);
+          if (activeEl && activeEl.classList.contains('hidden')) {
+            detailEl.innerHTML = '<p class="detail-empty">← select a project</p>';
+            activeId = null;
+          }
+        }
+      });
+    });
+
+    // Pre-select filter from URL query param e.g. work.html?filter=workshop
+    const params = new URLSearchParams(window.location.search);
+    const preFilter = params.get('filter');
+    if (preFilter) {
+      const btn = document.querySelector(`.filter-btn[data-filter="${preFilter}"]`);
+      if (btn) btn.click();
+    }
+
+  </script>
+
+</body>
+</html>
