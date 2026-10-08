@@ -1,7 +1,7 @@
  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: serif;
+    font-family: 'Arial';
     font-size: 16px;
     line-height: 1.7;
     color: #000;
@@ -26,8 +26,9 @@ nav a {
     border-bottom: 1px solid transparent;
 }
 
-nav a:hover { border-bottom-color: #000; }
-nav a.active { border-bottom-color: #000; }
+/* a:hover { border-bottom: 2px dotted #000; } */
+a.active { border-bottom: 2px dotted #000; }
+
 
 /* ── back link ── */
 .back {
@@ -67,6 +68,8 @@ nav a.active { border-bottom-color: #000; }
     font-family: sans-serif;
     color: #666;
 }
+
+
 
 .ongoing-badge {
     display: inline-flex;
@@ -146,6 +149,16 @@ nav a.active { border-bottom-color: #000; }
     border-bottom: 1px solid #000;
 }
 
+.project-body a,
+.project-body a:visited,
+.project-body a:active {
+  color: #3e13fc;
+  border-bottom: 2px dotted #3e13fc;
+    text-decoration: none;
+}
+.project-body a:hover {
+  color: #8a50ff;
+}
 /* ── body text ── */
 .project-body p {
     margin-bottom: 1.5rem;
@@ -225,6 +238,51 @@ nav a.active { border-bottom-color: #000; }
     display: block;
     border: 1px solid #000;
     margin-bottom: 0.5rem;
+}
+
+.footnote-ref {
+      font-size: 11px;
+      vertical-align: super;
+      line-height: 0;
+      color: #999;
+      text-decoration: none;
+      border-bottom: none;
+    }
+.footnote-ref:hover { color: #000; }
+
+a.footnote-ref {
+    border-bottom: none;
+}
+
+.footnotes {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 2px dotted #662cf9;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.7;
+    /* max-width: 640px; */
+}
+
+.footnotes ol {
+    padding-left: 1.25rem;
+}
+
+.footnotes li {
+    margin-bottom: 0.5rem;
+}
+
+.footnote-back {
+    font-size: 11px;
+    color: #bbb;
+    text-decoration: none;
+    border-bottom: none;
+    margin-left: 0.3rem;
+}
+.footnote-back:hover { color: #000; }
+
+.dotted_underline {
+    border-bottom: 2px dotted #000; 
 }
 
 /* stack on mobile */
