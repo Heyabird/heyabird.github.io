@@ -133,9 +133,9 @@ a.active { border-bottom: 2px dotted #000; }
 }
 
 .cover-caption {
-    font-size: 12px;
+    font-size: 14px;
     font-family: sans-serif;
-    color: #666;
+    color: #666666;
     margin-bottom: 2.5rem;
     line-height: 1.5;
 }
@@ -215,7 +215,7 @@ a.active { border-bottom: 2px dotted #000; }
 }
 
 .image-caption {
-    font-size: 12px;
+    font-size: 14px;
     font-family: sans-serif;
     color: #666;
     line-height: 1.5;
