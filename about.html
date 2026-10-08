@@ -88,6 +88,31 @@
       border-radius: 50%;
     }
 
+    .intro-photo-wrap {
+      position: relative;
+      width: 75%;
+      margin-top: 70px;
+      }
+
+  .intro-photo {
+    width: 100%;
+    aspect-ratio: 4 / 4;
+    object-fit: cover;
+    border: 2px dotted #000;
+    display: block;
+    border-radius: 50%;
+    margin-top: 0; /* moved to wrapper */
+  }
+
+  .photo-clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
     /* ── cv download ── */
     .cv-download {
       display: inline-block;
@@ -155,16 +180,36 @@
       <p>I am interested in the physical and political dimensions of digital life.</p>
       <p>My path started as a music producer
         and led me to <a href="https://bandcamp.com/" target="_blank">Bandcamp</a>, where I spent 3.5 years as an engineer working toward better 
-        pay for artists. That experience sparked a curiosity about the material, social, and ecological realities behind digital culture.</p>
+        pay for artists. That experience sparked a curiosity about the material, social, and ecological realities behind digital media systems.</p>
       <p>Currently, I am studying New Media at Aalto University in Espoo, Finland.
         <!-- , where I am part of <a href="https://untrainingai.org/" target="_blank">Untraining AI</a> research group.  -->
-        My MA thesis traces how bodies are exhausted by algorithmic media systems, and explores resistance through participatory design workshops.
+        My MA thesis traces how more-than-human bodies are exhausted by the cloud and the feed, and explores resistance through participatory design workshops.
       </p>
       <!-- <p>In my free time, I draw, <a href="/library.html">read</a>, and journal.</p> -->
     </div>
 
-    <img class="intro-photo" src="assets/profile_pic_2026_c.jpg" alt="Photo of myself taking a photo of myself with a film camera">
+<div class="intro-photo-wrap">
+  <img class="intro-photo" src="assets/profile_pic_2026_c.jpg" alt="Photo of myself taking a photo of myself with a film camera">
+  <svg class="photo-clouds" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
 
+    <!-- top-left -->
+    <path d="M30,65 Q20,65 17,56 Q8,56 8,47 Q8,38 17,37 Q18,28 28,26 Q38,19 48,26 Q56,20 65,26 Q73,25 76,34 Q83,35 83,44 Q83,53 75,55 Q74,65 63,65 Z"
+      stroke="#000" stroke-width="1" stroke-dasharray="4 4" stroke-linecap="round"/>
+
+    <!-- top-right -->
+    <path d="M220,50 Q212,50 209,43 Q202,43 202,35 Q202,27 210,26 Q211,18 220,17 Q229,11 238,17 Q246,13 253,18 Q260,17 262,25 Q268,26 268,34 Q268,41 261,43 Q260,50 251,50 Z"
+      stroke="#000" stroke-width="1" stroke-dasharray="4 4" stroke-linecap="round"/>
+
+    <!-- bottom-left -->
+    <path d="M18,240 Q10,240 7,232 Q-1,232 -1,224 Q-1,215 8,214 Q10,205 19,203 Q28,197 38,204 Q45,198 53,204 Q61,203 63,211 Q70,212 70,221 Q70,229 62,231 Q61,240 51,240 Z"
+      stroke="#000" stroke-width="1" stroke-dasharray="4 4" stroke-linecap="round"/>
+
+    <!-- bottom-right -->
+    <path d="M235,265 Q226,265 224,257 Q215,257 215,248 Q215,239 225,238 Q227,229 237,227 Q247,220 258,227 Q266,222 275,228 Q283,227 286,236 Q293,237 293,246 Q293,255 285,257 Q283,265 273,265 Z"
+      stroke="#000" stroke-width="1" stroke-dasharray="4 4" stroke-linecap="round"/>
+
+  </svg>
+</div>
   </div>
 
   <a class="cv-download" href="CV.pdf" target="_blank">CV (PDF)</a>
