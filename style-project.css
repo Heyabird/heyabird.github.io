@@ -35,7 +35,7 @@ a.active { border-bottom: 2px dotted #000; }
     display: inline-block;
     font-size: 13px;
     font-family: sans-serif;
-    color: #666;
+    color: #080808;
     text-decoration: none;
     margin-bottom: 2.5rem;
     border-bottom: 1px solid transparent;
@@ -66,12 +66,15 @@ a.active { border-bottom: 2px dotted #000; }
     gap: 1rem;
     flex-wrap: wrap;
     margin-bottom: 1.25rem;
+    font-size: 12px;
+    font-family: 'Courier';
+    /* color: #3e13fc; */
 }
 
 .project-year {
-    font-size: 14px;
+    /* font-size: 14px;
     font-family: sans-serif;
-    color: #666;
+    color: #666; */
 }
 
 
@@ -138,9 +141,9 @@ a.active { border-bottom: 2px dotted #000; }
 }
 
 .cover-caption {
-    font-size: 14px;
-    font-family: sans-serif;
-    color: #666666;
+    font-size: 12px;
+    font-family: 'Courier';
+    color: #3e13fc;
     margin-bottom: 2.5rem;
     line-height: 1.5;
 }
@@ -213,6 +216,14 @@ a.active { border-bottom: 2px dotted #000; }
     clear: both;
 }
 
+.code-list {
+    padding-left: 1.25rem; 
+    line-height: 2.2; 
+    font-size: 14px;
+    color: #3e13fc;
+    font-family: 'Courier', Courier, monospace;
+}
+
 /* placeholder for images not yet added */
 .img-placeholder {
     width: 100%;
@@ -233,9 +244,9 @@ a.active { border-bottom: 2px dotted #000; }
 }
 
 .image-caption {
-    font-size: 14px;
-    font-family: sans-serif;
-    color: #666;
+    font-size: 12px;
+    font-family: 'Courier';
+    color: #3e13fc;
     line-height: 1.5;
 }
 
@@ -277,8 +288,7 @@ ul li::before {
   transform: translateY(-50%);
   width: 8px;
   height: 8px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5,1.5 C7,1.2 9,2.8 8.8,5 C8.6,7.2 7,9 5,8.8 C3,9.2 1.2,7.2 1.2,5 C1,2.8 3,1.8 5,1.5 Z' fill='none' stroke='%23000' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");  background-size: contain;
-  background-repeat: no-repeat;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M6,2 C8.5,1.5 10.5,3.5 10,6 C9.5,8.8 7.5,10.5 5,10 C2.5,9.8 1,7.5 1.5,5 C2,2.5 3.5,2.5 6,2 Z' fill='none' stroke='%23662cf9' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E");  background-repeat: no-repeat;
 }
 
 ul li:nth-child(odd)::before  { width: 10px; height: 10px; }
@@ -302,8 +312,8 @@ a.footnote-ref {
     margin-top: 3rem;
     padding-top: 1.5rem;
     border-top: 2px dotted #662cf9;
-    font-size: 13px;
-    color: #666;
+    font-size: 12px;
+    font-family: 'Courier';
     line-height: 1.7;
     /* max-width: 640px; */
 }
