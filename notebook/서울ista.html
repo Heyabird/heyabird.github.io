@@ -48,6 +48,33 @@
       line-height: 1.8;
     }
 
+    .poem-note {
+      position: fixed;
+      top: 18rem;
+      right: 12rem;
+      width: 350px;
+      border: 2px dotted #5c5b5b;
+      padding: 1rem;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #5c5b5b;
+    }
+
+    .poem-note-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: #5c5b5b;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .poem-note {
+        position: static;
+        width: 100%;
+        margin-top: 2rem;
+      }
+    }
+
     /* ── image placeholder ── */
     .drawing-space {
       width: 100%;
@@ -93,7 +120,7 @@
         Koska kasvoin 할무니 kanssa, puhun joskus 충청도-murretta.
     </p>
     <p>
-        I ♡ nuudeleita & 떡볶이.
+        I hella 사랑 nuudeleita ja 떡볶이.
     </p>
     <p>
         Mie olen taiteilija ja tutkija.
@@ -114,6 +141,15 @@
         서울issa ja 워싱턴issa.
     </p>
   </div>
-
+  <aside class="poem-note">
+    <p class="poem-note-title">About This Poem</p>
+    <p>I made this poem during a Meänkieli (the regional Finnic language spoken in the Torne Valley) poetry workshop I partook in Tornio, Finland, near the Finland-Sweden border.</p>
+    <br/>
+    <p>The workshop facilitator and poet Linnea Huhta encouraged us to use multiple languages and dialects, and that "there is no wrong in poetry."</p>
+    <br/>
+    <p>This became an opportunity for me to use not only Korean but also 충청도 dialect of Korean, in addition to English (including West Coast / Californian slangs like "hella") and Finnish (including Meänkieli that I learned while spending time in Tornio).</p>
+    <br/>
+    <p>Using this as a starting point, I have been writing multi-language poems that mirror my identity, which often feels like an odd collage of multiple cultures.</p>
+  </aside>
 </body>
 </html>
