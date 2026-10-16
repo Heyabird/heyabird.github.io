@@ -59,18 +59,23 @@ function anchorOf(placeKey) {
 }
 
 function posOf(it) {
+  if (it.type === 'symbol') {
+    // symbols sit along the route between the two places
+    const m = anchorOf('mexico');
+    const f = anchorOf('finland');
+    const dx = f.x - m.x;
+    const dy = f.y - m.y;
+    const len = sqrt(dx * dx + dy * dy) || 1;
+    return {
+      x: constrain(m.x + dx * it.t + (-dy / len) * it.off, MARGIN, width - MARGIN),
+      y: constrain(m.y + dy * it.t + (dx / len) * it.off, MARGIN, height - MARGIN),
+    };
+  }
   const a = anchorOf(it.place);
   return {
     x: constrain(a.x + it.ox, MARGIN, width - MARGIN),
     y: constrain(a.y + it.oy, MARGIN, height - MARGIN),
   };
-}
-
-function lastLeafPlace() {
-  for (let i = items.length - 1; i >= 0; i--) {
-    if (items[i].type === 'leaf') return items[i].place;
-  }
-  return null;
 }
 
 function keyPressed(event) {
@@ -100,14 +105,13 @@ function keyPressed(event) {
     });
     return false;
   }
-  // symbols land beside the most recent leaf, in plain Times New Roman, and stay still
+  // symbols and numbers land between the two places, in plain Times New Roman, and stay still
   if (key && key.length === 1) {
     items.push({
       type: 'symbol',
       char: key,
-      place: lastLeafPlace(),
-      ox: randomGaussian(0, SPREAD),
-      oy: randomGaussian(0, SPREAD),
+      t: random(0.2, 0.8),               // how far along the Mexico -> Finland route
+      off: randomGaussian(0, 70),        // sideways scatter from the route (pixels)
     });
     return false;
   }
@@ -126,7 +130,7 @@ function eraseLast() {
 }
 
 function draw() {
-  background(250, 250, 250);
+  background(250, 248, 242);
   const now = millis();
 
   if (SHOW_LABELS) drawLabels();
