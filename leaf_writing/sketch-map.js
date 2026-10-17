@@ -10,8 +10,6 @@ const GROW_MS = 450;
 const FALL_MS = 700;
 const SPREAD = 110;        // how far leaves scatter around their city (pixels)
 const SHOW_LABELS = true;  // small place names in the corners
-const SHOW_THREAD = true;  // thin line connecting leaves in the order you typed them
-const THREAD_MS = 600;     // how long a new thread segment takes to draw
 
 // The visible slice of the world map (degrees)
 const MAP = { lonMin: -135, lonMax: 60, latMin: 8, latMax: 72 };
@@ -59,23 +57,18 @@ function anchorOf(placeKey) {
 }
 
 function posOf(it) {
-  if (it.type === 'symbol') {
-    // symbols sit along the route between the two places
-    const m = anchorOf('mexico');
-    const f = anchorOf('finland');
-    const dx = f.x - m.x;
-    const dy = f.y - m.y;
-    const len = sqrt(dx * dx + dy * dy) || 1;
-    return {
-      x: constrain(m.x + dx * it.t + (-dy / len) * it.off, MARGIN, width - MARGIN),
-      y: constrain(m.y + dy * it.t + (dx / len) * it.off, MARGIN, height - MARGIN),
-    };
-  }
   const a = anchorOf(it.place);
   return {
     x: constrain(a.x + it.ox, MARGIN, width - MARGIN),
     y: constrain(a.y + it.oy, MARGIN, height - MARGIN),
   };
+}
+
+function lastLeafPlace() {
+  for (let i = items.length - 1; i >= 0; i--) {
+    if (items[i].type === 'leaf') return items[i].place;
+  }
+  return null;
 }
 
 function keyPressed(event) {
@@ -100,18 +93,18 @@ function keyPressed(event) {
       rot: random(-PI, PI),
       scl: random(0.85, 1.15),
       seed: random(1000),
-      bend: random(-0.15, 0.15),   // sideways wobble of the thread into this leaf
       born: millis(),
     });
     return false;
   }
-  // symbols and numbers land between the two places, in plain Times New Roman, and stay still
+  // symbols land beside the most recent leaf, in plain Times New Roman, and stay still
   if (key && key.length === 1) {
     items.push({
       type: 'symbol',
       char: key,
-      t: random(0.2, 0.8),               // how far along the Mexico -> Finland route
-      off: randomGaussian(0, 70),        // sideways scatter from the route (pixels)
+      place: lastLeafPlace(),
+      ox: randomGaussian(0, SPREAD),
+      oy: randomGaussian(0, SPREAD),
     });
     return false;
   }
@@ -134,7 +127,6 @@ function draw() {
   const now = millis();
 
   if (SHOW_LABELS) drawLabels();
-  if (SHOW_THREAD) drawThread(now);
 
   for (const it of items) {
     const p = posOf(it);
@@ -180,37 +172,6 @@ function draw() {
     text('type something', width / 2, height / 2);
     pop();
   }
-}
-
-// A hanging thread from each leaf to the next one typed, drawn behind the leaves
-function drawThread(now) {
-  const leaves = items.filter(it => it.type === 'leaf');
-  if (leaves.length < 2) return;
-  push();
-  noFill();
-  stroke(70, 55, 40, 120);
-  strokeWeight(1);
-  const steps = 28;
-  for (let i = 1; i < leaves.length; i++) {
-    const a = posOf(leaves[i - 1]);
-    const b = posOf(leaves[i]);
-    const prog = constrain((now - leaves[i].born) / THREAD_MS, 0, 1);
-    const e = 1 - pow(1 - prog, 2);               // ease out
-    const d = dist(a.x, a.y, b.x, b.y);
-    const cx = (a.x + b.x) / 2 + leaves[i].bend * d;
-    const cy = (a.y + b.y) / 2 + d * 0.2;         // sag, like a thread hanging
-    beginShape();
-    for (let s = 0; s <= steps; s++) {
-      const t = e * (s / steps);
-      const u = 1 - t;
-      vertex(
-        u * u * a.x + 2 * u * t * cx + t * t * b.x,
-        u * u * a.y + 2 * u * t * cy + t * t * b.y
-      );
-    }
-    endShape();
-  }
-  pop();
 }
 
 function drawLabels() {
