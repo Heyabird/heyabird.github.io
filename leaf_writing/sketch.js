@@ -15,6 +15,12 @@ let leafImages = {};   // 'A' -> p5.Image (or null if missing)
 let items = [];        // everything typed: leaves, spaces, newlines
 let dying = [];        // leaves that were erased and are falling away
 
+// Scrolling only switches on once the writing is taller than the window
+let scrollTarget = 0;  // where the page wants to be (pixels from the top)
+let scrollShown = 0;   // what is drawn right now (eases toward the target)
+let maxScroll = 0;     // 0 while everything still fits on one screen
+let followEnd = false; // after typing, jump to the newest line
+
 // ---------- Leaf rustle sound (synthesized, no audio files needed) ----------
 const SOUND_ON = true;
 const VOLUME = 0.5;          // 0 to 1
@@ -111,6 +117,7 @@ function keyPressed(event) {
   if (event && (event.ctrlKey || event.metaKey) && !event.altKey) return;
 
   initAudio();
+  followEnd = true;   // typing brings the newest line into view (only matters once the page is full)
 
   if (keyCode === BACKSPACE) {
     playRustle(0.6, 0.2);
@@ -191,11 +198,34 @@ function layout() {
     }
     x += adv;
   }
+
+  // How far can the page scroll? Only as far as the writing runs past the bottom of the window.
+  const contentBottom = y + LEAF_SIZE / 2 + MARGIN;
+  maxScroll = max(0, contentBottom - height);
+  if (followEnd) {
+    scrollTarget = maxScroll;
+    followEnd = false;
+  }
+  scrollTarget = constrain(scrollTarget, 0, maxScroll);
+  scrollShown = constrain(scrollShown, 0, maxScroll);
+}
+
+// Mouse wheel / trackpad scrolls, but only when the page is full
+function mouseWheel(event) {
+  if (maxScroll > 0) {
+    scrollTarget = constrain(scrollTarget + event.delta, 0, maxScroll);
+  }
+  return false;   // never scroll the browser page itself
 }
 
 function draw() {
   background(250, 248, 242);
   const now = millis();
+
+  scrollShown += (scrollTarget - scrollShown) * 0.2;   // smooth scrolling
+  if (abs(scrollTarget - scrollShown) < 0.5) scrollShown = scrollTarget;
+  push();
+  translate(0, -scrollShown);
 
   for (const it of items) {
     if (it.type === 'symbol') {
@@ -230,6 +260,16 @@ function draw() {
       it.scl,
       255 * (1 - t)
     );
+  }
+  pop();   // end of the scrolling layer
+
+  // slim scroll indicator, only visible when there is something to scroll
+  if (maxScroll > 0) {
+    const barH = max(30, height * height / (height + maxScroll));
+    const barY = (scrollShown / maxScroll) * (height - barH);
+    noStroke();
+    fill(0, 0, 0, 40);
+    rect(width - 8, barY, 4, barH, 2);
   }
 
   if (items.length === 0 && dying.length === 0) {
