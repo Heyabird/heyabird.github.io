@@ -25,6 +25,77 @@ let originOf = {};   // 'Q' -> 'mexico'
 let items = [];
 let dying = [];
 
+// ---------- Leaf rustle sound (synthesized, no audio files needed) ----------
+const SOUND_ON = true;
+const VOLUME = 0.5;          // 0 to 1
+let audioCtx = null;
+let noiseBuffer = null;
+
+// Browsers only allow audio after a key press or click, so this runs on the first key press
+function initAudio() {
+  if (audioCtx) {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return;
+  }
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return;
+  audioCtx = new AC();
+  // one second of white noise, reused by every rustle
+  const len = audioCtx.sampleRate;
+  noiseBuffer = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+  const data = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+}
+
+// A dry-leaf crunch: a soft swish plus a burst of tiny crackles.
+// strength: loudness multiplier. tone: 0 (duller) to 1 (brighter).
+function playRustle(strength = 1, tone = 0.5) {
+  if (!SOUND_ON || !audioCtx || !noiseBuffer) return;
+  const t0 = audioCtx.currentTime;
+
+  const master = audioCtx.createGain();
+  master.gain.value = VOLUME * strength;
+  master.connect(audioCtx.destination);
+
+  // soft swish underneath
+  const swish = audioCtx.createBufferSource();
+  swish.buffer = noiseBuffer;
+  const swishFilter = audioCtx.createBiquadFilter();
+  swishFilter.type = 'bandpass';
+  swishFilter.frequency.value = 1200 + tone * 1200;
+  swishFilter.Q.value = 0.7;
+  const swishGain = audioCtx.createGain();
+  swishGain.gain.setValueAtTime(0.0001, t0);
+  swishGain.gain.linearRampToValueAtTime(0.18, t0 + 0.04);
+  swishGain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.22);
+  swish.connect(swishFilter);
+  swishFilter.connect(swishGain);
+  swishGain.connect(master);
+  swish.start(t0, Math.random() * 0.7, 0.25);
+
+  // crackles: many very short filtered clicks at random moments
+  const crackles = 7 + Math.floor(Math.random() * 8);
+  for (let i = 0; i < crackles; i++) {
+    const t = t0 + Math.random() * 0.2;
+    const dur = 0.008 + Math.random() * 0.03;
+    const src = audioCtx.createBufferSource();
+    src.buffer = noiseBuffer;
+    const f = audioCtx.createBiquadFilter();
+    f.type = 'bandpass';
+    f.frequency.value = (2200 + tone * 1500) + Math.random() * 3500;
+    f.Q.value = 1.2 + Math.random() * 2;
+    const g = audioCtx.createGain();
+    const amp = 0.25 + Math.random() * 0.6;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(amp, t + 0.002);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(f);
+    f.connect(g);
+    g.connect(master);
+    src.start(t, Math.random() * 0.8, dur + 0.01);
+  }
+}
+
 function preload() {
   for (const L of LETTERS) {
     leafImages[L] = loadImage(
@@ -75,7 +146,10 @@ function keyPressed(event) {
   // let browser shortcuts through (AltGr counts as ctrl+alt, so allow that)
   if (event && (event.ctrlKey || event.metaKey) && !event.altKey) return;
 
+  initAudio();
+
   if (keyCode === BACKSPACE) {
+    playRustle(0.6, 0.2);
     eraseLast();
     return false;
   }
@@ -84,6 +158,8 @@ function keyPressed(event) {
   }
   if (keyCode >= 65 && keyCode <= 90) {
     const letter = String.fromCharCode(keyCode);
+    // Finland's leaves crunch a bit brighter, Mexico's a bit softer
+    playRustle(random(0.85, 1.15), (originOf[letter] === 'finland' ? 0.55 : 0.1) + random(0, 0.35));
     items.push({
       type: 'leaf',
       letter,
@@ -99,6 +175,7 @@ function keyPressed(event) {
   }
   // symbols land beside the most recent leaf, in plain Times New Roman, and stay still
   if (key && key.length === 1) {
+    playRustle(0.6, 0.7);
     items.push({
       type: 'symbol',
       char: key,
