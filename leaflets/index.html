@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leaflets</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; background: #fff; }
+    canvas { display: block; }
+
+    /* Text / Map toggle, top left */
+    #mode {
+      position: fixed;
+      left: 20px;
+      top: 14px;
+      display: flex;
+      gap: 14px;
+      z-index: 10;
+    }
+    #mode button {
+      padding: 4px 2px;
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      font: 15px "Times New Roman", Times, serif;
+      color: rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+    }
+    #mode button:hover { color: rgba(0, 0, 0, 0.9); }
+    #mode button.active {
+      color: rgba(0, 0, 0, 0.85);
+      border-bottom-color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* small "About" button, bottom right */
+    #about-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 16px;
+      padding: 4px 2px;
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+      font: 15px "Times New Roman", Times, serif;
+      color: rgba(0, 0, 0, 0.55);
+      cursor: pointer;
+      z-index: 10;
+    }
+    #about-btn:hover { color: rgba(0, 0, 0, 0.9); border-bottom-color: rgba(0, 0, 0, 0.6); }
+
+    /* the info panel */
+    #about {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.88);
+      z-index: 20;
+    }
+    #about.open { display: flex; }
+    #about-inner {
+      position: relative;
+      box-sizing: border-box;
+      max-width: 580px;
+      max-height: 84vh;
+      overflow-y: auto;
+      margin: 0 20px;
+      padding: 40px 44px 36px;
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      font: 18px/1.55 "Times New Roman", Times, serif;
+      color: #222;
+    }
+    #about-inner h1 {
+      margin: 0 0 18px;
+      font-size: 26px;
+      font-weight: normal;
+      font-style: italic;
+    }
+    #about-inner p { margin: 0 0 1em; }
+    #about-inner p:last-child { margin-bottom: 0; }
+    #about-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      background: none;
+      border: none;
+      font: 26px "Times New Roman", Times, serif;
+      color: rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+    #about-close:hover { color: #000; }
+    @media (max-width: 520px) {
+      #about-inner { padding: 34px 24px 28px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="mode">
+    <button type="button" data-mode="text" class="active">Text</button>
+    <button type="button" data-mode="map">Map</button>
+  </div>
+
+  <button id="about-btn" type="button">About</button>
+
+  <div id="about" role="dialog" aria-modal="true" aria-labelledby="about-title">
+    <div id="about-inner">
+      <button id="about-close" type="button" aria-label="Close">&times;</button>
+      <h1 id="about-title">Leaflets</h1>
+      <p>Leaflets is a collaboration between Fernanda Montes De Oca Téllez in Puebla, México, and Heya Kwon in Espoo, Finland — two people writing to each other across an ocean and a time difference of nine hours. Each of us gathered leaves from the ground around us in October and turned them into a shared alphabet. The left half of the keyboard belongs to Puebla and the right half to Espoo, so every word typed is a small exchange between two places.</p>
+      <p>The leaves don’t match. In Espoo, the birch, maple and aspen leaves are turning yellow, orange and red and starting to freeze overnight. In Puebla, most leaves remain green within an ecosystem that faces biological invasion and wildfires. As letters turn into leaves, the text can be read as language, but it can also be read as signs of weather, season or political context. The work sits in the gap between our two clocks.</p>
+    </div>
+  </div>
+
+  <script>
+    // sketch.js checks window.infoOpen so typing doesn't add leaves while the panel is open
+    window.infoOpen = false;
+    const panel = document.getElementById('about');
+    const btn = document.getElementById('about-btn');
+
+    function setInfo(open) {
+      window.infoOpen = open;
+      panel.classList.toggle('open', open);
+      // drop focus from the buttons so Space/Enter while typing never "clicks" them
+      if (document.activeElement) document.activeElement.blur();
+    }
+
+    // Text / Map toggle
+    document.querySelectorAll('#mode button').forEach((b) => {
+      b.addEventListener('click', () => {
+        window.setMode(b.dataset.mode);
+        document.querySelectorAll('#mode button').forEach((o) => o.classList.toggle('active', o === b));
+        b.blur();   // so Space/Enter while typing never "clicks" the toggle
+      });
+    });
+
+    btn.addEventListener('click', () => setInfo(true));
+    document.getElementById('about-close').addEventListener('click', () => setInfo(false));
+    panel.addEventListener('click', (e) => { if (e.target === panel) setInfo(false); });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && window.infoOpen) setInfo(false);
+    });
+  </script>
+  <script src="sketch.js"></script>
+</body>
+</html>
